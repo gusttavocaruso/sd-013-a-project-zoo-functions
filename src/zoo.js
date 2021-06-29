@@ -1,11 +1,17 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
   // seu código aqui
+  const arrSpecie = [];
+  ids.forEach((id) => data.species.forEach((specie) => {
+    if (specie.id === id) arrSpecie.push(specie);
+  }));
+  return arrSpecie;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const selectedAnimal = data.species.filter((specie) => specie.name === animal);
+  return selectedAnimal[0].residents.every((ser) => ser.age > age);
 }
 
 function getEmployeeByName(employeeName) {
