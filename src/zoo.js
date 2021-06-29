@@ -1,15 +1,15 @@
 const data = require('./data');
 
 function getSpeciesByIds(...args) {
-  const array = [];
+  const arr = [];
   if (args.length > 0) {
     args.forEach((animalsIds) => {
       const objectAnimals = data.species.filter((item) => item.id === animalsIds);
-      array.push(...objectAnimals);
+      arr.push(...objectAnimals);
     });
-    return array;
+    return arr;
   }
-  return array;
+  return arr;
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -34,11 +34,21 @@ function getEmployeeByName(employeeName = {}) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  let managerOrNot = true;
+  for (let i = 0; i < data.employees.length; i += 1) {
+    managerOrNot = data.employees[i].managers.some((item) => item === id);
+    if (managerOrNot) {
+      break;
+    } else {
+      managerOrNot = false;
+    }
+  }
+  // data.employees.forEach(({ managers }) => managers.some((item) => item === id));
+  return managerOrNot;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
