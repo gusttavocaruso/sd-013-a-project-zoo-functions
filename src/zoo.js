@@ -1,7 +1,9 @@
+const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código
+function getSpeciesByIds(...ids) {
+  const animalList = species.filter((specie, i) => specie.id === ids[i]);
+  return animalList;
 }
 
 function getAnimalsOlderThan(animal, age) {
