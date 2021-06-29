@@ -50,14 +50,29 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(speciesNames) { // O nome do parâmetro precisou ser mudado devido a linha 3
   // seu código aqui
+  const allAnimals = species.reduce((acc, current) => {
+    acc[current.name] = current.residents.length;
+
+    return acc;
+  }, {});
+
+  if (!speciesNames) return allAnimals;
+
+  return allAnimals[speciesNames];
 }
 
 function calculateEntry(entrants) {
   // seu código aqui
+  if (entrants === undefined || Object.keys(entrants).length === 0) {
+    return 0;
+  }
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
+  return Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
 }
 
 function getAnimalMap(options) {
   // seu código aqui
+  
 }
 
 function getSchedule(dayName) {
