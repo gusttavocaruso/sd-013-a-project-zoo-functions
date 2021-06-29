@@ -4,7 +4,7 @@ const { species } = data; // Importar o array species do arquivo data.js
 
 const { employees } = data; // Importar o array employees do arquivo data.js
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
   // seu código aqui
   if (!ids) return [];
   const speciesIds = species.filter((specie) => ids.includes(specie.id));
@@ -41,7 +41,7 @@ function isManager(id) {
   return false;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
   const setEmployee = data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 
