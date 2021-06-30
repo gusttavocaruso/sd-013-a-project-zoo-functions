@@ -2,36 +2,30 @@ const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // seu código aqui
   return species.filter((specie) => ids.some((id) => id === specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   return species
     .find((specie) => specie.name === animal).residents
     .every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   const employee = employees.find(({ firstName, lastName }) => firstName === employeeName
   || lastName === employeeName);
   return employeeName === undefined ? {} : employee;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
   return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
   return employees.some(({ managers }) => managers.some((manager) => manager === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   const newEmployee = {
     id,
     firstName,
@@ -43,7 +37,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(animal) {
-  // seu código aqui
   const allAnimals = () => {
     const obj = {};
     species.forEach(({ name, residents }) => {
@@ -56,34 +49,39 @@ function countAnimals(animal) {
 }
 
 function calculateEntry(entrants = 0) {
-  // seu código aqui
   const { Child = 0, Senior = 0, Adult = 0 } = entrants;
   const { Child: ChildPrices, Senior: SeniorPrices, Adult: AdultPrices } = prices;
   const total = ChildPrices * Child + SeniorPrices * Senior + AdultPrices * Adult;
   return total;
-  // return entrants.Child === undefined ? 0 : total;
 }
-
-console.log(calculateEntry({ Adult: 2, Child: 1, Senior: 1 }));
 
 function getAnimalMap(options) {
-  // seu código aqui
+  const animalMap = {
+    NE: species.filter(({ location }) => location === 'NE').map(({ name }) => name),
+    NW: species.filter(({ location }) => location === 'NW').map(({ name }) => name),
+    SE: species.filter(({ location }) => location === 'SE').map(({ name }) => name),
+    SW: species.filter(({ location }) => location === 'SW').map(({ name }) => name),
+  };
+  return animalMap;
 }
+console.log(getAnimalMap());
 
 function getSchedule(dayName) {
-  // seu código aqui
+
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  prices.Adult = Math.round((prices.Adult * (1 + (percentage / 100))) * 100) / 100;
+  prices.Senior = Math.round((prices.Senior * (1 + (percentage / 100))) * 100) / 100;
+  prices.Child = Math.round((prices.Child * (1 + (percentage / 100))) * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+
 }
 
 module.exports = {
