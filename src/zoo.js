@@ -8,7 +8,7 @@ function getSpeciesByIds(...ids) {
 
   const array = [];
   ids.forEach((id) => {
-    const found = data.species.find((e) => e.id === id);
+    const found = data.species.find((element) => element.id === id);
     array.push(found);
   });
 
@@ -16,8 +16,8 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const found = data.species.find((e) => {e.name = animal});
-  const check = found.residents.every((e) => {e.age >= age});
+  const found = data.species.find((element) => element.name === animal);
+  const check = found.residents.every((element) => element.age >= age);
 
   return check;
 }
@@ -28,9 +28,7 @@ function getEmployeeByName(employeeName) {
     return arrayVazio;
   }
 
-  const found = data.employeeName.find((e) => {e.firstName = employeeName || e.lastName === employeeName});
-
-  return found;
+  return data.employeeName.find((e) => e.firstName === employeeName || e.lastName === employeeName);;
 }
 
 function createEmployee(personalInfo, associatedWith) {
