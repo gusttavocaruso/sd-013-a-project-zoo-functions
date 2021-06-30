@@ -49,6 +49,10 @@ function countAnimals(parametro) { // requisito 07
       .forEach(({ name, residents }) => { // traz todos animais
         retornoObjeto[name] = residents.length;
       });
+      return retornoObjeto;
+    }
+    return species
+    .find(({ name }) => (name === parametro)).residents.length;      
 }
 
 function calculateEntry(entrants) {
