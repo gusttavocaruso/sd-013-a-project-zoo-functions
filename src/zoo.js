@@ -9,8 +9,11 @@ function getSpeciesByIds(ids) {// requisito 01
   .filter((elemento) => ids.includes(elemento.id));
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(animal, age) {// requisito 02
+  return species
+  .find((elemento) => elemento.name === animal).residents
+  .every((elemento) => elemento.age >= age);
+  }
 }
 
 function getEmployeeByName(employeeName) {
