@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -13,6 +14,12 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
+  if (employeeName == null) {
+    return {};
+  }
+  return data.employees.find((employee) => {
+    return employee.firstName === employeeName || employee.lastName === employeeName;
+  });
 }
 
 function createEmployee(personalInfo, associatedWith) {
