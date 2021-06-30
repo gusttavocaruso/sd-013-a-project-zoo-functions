@@ -53,6 +53,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(species) {
+  // seu código aqui
   if (typeof species === 'undefined') {
     return data.species.reduce((acc, curr) => {
       acc[curr.name] = curr.residents.length;
@@ -64,6 +65,7 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
+  // seu código aqui
   if (typeof entrants === 'undefined') return 0;
   const { Adult, Child, Senior } = entrants;
   const adultValue = Adult * data.prices.Adult;
@@ -76,6 +78,7 @@ function calculateEntry(entrants) {
   totalValue.toFixed(2);
   return totalValue;
 }
+
 function getAnimalMap(options) {
   // seu código aqui
 }
