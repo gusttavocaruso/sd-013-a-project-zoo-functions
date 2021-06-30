@@ -59,9 +59,21 @@ function isManager(id) {
 // Requisito 6
 // ==========================================================================================================
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const object = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+
+  data.employees.push(object);
 }
+
+// ==========================================================================================================
+// Requisito 7
+// ==========================================================================================================
 
 function countAnimals(species) {
   // seu código aqui
