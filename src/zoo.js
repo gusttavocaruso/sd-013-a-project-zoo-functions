@@ -7,17 +7,21 @@ function getSpeciesByIds(...ids) {
   const specsIds = [];
 
   ids.forEach((id) => {
-    const fnd = data.species.find((newSpecsId) => newSpecsId.id === id);
+    const fnd = data.species.find((param) => param.id === id);
     specsIds.push(fnd);
   });
   return specsIds;
 }
 
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
+// console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const fnd = data.species.find((param) => param.name === animal);
+  // console.log(fnd);
+  return fnd.residents.every((param) => param.age >= age);
 }
+
+// console.log(getAnimalsOlderThan('penguins', 10));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
