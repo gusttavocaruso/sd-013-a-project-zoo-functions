@@ -68,7 +68,7 @@ function getAnimalMap(options) { // requisito 09
   // seu código aqui
 }
 
-const fechado = (dia) => {
+const fechado = (dia) => { // requisito 10
   if (dia === 'Monday') return 'CLOSED';
   return `Open from ${hours[dia].open}am until ${hours[dia].close - 12}pm`;
 };
@@ -88,11 +88,17 @@ function getSchedule(dayName) { // requisito 10
 }
 
 function getOldestFromFirstSpecies(id) { // requisito 11
-  // seu código aqui
+  
 }
+// console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'))
+// expected = ['Vicky', 'female', 12];
 
 function increasePrices(percentage) { // requisito 12
-  // seu código aqui
+  const { Adult: precoAdulto, Senior: precoIdoso, Child: precoCrianca } = prices;
+  prices.Adult = Math.round(precoAdulto * (1 + (percentage / 100)) * 100) / 100;
+  prices.Senior = Math.round(precoIdoso * (1 + (percentage / 100)) * 100) / 100;
+  prices.Child = Math.round(precoCrianca * (1 + (percentage / 100)) * 100) / 100;
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) { // requisito 13
