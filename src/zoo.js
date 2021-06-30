@@ -20,6 +20,7 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  return { ...personalInfo, ...associatedWith }; // spread
 }
 
 function isManager(id) {
