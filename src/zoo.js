@@ -3,11 +3,11 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  const specieSelected = species.filter((specie) => specie.id === ids);
-  return specieSelected;
+  const speciesSelected = species.filter((specie, index) => specie.id === ids[index]);
+  return speciesSelected;
 }
 
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', '533bebf3-6bbe-41d8-9cdf-46f7d13b62ae'));
+console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
