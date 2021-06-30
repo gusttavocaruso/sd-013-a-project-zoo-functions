@@ -1,11 +1,17 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  if (!ids) return [];
+function getSpeciesByIds(...ids) {
+  if (!ids) {
+    const arrayVazio = [];
+    return arrayVazio;
+  }
 
   const array = [];
-  const found = data.species.find((element) => element.id === ids);
-  array.push(found);
+ 
+  ids.forEach((id) => {
+    const found = data.species.find((element) => element.id === id);
+    array.push(found);
+  });
 
   return array;
 }
