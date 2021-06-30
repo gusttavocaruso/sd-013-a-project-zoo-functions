@@ -9,7 +9,7 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  // seu código aqu
 }
 
 function createEmployee(personalInfo, associatedWith) {
