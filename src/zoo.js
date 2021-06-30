@@ -4,11 +4,11 @@ function getSpeciesByIds(ids) {
   if (!ids) return [];
 
   const array = [];
-  const found = data.species.find(element => element.id === ids);
+  const found = data.species.find((element) => element.id === ids);
   array.push(found);
 
   return array;
-  }
+}
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
