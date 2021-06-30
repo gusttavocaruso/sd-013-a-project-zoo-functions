@@ -22,10 +22,16 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  const newEmployee = {
+    ...personalInfo,
+    ...associatedWith,
+  };
+  return newEmployee;
 }
 
 function isManager(id) {
   // seu código aqui
+  return employees.some((employee, i) => employee.managers[i] === id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
