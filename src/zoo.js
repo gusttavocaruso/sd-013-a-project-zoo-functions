@@ -11,7 +11,7 @@ console.log(getSpeciesByIds());
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
 }
-console.log(getAnimalsOlderThan('penguins', 10))
+console.log(getAnimalsOlderThan('penguins', 10));
 
 // =========================
 
@@ -31,7 +31,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals() {
   // seu código aqui
 }
 
