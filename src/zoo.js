@@ -80,11 +80,34 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
 }
 
+// hoursObjectKeys.forEach((item) => {
+//   if (data.hours[item].open !== 0 && data.hours[item].close !== 0) {
+//     const hours = {};
+//     const { open, close } = data.hours[item];
+//     hours[item] = `Open from ${open}am until ${close}pm`;
+//     Object.assign(objectReturn, hours);
+//   }
+// });
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const objectReturn = { ...data.hours };
+  Object.keys(objectReturn).forEach((item) => {
+    const { open, close } = data.hours[item];
+    objectReturn[item] = `Open from ${open}am until ${close - 12}pm`;
+  });
+  objectReturn.Monday = 'CLOSED';
+  if (dayName) {
+    const keyValue = {};
+    Object.keys(objectReturn).forEach((item) => {
+      if (item === dayName) {
+        keyValue[item] = objectReturn[item];
+      }
+    });
+    return keyValue;
+  }
+  return objectReturn;
 }
 
 function getOldestFromFirstSpecies(id) {
