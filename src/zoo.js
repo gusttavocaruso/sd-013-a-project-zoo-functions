@@ -3,7 +3,6 @@ const data = require('./data');
 // ==========================================================================================================
 // Requisito 1
 // ==========================================================================================================
-
 function getSpeciesByIds(...ids) {
   return ids.map((id) => data.species.find((specie) => specie.id === id));
 }
@@ -11,7 +10,6 @@ function getSpeciesByIds(...ids) {
 // ==========================================================================================================
 // Requisito 2
 // ==========================================================================================================
-
 function getAnimalsOlderThan(animal, age) {
   const specie = data.species.find(({ name }) => name === animal);
 
@@ -23,7 +21,6 @@ function getAnimalsOlderThan(animal, age) {
 // ==========================================================================================================
 // Requisito 3
 // ==========================================================================================================
-
 function getEmployeeByName(employeeName) {
   if (employeeName === undefined) return {};
 
@@ -33,7 +30,6 @@ function getEmployeeByName(employeeName) {
 // ==========================================================================================================
 // Requisito 4
 // ==========================================================================================================
-
 function createEmployee(personalInfo, associatedWith) {
   const { id, firstName, lastName } = personalInfo;
   const { managers, responsibleFor } = associatedWith;
@@ -50,7 +46,6 @@ function createEmployee(personalInfo, associatedWith) {
 // ==========================================================================================================
 // Requisito 5 - Feito com ajuda de Pedro Delicoli
 // ==========================================================================================================
-
 function isManager(id) {
   return data.employees.some((person) => person.managers.includes(id));
 }
@@ -58,7 +53,6 @@ function isManager(id) {
 // ==========================================================================================================
 // Requisito 6
 // ==========================================================================================================
-
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const object = {
     id,
@@ -74,10 +68,18 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 // ==========================================================================================================
 // Requisito 7
 // ==========================================================================================================
-
 function countAnimals(species) {
-  // seu código aqui
+  if (species === undefined) {
+    return data.species.reduce((acc, current) => {
+      acc[current.name] = current.residents.length;
+      return acc;
+    }, {});
+  }
+
+  return data.species.find((specie) => specie.name === species).residents.length;
 }
+
+// ==========================================================================================================
 
 function calculateEntry(entrants) {
   // seu código aqui
