@@ -1,11 +1,21 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if (typeof ids === 'undefined') {
+    return [];
+  }
 }
 
+getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce')
+
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const dataSpecies = data.species;
+
+  const getAnimalSpecie = dataSpecies.find((item) => item.name === animal);
+
+  const verify = getAnimalSpecie.residents.every((element) => element.age >= age);
+
+  return verify;
 }
 
 function getEmployeeByName(employeeName) {
