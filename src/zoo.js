@@ -1,7 +1,7 @@
 const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds (...ids) {
+function getSpeciesByIds(...ids) {
   return species.filter(((specie, index) => specie.id === ids[index]));
 }
 console.log(getSpeciesByIds());
@@ -26,7 +26,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(speciesARRUMALINT) {
   // seu código aqui
 }
 
