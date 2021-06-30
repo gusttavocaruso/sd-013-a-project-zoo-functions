@@ -21,11 +21,14 @@ function getAnimalsOlderThan(animal, age) {
     .every((item) => item.age > age);
 }
 
-console.log(getAnimalsOlderThan('penguins', 10));
-
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+
+  const { employees } = data;
+  return employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
+
+console.log(getEmployeeByName('Emery'))
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
