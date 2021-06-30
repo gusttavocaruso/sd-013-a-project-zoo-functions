@@ -22,8 +22,8 @@ function getEmployeeByName(employeeName) {// requisito 03
     .find((elemento) => elemento.firstName === employeeName || elemento.lastName === employeeName);
 }
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+function createEmployee(personalInfo, associatedWith) { // requisito 04
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
