@@ -22,10 +22,17 @@ function getAnimalsOlderThan(animal, age) {
   return hasMinAge;
 }
 
-getAnimalsOlderThan('penguins', 10);
-
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+
+  const { employees } = data;
+  const employeeData = employees.find((employee) => {
+    if (employee.firstName === employeeName || employee.lastName === employeeName) {
+      return employee;
+    }
+  });
+
+  return employeeData;
 }
 
 function createEmployee(personalInfo, associatedWith) {
