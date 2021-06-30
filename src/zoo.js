@@ -1,37 +1,89 @@
-const { species } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(...ids) {
-  return species.filter(((specie, index) => specie.id === ids[index]));
-}
+// ===========================
 
-console.log(getSpeciesByIds('0e7b460e-acf4-4e17-bcb3-ee472265db83', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
+// Requisito 1
+
+// ===========================
+
+function getSpeciesByIds(...ids) { // ...ids para receber mais de um parâmetro
+  return ids.map((id) => species.find((specie) => specie.id === id)); // fazemos um filtro no obj 'species' para verificar se o parâmetro 'ids' da função 
+}
+// filter encontrar algum animal no array especies que tenha o mesmo id que o meu ids do parametro
+
+// ===========================
+
+// Requisito 2
+
+// ===========================
 
 function getAnimalsOlderThan(animal, age) {
   return species
-  .find((specie) => specie.name === animal).residents
-  .every((resident) => resident.age >= age);
+    .find((specie) => specie.name === animal).residents
+    .every((resident) => resident.age >= age);
 }
 
+// ===========================
+
+// Requisito 3
+
+// ===========================
+
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) {
+    return {};
+  }
+  return employees.find((employee) => (
+    employees.firstName === employeeName || employee.lastName === employeeName
+  ))
 }
+
+// ===========================
+
+// Requisito 4
+
+// ===========================
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
 
+// ===========================
+
+// Requisito 5
+
+// ===========================
+
 function isManager(id) {
   // seu código aqui
 }
+
+// ===========================
+
+// Requisito 6
+
+// ===========================
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
+// ===========================
+
+// Requisito 7
+
+// ===========================
+
 function countAnimals(speciesARRUMALINT) {
   // seu código aqui
 }
+
+// ===========================
+
+// Requisito 8
+
+// ===========================
 
 function calculateEntry(entrants) {
   // seu código aqui
