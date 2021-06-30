@@ -40,7 +40,17 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(specie) {
-  // seu código aqui
+  if (!specie) {
+    const animalList = species.reduce((acc, oneSpecie) => {
+      acc[oneSpecie.name] = oneSpecie.residents.length;
+
+      return acc;
+    }, {});
+
+    return animalList;
+  }
+
+  return species.find((atualSpecie) => atualSpecie.name === specie).residents.length;
 }
 
 function calculateEntry(entrants) {
