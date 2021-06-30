@@ -24,7 +24,7 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) {
-    const arrayVazio = [];
+    const arrayVazio = {};
     return arrayVazio;
   }
 
