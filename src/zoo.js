@@ -30,8 +30,9 @@ function isManager(id) {
   return employees.some((idManager) => idManager.managers.includes(id)); // consulta ao site https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/includes
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const addNewEmployee = { id, firstName, lastName, managers, responsibleFor };
+  return data.employees.push(addNewEmployee);
 }
 
 function countAnimals(species) {
