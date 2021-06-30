@@ -2,22 +2,22 @@ const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // seu código aqui
   const speciesSelected = species.filter((specie, index) => specie.id === ids[index]);
   return speciesSelected;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   return species
     .find((specie) => specie.name === animal).residents
     .every((resident) => resident.age >= age);
 }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
-  return employees
+function getEmployeeByName(employeeName = 'aaaa') {
+  if (typeof employeeName === 'undefined') return {};
+  const implementation = employees
     .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+
+  return implementation;
 }
 
 console.log(getEmployeeByName());
