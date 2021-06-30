@@ -3,7 +3,7 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // acessa o objeto species e filtra os itens com mesmo id;
-  return species.filter((nome, index) => nome.id === ids);
+  return species.filter((nome, index) => nome.id === ids[index]);
 }
 
 function getAnimalsOlderThan(animal, age) {
