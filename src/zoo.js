@@ -1,17 +1,20 @@
-const { species } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
-const getSpeciesByIds = (...ids) => {
-  console.log(ids);
-  return filterById = species.filter((element) => element.id === ids[0] || element.id === ids[1]);
+function getSpeciesByIds(...ids) {
+  const filterById = species.filter((element) => element.id === ids[0] || element.id === ids[1]);
+  return filterById;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  return species.every((element) => element.name === animal && element.residents.age > age);
+  const findAnimal = species.find((element) => (element.name === animal));
+  return findAnimal.residents.every((check) => check.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  const findEmployee = employees
+    .find((element) => element.firstName === employeeName || element.lastName === employeeName);
+  return (!findEmployee) ? {} : findEmployee;
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -69,5 +72,3 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
-
-// first commit
