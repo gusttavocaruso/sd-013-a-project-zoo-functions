@@ -30,15 +30,26 @@ function getEmployeeByName(employeeName) {
   return data.employees.find((ob) => ob.firstName === employeeName || ob.lastName === employeeName);
 }
 
-console.log(getEmployeeByName());
-
 // ==========================================================================================================
 // Requisito 4
 // ==========================================================================================================
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
+
+  return {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
 }
+
+// ==========================================================================================================
+// Requisito 5
+// ==========================================================================================================
 
 function isManager(id) {
   // seu código aqui
