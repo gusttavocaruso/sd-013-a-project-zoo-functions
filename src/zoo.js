@@ -1,9 +1,19 @@
+const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui 
+// REQUISITO 1
+function getSpeciesByIds(...ids) {
+  if (ids.length === 0) {
+    return ids;
+  }
+  const newArray = [];
+  for (let index = 0; index < ids.length; index += 1) {
+    newArray.push(species.find((element) => element.id === ids[index]));
+  }
+  return newArray;
 }
 
+// REQUISITO 2
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
 }
