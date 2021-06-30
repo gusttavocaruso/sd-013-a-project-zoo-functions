@@ -14,9 +14,9 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   const { species } = data;
-  const actualSpecie = species.find((specie) => specie.name === animal);
+  const currentSpecie = species.find((specie) => specie.name === animal);
 
-  const { residents } = actualSpecie;
+  const { residents } = currentSpecie;
   const hasMinAge = residents.every((resident) => resident.age > age);
 
   return hasMinAge;
@@ -41,7 +41,16 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const { employees } = data;
+
+  const currentEmployee = employees.some((employee) => {
+    const { managers } = employee;
+    const isInManagerList = managers.find((manager) => manager === id);
+
+    return isInManagerList;
+  });
+
+  return currentEmployee;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
