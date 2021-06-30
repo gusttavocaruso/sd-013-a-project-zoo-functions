@@ -42,14 +42,26 @@ function countAnimals(species) {
   }
   return data.species.find(({ name }) => name === species).residents.length;
 }
-console.log(countAnimals('lions'));
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined) return 0;
+  const { Adult: adultPrice, Senior: seniorPrice, Child: childPrice } = data.prices;
+  const { Adult: adult, Senior: senior, Child: child } = entrants;
+  let total = 0;
+  if (adult) {
+    total += adultPrice * adult;
+  }
+  if (senior) {
+    total += seniorPrice * senior;
+  }
+  if (child) {
+    total += childPrice * child;
+  }
+  return total;
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+
 }
 
 function getSchedule(dayName) {
