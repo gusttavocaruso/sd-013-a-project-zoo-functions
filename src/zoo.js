@@ -82,15 +82,6 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
 }
 
-// hoursObjectKeys.forEach((item) => {
-//   if (data.hours[item].open !== 0 && data.hours[item].close !== 0) {
-//     const hours = {};
-//     const { open, close } = data.hours[item];
-//     hours[item] = `Open from ${open}am until ${close}pm`;
-//     Object.assign(objectReturn, hours);
-//   }
-// });
-
 function getSchedule(dayName) {
   const objectReturn = { ...data.hours };
   Object.keys(objectReturn).forEach((item) => {
@@ -111,11 +102,18 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+}
+
+function roundToTwo(num) {
+  return +(`${Math.round(`${num}e+2`)}e-2`);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const priceObjectKeys = Object.keys(data.prices);
+  priceObjectKeys.forEach((item) => {
+    const price = data.prices[item] * (1 + (percentage / 100));
+    data.prices[item] = roundToTwo(price);
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
