@@ -23,7 +23,6 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName = {}) {
-  // seu código aqui
   let objectReturn = {};
   data.employees.forEach((employeeObject) => {
     if (employeeObject.firstName === employeeName || employeeObject.lastName === employeeName) {
@@ -47,22 +46,28 @@ function isManager(id) {
       managerOrNot = false;
     }
   }
-  // data.employees.forEach(({ managers }) => managers.some((item) => item === id));
   return managerOrNot;
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   const returnEmployee = { id, firstName, lastName, managers, responsibleFor };
   data.employees.push(returnEmployee);
 }
 
 function countAnimals(species) {
-  // seu código aqui
+
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  let valorTotal = 0;
+  if (typeof entrants !== 'undefined' && Object.keys(entrants).length !== 0) {
+    const pagantes = Object.keys(entrants);
+    pagantes.forEach((item) => {
+      valorTotal += data.prices[item] * entrants[item];
+    });
+    return valorTotal;
+  }
+  return valorTotal;
 }
 
 function getAnimalMap(options) {
