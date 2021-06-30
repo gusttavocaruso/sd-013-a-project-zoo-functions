@@ -26,9 +26,9 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
-  // seu código aqui
-}
+// function countAnimals(species) {
+// seu código aqui
+// }
 
 function calculateEntry(entrants) {
   // seu código aqui
@@ -57,7 +57,7 @@ function getEmployeeCoverage(idOrName) {
 module.exports = {
   calculateEntry,
   getSchedule,
-  countAnimals,
+  // countAnimals,
   getAnimalMap,
   getSpeciesByIds,
   getEmployeeByName,
