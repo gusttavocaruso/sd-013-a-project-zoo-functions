@@ -1,16 +1,40 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+// ==========================================================================================================
+// Requisito 1
+// ==========================================================================================================
+
+function getSpeciesByIds(...ids) {
+  return data.species.filter((specie, index) => specie.id === ids[index]);
 }
+
+// ==========================================================================================================
+// Requisito 2
+// ==========================================================================================================
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const specie = data.species.find(({ name }) => name === animal);
+
+  const trueOrFalse = specie.residents.every((resident) => resident.age >= age);
+
+  return trueOrFalse;
 }
 
+// ==========================================================================================================
+// Requisito 3
+// ==========================================================================================================
+
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) return {};
+
+  return data.employees.find((ob) => ob.firstName === employeeName || ob.lastName === employeeName);
 }
+
+console.log(getEmployeeByName());
+
+// ==========================================================================================================
+// Requisito 4
+// ==========================================================================================================
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
