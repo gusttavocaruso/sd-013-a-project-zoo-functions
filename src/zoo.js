@@ -25,10 +25,9 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
 
   const { employees } = data;
-  return employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
+  return employees
+    .find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
-
-console.log(getEmployeeByName('Emery'))
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
