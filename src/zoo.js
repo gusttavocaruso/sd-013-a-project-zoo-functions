@@ -23,6 +23,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
+// junta os parametros passados, com base no spread operator
   return { ...personalInfo, ...associatedWith };
 }
 
@@ -37,10 +38,23 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(/* species */) {
-  // seu código aqui
+function countAnimals(specie) {
+  // primeiro criamos o objeto vazio e apos isso prenchemos ele percorrendo cada indice do objeto species atribuindo a chave name, o valor do numero de animais.
+  const objeto = {};
+  species.forEach((valor) => {
+    objeto[valor.name] = valor.residents.length;
+  });
+  // nesse if, se o objeto for undefined, eu retorno o objeto vazio.
+  if (specie === undefined) {
+    return objeto;
+  }
+  let contador = 0;
+  species.forEach((valor) => {
+    // e se a especie for definida na hora de passar o parametro, retono apenas a quantidade de animais dela.
+    if (valor.name === specie) contador = valor.residents.length;
+  });
+  return contador;
 }
-
 function calculateEntry(entrants) {
   // seu código aqui
 }
