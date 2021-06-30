@@ -8,7 +8,7 @@ const data = require('./data');
 // ===========================
 
 function getSpeciesByIds(...ids) { // ...ids para receber mais de um parâmetro
-  return ids.map((id) => species.find((specie) => specie.id === id)); // fazemos um filtro no obj 'species' para verificar se o parâmetro 'ids' da função 
+  return ids.map((id) => species.find((specie) => specie.id === id)); // fazemos um filtro no obj 'species' para verificar se o parâmetro 'ids' da função
 }
 // filter encontrar algum animal no array especies que tenha o mesmo id que o meu ids do parametro
 
@@ -44,14 +44,15 @@ function getEmployeeByName(employeeName) {
 // ===========================
 
 function createEmployee(personalInfo, associatedWith) {
-  const {id, firstName, lastName} = personalInfo;
-  const {managers, responsibleFor} = associatedWith;
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
   return {
-    id, 
-    firstName, 
-    lastName, 
-    managers, 
-    responsibleFor}
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
 }
 
 // ===========================
