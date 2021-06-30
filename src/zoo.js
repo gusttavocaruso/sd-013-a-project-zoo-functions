@@ -27,7 +27,7 @@ function createEmployee(personalInfo, associatedWith) { // requisito 04
 }
 
 function isManager(id) { // requisito 05
-  employees
+  return employees
   .some((elemento) => elemento.managers.includes(id));
 }
 
