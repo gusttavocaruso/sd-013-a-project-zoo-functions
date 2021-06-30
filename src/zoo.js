@@ -34,8 +34,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     id,
     firstName,
     lastName,
-    managers: [...managers],
-    responsibleFor: [...responsibleFor],
+    managers,
+    responsibleFor,
   });
 }
 
@@ -50,8 +50,13 @@ function countAnimals(specieName) {
   return species.find((specie) => specie.name === specieName).residents.length;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = { Adult: 0, Senior: 0, Child: 0 }) {
+  let result = 0;
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
+  result += Adult * 49.99;
+  result += Senior * 24.99;
+  result += Child * 20.99;
+  return result;
 }
 
 function getAnimalMap(options) {
