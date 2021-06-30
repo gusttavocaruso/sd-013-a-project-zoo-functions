@@ -1,4 +1,4 @@
-const { species } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -15,7 +15,11 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  // aqui checamos se o nome ou sobrenome passado como parametro é igual ao de algum item do objeto e se sim, retornamos o primeiro objeto com essas caracteristicas
+  if (employeeName === undefined) {
+    return {};
+  } return employees
+    .find((pessoa) => pessoa.firstName === employeeName || pessoa.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -30,7 +34,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(/* species */) {
   // seu código aqui
 }
 
