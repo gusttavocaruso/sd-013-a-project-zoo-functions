@@ -8,6 +8,8 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
+  const encontrar = species.find((especie) => especie.name === animal);
+  return encontrar.residents.every((especie) => especie.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
