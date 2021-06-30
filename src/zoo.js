@@ -7,7 +7,6 @@ function getSpeciesByIds(...ids) {
   }
 
   const array = [];
- 
   ids.forEach((id) => {
     const found = data.species.find((element) => element.id === id);
     array.push(found);
