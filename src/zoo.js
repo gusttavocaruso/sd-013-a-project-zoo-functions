@@ -14,15 +14,21 @@ function getEmployeeByName(employeeName) {
   if(!employeeName) return {}
   return employees.find((element) => element.firstName === employeeName || element.lastName === employeeName);
 }
-// console.log(getEmployeeByName('Emery')); 
 
+function createEmployee({id, firstName, lastName}, associatedWith) {
+   return {
+    id: id,
+    firstName: firstName,
+    lastName:lastName,
+    managers:associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,
+     
+  };
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees.some((gerente) => gerente.managers === id)
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
