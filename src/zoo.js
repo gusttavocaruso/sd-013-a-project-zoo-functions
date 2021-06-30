@@ -42,8 +42,13 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(parametro) { // requisito 07
+  const retornoObjeto = {};
+  if (!parametro) { // Se nao for colocado parametro
+    species
+      .forEach(({ name, residents }) => { // traz todos animais
+        retornoObjeto[name] = residents.length;
+      });
 }
 
 function calculateEntry(entrants) {
