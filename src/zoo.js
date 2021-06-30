@@ -33,8 +33,16 @@ function isManager(id) {
   return employees.some((employee, i) => employee.managers[i] === id);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return employees.push(newEmployee);
 }
 
 function countAnimals(speecies) {
