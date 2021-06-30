@@ -70,8 +70,15 @@ function isManager(id) {
 
 // ===========================
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const objectAddEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return employees.push(objectAddEmployee);
 }
 
 // ===========================
@@ -94,21 +101,51 @@ function calculateEntry(entrants) {
   // seu código aqui
 }
 
+// ===========================
+
+// Requisito 9
+
+// ===========================
+
 function getAnimalMap(options) {
   // seu código aqui
 }
+
+// ===========================
+
+// Requisito 10
+
+// ===========================
 
 function getSchedule(dayName) {
   // seu código aqui
 }
 
+// ===========================
+
+// Requisito 11
+
+// ===========================
+
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
+// ===========================
+
+// Requisito 12
+
+// ===========================
+
 function increasePrices(percentage) {
   // seu código aqui
 }
+
+// ===========================
+
+// Requisito 13
+
+// ===========================
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
