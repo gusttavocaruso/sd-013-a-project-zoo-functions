@@ -88,6 +88,7 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
+  // seu código aqui
   const employee = data.employees.find((employeee) => employeee.id === id);
   const selectedAnimalId = employee.responsibleFor[0];
   const animals = data.species.find((specie) => specie.id === selectedAnimalId);
@@ -116,6 +117,21 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  if (typeof idOrName === 'undefined') {
+    return data.employees.reduce((acc, curr) => {
+      const animalsResposible = curr.responsibleFor.map((id) => data.species
+        .find((specie) => specie.id === id).name);
+      acc[`${curr.firstName} ${curr.lastName}`] = animalsResposible;
+      return acc;
+    }, {});
+  }
+  const selectedEmployee = data.employees
+    .find((e) => e.firstName === idOrName || e.id === idOrName || e.lastName === idOrName);
+  const animalsResposible = selectedEmployee.responsibleFor.map((id) => data.species
+    .find((specie) => specie.id === id).name);
+  const result = {};
+  result[`${selectedEmployee.firstName} ${selectedEmployee.lastName}`] = animalsResposible;
+  return result;
 }
 
 module.exports = {
