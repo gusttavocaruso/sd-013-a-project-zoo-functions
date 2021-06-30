@@ -8,22 +8,18 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   const specie = data.species.find((element) => element.name === animal);
-  console.log(specie);
-  console.log(specie.residents.every((resident) => resident.age >= age));
   return specie.residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   if (!employeeName) return {};
   return data.employees.find((funcionario) =>
     funcionario.firstName === employeeName || funcionario.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return {...personalInfo, ...associatedWith}
 }
 
 function isManager(id) {
