@@ -3,21 +3,16 @@ const data = require('./data');
 
 // REQUISITO 1
 function getSpeciesByIds(...ids) {
-  if (ids.length === 0) {
-    return ids;
-  }
-  const newArray = [];
-  for (let index = 0; index < ids.length; index += 1) {
-    newArray.push(species.find((element) => element.id === ids[index]));
-  }
-  return newArray;
+  return species.filter((element) => ids.includes(element.id));
 }
 
 // REQUISITO 2
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const tipoAnimal = species.filter((tipo) => tipo.name.includes(animal));
+  return tipoAnimal[0].residents.every((element) => element.age >= age);
 }
 
+// REQUISITO 3
 function getEmployeeByName(employeeName) {
   // seu código aqui
 }
