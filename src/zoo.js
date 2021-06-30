@@ -4,19 +4,18 @@ const { prices } = require('./data');
 const { employees } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {// requisito 01
+function getSpeciesByIds(...ids) { // requisito 01
   return species
-  .filter((elemento) => ids.includes(elemento.id));
+    .filter((elemento) => ids.includes(elemento.id));
 }
 
-function getAnimalsOlderThan(animal, age) {// requisito 02
+function getAnimalsOlderThan(animal, age) { // requisito 02
   return species
-  .find((elemento) => elemento.name === animal).residents
-  .every((elemento) => elemento.age >= age);
-  }
+    .find((elemento) => elemento.name === animal).residents
+    .every((elemento) => elemento.age >= age);
 }
 
-function getEmployeeByName(employeeName) {// requisito 03
+function getEmployeeByName(employeeName) { // requisito 03
   if (!employeeName) return {};
   return employees
     .find((elemento) => elemento.firstName === employeeName || elemento.lastName === employeeName);
@@ -65,7 +64,7 @@ function calculateEntry(entrants) { // requisito 08
     ), 0);
 }
 
-function getAnimalMap(options) {
+function getAnimalMap(options) { // requisito 09
   // seu código aqui
 }
 
@@ -75,7 +74,7 @@ const fechado = (dia) => {
 };
 
 function getSchedule(dayName) { // requisito 10
-  const novoObjeto = {};
+  const novoObjeto = {}; // Cria o objeto
   if (!dayName) { // Se não tiver colocado nada de parametro traz tudo
     Object
       .keys(hours)
@@ -88,15 +87,15 @@ function getSchedule(dayName) { // requisito 10
   return novoObjeto;
 }
 
-function getOldestFromFirstSpecies(id) {
+function getOldestFromFirstSpecies(id) { // requisito 11
   // seu código aqui
 }
 
-function increasePrices(percentage) {
+function increasePrices(percentage) { // requisito 12
   // seu código aqui
 }
 
-function getEmployeeCoverage(idOrName) {
+function getEmployeeCoverage(idOrName) { // requisito 13
   // seu código aqui
 }
 
