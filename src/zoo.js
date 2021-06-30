@@ -7,16 +7,25 @@ function getSpeciesByIds(...ids) {
   return ids.map((param) => data.species.find((section) => section.id === param));
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(specie, minAge) {
+  const section = data.species.find((block) => block.name === specie);
+  const animals = section.residents.every((animal) => animal.age >= minAge);
+  return animals;
 }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
+function getEmployeeByName(employeeName = {}) {
+  if (Object.values(employeeName).length === 0) {
+    return employeeName;
+  }
+  let human = data.employees.find((person) => person.firstName === employeeName);
+  if (human === undefined) {
+    human = data.employees.find((person) => person.lastName === employeeName);
+  }
+  return human;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+
 }
 
 function isManager(id) {
