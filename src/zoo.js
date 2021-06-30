@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -76,8 +77,6 @@ function countAnimals(species) {
   return currentSpecieCount;
 }
 
-countAnimals();
-
 function calculateEntry(entrants) {
   if (!entrants) return 0;
 
@@ -97,8 +96,76 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  const { species } = data;
+
+  if (!options) {
+    const speciesByLocation = species.reduce((acc, specie) => {
+      const { name, location } = specie;
+
+      if (!acc[location]) {
+        acc[location] = [name];
+      } else {
+        acc[location].push(name);
+      }
+
+      return acc;
+    }, {});
+    console.log(speciesByLocation);
+    return speciesByLocation;
+  }
+
+  const animalList = {};
+  const { includeNames } = options;
+
+  if (includeNames) {
+    const speciesWithNames = species.reduce((acc, specie) => {
+      const { name, location, residents } = specie;
+
+      if (!acc[location]) {
+        acc[location] = [];
+      }
+
+      acc[location][name] = [];
+
+      residents.forEach((resident) => {
+        acc[location][name] = [...acc[location][name], resident.name];
+      });
+
+      console.log(acc);
+
+      /*
+      {
+      NE: [
+        { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
+        { giraffes: ['Gracia', 'Antone', 'Vicky', 'Clay', 'Arron', 'Bernard'] }
+      ],
+      NW: [
+        { tigers: ['Shu', 'Esther'] },
+        { bears: ['Hiram', 'Edwardo', 'Milan'] },
+        { elephants: ['Ilana', 'Orval', 'Bea', 'Jefferson'] }
+      ],
+      SE: [
+        { penguins: ['Joe', 'Tad', 'Keri', 'Nicholas'] },
+        { otters: ['Neville', 'Lloyd', 'Mercedes', 'Margherita'] }
+      ],
+      SW: [
+        { frogs: ['Cathey', 'Annice'] },
+        { snakes: ['Paulette', 'Bill'] }
+      ]
+    }
+      */
+
+      return acc;
+    }, {});
+    console.log(speciesWithNames);
+    return speciesWithNames;
+  }
+
+  console.log('chegou aqui');
+  return animalList;
 }
+
+getAnimalMap({ includeNames: true });
 
 function getSchedule(dayName) {
   // seu código aqui
