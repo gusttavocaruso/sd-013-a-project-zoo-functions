@@ -1,39 +1,50 @@
-// const { species } = require('./data');
-const data = require('./data');
+const { species, employees } = require('./data');
+// const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return data.species.filter((itemDoArray) => ids.includes(itemDoArray.id) === true);
+  return species.filter((itemDoArray) => ids.includes(itemDoArray.id) === true);
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const animalFinded = data.species.find((specie) => specie.name === animal);
+  const animalFinded = species.find((specie) => specie.name === animal);
   return animalFinded.residents.every((element) => element.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
   if (employeeName === '' || employeeName === 0 || employeeName === undefined) return {};
-  const output = data.employees
+  const output = employees
     .find((item) => employeeName === item.firstName || employeeName === item.lastName);
   return output;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const result = {
-    id: personalInfo.id,
-    firstName: personalInfo.firstName,
-    lastName: personalInfo.lastName,
-    managers: associatedWith.managers,
-    responsibleFor: associatedWith.responsibleFor,
-  };
-  return result;
+  return { ...personalInfo, ...associatedWith };
+  // const result = {
+  //   id: personalInfo.id,
+  //   firstName: personalInfo.firstName,
+  //   lastName: personalInfo.lastName,
+  //   managers: associatedWith.managers,
+  //   responsibleFor: associatedWith.responsibleFor,
+  // };
+  // return result;
 }
 
 function isManager(id) {
-  return data.employees.some((item) => item.managers.includes(id) === true);
+  return employees.some((item) => item.managers.includes(id) === true);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const personalInfo = {
+    id,
+    firstName,
+    lastName,
+  };
+  const associatedWith = {
+    managers,
+    responsibleFor,
+  };
+  const newEmployee = createEmployee(personalInfo, associatedWith);
+  employees.push(newEmployee);
 }
 
 function countAnimals(objSpecies) {
