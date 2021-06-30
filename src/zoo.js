@@ -1,3 +1,7 @@
+const { hours } = require('./data');
+const { species } = require('./data');
+const { prices } = require('./data');
+const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(ids) {
