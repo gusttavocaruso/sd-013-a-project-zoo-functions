@@ -27,7 +27,8 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(/*species*/) {
+function countAnimals() {
+  // colocar species como paramatro, tirei por causa do lint
   // seu código aqui
 }
 
