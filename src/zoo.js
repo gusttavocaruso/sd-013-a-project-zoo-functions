@@ -1,7 +1,7 @@
 const data = require('./data');
 
 function getSpeciesByIds(ids) {
-  // seu código aqui
+  // Iniciando o projeto!
 }
 
 function getAnimalsOlderThan(animal, age) {
