@@ -30,6 +30,7 @@ function getEmployeeByName(employeeName) {
     if (employee.firstName === employeeName || employee.lastName === employeeName) {
       return employee;
     }
+    return null;
   });
 
   return employeeData;
