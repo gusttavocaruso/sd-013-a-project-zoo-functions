@@ -69,8 +69,42 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   return sum;
 }
 
+function auxMap(options, ani, keys) {
+  const ret = {};
+  keys.forEach((i) => {
+    if (options.sorted && !options.sex) {
+      ret[i] = ani[i].map((j) => ({ [j.name]: (j.residents.map((l) => l.name)).sort() }));
+    } else if (!options.sorted && options.sex) {
+      ret[i] = ani[i].map((j) => {
+        const sex = j.residents.filter((s) => s.sex === options.sex);
+        return { [j.name]: sex.map((l) => l.name) };
+      });
+    } else {
+      ret[i] = ani[i].map((j) => {
+        const sex = j.residents.filter((s) => s.sex === options.sex);
+        return { [j.name]: (sex.map((l) => l.name)).sort() };
+      });
+    }
+  });
+  return ret;
+}
+
 function getAnimalMap(options) {
-  //
+  const ret = {};
+  const ani = { NE: [], NW: [], SE: [], SW: [] };
+  const keys = Object.keys(ani);
+  keys.forEach((i) => { ani[i] = data.species.filter((j) => j.location === `${i}`); });
+  if (options === undefined || options.includeNames === undefined) {
+    keys.forEach((i) => { ret[i] = ani[i].map((j) => j.name); });
+    return ret;
+  }
+  if (Object.keys(options).length === 1 && options.includeNames) {
+    keys.forEach((i) => {
+      ret[i] = ani[i].map((j) => ({ [j.name]: j.residents.map((l) => l.name) }));
+    });
+    return ret;
+  }
+  return auxMap(options, ani, keys);
 }
 
 function getSchedule(dayName) {
