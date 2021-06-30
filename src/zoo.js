@@ -1,8 +1,6 @@
-const { hours } = require('./data');
-const { species } = require('./data');
-const { prices } = require('./data');
-const { employees } = require('./data');
-const data = require('./data');
+const { prices } = require('./data'); // Default Destructuring
+const { species } = require('./data'); // Default Destructuring
+const { employees } = require('./data'); // Default Destructuring
 
 function getSpeciesByIds(...ids) { // requisito 01
   return species
@@ -68,7 +66,7 @@ function getAnimalMap(options) { // requisito 09
   // seu código aqui
 }
 
-const fechado = (dia) => { // requisito 10
+const diaFechado = (dia) => { // requisito 10
   if (dia === 'Monday') return 'CLOSED';
   return `Open from ${hours[dia].open}am until ${hours[dia].close - 12}pm`;
 };
@@ -79,11 +77,11 @@ function getSchedule(dayName) { // requisito 10
     Object
       .keys(hours)
       .forEach((elemento) => {
-        novoObjeto[elemento] = fechado(elemento);
+        novoObjeto[elemento] = diaFechado(elemento);
       });
     return novoObjeto;
   }
-  novoObjeto[dayName] = fechado(dayName);
+  novoObjeto[dayName] = diaFechado(dayName);
   return novoObjeto;
 }
 
@@ -101,9 +99,8 @@ function increasePrices(percentage) { // requisito 12
   return prices;
 }
 
-
 function validaFuncionario(idOrName) { // requisito 13
-  if (idOrName) { // Se tem a informação
+  if (idOrName) { // Se tem a informação de parametro
     return (
       employees
         .filter(({ id, firstName, lastName }) => ( // Filtra e desconstroi objeto buscando se o idOrName é id, name ou sobrenome
@@ -113,12 +110,12 @@ function validaFuncionario(idOrName) { // requisito 13
       ))
     );
   }
-  return employees; // retorna informação para a função principal
+  return employees; // retorna o funcionário para a função principal
 }
 
 function getEmployeeCoverage(idOrName) { // requisito 13
   const novoObjeto = {} // Cria o objeto de retorno
-  const funcionarioFiltrado = validaFuncionario(idOrName)
+  const funcionarioFiltrado = validaFuncionario(idOrName) // checa funcionário
   funcionarioFiltrado
     .forEach(({ firstName, lastName, responsibleFor}) => {
       novoObjeto[`${firstName} ${lastName}`] = (responsibleFor
