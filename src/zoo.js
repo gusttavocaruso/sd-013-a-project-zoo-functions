@@ -1,6 +1,7 @@
 const { prices } = require('./data'); // Default Destructuring
 const { species } = require('./data'); // Default Destructuring
 const { employees } = require('./data'); // Default Destructuring
+const { hours } = require('./data'); // Default Destructuring
 
 function getSpeciesByIds(...ids) { // requisito 01
   return species
@@ -23,7 +24,7 @@ function createEmployee(personalInfo, associatedWith) { // requisito 04
   return { ...personalInfo, ...associatedWith };
 }
 
-function isManager(id) { // requisito 05
+function isManager(id) {// requisito 05
   return employees
   .some((elemento) => elemento.managers.includes(id));
 }
@@ -44,12 +45,12 @@ function countAnimals(parametro) { // requisito 07
   if (!parametro) { // Se nao for colocado parametro
     species
       .forEach(({ name, residents }) => { // traz todos animais
-        retornoObjeto[name] = residents.length;
+      retornoObjeto[name] = residents.length;
       });
       return retornoObjeto;
-    }
-    return species
-    .find(({ name }) => (name === parametro)).residents.length;      
+  }
+  return species
+  .find(({ name }) => (name === parametro)).residents.length;      
 }
 
 function calculateEntry(entrants) { // requisito 08
@@ -122,10 +123,9 @@ function getEmployeeCoverage(idOrName) { // requisito 13
         .map((elemento) => (species // Inicia o mapeamento dos animais
           .find(({ id }) => id === elemento)).name // Busca o animal conforme id e retorna o nome
         ));
-    })
-  return novoObjeto
+    });
+  return novoObjeto;
 }
-console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'))
 
 module.exports = {
   calculateEntry,
