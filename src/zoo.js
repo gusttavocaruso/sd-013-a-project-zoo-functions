@@ -1,8 +1,9 @@
-const { species } = require('./data');
+/* eslint-disable no-unused-expressions */
+const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return species.filter((specie, i) => specie.id === ids[i]);
+  return ids.map((id) => species.find((specie) => specie.id === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -12,7 +13,10 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) return {};
+  return employees.find((employee) => (
+    employee.firstName === employeeName || employee.lastName === employeeName
+  ));
 }
 
 function createEmployee(personalInfo, associatedWith) {
