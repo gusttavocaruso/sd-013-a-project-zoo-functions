@@ -20,10 +20,10 @@ function getEmployeeByName(employeeName = 'aaaa') {
   return implementation;
 }
 
-console.log(getEmployeeByName());
-
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const result = {...personalInfo, ...associatedWith};
+
+  return result;
 }
 
 function isManager(id) {
