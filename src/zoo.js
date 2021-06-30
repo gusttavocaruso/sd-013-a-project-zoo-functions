@@ -55,8 +55,14 @@ function countAnimals(parametro) { // requisito 07
     .find(({ name }) => (name === parametro)).residents.length;      
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants) { // requisito 08
+  if (!entrants) return 0; // Retorna 0 se nenhum argumento for passado
+  if (entrants === {}) return 0; // Retorna 0 se um objeto vazio for passado
+  return Object
+    .keys(entrants)
+    .reduce((acumulador, atual) => (
+      acumulador + (prices[atual] * entrants[atual])
+    ), 0);
 }
 
 function getAnimalMap(options) {
