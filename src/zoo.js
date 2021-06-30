@@ -1,18 +1,13 @@
 const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids = []) {
+function getSpeciesByIds(...ids) {
   // seu código aqui
-  return [{
-    id: ids,
-    name: species.find((specie) => specie.id === ids).name,
-    popularity: species.find((specie) => specie.id === ids).popularity,
-    location: species.find((specie) => specie.id === ids).location,
-    residents: species.find((specie) => specie.id === ids).residents.map((resident) => )
-  }];
+  const specieSelected = species.filter((specie) => specie.id === ids);
+  return specieSelected;
 }
 
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
+console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', '533bebf3-6bbe-41d8-9cdf-46f7d13b62ae'));
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
