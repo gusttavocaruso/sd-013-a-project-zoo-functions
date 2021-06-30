@@ -24,9 +24,9 @@ function createEmployee(personalInfo, associatedWith) { // requisito 04
   return { ...personalInfo, ...associatedWith };
 }
 
-function isManager(id) {// requisito 05
+function isManager(id) { // requisito 05
   return employees
-  .some((elemento) => elemento.managers.includes(id));
+    .some((elemento) => elemento.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // requisito 06
@@ -37,7 +37,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
       lastName,
       managers,
       responsibleFor,
-  });
+    });
 }
 
 function countAnimals(parametro) { // requisito 07
@@ -45,12 +45,12 @@ function countAnimals(parametro) { // requisito 07
   if (!parametro) { // Se nao for colocado parametro
     species
       .forEach(({ name, residents }) => { // traz todos animais
-      retornoObjeto[name] = residents.length;
+        retornoObjeto[name] = residents.length;
       });
-      return retornoObjeto;
+    return retornoObjeto;
   }
   return species
-  .find(({ name }) => (name === parametro)).residents.length;      
+    .find(({ name }) => (name === parametro)).residents.length;
 }
 
 function calculateEntry(entrants) { // requisito 08
@@ -87,7 +87,7 @@ function getSchedule(dayName) { // requisito 10
 }
 
 function getOldestFromFirstSpecies(id) { // requisito 11
-  
+
 }
 // console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'))
 // expected = ['Vicky', 'female', 12];
@@ -103,13 +103,11 @@ function increasePrices(percentage) { // requisito 12
 function validaFuncionario(idOrName) { // requisito 13
   if (idOrName) { // Se tem a informação de parametro
     return (
-      employees
-        .filter(({ id, firstName, lastName }) => ( // Filtra e desconstroi objeto buscando se o idOrName é id, name ou sobrenome
-          id === idOrName ||
-          firstName === idOrName ||
-          lastName === idOrName
-      ))
-    );
+      employees // Filtra e desconstroi objeto buscando se o idOrName é id, name ou sobrenome
+        .filter(({ id, firstName, lastName }) => (
+          id === idOrName || firstName === idOrName || lastName === idOrName
+        ))
+    )
   }
   return employees; // retorna o funcionário para a função principal
 }
@@ -118,11 +116,12 @@ function getEmployeeCoverage(idOrName) { // requisito 13
   const novoObjeto = {} // Cria o objeto de retorno
   const funcionarioFiltrado = validaFuncionario(idOrName) // checa funcionário
   funcionarioFiltrado
-    .forEach(({ firstName, lastName, responsibleFor}) => {
+    .forEach(({ firstName, lastName, responsibleFor }) => {
       novoObjeto[`${firstName} ${lastName}`] = (responsibleFor
         .map((elemento) => (species // Inicia o mapeamento dos animais
           .find(({ id }) => id === elemento)).name // Busca o animal conforme id e retorna o nome
-        ));
+        )
+      );
     });
   return novoObjeto;
 }
