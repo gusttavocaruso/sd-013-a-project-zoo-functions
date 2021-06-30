@@ -80,9 +80,18 @@ function getOldestFromFirstSpecies(id) {
     (older.age < curr.age ? curr : older));
   return [name, sex, age];
 }
-
+/* https://www.delftstack.com/howto/javascript/javascript-round-to-2-decimal-places/
+Fonte consultada para arredondar os digitos decimais sem falhas */
 function increasePrices(percentage) {
-  // seu código aqui
+  const newPrices = Object.values(prices).map((type) =>
+    ((type * (1 + percentage / 100))));
+  const round = (num) => {
+    const m = Number((Math.abs(num) * 100).toPrecision(15));
+    return Math.round(m) / (100 * Math.sign(num));
+  };
+  Object.keys(prices).forEach((key, index) => {
+    prices[key] = round(newPrices[index]);
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
