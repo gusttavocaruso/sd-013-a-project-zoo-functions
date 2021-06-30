@@ -4,10 +4,13 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   return species.filter(((specie, index) => specie.id === ids[index]));
 }
-console.log(getSpeciesByIds());
+
+console.log(getSpeciesByIds('0e7b460e-acf4-4e17-bcb3-ee472265db83', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  return species
+  .find((specie) => specie.name === animal).residents
+  .every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
