@@ -28,7 +28,7 @@ function getEmployeeByName(employeeName) {
     return arrayVazio;
   }
 
-  return data.employeeName.find((e) => e.firstName === employeeName || e.lastName === employeeName);;
+  return data.employeeName.find((e) => e.firstName === employeeName || e.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
