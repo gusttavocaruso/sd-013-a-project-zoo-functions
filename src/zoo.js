@@ -2,33 +2,31 @@ const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return ids.map((id) => {
-    return species.find((specie) => specie.id === id)
-  })
+  return ids.map((id) => species.find((specie) => specie.id === id));
 }
 
-function getAnimalsOlderThan(animal, age) {
-  return species.filter((specie) => specie.name === animal).
-          every((specie) => specie.residents.
-          every((animal) => animal.age > age));
+function getAnimalsOlderThan(animalName, age) {
+  return species.filter((specie) => specie.name === animalName)
+    .every((specie) => specie.residents
+      .every((animal) => animal.age > age));
 }
 
 function getEmployeeByName(employeeName) {
-  const result = employees.find((employee) => (employee.firstName === employeeName ||
-    employee.lastName === employeeName));
+  const result = employees.find((employee) => (employee.firstName === employeeName
+    || employee.lastName === employeeName));
   return (result === undefined) ? {} : result;
 }
 
 function createEmployee(personalInfo, associatedWith) {
   return {
     ...personalInfo,
-    ...associatedWith
-  }
+    ...associatedWith,
+  };
 }
 
 function isManager(id) {
-  return employees.some((employee) => employee.managers.
-          some((managerID) => managerID === id))
+  return employees.some((employee) => employee.managers
+    .some((managerID) => managerID === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -37,16 +35,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     firstName,
     lastName,
     managers: [...managers],
-    responsibleFor: [...responsibleFor]
+    responsibleFor: [...responsibleFor],
   });
 }
 
 function countAnimals(specieName) {
-  let result = {};
+  const result = {};
   if (specieName === undefined) {
     species.forEach((specie) => {
       result[specie.name] = specie.residents.length;
-    })
+    });
     return result;
   }
   return species.find((specie) => specie.name === specieName).residents.length;
