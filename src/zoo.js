@@ -107,20 +107,19 @@ function validaFuncionario(idOrName) { // requisito 13
         .filter(({ id, firstName, lastName }) => (
           id === idOrName || firstName === idOrName || lastName === idOrName
         ))
-    )
+    );
   }
   return employees; // retorna o funcionário para a função principal
 }
 
 function getEmployeeCoverage(idOrName) { // requisito 13
-  const novoObjeto = {} // Cria o objeto de retorno
-  const funcionarioFiltrado = validaFuncionario(idOrName) // checa funcionário
+  const novoObjeto = {}; // Cria o objeto de retorno
+  const funcionarioFiltrado = validaFuncionario(idOrName); // checa funcionário
   funcionarioFiltrado
     .forEach(({ firstName, lastName, responsibleFor }) => {
       novoObjeto[`${firstName} ${lastName}`] = (responsibleFor
         .map((elemento) => (species // Inicia o mapeamento dos animais
-          .find(({ id }) => id === elemento)).name // Busca o animal conforme id e retorna o nome
-        )
+          .find(({ id }) => id === elemento)).name) // Busca o animal conforme id e retorna o nome
       );
     });
   return novoObjeto;
