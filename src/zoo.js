@@ -36,7 +36,7 @@ function getEmployeeByName(employeeName) {
   }
   return employees.find((employee) => (
     employees.firstName === employeeName || employee.lastName === employeeName
-  ))
+  ));
 }
 
 // ===========================
@@ -46,7 +46,14 @@ function getEmployeeByName(employeeName) {
 // ===========================
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const {id, firstName, lastName} = personalInfo;
+  const {managers, responsibleFor} = associatedWith;
+  return {
+    id, 
+    firstName, 
+    lastName, 
+    managers, 
+    responsibleFor}
 }
 
 // ===========================
