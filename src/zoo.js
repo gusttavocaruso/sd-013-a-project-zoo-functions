@@ -23,16 +23,16 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
+// apos receber o id passado como parametro percorre o id de todos os funcionarios e verifica se o id passado consta como gerente de algum funcionario
   return employees
     // .filter((pessoa, index) => pessoa.managers[index] === id)
     .some((allPeoples, index) => allPeoples.managers[index] === id);
 }
 
-console.log(isManager(('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1')));
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
