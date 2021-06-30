@@ -16,15 +16,33 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const found = data.species.find((element) => element.name = animal);
+  const check = found.residents.every((element) => element.age >= age);
+
+  return check;
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) {
+    const arrayVazio = [];
+    return arrayVazio;
+  }
+
+  const found = data.employeeName.find((element) => element.firstName = employeeName || element.lastName === employeeName);
+
+  return found;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const createEmployee = {
+  id: personalInfo.id,
+  firstName: personalInfo.firstName,
+  lastName: personalInfo.lastName,
+  managers: associatedWith.managers,
+  responsibleFor: associatedWith.responsibleFor,
+  };
+
+  return createEmployee;
 }
 
 function isManager(id) {
