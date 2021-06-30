@@ -7,9 +7,10 @@ function getSpeciesByIds(id1, id2 = []) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  return species.filter((name) => (name === animal))
-    .every((residents) => residents.age >= age);
+  return species.find((specie) => specie.name === animal)
+    .residents.every((resident) => resident.age >= age);
 }
+console.log(getAnimalsOlderThan('penguins', 1));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
