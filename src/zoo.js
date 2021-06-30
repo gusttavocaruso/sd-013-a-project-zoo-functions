@@ -8,8 +8,6 @@ function getSpeciesByIds(...ids) {
   return ids.map((id) => data.species.find((specie) => specie.id === id));
 }
 
-console.log(getSpeciesByIds('78460a91-f4da-4dea-a469-86fd2b8ccc84', '89be95b3-47e4-4c5b-b687-1fabf2afa274'));
-
 // ==========================================================================================================
 // Requisito 2
 // ==========================================================================================================
@@ -50,18 +48,16 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 // ==========================================================================================================
-// Requisito 5
+// Requisito 5 - Feito com ajuda de Pedro Delicoli
 // ==========================================================================================================
 
 function isManager(id) {
-  const employeeObj = data.employees.find((obj) => obj.id === id);
-
-  return employeeObj;
-
-  // data.employees.some()
+  return data.employees.some((person) => person.managers.includes(id));
 }
 
-console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
+// ==========================================================================================================
+// Requisito 6
+// ==========================================================================================================
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
