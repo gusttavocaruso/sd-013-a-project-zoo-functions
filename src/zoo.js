@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 const { employees } = require('./data');
 const data = require('./data');
 
@@ -47,6 +46,13 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(species) {
   // seu código aqui
+  if (species == null) {
+    return data.species.reduce((acc, currSpecie) => {
+      acc[currSpecie.name] = currSpecie.residents.length;
+      return acc;
+    }, {});
+  }
+  return data.species.find((specie) => specie.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
