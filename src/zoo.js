@@ -1,6 +1,9 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
+  const animal = (id) => data.species.find((specie) => specie.id === id);
+  const record = ids.forEach((id) => animal(id));
+  return record;
 }
 
 function getAnimalsOlderThan(animal, age) {
