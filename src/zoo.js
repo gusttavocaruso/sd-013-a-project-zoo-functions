@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-expressions */
+const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  return data.species.filter((specie, index) => specie.id === ids[index]);
+  return ids.map((idDoNossoArray) => species.find((specie) => specie.id === idDoNossoArray));
 }
 
 function getAnimalsOlderThan(animal, age) {
