@@ -7,7 +7,11 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  // o filter percorre todo o objeto e retorna somente aquele cujo o nome é igual, apos isso verifica se cada posição do residents tem a idade minima selecionada
+
+  return species
+    .filter((pet) => pet.name === animal)
+    .every((bicho, index) => bicho.residents[index].age > age);
 }
 
 function getEmployeeByName(employeeName) {
