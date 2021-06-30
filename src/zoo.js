@@ -1,7 +1,6 @@
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // seu código aqui
   if (ids !== undefined) {
     return data.species.filter((specie) => (ids.includes(specie.id)));
   }
@@ -9,14 +8,12 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   return data.species.find((specie) => (specie
     .name === animal)).residents
     .every((resident) => (resident.age >= age));
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   if (employeeName !== undefined) {
     return data.employees.find((employee) => employee
       .firstName === employeeName || employee
@@ -26,14 +23,12 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
   return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
-  return data.employees.some(callBack => callBack
-    .managers.includes(id));
+  return data.employees.some((callBack) => (callBack
+    .managers.includes(id)));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
