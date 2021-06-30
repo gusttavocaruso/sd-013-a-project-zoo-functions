@@ -6,9 +6,13 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-
+  console.log(animal, age);
+  return species
+    .find((element) => element.name === animal).residents
+    .every((element2) => element2.age > age);
 }
 
+console.log(getAnimalsOlderThan('lions', 7));
 function getEmployeeByName(employeeName) {
   // seu código aqui
 }
