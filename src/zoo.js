@@ -7,8 +7,10 @@ function getSpeciesByIds(...ids) {
   return ids.map((param) => data.species.find((section) => (section.id === param)));
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(specie, age) {
+  const section = data.species.find((block) => block.name === specie);
+  const animals = section.residents.every((animal) => animal.age >= age);
+  return animals;
 }
 
 function getEmployeeByName(employeeName) {
