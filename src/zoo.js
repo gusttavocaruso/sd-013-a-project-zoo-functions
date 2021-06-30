@@ -5,8 +5,10 @@ const data = require('./data');
 // ==========================================================================================================
 
 function getSpeciesByIds(...ids) {
-  return data.species.filter((specie, index) => specie.id === ids[index]);
+  return ids.map((id) => data.species.find((specie) => specie.id === id));
 }
+
+console.log(getSpeciesByIds('78460a91-f4da-4dea-a469-86fd2b8ccc84', '89be95b3-47e4-4c5b-b687-1fabf2afa274'));
 
 // ==========================================================================================================
 // Requisito 2
@@ -52,8 +54,14 @@ function createEmployee(personalInfo, associatedWith) {
 // ==========================================================================================================
 
 function isManager(id) {
-  // seu código aqui
+  const employeeObj = data.employees.find((obj) => obj.id === id);
+
+  return employeeObj;
+
+  // data.employees.some()
 }
+
+console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
