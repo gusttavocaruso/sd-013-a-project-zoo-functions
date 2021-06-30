@@ -87,10 +87,17 @@ function getSchedule(dayName) { // requisito 10
 }
 
 function getOldestFromFirstSpecies(id) { // requisito 11
+  const animalId = employees // Primeiro busca os animais que o funcionário possui sob sua responsabilidade
+    .find(({ id: funcionarioId }) => (
+      funcionarioId === id // procura um funcionario com o id passado no parametro
+    )).responsibleFor[0] // e com isso trazer os animais que são responsáveis.
 
+  const animalMaisVelho = species // Em segundo, com os animais "em mãos" busca o animal em Species e pega o mais velho
+    .find(({ id: funcionarioId }) => (
+      funcionarioId === animalId
+    )).residents.sort(({ age: idadeA }, { age: idadeB }) => idadeB - idadeA)[0] // Faz o sort e pega o primeiro do array criado
+  return Object.values(animalMaisVelho) // retorna o animal mais velho como array
 }
-// console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'))
-// expected = ['Vicky', 'female', 12];
 
 function increasePrices(percentage) { // requisito 12
   const { Adult: precoAdulto, Senior: precoIdoso, Child: precoCrianca } = prices;
