@@ -101,9 +101,34 @@ function increasePrices(percentage) { // requisito 12
   return prices;
 }
 
-function getEmployeeCoverage(idOrName) { // requisito 13
-  // seu código aqui
+
+function validaFuncionario(idOrName) { // requisito 13
+  if (idOrName) { // Se tem a informação
+    return (
+      employees
+        .filter(({ id, firstName, lastName }) => ( // Filtra e desconstroi objeto buscando se o idOrName é id, name ou sobrenome
+          id === idOrName ||
+          firstName === idOrName ||
+          lastName === idOrName
+      ))
+    );
+  }
+  return employees; // retorna informação para a função principal
 }
+
+function getEmployeeCoverage(idOrName) { // requisito 13
+  const novoObjeto = {} // Cria o objeto de retorno
+  const funcionarioFiltrado = validaFuncionario(idOrName)
+  funcionarioFiltrado
+    .forEach(({ firstName, lastName, responsibleFor}) => {
+      novoObjeto[`${firstName} ${lastName}`] = (responsibleFor
+        .map((elemento) => (species // Inicia o mapeamento dos animais
+          .find(({ id }) => id === elemento)).name // Busca o animal conforme id e retorna o nome
+        ));
+    })
+  return novoObjeto
+}
+console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'))
 
 module.exports = {
   calculateEntry,
