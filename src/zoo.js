@@ -101,7 +101,17 @@ function getSchedule(dayName) {
   return objectReturn;
 }
 
-function getOldestFromFirstSpecies(id) {
+function getOldestFromFirstSpecies(idEmployee) {
+  const filtro = data.employees
+    .filter((employeeObject) => employeeObject.id === idEmployee);
+
+  const speciesFilter = data.species
+    .find((animalObject) => animalObject.id === filtro[0].responsibleFor[0]);
+
+  speciesFilter.residents.sort((a, b) => b.age - a.age);
+
+  const { name, sex, age } = speciesFilter.residents[0];
+  return [name, sex, age];
 }
 
 function roundToTwo(num) {
