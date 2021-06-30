@@ -21,11 +21,12 @@ function getEmployeeByName(employeeName) {
     element.firstName === employeeName || element.lastName === employeeName));
   return employeeName === undefined ? {} : employeCheck;
 }
-// console.log(getEmployeeByName('Emery'))
-// console.log(getEmployeeByName())
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  const createInfo = {};
+  Object.assign(createInfo, personalInfo, associatedWith);
+  return createInfo;
 }
 
 function isManager(id) {
