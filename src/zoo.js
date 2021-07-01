@@ -40,8 +40,15 @@ function isManager(id) {
     managers.managers.some((people) => people.includes(id)));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+// REQUISITO 6
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  employees.push({
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    managers: managers,
+    responsibleFor: responsibleFor,
+  });
 }
 
 function countAnimals(specie) {
