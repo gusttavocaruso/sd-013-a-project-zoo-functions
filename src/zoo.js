@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-const { species, employees, prices, hours } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -20,8 +20,8 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const {id, firstName, lastName} = personalInfo;
-  const {managers, responsibleFor} = associatedWith;
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
   return {
     id,
     firstName,
@@ -55,7 +55,7 @@ function countAnimals(animal) {
   }
   return species.find((animals) => animals.name === animal)
     .residents.length;
-} 
+}
 
 function calculateEntry(entrants) {
   if (!entrants) return 0;
@@ -88,10 +88,6 @@ function getSchedule(dayName) {
   object[findDay[0]] = `Open from ${findDay[1].open}am until ${findDay[1].close - 12}pm`;
   return object;
 }
-
-console.log(getSchedule());
-console.log(getSchedule('Monday'));
-  
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
