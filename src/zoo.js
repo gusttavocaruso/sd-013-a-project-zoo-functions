@@ -2,26 +2,23 @@ const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // seu código aqui
   return species.filter((specie) => specie.id === ids[0] || specie.id === ids[1]);
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   return species
     .find((specie) => specie.name === animal).residents
     .every((idade) => idade.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   if (!employeeName) return {};
   return employees
     .find((employe) => employe.firstName === employeeName || employe.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return {...personalInfo, ...associatedWith}
 }
 
 function isManager(id) {
