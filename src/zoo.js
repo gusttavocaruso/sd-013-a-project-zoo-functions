@@ -104,18 +104,36 @@ function getAnimalMap(options) {
       SE: data.species.filter((specie) => (specie.location === 'SE')).map((name) => name.name),
       SW: data.species.filter((specie) => (specie.location === 'SW')).map((name) => name.name),
     };
-
-  
   }
 }
-
-console.log(getAnimalMap());
+// console.log(getAnimalMap());
 
 // ==========================================================================================================
 // Requisito 10
 // ==========================================================================================================
+
+function checarParametro(arrayEntries) {
+  return arrayEntries.reduce((acc, curr) => {
+    if (curr[1].open === 0 && curr[1].close === 0) {
+      acc[curr[0]] = 'CLOSED';
+      return acc;
+    }
+    acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`;
+    return acc;
+  }, {});
+}
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const arrayEntries = Object.entries(data.hours);
+  if (dayName === undefined) return checarParametro(arrayEntries);
+  const day = arrayEntries.find((weekDay) => weekDay[0] === dayName);
+  const object = {};
+  if (dayName === 'Monday') {
+    object[day[0]] = 'CLOSED';
+    return object;
+  }
+  object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+  return object;
 }
 
 // ==========================================================================================================
