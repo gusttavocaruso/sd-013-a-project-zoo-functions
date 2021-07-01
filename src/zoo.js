@@ -26,8 +26,11 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
+  return employees.some((emp) => emp.id === id && emp.managers.includes(stephanieId));
 }
+
+console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
