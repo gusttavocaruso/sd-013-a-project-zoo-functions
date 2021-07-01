@@ -6,16 +6,22 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  console.log(animal, age);
   return species
     .find((element) => element.name === animal).residents
     .every((element2) => element2.age > age);
 }
 
-console.log(getAnimalsOlderThan('lions', 7));
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  const { employees } = data;
+  if (employeeName) {
+    return employees.filter((element) =>
+      element.firstName === employeeName || element.lastName === employeeName).find((m1) => m1);
+  }
+
+  return {};
 }
+
+console.log(getEmployeeByName());
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
