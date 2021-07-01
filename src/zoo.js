@@ -17,8 +17,8 @@ function getEmployeeByName(employeeName) {
   return (!findEmployee) ? {} : findEmployee;
 }
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+function createEmployee({ id, firstName, lastName }, associatedWith) {
+  return { id, firstName, lastName, ...associatedWith };
 }
 
 function isManager(id) {
