@@ -4,6 +4,9 @@ const { species } = data;
 
 const { employees } = data;
 
+const genID = (size) => [...Array(size)].map(
+  () => Math.floor(Math.random() * 16).toString(16),
+).join('');
 function getSpeciesByIds(...ids) {
   return (!ids.length ? [] : species.filter((specie) => ids.includes(specie.id)));
 }
@@ -21,7 +24,12 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const newEmployee = {
+    id: `${genID(9)}-${genID(4)}-${genID(4)}-${genID(4)}-${genID(12)}`,
+    ...personalInfo,
+    ...associatedWith,
+  };
+  return newEmployee;
 }
 
 function isManager(id) {
