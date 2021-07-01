@@ -81,7 +81,6 @@ function getAnimalMap(options) {
   }, {});
   if (!options) {
     return animal;
-    console.log(animal);
   }
 }
 
