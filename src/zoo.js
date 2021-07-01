@@ -7,7 +7,7 @@ function getSpeciesByIds(...ids) {
   return data.species.filter((specie, i) => specie.id === ids[i]);
 }
 
-// Negativo o meu parametro para ele retornar um array vazio.
+// Negativo o parametro para ele retornar um array vazio.
 // Filtro os elementos que possuem id igual ao numero passado no parâmetro.
 
 function getAnimalsOlderThan(animal, age) {
@@ -19,8 +19,15 @@ function getAnimalsOlderThan(animal, age) {
 // Comparo as idades de todos os residentes daquela espécie com a idade mínima dada como parmâmetro.
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) {
+    return {};
+  }
+  return data.employees.find((employee) =>
+    employee.firstName === employeeName || employee.lastName === employeeName);
 }
+
+// Negativo o parâmetro para ele retornar um array vazio.
+// Retorno o primeiro objeto que consta o nome ou sobrenome passados como para
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
