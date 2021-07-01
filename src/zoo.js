@@ -11,18 +11,18 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  if(!employeeName) return {}
-  return employees.find((element) => element.firstName === employeeName || element.lastName === employeeName);
+  if (!employeeName) return {};
+  return employees.find((element) => element.firstName === employeeName 
+  || element.lastName === employeeName);
 }
 
 function createEmployee({id, firstName, lastName}, associatedWith) {
    return {
     id: id,
     firstName: firstName,
-    lastName:lastName,
-    managers:associatedWith.managers,
-    responsibleFor: associatedWith.responsibleFor,
-     
+    lastName: lastName,
+    managers: associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,     
   };
 }
 
@@ -49,25 +49,23 @@ const lastEmployee1 = {
 }
 
 function countAnimals(especies) {  
- if(!especies) {
-  const req7 = {};
-  species.forEach((animal) => {
-    req7[animal.name]=animal.residents.length
- });
-  return req7;
- }
- const findSpecies = species.find((element) => element.name === especies).residents.length;
-   return findSpecies;
+  if (!especies) {
+    const req7 = {};
+    species.forEach((animal) => {
+      req7[animal.name]=animal.residents.length
+    });
+    return req7;
+  }
+  const findSpecies = species.find((element) => element.name === especies).residents.length;
+  return findSpecies;
 }
 
 function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
- const preco = data.prices;
+  const preco = data.prices;
 
- const sum = (preco.Adult * Adult) + (preco.Child * Child) + (preco.Senior * Senior);
- return sum
+  const sum = (preco.Adult * Adult) + (preco.Child * Child) + (preco.Senior * Senior);
+  return sum;
 }
-
-
 
 function getAnimalMap(options) {
   // seu código aqui
