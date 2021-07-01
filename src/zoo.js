@@ -133,7 +133,7 @@ function checkWeekDay(arrayEntries) {
       acc[curr[0]] = 'CLOSED';
       return acc;
     }
-    acc[curr[0]] = `Open from${curr[1].open}am until${curr[1].close - 12}pm`; 
+  acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`; 
     return acc;
   }, {});
 }
@@ -147,7 +147,8 @@ function getSchedule(dayName) {
     returnObject[stringDay[0]] = 'CLOSED';
     return returnObject;
   }
-  returnObject[stringDay[0]] = `Open from ${stringDay[1].open}am until ${stringDay[1].close - 12}pm`;
+  returnObject[stringDay[0]] = `Open from ${stringDay[1].open}am until 
+    ${stringDay[1].close - 12}pm`;
   return returnObject;
 }
 
