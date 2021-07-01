@@ -24,10 +24,8 @@ function createEmployee(personalInfo, associatedWith) {
 function isManager(id) {
   return employees
     .map((employee) => employee.managers)
-    .reduce((acc, current) => {
-      return [...acc,...current]
-    },[])
-    .some((manager) => manager === id)
+    .reduce((acc, current) => { return [...acc, ...current]}, [])
+    .some((manager) => manager === id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
