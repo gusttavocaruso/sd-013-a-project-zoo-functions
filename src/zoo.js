@@ -1,11 +1,16 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if (!ids) {
+    return [];
+  }
+  return data.species.filter((specie, i) => specie.id === ids[i]);
 }
 
+// Negativo o meu parametro para ele retornar um array vazio.
+// Filtro os elementos que possuem id igual ao numero passado no parâmetro.
+
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
 }
 
 function getEmployeeByName(employeeName) {
