@@ -24,15 +24,30 @@ function createEmployee({id, firstName, lastName}, associatedWith) {
     responsibleFor: associatedWith.responsibleFor,
      
   };
-
 }
 
-function isManager(id) {
-  return employees.some((gerente) => gerente.managers === id)
-}
+function isManager(id) {  
+  let ret = false;
+  data.employees.forEach((i) => {
+     i.managers.forEach((a) => {
+    if (a === id ) ret = true;
+  });
+});
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+   return ret;
+  }  
+
+  
+
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = [])  {
+const lastEmployee1 = {
+   id: id,
+   firstName: firstName,
+   lastName: lastName,
+   managers: managers,
+   responsibleFor:responsibleFor
+ }
+ data.employees.push(lastEmployee1) 
 }
 
 function countAnimals() {
