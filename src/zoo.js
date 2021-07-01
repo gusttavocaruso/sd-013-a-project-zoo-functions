@@ -62,20 +62,22 @@ function calculateEntry(entrants) { // requisito 08
 
 const localiza = () => species // requisito 09 - Função suporte - Localiza Animais
   .map(({ location }) => location)
-  .reduce((acumulador, location) => {
-    if (acumulador[location] === undefined) acumulador[location] = [];
-    return acumulador;
+  .reduce((acc, location) => {
+    if (acc[location] === undefined) {
+      acc[location] = [];
+    }
+    return acc;
   }, {});
 
-const sortAnimais = residents => (residents // requisito 09 - Função suporte
-  .map(resident => resident.name)
+const sortAnimais = (residents) => (residents // requisito 09 - Função suporte
+  .map((resident) => resident.name)
   .sort()
 );
 
 const sexoDosAnimais = (residents, sex) => // requisito 09 - Função suporte - Pega o sexo dos animais
-residents
-  .filter(resident => resident.sex === sex)
-  .map(resident => resident.name);
+  residents
+    .filter((resident) => resident.sex === sex)
+    .map((resident) => resident.name);
 
 const addNomes = (localDosAnimais, sorted, sex) => { // requisito 09 - Função suporte
   species
@@ -89,7 +91,7 @@ const addNomes = (localDosAnimais, sorted, sex) => { // requisito 09 - Função 
         localDosAnimais[location].push(animalObj);
       } else {
         animalObj[name] = residents
-          .map(resident => resident.name);
+          .map((resident) => resident.name);
         localDosAnimais[location].push(animalObj);
       }
     });
