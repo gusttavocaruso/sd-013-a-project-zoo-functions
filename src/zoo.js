@@ -1,9 +1,9 @@
-const {species, employees, hours, prices} = require('./data');
+const { species: speciesData } = require('./data');
 
 function getSpeciesByIds(...ids) {
-  let arraySpeciesById = [];
-  ids.forEach( id => {
-    const specieById = species.find((specie) => specie.id === id);
+  const arraySpeciesById = [];
+  ids.forEach((id) => {
+    const specieById = speciesData.find((specie) => specie.id === id);
     arraySpeciesById.push(specieById);
   });
   return arraySpeciesById;
