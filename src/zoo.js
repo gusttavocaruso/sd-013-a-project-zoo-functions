@@ -11,7 +11,12 @@ function getSpeciesByIds(...ids) {
 // Filtro os elementos que possuem id igual ao numero passado no parâmetro.
 
 function getAnimalsOlderThan(animal, age) {
+  const residentsSpecie = data.species.find((specie) => specie.name === animal).residents;
+  return residentsSpecie.every((resident) => resident.age > age);
 }
+
+// Eu quero que retorne a chave residents do primeiro animal dado como parâmetro (por isso o find).
+// Comparo as idades de todos os residentes daquela espécie com a idade mínima dada como parmâmetro.
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
