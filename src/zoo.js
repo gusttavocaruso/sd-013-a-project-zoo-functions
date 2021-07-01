@@ -2,6 +2,7 @@ const { species } = require('./data');
 const { employees } = require('./data');
 const data = require('./data');
 // console.log(employees);
+// console.log(species);
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
@@ -47,6 +48,12 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(species2) {
   // seu código aqui
+  const animalList = {};
+  species.forEach(({ name, residents }) => {
+    animalList[name] = residents.length;
+  });
+  const animalUnique = species.find((element) => element.name === species2);
+  return species2 === undefined ? animalList : animalUnique.residents.length;
 }
 
 function calculateEntry(entrants) {
