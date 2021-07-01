@@ -17,15 +17,33 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const specieQueQuero = data.species.find((specie) => specie.name === animal);
+
+  return specieQueQuero.residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  // o que usar? usar find ou filter
+  // onde vamos usar? data.employees
+  if (!employeeName) {
+    return {};
+  }
+
+  const employee = data.employees.find((e) => (
+    e.firstName === employeeName || e.lastName === employeeName
+  ));
+
+  return employee;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  // nem tudo é filter/map/find/reduce, essas coisas usamos com arrays.
+  const newEmployee = {
+    ...personalInfo,
+    ...associatedWith,
+  };
+
+  return newEmployee;
 }
 
 function isManager(id) {
@@ -45,7 +63,9 @@ function calculateEntry(entrants) {
     return 0;
   }
   const { Adult = 0, Child = 0, Senior = 0 } = entrants;
-  const priceTotal = (Adult * data.prices.Adult) + (Child * data.prices.Child) + (Senior * data.prices.Senior);
+  const priceTotal = (Adult * data.prices.Adult)
+    + (Child * data.prices.Child)
+    + (Senior * data.prices.Senior);
   return priceTotal;
 }
 
@@ -54,7 +74,7 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+
 }
 
 function getOldestFromFirstSpecies(id) {
