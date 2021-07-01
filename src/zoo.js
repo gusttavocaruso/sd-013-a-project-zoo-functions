@@ -18,18 +18,23 @@ function getEmployeeByName(employeeName = {}) {
   return employees.find((employee = {}) =>
     employee.firstName === employeeName || employee.lastName === employeeName);
 }
-console.log(getEmployeeByName());
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+function createEmployee({ id, firstName, lastName }, { managers, responsibleFor }) {
+  return { id, firstName, lastName, managers, responsibleFor };
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees.some((employee) => employee.managers.some((manager) => manager === id));
 }
-
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return data.employees.push(newEmployee);
 }
 
 function countAnimals(species) {
