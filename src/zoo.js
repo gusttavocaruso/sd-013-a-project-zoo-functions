@@ -1,5 +1,4 @@
 const { species, employees } = require('./data');
-const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter((specie, idx) =>
