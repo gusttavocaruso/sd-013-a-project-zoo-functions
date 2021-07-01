@@ -84,7 +84,6 @@ function countAnimals(species) {
 // ==========================================================================================================
 function calculateEntry(entrants) {
   if (entrants === undefined) return 0;
-  if (Object.values(entrants).length === 0) return 0;
 
   const { Adult = 0, Child = 0, Senior = 0 } = entrants;
 
@@ -105,6 +104,8 @@ function getAnimalMap(options) {
       SE: data.species.filter((specie) => (specie.location === 'SE')).map((name) => name.name),
       SW: data.species.filter((specie) => (specie.location === 'SW')).map((name) => name.name),
     };
+
+  
   }
 }
 
