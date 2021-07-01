@@ -1,4 +1,4 @@
-const { species, employees, prices, hours} = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 // ===========================
@@ -128,13 +128,13 @@ function getAnimalMap(options) {
 // ===========================
 
 function checkWeekDay(arrayEntries) {
-  return arrayEntries.reduce((accumulator, currentValue) => {
-    if (currentValue[1].open === 0 && currentValue[1].close === 0) {
-      accumulator[currentValue[0]] = 'CLOSED';
-      return accumulator;
+  return arrayEntries.reduce((acc, curr) => {
+    if (curr[1].open === 0 && curr[1].close === 0) {
+      acc[curr[0]] = 'CLOSED';
+      return acc;
     }
-    accumulator[currentValue[0]] = `Open from ${currentValue[1].open}am until ${currentValue[1].close - 12}pm`; 
-    return accumulator;
+    acc[curr[0]] = `Open from${curr[1].open}am until${curr[1].close - 12}pm`; 
+    return acc;
   }, {});
 }
 
