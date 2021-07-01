@@ -1,4 +1,5 @@
 const data = require('./data');
+const { employees } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const result = [];
@@ -45,8 +46,8 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   if (entrants === undefined) return 0;
-  const { Adult: adultPrice, Senior: seniorPrice, Child: childPrice } = data.prices;
   const { Adult: adult, Senior: senior, Child: child } = entrants;
+  const { Adult: adultPrice, Senior: seniorPrice, Child: childPrice } = data.prices;
   let total = 0;
   if (adult) {
     total += adultPrice * adult;
@@ -61,16 +62,47 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-
+  // const result = data.species.map((specie) => {
+  //   let animals = data.species.filter((animal) => animal.location === specie.location)
+  //   animals = animals.map((animal) => animal.name);
+  //   return {`${specie.location}`: `${animals}`};
+  // });
 }
 
+// USAR Keys
+const scheduleWithoutParameter = (weekDays) => {
+  const schedule = {};
+  weekDays.forEach((day) => {
+    if (day[0] === 'Monday') {
+      schedule[day[0]] = 'CLOSED';
+    } else {
+      schedule[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+    }
+  });
+  return schedule;
+};
+
 function getSchedule(dayName) {
-  // seu código aqui
+  let schedule = {};
+  const weekDays = Object.entries(data.hours);
+  if (!dayName) {
+    return scheduleWithoutParameter(weekDays);
+  }
+
+  schedule = weekDays.find((day) => day[0] === dayName);
+  if (schedule[0] === 'Monday') return { [schedule[0]]: 'CLOSED' };
+  const phrase = `Open from ${[schedule[1].open]}am until ${[schedule[1].close] - 12}pm`;
+  return { [schedule[0]]: phrase };
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const animalId = employees.find((employee) => employee.id === id).responsibleFor[0];
+  const animals = data.species.find((specie) => specie.id === animalId).residents;
+  animals.sort((a, b) => b.age - a.age);
+  const { name, sex, age } = animals[0];
+  return [name, sex, age];
 }
+console.log(getOldestFromFirstSpecies('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 
 function increasePrices(percentage) {
   // seu código aqui
