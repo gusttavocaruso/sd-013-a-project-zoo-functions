@@ -66,14 +66,37 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   // seu código aqui
+  const dias = Object.keys(data.hours);
+  return dias.reduce((acc, current, index) => {
+    if (current === 'Monday') {
+      acc[current] = 'CLOSED';
+    } else {
+      acc[current] = `Open from ${data.hours[current].open}am until ${data.hours[current].close}pm`;
+    }
+    return acc;
+  }, {});
 }
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const result = [];
+  const employee = data.employees.find((element) => element.id === id);
+  const specie = data.species.find((element) => element.id === employee.responsibleFor[0]);
+  const oldAnimal = specie.residents.reduce((acc, current) => {
+    if (current.age >= acc.age) return current;
+    return acc;
+  });
+  result.push(oldAnimal.name);
+  result.push(oldAnimal.sex);
+  result.push(oldAnimal.age);
+  return result;
 }
 
 function increasePrices(percentage) {
   // seu código aqui
+  data.prices.Adult += (data.prices.Adult * percentage) / 100;
+  data.prices.Senior += (data.prices.Senior * percentage) / 100;
+  data.prices.Child += (data.prices.Child * percentage) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
