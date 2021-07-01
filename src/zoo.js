@@ -133,7 +133,7 @@ function checkWeekDay(arrayEntries) {
       acc[curr[0]] = 'CLOSED';
       return acc;
     }
-  acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`; 
+    acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`;
     return acc;
   }, {});
 }
