@@ -59,11 +59,29 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  // return `Open from ${Tuesday.open}am until ${Tuesday.close - 12}pm`;
+  const diasSemana = {};
+  const keys = Object.keys(data.hours);
+  const Values = Object.values(data.hours);
+
+  keys.forEach((key, index) => {
+    if (key === 'Monday') {
+      diasSemana[key] = 'CLOSED';
+    } else {
+      diasSemana[key] = `Open from ${Values[index].open}am until ${Values[index].close - 12}pm`;
+    }
+  });
+
+  return diasSemana;
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const idSpecie = data.employees.find((employee) => employee.id === id).responsibleFor
+    .find((respFor) => respFor);
+
+  return data.species.find((specie) => specie.id === idSpecie).residents
+    .sort((a, b) => b.age - a.age).map((resident) => Object.keys(resident)
+      .map((key) => resident[key]))[0];
 }
 
 function increasePrices(percentage) {
