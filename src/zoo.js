@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -35,9 +35,7 @@ function isManager(id) {
 });
 
    return ret;
-  }  
-
-  
+  }    
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = [])  {
 const lastEmployee1 = {
@@ -50,13 +48,26 @@ const lastEmployee1 = {
  data.employees.push(lastEmployee1) 
 }
 
-function countAnimals() {
-  // seu código aqui species
+function countAnimals(especies) {  
+ if(!especies) {
+  const req7 = {};
+  species.forEach((animal) => {
+    req7[animal.name]=animal.residents.length
+ });
+  return req7;
+ }
+ const findSpecies = species.find((element) => element.name === especies).residents.length;
+   return findSpecies;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
+ const preco = data.prices;
+
+ const sum = (preco.Adult * Adult) + (preco.Child * Child) + (preco.Senior * Senior);
+ return sum
 }
+
+
 
 function getAnimalMap(options) {
   // seu código aqui
