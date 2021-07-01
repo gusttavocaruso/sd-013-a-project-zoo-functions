@@ -3,10 +3,10 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   const control = [];
   if (ids) {
-    data.species.forEach((elements) => {
-      ids.forEach((params) => {
-        if (elements.id === params) {
-          control.push(elements);
+    data.species.forEach((arrayObjects) => {
+      ids.forEach((sentIds) => {
+        if (arrayObjects.id === sentIds) {
+          control.push(arrayObjects);
         }
       });
     });
@@ -15,7 +15,17 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  let control = true;
+  data.species.forEach((animals) => {
+    if (animals.name === animal) {
+      animals.residents.forEach((resident) => {
+        if (resident.age < age) {
+          control = false;
+        }
+      });
+    }
+  });
+  return control;
 }
 
 function getEmployeeByName(employeeName) {
