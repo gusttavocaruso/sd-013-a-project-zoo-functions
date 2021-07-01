@@ -80,6 +80,7 @@ function getOldestFromFirstSpecies(id) {
     (older.age < curr.age ? curr : older));
   return [name, sex, age];
 }
+
 /* https://www.delftstack.com/howto/javascript/javascript-round-to-2-decimal-places/
 Fonte consultada para arredondar os digitos decimais sem falhas */
 function increasePrices(percentage) {
@@ -95,7 +96,22 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let objOut = {};
+  let value;
+  employees.forEach((item) => {
+    value = item.responsibleFor
+      .map((idAnimal) => species.filter((specie) => specie.id === idAnimal))
+      .map((array) => array[0].name);
+    objOut[`${item.firstName} ${item.lastName}`] = value;
+  });
+  if (!idOrName) return objOut;
+  const findEmployee = employees.filter((employee) =>
+    employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+  const employee = `${findEmployee[0].firstName} ${findEmployee[0].lastName}`;
+  const animals = objOut[employee];
+  objOut = {};
+  objOut[employee] = animals;
+  return objOut;
 }
 
 module.exports = {
