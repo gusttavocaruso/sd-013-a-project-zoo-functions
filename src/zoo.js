@@ -47,10 +47,11 @@ function countAnimals(species) {
   return data.species.find((specie) => specie.name === species).residents.length;
 }
 
-console.log(countAnimals());
-
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || entrants === {}) return 0;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const { Adult: adultoZoo, Child: criancaZoo, Senior: senhorZoo } = data.prices;
+  return (Adult * adultoZoo) + (Child * criancaZoo) + (Senior * senhorZoo);
 }
 
 function getAnimalMap(options) {
