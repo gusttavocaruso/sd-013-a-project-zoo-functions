@@ -79,8 +79,8 @@ function countAnimals(species) {
 function calculateEntry(entrants) {
   if (!entrants) return 0;
 
-  const { prices } = data;
-  const { Adult, Senior, Child } = prices;
+  const { prices: { Adult, Senior, Child } } = data;
+  // const { Adult, Senior, Child } = prices;
   let total = 0;
 
   if (entrants.Adult) total += entrants.Adult * Adult;
@@ -207,21 +207,15 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   const { prices } = data;
-  const newPrices = Object.entries(prices).reduce((acc, currentPrice) => {
+  Object.entries(prices).reduce((acc, currentPrice) => {
     const [key, price] = currentPrice;
-    acc[key] = Number((price + Math.round(price * percentage) / 100).toFixed(2));
+    prices[key] = Number((price + Math.round(price * percentage) / 100).toFixed(2));
     return acc;
   }, {});
-  console.log(newPrices);
-  // const inPercentage = percentage / 100;
-  // console.log(Math.round(prices.Adult * percentage) / 100);
-  // prices.Adult += Math.round(prices.Adult * percentage) / 100;
-  // prices.Senior += prices.Senior * inPercentage;
-  // prices.Child += prices.Child * inPercentage;
-  // console.log((prices.Adult).toFixed(2));
+  return prices;
 }
 
-increasePrices(50);
+// console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
