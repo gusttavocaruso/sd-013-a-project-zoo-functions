@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -83,10 +82,6 @@ function calculateEntry(entrants) {
   const { prices } = data;
   const { Adult, Senior, Child } = prices;
   let total = 0;
-  // const total = prices.reduce((acc, entrant) => {
-  //   console.log(entrant);
-  //   return acc;
-  // }, 0);
 
   if (entrants.Adult) total += entrants.Adult * Adult;
   if (entrants.Senior) total += entrants.Senior * Senior;
@@ -95,77 +90,79 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap(options) {
-  const { species } = data;
+function getAnimalMapByLocation(species) {
+  const speciesByLocation = species.reduce((acc, specie) => {
+    const { name, location } = specie;
 
-  if (!options) {
-    const speciesByLocation = species.reduce((acc, specie) => {
-      const { name, location } = specie;
+    if (!acc[location]) acc[location] = [];
 
-      if (!acc[location]) {
-        acc[location] = [name];
-      } else {
-        acc[location].push(name);
-      }
+    acc[location].push(name);
 
-      return acc;
-    }, {});
-    console.log(speciesByLocation);
-    return speciesByLocation;
-  }
-
-  const animalList = {};
-  const { includeNames } = options;
-
-  if (includeNames) {
-    const speciesWithNames = species.reduce((acc, specie) => {
-      const { name, location, residents } = specie;
-
-      if (!acc[location]) {
-        acc[location] = [];
-      }
-
-      acc[location][name] = [];
-
-      residents.forEach((resident) => {
-        acc[location][name] = [...acc[location][name], resident.name];
-      });
-
-      console.log(acc);
-
-      /*
-      {
-      NE: [
-        { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
-        { giraffes: ['Gracia', 'Antone', 'Vicky', 'Clay', 'Arron', 'Bernard'] }
-      ],
-      NW: [
-        { tigers: ['Shu', 'Esther'] },
-        { bears: ['Hiram', 'Edwardo', 'Milan'] },
-        { elephants: ['Ilana', 'Orval', 'Bea', 'Jefferson'] }
-      ],
-      SE: [
-        { penguins: ['Joe', 'Tad', 'Keri', 'Nicholas'] },
-        { otters: ['Neville', 'Lloyd', 'Mercedes', 'Margherita'] }
-      ],
-      SW: [
-        { frogs: ['Cathey', 'Annice'] },
-        { snakes: ['Paulette', 'Bill'] }
-      ]
-    }
-      */
-
-      return acc;
-    }, {});
-    console.log(speciesWithNames);
-    return speciesWithNames;
-  }
-
-  console.log('chegou aqui');
-  return animalList;
+    return acc;
+  }, {});
+  // console.log(speciesByLocation);
+  return speciesByLocation;
 }
 
-getAnimalMap({ includeNames: true });
+function filterAnimalNamesBySex(residents, sex) {
+  const filteredAnimals = residents.filter((resident) => resident.sex === sex);
+  const animalsWithSelectedSex = filteredAnimals.map((filteredAnimal) => filteredAnimal.name);
+
+  return animalsWithSelectedSex;
+}
+
+function getAnimalMapWithNames(species, sorted, sex) {
+  const speciesWithNames = species.reduce((acc, specie) => {
+    const { name, location, residents } = specie;
+
+    if (!acc[location]) acc[location] = [];
+
+    const AnimalNamesList = {};
+    AnimalNamesList[name] = residents.map((resident) => resident.name);
+
+    if (sex) AnimalNamesList[name] = filterAnimalNamesBySex(residents, sex);
+    if (sorted) AnimalNamesList[name].sort();
+
+    acc[location].push(AnimalNamesList);
+
+    return acc;
+  }, {});
+  // console.log(speciesWithNames);
+  return speciesWithNames;
+}
+
+// function getAnimalMapBySex(species, sorted) {
+//   const speciesWithNames = species.reduce((acc, specie) => {
+//     const { name, location, residents } = specie;
+
+//     if (!acc[location]) acc[location] = [];
+
+//     const AnimalNamesList = {};
+//     AnimalNamesList[name] = residents.map((resident) => resident.name);
+
+//     if (sorted) AnimalNamesList[name].sort();
+
+//     acc[location].push(AnimalNamesList);
+
+//     return acc;
+//   }, {});
+//   // console.log(speciesWithNames);
+//   return speciesWithNames;
+// }
+
+function getAnimalMap(options = { includeNames: false }) {
+  const { species } = data;
+  let animalList = {};
+
+  if (!options || !options.includeNames) {
+    animalList = getAnimalMapByLocation(species);
+  } else {
+    const { sorted, sex } = options;
+    animalList = getAnimalMapWithNames(species, sorted, sex);
+  }
+
+  return animalList;
+}
 
 function getSchedule(dayName) {
   // seu código aqui
