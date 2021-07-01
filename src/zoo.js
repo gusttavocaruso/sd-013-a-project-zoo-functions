@@ -1,5 +1,5 @@
 const { species, employees, prices, hours } = require('./data');
-// const data = require('./data');
+const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter((itemDoArray) => ids.includes(itemDoArray.id) === true);
@@ -69,75 +69,8 @@ function calculateEntry(entrants = 0) {
   return result;
 }
 
-// source: https://stackoverflow.com/questions/15125920/how-to-get-distinct-values-from-an-array-of-objects-in-javascript
-// Para um array de todas as locations (sem valores duplicados)
-const getAllLocationsUnique = () => species
-  .map((item) => item.location)
-  .filter((value, index, array) => array.indexOf(value) === index);
-
-const getSpeciesByLocation = (strLocation) => species
-  .filter(({ location }) => location === strLocation)
-  .map(({ name }) => name);
-
-const getArrayResidentsBySpecieAndLocation = (specie, local) => {
-  const outputUntillResidents = species
-    .filter(({ name, location }) => name === specie && location === local)
-    .map(({ residents }) => residents);
-  return outputUntillResidents;
-};
-
-const fillNames = (specie, strLocation, strSex) => {
-  const baseArray = getArrayResidentsBySpecieAndLocation(specie, strLocation);
-  if (strSex === 'male' || strSex === 'female') {
-    const outputWithNamesBySex = baseArray[0]
-      .filter(({ name, sex }) => name && sex === strSex)
-      .map(({ name }) => name);
-    return outputWithNamesBySex;
-  }
-  const outputAllNames = baseArray[0].map(({ name }) => name);
-  return outputAllNames;
-};
-
-const getResidentNameByLocation = (strLocation, strSex, arrayBySpeciesOfLocation) => {
-  const outputTypeArray = [];
-  const output = {};
-  arrayBySpeciesOfLocation.forEach((specie) => {
-    output[specie] = fillNames(specie, strLocation, strSex);
-  });
-  outputTypeArray.push(output);
-  return outputTypeArray;
-};
-
-const getOutputDefault = () => {
-  const output = {};
-  const arrayOfUniqueLocations = getAllLocationsUnique();
-  arrayOfUniqueLocations.forEach((locationUnique) => {
-    output[locationUnique] = getSpeciesByLocation(locationUnique);
-  });
-  return output;
-};
-
-const getOutputWithNames = (strSex) => {
-  const output = {};
-  const outputDefault = getOutputDefault();
-  Object.keys(outputDefault).forEach((location) => {
-    const arrayBySpecieLocation = Object.values(outputDefault[location]);
-    console.log(arrayBySpecieLocation);
-    output[location] = getResidentNameByLocation(location, strSex, arrayBySpecieLocation);
-  });
-  return output;
-};
-
-function getAnimalMap(options = 0) {
-  const { includeNames = 0, sorted = 0, sex = 0 } = options;
-
-  if (includeNames === 0 || includeNames === false) {
-    const outputDefault = getOutputDefault();
-    return outputDefault;
-  }
-  const outputWithNames = getOutputWithNames(sex);
-  if (sorted === true) return outputWithNames.sort();
-  return outputWithNames;
+function getAnimalMap(options) {
+  // Escreva seu código aqui...
 }
 
 function getSchedule(dayName = 0) {
@@ -155,8 +88,18 @@ function getSchedule(dayName = 0) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee = employees.find((item) => item.id === id);
+  const idFromFirstSpecie = employee.responsibleFor[0];
+  const arrayOfFirstSpecie = species.filter((item) => item.id === idFromFirstSpecie)
+    .map(({ residents }) => residents);
+
+  const maxAge = arrayOfFirstSpecie[0].reduce((acc, curr) => (acc > curr.age ? acc : curr.age), 0);
+  const itemRefToTheOldestAnimal = arrayOfFirstSpecie[0].find((item) => item.age === maxAge);
+  const { name, sex, age } = itemRefToTheOldestAnimal;
+  return [name, sex, age];
 }
+
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
@@ -165,3 +108,19 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
+
+module.exports = {
+  calculateEntry,
+  getSchedule,
+  countAnimals,
+  getAnimalMap,
+  getSpeciesByIds,
+  getEmployeeByName,
+  getEmployeeCoverage,
+  addEmployee,
+  isManager,
+  getAnimalsOlderThan,
+  getOldestFromFirstSpecies,
+  increasePrices,
+  createEmployee,
+};
