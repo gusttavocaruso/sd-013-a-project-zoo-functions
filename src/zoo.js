@@ -69,9 +69,33 @@ function calculateEntry(entrants = 0) {
   return result;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getAnimalMap(options = 0) {
+  console.log(options);
+  const { includeNames = 0, sorted = 0, sex = 0 } = options;
+  const output = {};
+  // source: https://stackoverflow.com/questions/15125920/how-to-get-distinct-values-from-an-array-of-objects-in-javascript
+  // Para um array de todas as locations (sem valores duplicados)
+  const allLocations = species
+    .map((item) => item.location)
+    .filter((value, index, array) => array.indexOf(value) === index);
+  // Se parametros vazio
+  if (includeNames === 0 && sorted === 0 && sex === 0) {
+    allLocations.forEach((locationUnique) => {
+      output[locationUnique] = species
+        .filter(({ location }) => location === locationUnique)
+        .map(({ name }) => name);
+    });
+    return output;
+  }
 }
+
+const allLocations = species
+  .map((item) => item.location)
+  .filter((value, index, array) => array.indexOf(value) === index);
+
+console.log(allLocations);
+
+console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   // seu código aqui
