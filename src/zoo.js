@@ -131,25 +131,6 @@ function getAnimalMapWithNames(species, sorted, sex) {
   return speciesWithNames;
 }
 
-// function getAnimalMapBySex(species, sorted) {
-//   const speciesWithNames = species.reduce((acc, specie) => {
-//     const { name, location, residents } = specie;
-
-//     if (!acc[location]) acc[location] = [];
-
-//     const AnimalNamesList = {};
-//     AnimalNamesList[name] = residents.map((resident) => resident.name);
-
-//     if (sorted) AnimalNamesList[name].sort();
-
-//     acc[location].push(AnimalNamesList);
-
-//     return acc;
-//   }, {});
-//   // console.log(speciesWithNames);
-//   return speciesWithNames;
-// }
-
 function getAnimalMap(options = { includeNames: false }) {
   const { species } = data;
   let animalList = {};
@@ -164,9 +145,49 @@ function getAnimalMap(options = { includeNames: false }) {
   return animalList;
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
+function getScheduleOfWeek(hours) {
+  const schedule = Object.entries(hours);
+
+  const organizedSchedule = schedule.reduce((acc, currentDay) => {
+    const [weekday, hour] = currentDay;
+    acc[weekday] = `Open from ${hour.open}am until ${hour.close - 12}pm`;
+
+    if (hour.open === 0 && hour.close === 0) {
+      acc[weekday] = 'CLOSED';
+    }
+    return acc;
+  }, {});
+
+  return organizedSchedule;
 }
+
+function getScheduleOfDay(hours, dayName) {
+  const { open, close } = hours[dayName];
+  const scheduleOfDay = {};
+
+  scheduleOfDay[dayName] = `Open from ${open}am until ${close - 12}pm`;
+  if (open === 0 && close === 0) {
+    scheduleOfDay[dayName] = 'CLOSED';
+  }
+
+  return scheduleOfDay;
+}
+
+function getSchedule(dayName) {
+  const { hours } = data;
+  let organizedSchedule;
+
+  if (!dayName) {
+    organizedSchedule = getScheduleOfWeek(hours);
+  } else {
+    organizedSchedule = getScheduleOfDay(hours, dayName);
+  }
+
+  return organizedSchedule;
+}
+
+// getSchedule();
+getSchedule('Monday');
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
