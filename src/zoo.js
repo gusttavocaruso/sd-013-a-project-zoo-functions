@@ -1,12 +1,7 @@
 const { species: speciesData } = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const arraySpeciesById = [];
-  ids.forEach((id) => {
-    const specieById = speciesData.find((specie) => specie.id === id);
-    arraySpeciesById.push(specieById);
-  });
-  return arraySpeciesById;
+  return ids.map((id) => speciesData.find((specie) => specie.id === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
