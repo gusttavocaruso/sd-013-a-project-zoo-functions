@@ -80,27 +80,60 @@ function countAnimals(species) {
 }
 
 // ==========================================================================================================
-
+// Requisito 8
+// ==========================================================================================================
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined) return 0;
+  if (Object.values(entrants).length === 0) return 0;
+
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+
+  const priceTotal = (Adult * data.prices.Adult) + (Child * data.prices.Child)
+  + (Senior * data.prices.Senior);
+
+  return priceTotal;
 }
 
+// ==========================================================================================================
+// Requisito 9
+// ==========================================================================================================
 function getAnimalMap(options) {
-  // seu código aqui
+  if (options === undefined) {
+    return {
+      NE: data.species.filter((specie) => (specie.location === 'NE')).map((name) => name.name),
+      NW: data.species.filter((specie) => (specie.location === 'NW')).map((name) => name.name),
+      SE: data.species.filter((specie) => (specie.location === 'SE')).map((name) => name.name),
+      SW: data.species.filter((specie) => (specie.location === 'SW')).map((name) => name.name),
+    };
+  }
 }
 
+console.log(getAnimalMap());
+
+// ==========================================================================================================
+// Requisito 10
+// ==========================================================================================================
 function getSchedule(dayName) {
   // seu código aqui
 }
 
+// ==========================================================================================================
+// Requisito 11
+// ==========================================================================================================
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
+// ==========================================================================================================
+// Requisito 12
+// ==========================================================================================================
 function increasePrices(percentage) {
   // seu código aqui
 }
 
+// ==========================================================================================================
+// Requisito 13
+// ==========================================================================================================
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
