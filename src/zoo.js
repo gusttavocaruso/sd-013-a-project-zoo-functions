@@ -64,22 +64,24 @@ function calculateEntry(entrants) {
   if (!entrants) {
     return 0;
   }
-  const preco = prices;
+  const preco = data.prices;
   const { Adult = 0, Child = 0, Senior = 0 } = entrants;
   const sum = (preco.Adult * Adult) + (preco.Child * Child) + (preco.Senior * Senior);
   return sum;
 }
 
 function getAnimalMap(options) {
+  const animal = species.reduce((acc, currentValue) => {
+    if (acc[currentValue.location]) {
+      acc[currentValue.location].push(currentValue.name);
+    } else {
+      acc[currentValue.location] = [currentValue.name];
+    }
+    return acc;
+  }, {});
   if (!options) {
-    return species.reduce((acc, currentValue) => {
-      if (acc[currentValue.location]) {
-        acc[currentValue.location].push(currentValue.name);
-      } else {
-        acc[currentValue.location] = [currentValue.name];
-      }
-      return acc;
-    }, {});
+    return animal;
+    console.log(animal);
   }
 }
 
@@ -92,7 +94,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const param = (percentage / 100) + 1;
+  const valorEntrada = prices;
+  Object.keys(valorEntrada).forEach((i) => {
+    valorEntrada[i] = Math.round((valorEntrada[i] * param * 100)) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
