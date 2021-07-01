@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 // const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -69,36 +69,89 @@ function calculateEntry(entrants = 0) {
   return result;
 }
 
-function getAnimalMap(options = 0) {
-  console.log(options);
-  const { includeNames = 0, sorted = 0, sex = 0 } = options;
-  const output = {};
-  // source: https://stackoverflow.com/questions/15125920/how-to-get-distinct-values-from-an-array-of-objects-in-javascript
-  // Para um array de todas as locations (sem valores duplicados)
-  const allLocations = species
-    .map((item) => item.location)
-    .filter((value, index, array) => array.indexOf(value) === index);
-  // Se parametros vazio
-  if (includeNames === 0 && sorted === 0 && sex === 0) {
-    allLocations.forEach((locationUnique) => {
-      output[locationUnique] = species
-        .filter(({ location }) => location === locationUnique)
-        .map(({ name }) => name);
-    });
-    return output;
-  }
-}
-
-const allLocations = species
+// source: https://stackoverflow.com/questions/15125920/how-to-get-distinct-values-from-an-array-of-objects-in-javascript
+// Para um array de todas as locations (sem valores duplicados)
+const getAllLocationsUnique = () => species
   .map((item) => item.location)
   .filter((value, index, array) => array.indexOf(value) === index);
 
-console.log(allLocations);
+const getSpeciesByLocation = (strLocation) => species
+  .filter(({ location }) => location === strLocation)
+  .map(({ name }) => name);
 
-console.log(getAnimalMap());
+const getArrayResidentsBySpecieAndLocation = (specie, local) => {
+  const outputUntillResidents = species
+    .filter(({ name, location }) => name === specie && location === local)
+    .map(({ residents }) => residents);
+  return outputUntillResidents;
+};
 
-function getSchedule(dayName) {
-  // seu código aqui
+const fillNames = (specie, strLocation, strSex) => {
+  const baseArray = getArrayResidentsBySpecieAndLocation(specie, strLocation);
+  if (strSex === 'male' || strSex === 'female') {
+    const outputWithNamesBySex = baseArray[0]
+      .filter(({ name, sex }) => name && sex === strSex)
+      .map(({ name }) => name);
+    return outputWithNamesBySex;
+  }
+  const outputAllNames = baseArray[0].map(({ name }) => name);
+  return outputAllNames;
+};
+
+const getResidentNameByLocation = (strLocation, strSex, arrayBySpeciesOfLocation) => {
+  const outputTypeArray = [];
+  const output = {};
+  arrayBySpeciesOfLocation.forEach((specie) => {
+    output[specie] = fillNames(specie, strLocation, strSex);
+  });
+  outputTypeArray.push(output);
+  return outputTypeArray;
+};
+
+const getOutputDefault = () => {
+  const output = {};
+  const arrayOfUniqueLocations = getAllLocationsUnique();
+  arrayOfUniqueLocations.forEach((locationUnique) => {
+    output[locationUnique] = getSpeciesByLocation(locationUnique);
+  });
+  return output;
+};
+
+const getOutputWithNames = (strSex) => {
+  const output = {};
+  const outputDefault = getOutputDefault();
+  Object.keys(outputDefault).forEach((location) => {
+    const arrayBySpecieLocation = Object.values(outputDefault[location]);
+    console.log(arrayBySpecieLocation);
+    output[location] = getResidentNameByLocation(location, strSex, arrayBySpecieLocation);
+  });
+  return output;
+};
+
+function getAnimalMap(options = 0) {
+  const { includeNames = 0, sorted = 0, sex = 0 } = options;
+
+  if (includeNames === 0 || includeNames === false) {
+    const outputDefault = getOutputDefault();
+    return outputDefault;
+  }
+  const outputWithNames = getOutputWithNames(sex);
+  if (sorted === true) return outputWithNames.sort();
+  return outputWithNames;
+}
+
+function getSchedule(dayName = 0) {
+  const output = {};
+  if (dayName === 0) {
+    Object.keys(hours).forEach((key) => {
+      output[key] = key === 'Monday' ? 'CLOSED'
+        : `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
+    });
+    return output;
+  }
+  output[dayName] = dayName === 'Monday' ? 'CLOSED'
+    : `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
+  return output;
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -112,19 +165,3 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
-
-module.exports = {
-  calculateEntry,
-  getSchedule,
-  countAnimals,
-  getAnimalMap,
-  getSpeciesByIds,
-  getEmployeeByName,
-  getEmployeeCoverage,
-  addEmployee,
-  isManager,
-  getAnimalsOlderThan,
-  getOldestFromFirstSpecies,
-  increasePrices,
-  createEmployee,
-};
