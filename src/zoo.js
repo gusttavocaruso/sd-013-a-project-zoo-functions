@@ -80,7 +80,6 @@ function calculateEntry(entrants) {
   if (!entrants) return 0;
 
   const { prices: { Adult, Senior, Child } } = data;
-  // const { Adult, Senior, Child } = prices;
   let total = 0;
 
   if (entrants.Adult) total += entrants.Adult * Adult;
@@ -207,18 +206,50 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   const { prices } = data;
-  Object.entries(prices).reduce((acc, currentPrice) => {
-    const [key, price] = currentPrice;
-    prices[key] = Number((price + Math.round(price * percentage) / 100).toFixed(2));
-    return acc;
-  }, {});
+  Object.entries(prices).forEach((currentPrice) => {
+    const [peopleGroup, price] = currentPrice;
+    prices[peopleGroup] = Number((price + Math.round(price * percentage) / 100).toFixed(2));
+  });
   return prices;
 }
 
-// console.log(increasePrices(50));
+function getAllEmployees(employees, species) {
+  const allEmployees = employees.reduce((acc, currentEmployee) => {
+    const { firstName, lastName, responsibleFor } = currentEmployee;
+    acc[`${firstName} ${lastName}`] = responsibleFor.map((responsible) => {
+      const { name } = species.find((specie) => specie.id === responsible);
+      return name;
+    });
+    return acc;
+  }, {});
+  return allEmployees;
+}
+
+function getAllEmployeesByIdOrName(employees, idOrName, species) {
+  const { firstName, lastName, responsibleFor } = employees.find((employee) => (
+    employee.id === idOrName
+  || employee.firstName === idOrName
+  || employee.lastName === idOrName));
+
+  const employeeResponsibleFor = {};
+  employeeResponsibleFor[`${firstName} ${lastName}`] = responsibleFor.map((responsible) => {
+    const { name } = species.find((specie) => specie.id === responsible);
+    return name;
+  });
+
+  return employeeResponsibleFor;
+}
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const { employees, species } = data;
+  if (!idOrName) {
+    const allEmployees = getAllEmployees(employees, species);
+    return allEmployees;
+  }
+
+  const employeeResponsibleFor = getAllEmployeesByIdOrName(employees, idOrName, species);
+  // console.log(employeeResponsibleFor);
+  return employeeResponsibleFor;
 }
 
 module.exports = {
