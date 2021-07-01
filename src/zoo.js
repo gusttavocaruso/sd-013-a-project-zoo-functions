@@ -29,31 +29,30 @@ function createEmployee({id, firstName, lastName}, associatedWith) {
 function isManager(id) {  
   let ret = false;
   data.employees.forEach((i) => {
-     i.managers.forEach((a) => {
-    if (a === id ) ret = true;
+    i.managers.forEach((a) => {
+      if (a === id ) ret = true;
+    });
   });
-});
 
-   return ret;
-  }    
+  return ret;
+}    
 
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = [])  {
-const lastEmployee1 = {
-   id: id,
-   firstName: firstName,
-   lastName: lastName,
-   managers: managers,
-   responsibleFor:responsibleFor
- }
- data.employees.push(lastEmployee1) 
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const lastEmployee1 = {
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    managers: managers,
+    responsibleFor: responsibleFor,
+ };
+ data.employees.push(lastEmployee1);
 }
 
 function countAnimals(especies) {  
   if (!especies) {
     const req7 = {};
     species.forEach((animal) => {
-      req7[animal.name]=animal.residents.length
-    });
+      req7[animal.name] = animal.residents.length});
     return req7;
   }
   const findSpecies = species.find((element) => element.name === especies).residents.length;
