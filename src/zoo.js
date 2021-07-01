@@ -1,7 +1,7 @@
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  if (ids === undefined) return [];
+  if (!ids) return [];
   const ret = [];
   ids.forEach((id) => {
     const search = data.species.find((item) => item.id === id);
@@ -16,7 +16,7 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  if (employeeName === undefined) return {};
+  if (!employeeName) return {};
   return data.employees.find((i) => i.firstName === employeeName || i.lastName === employeeName);
 }
 
@@ -52,7 +52,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  if (species === undefined) {
+  if (!species) {
     const ret = {};
     data.species.forEach((item) => {
       ret[item.name] = item.residents.length;
@@ -94,7 +94,7 @@ function getAnimalMap(options) {
   const ani = { NE: [], NW: [], SE: [], SW: [] };
   const keys = Object.keys(ani);
   keys.forEach((i) => { ani[i] = data.species.filter((j) => j.location === `${i}`); });
-  if (options === undefined || options.includeNames === undefined) {
+  if (!options || !options.includeNames) {
     keys.forEach((i) => { ret[i] = ani[i].map((j) => j.name); });
     return ret;
   }
@@ -110,7 +110,7 @@ function getAnimalMap(options) {
 function getSchedule(dayName) {
   const obj = data.hours;
   const ret = {};
-  if (dayName === undefined) {
+  if (!dayName) {
     Object.keys(obj).forEach((i) => {
       ret[i] = i === 'Monday' ? 'CLOSED'
         : `Open from ${obj[i].open}am until ${obj[i].close - 12}pm`;
@@ -140,7 +140,7 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(p) {
   const ret = {};
-  if (p === undefined) {
+  if (!p) {
     data.employees.forEach((i) => {
       ret[`${i.firstName} ${i.lastName}`] = [];
       i.responsibleFor.forEach((j) => {
