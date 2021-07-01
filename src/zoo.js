@@ -142,14 +142,13 @@ function getSchedule(dayName) {
   const arrayEntries = Object.entries(data.hours);
   if (dayName === undefined) return checkWeekDay(arrayEntries);
   const stringDay = arrayEntries.find((weekDay) => weekDay[0] === dayName); // se weekDay for igual ao dayName, retorna o array referente ao dia da semana
-  const returnObject = {};
+  const obj = {};
   if (dayName === 'Monday') {
-    returnObject[stringDay[0]] = 'CLOSED';
-    return returnObject;
+    obj[stringDay[0]] = 'CLOSED';
+    return obj;
   }
-  returnObject[stringDay[0]] = `Open from ${stringDay[1].open}am until 
-    ${stringDay[1].close - 12}pm`;
-  return returnObject;
+  obj[stringDay[0]] = `Open from ${stringDay[1].open}am until ${stringDay[1].close - 12}pm`;
+  return obj;
 }
 
 // ===========================
