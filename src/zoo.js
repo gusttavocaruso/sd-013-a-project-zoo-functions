@@ -15,7 +15,7 @@ function getAnimalsOlderThan(animal, age) {
 // REQUISITO 3
 function getEmployeeByName(employeeName) {
   const employ = {};
-  if (employeeName === undefined) {
+  if (!employeeName) {
     return employ;
   }
   return employees.find((people) =>
@@ -43,18 +43,31 @@ function isManager(id) {
 // REQUISITO 6
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   employees.push({
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    managers: managers,
-    responsibleFor: responsibleFor,
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
   });
 }
 
-function countAnimals(specie) {
-  // seu código aqui
+// REQUISITO 7
+function countAnimals(param) {
+  if (!param) {
+    const arraySpecies = species.map((animal) => animal.name);
+    const arrayResidents = species.map((animal) => animal.residents.length);
+    const newObjectSpecies = {};
+
+    for (let index = 0; index < arraySpecies.length; index += 1) {
+      newObjectSpecies[`${arraySpecies[index]}`] = arrayResidents[index];
+    }
+    return newObjectSpecies;
+  }
+  const populationSpecie = species.find((animal) => animal.name.includes(param));
+  return populationSpecie.residents.length;
 }
 
+// REQUISITO 8
 function calculateEntry(entrants) {
   // seu código aqui
 }
