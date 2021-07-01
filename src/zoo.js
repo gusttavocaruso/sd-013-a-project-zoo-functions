@@ -93,7 +93,7 @@ function getSchedule(dayName) {
   if (dayName === undefined) {
     return funcionamento;
   }
-  return { [dayName]: funcionamento[dayName]};
+  return { [dayName]: funcionamento[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -101,9 +101,7 @@ function getOldestFromFirstSpecies(id) {
   const idAnimal = employees.find((employee) => employee.id === id)
     .responsibleFor[0];
   const animal = species.find((specie) => specie.id === idAnimal);
-  const biggestAge = animal.residents.reduce((acc, crr) => {
-    return crr.age > acc ? crr.age : acc;
-  }, 0);
+  const biggestAge = animal.residents.reduce((acc, crr) => (crr.age > acc ? crr.age : acc), 0);
   const oldestAnimal = animal.residents.find((resident) => resident.age === biggestAge);
   return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
