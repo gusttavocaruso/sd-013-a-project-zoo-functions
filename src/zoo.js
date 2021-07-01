@@ -47,12 +47,24 @@ function calculateEntry(entrants) {
     acc + (entrants[curr] * prices[curr]), 0);
 }
 
-function getAnimalMap({ includeNames = false, sorted = true, sex = 'all' }) {
-  const locate = (coord) => species.filter((specie) => specie.location === coord);
+function getAnimalMap(arg = { includeNames: false, sorted: false, sex: false }) {
   const baseObj = { NE: [], NW: [], SE: [], SW: [] };
-  Object.keys(baseObj).forEach((key) => {
-    baseObj[key] = locate(key).map((item) => item.name);
+  species.forEach(({ name, location, residents }) => {
+    const genericObj = {};
+    genericObj[name] = residents.map((resident) => resident.name);
+    if (arg.sex) {
+      genericObj[name] = residents.map((residentObj) => residentObj)
+        .filter((resident) => resident.sex === arg.sex)
+        .map((objAnimal) => objAnimal.name);
+    }
+    if (arg.sorted) genericObj[name] = genericObj[name].sort();
+    baseObj[location].push(genericObj);
   });
+  if (!arg.includeNames) {
+    Object.keys(baseObj).forEach((key) => {
+      baseObj[key] = baseObj[key].map((animal) => Object.keys(animal)[0]);
+    });
+  }
   return baseObj;
 }
 
