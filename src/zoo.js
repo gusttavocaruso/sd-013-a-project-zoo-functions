@@ -35,7 +35,7 @@ function addEmployee(id = [], firstName = [], lastName = [], managers = [], resp
     lastName,
     managers,
     responsibleFor,
-  })
+  });
 }
 
 function countAnimals() {
