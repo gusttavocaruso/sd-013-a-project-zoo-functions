@@ -30,8 +30,14 @@ function isManager(id) {
     .some((manager) => manager === id);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  
+function addEmployee(id = [], firstName = [], lastName = [], managers = [], responsibleFor = []) {
+  return employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
 function countAnimals(species) {
