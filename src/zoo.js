@@ -65,8 +65,42 @@ function calculateEntry(entrants) {
     .reduce((acumulator, theEntrant) => acumulator + (entrants[theEntrant] * prices[theEntrant]), 0);
 }
 
+// eslint-disable-next-line max-lines-per-function
 function getAnimalMap(options) {
-  // seu código aqui
+  const result = {};
+  const theLocation = Array.from({});
+  species.forEach(({ location }) => theLocation.push(location));
+  if (!options || !options.includeNames) {
+    theLocation.forEach((location) => {
+      result[location] = species
+        .filter((specie) => specie.location === location)
+        .map((animal) => animal.name);
+    });
+
+    return result;
+  }
+  if (options.includeNames) {
+    theLocation.forEach((location) => {
+      // eslint-disable-next-line complexity
+      result[location] = species.filter((animal) => animal.location === location).map((animal) => {
+        const mapped = {};
+        const filtered = animal.residents.filter((specie) => specie.sex === options.sex);
+        mapped[animal.name] = animal.residents.map((resident) => resident.name);
+
+        if (options.sorted && !options.sex) {
+          mapped[animal.name] = animal.residents.map((resident) => resident.name).sort();
+        } else if (!options.sorted && options.sex) {
+          mapped[animal.name] = filtered.map((item) => item.name);
+        } else if (options.sorted) {
+          mapped[animal.name] = filtered.map((resident) => resident.name).sort();
+        }
+
+        return mapped;
+      });
+    });
+
+    return result;
+  }
 }
 
 function getSchedule(dayName) {
