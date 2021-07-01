@@ -21,14 +21,12 @@ function getEmployeeByName(employeeName) {
   return {};
 }
 
-console.log(getEmployeeByName());
-
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+function createEmployee(personalInfos, associatedWith) {
+  return { ...personalInfos, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
