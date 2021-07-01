@@ -1,7 +1,4 @@
-const { prices } = require('./data'); // Default Destructuring
-const { species } = require('./data'); // Default Destructuring
-const { employees } = require('./data'); // Default Destructuring
-const { hours } = require('./data'); // Default Destructuring
+const { prices, species, employees, hours } = require('./data'); // Default Destructuring
 
 function getSpeciesByIds(...ids) { // requisito 01
   return species
@@ -21,7 +18,7 @@ function getEmployeeByName(employeeName) { // requisito 03
 }
 
 function createEmployee(personalInfo, associatedWith) { // requisito 04
-  return { ...personalInfo, ...associatedWith };
+  return { ...personalInfo, ...associatedWith }; // usei spread porque vai ser passado vários dados(array, objetos) e quero retornar um objeto com tudo que passar
 }
 
 function isManager(id) { // requisito 05
@@ -63,8 +60,59 @@ function calculateEntry(entrants) { // requisito 08
     ), 0);
 }
 
-function getAnimalMap(options) { // requisito 09
-  // seu código aqui
+const localiza = () => species // requisito 09 - Função suporte - Localiza Animais
+  .map(({ location }) => location)
+  .reduce((acumulador, location) => {
+    if (acumulador[location] === undefined) acumulador[location] = [];
+    return acumulador;
+  }, {});
+
+const sortAnimais = residents => residents // requisito 09 - Função suporte
+  .map(resident => resident.name)
+  .sort();
+
+const sexoDosAnimais = (residents, sex) => // requisito 09 - Função suporte - Pega o sexo dos animais
+residents
+  .filter(resident => resident.sex === sex)
+  .map(resident => resident.name);
+
+const addNomes = (localDosAnimais, sorted, sex) => { // requisito 09 - Função suporte
+species
+  .forEach(({ name, location, residents }) => {
+    const animalObj = {};
+    if (sorted) {
+      animalObj[name] = sortAnimais(residents);
+      localDosAnimais[location].push(animalObj);
+    } else if (sex) {
+      animalObj[name] = sexoDosAnimais(residents, sex);
+      localDosAnimais[location].push(animalObj);
+    } else {
+      animalObj[name] = residents
+        .map(resident => resident.name);
+      localDosAnimais[location].push(animalObj);
+    }
+  });
+  return localDosAnimais;
+};
+
+const addAnimais = (localDosAnimais) => { // requisito 09 - Função suporte - Adiciona Animais
+  species
+    .forEach(({ name, location }) => localDosAnimais[location].push(name));
+  return localDosAnimais;
+};
+
+function getAnimalMap(options = {}) { // requisito 09 - Função PRINCIPAL
+  const { includeNames, sorted, sex } = options;
+  const localDosAnimais = localiza();
+  if (includeNames) {
+    if (sorted) {
+      return addNomes(localDosAnimais, sorted);
+    } else if (sex) {
+      return addNomes(localDosAnimais, false, sex);
+    }
+    return addNomes(localDosAnimais);
+  }
+  return addAnimais(localDosAnimais);
 }
 
 const diaFechado = (dia) => { // requisito 10
@@ -100,7 +148,7 @@ function getOldestFromFirstSpecies(id) { // requisito 11
 }
 
 function increasePrices(percentage) { // requisito 12
-  const { Adult: precoAdulto, Senior: precoIdoso, Child: precoCrianca } = prices;
+  const { Adult: precoAdulto, Senior: precoIdoso, Child: precoCrianca } = prices; // Default Destructuring
   prices.Adult = Math.round(precoAdulto * (1 + (percentage / 100)) * 100) / 100;
   prices.Senior = Math.round(precoIdoso * (1 + (percentage / 100)) * 100) / 100;
   prices.Child = Math.round(precoCrianca * (1 + (percentage / 100)) * 100) / 100;
