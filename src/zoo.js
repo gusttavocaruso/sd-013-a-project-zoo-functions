@@ -1,8 +1,19 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+/*
+...ids: ao usarmos o spread, permite que se passe multiplos parametros
+        e nos permite manipula-los como arrays.
+*/
+function getSpeciesByIds(...ids) {
+  const speciesEncontradasParaTodosIds = [];
 
+  ids.forEach((id) => {
+    const specieEncontradaParaCadaId = data.species.filter((specie) => specie.id === id);
+
+    speciesEncontradasParaTodosIds.push(...specieEncontradaParaCadaId);
+  });
+
+  return speciesEncontradasParaTodosIds;
 }
 
 function getAnimalsOlderThan(animal, age) {
