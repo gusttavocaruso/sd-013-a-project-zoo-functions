@@ -90,10 +90,11 @@ function auxMap(options, ani, keys) {
 }
 
 function getAnimalMap(options) {
-  const ret = {};
-  const ani = { NE: [], NW: [], SE: [], SW: [] };
+  const ani = {};
+  data.species.forEach((i) => { ani[i.location] = []; });
   const keys = Object.keys(ani);
   keys.forEach((i) => { ani[i] = data.species.filter((j) => j.location === `${i}`); });
+  const ret = {};
   if (!options || !options.includeNames) {
     keys.forEach((i) => { ret[i] = ani[i].map((j) => j.name); });
     return ret;
