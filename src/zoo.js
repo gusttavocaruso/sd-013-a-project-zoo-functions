@@ -1,4 +1,4 @@
-const { species, employees, hours, prices } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -64,15 +64,19 @@ function countAnimals(speecies) {
   return species.find((specie) => specie.name === speecies).residents.length;
 }
 
-// eslint-disable-next-line complexity
 function calculateEntry(entrants) {
   // seu código aqui
-  if ((entrants === undefined) || (Object.keys(entrants).length === 0)) {
-    return 0;
-  }
-  const valorChild = entrants.Child === undefined ? 0 : (entrants.Child * 20.99);
-  const valorSenior = entrants.Senior === undefined ? 0 : (entrants.Senior * 24.99);
-  const valorAdult = entrants.Adult === undefined ? 0 : (entrants.Adult * 49.99);
+  if ((entrants === undefined)) return 0;
+  let { Child: x, Senior: y, Adult: z } = entrants;
+  if (x === undefined) x = 0;
+  if (y === undefined) y = 0;
+  if (z === undefined) z = 0;
+  const valorChild = x * prices.Child;
+  const valorSenior = y * prices.Senior;
+  const valorAdult = z * prices.Adult;
+  // const valorChild = entrants.Child === undefined ? 0 : (entrants.Child * 20.99);
+  // const valorSenior = entrants.Senior === undefined ? 0 : (entrants.Senior * 24.99);
+  // const valorAdult = entrants.Adult === undefined ? 0 : (entrants.Adult * 49.99);
   return (valorAdult + valorChild + valorSenior);
 }
 
