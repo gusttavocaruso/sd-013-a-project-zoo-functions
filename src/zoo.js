@@ -1,13 +1,35 @@
+const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if(ids.length === 0){
+    return [];
+  }
+  else if(ids.length === 1){
+    const speciesId = species.filter(name =>
+    name.id === ids[0]);
+    return speciesId;
+  }
+  else{
+    let animal = [];
+    const speciesId = species.filter(name => {
+      ids.some(id => name === id)
+    });
+      animal.push(speciesId);
+
+  }
+  
 }
+getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46');
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-}
+  const animalElement = species.find(specie => specie.name === animal);
+  const result = animalElement.residents
+  .every(animalResident => animalResident.age >= age);
 
+  return result;
+}
+getAnimalsOlderThan('otters', 7);
 function getEmployeeByName(employeeName) {
   // seu código aqui
 }
