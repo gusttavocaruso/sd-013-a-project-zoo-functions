@@ -1,3 +1,4 @@
+const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -45,9 +46,18 @@ function isManager(id) {
 
 // Com o includes, estou analisando se o meu array (managers) contém o parametro solicitado (id).
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(idP, firstNameP, lastNameP, managersP = [], responsibleForP = []) {
+  const personAdd = {
+    id: idP,
+    firstName: firstNameP,
+    lastName: lastNameP,
+    managers: managersP,
+    responsibleFor: responsibleForP,
+  };
+  employees.push(personAdd);
 }
+
+// O requisito pede para que retorne arrays vazios em managers e resposibleFor caso não sejam passados como parâmetros.
 
 function countAnimals(species) {
   // seu código aqui
