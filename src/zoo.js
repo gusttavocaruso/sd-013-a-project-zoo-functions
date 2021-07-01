@@ -30,8 +30,13 @@ function getEmployeeByName(employeeName) {
 // Retorno o primeiro objeto que consta o nome ou sobrenome passados como para
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return {
+    ...personalInfo,
+    ...associatedWith,
+  };
 }
+
+// Utilização de spread.
 
 function isManager(id) {
   // seu código aqui
