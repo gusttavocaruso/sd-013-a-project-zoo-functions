@@ -36,7 +36,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     .push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-//depois da dica do Rogerio descobri que dava pra fazer com o reduce, conferi código de alguns colegas antigos pra aprender e finalmente entendi quando achei o segundo exemplo desse site: https://bognarjunior.wordpress.com/2018/02/09/array-javascript-o-metodo-reduce/
+// depois da dica do Rogerio aprendi que dava pra fazer com o reduce, conferi código de alguns colegas antigos pra aprender e finalmente entendi quando achei o segundo exemplo desse site: https://bognarjunior.wordpress.com/2018/02/09/array-javascript-o-metodo-reduce/
+
 function countAnimals(param) {
   if (param === undefined) {
     return data.species.reduce((contador, elemento) => Object
