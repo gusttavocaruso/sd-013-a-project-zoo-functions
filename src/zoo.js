@@ -97,12 +97,8 @@ const weekSchedule = () => {
   const object = {};
   const days = Object.keys(hours);
   days.forEach((day) => {
-    if (hours[day].close === 18) {
-      object[day] = `Open from ${hours[day].open}am until 6pm`;
-    } else if (hours[day].close === 20) {
-      object[day] = `Open from ${hours[day].open}am until 8pm`;
-    } else if (hours[day].close === 22) {
-      object[day] = `Open from ${hours[day].open}am until 10pm`;
+    if (hours[day].close !== 0 && hours[day].open !== 0) {
+      object[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
     } else {
       object[day] = 'CLOSED';
     }
@@ -112,12 +108,8 @@ const weekSchedule = () => {
 
 const daySchedule = (day) => {
   const object = {};
-  if (hours[day].close === 18) {
-    object[day] = `Open from ${hours[day].open}am until 6pm`;
-  } else if (hours[day].close === 20) {
-    object[day] = `Open from ${hours[day].open}am until 8pm`;
-  } else if (hours[day].close === 22) {
-    object[day] = `Open from ${hours[day].open}am until 10pm`;
+  if (hours[day].close !== 0 && hours[day].open !== 0) {
+    object[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
   } else {
     object[day] = 'CLOSED';
   }
@@ -135,12 +127,26 @@ function getSchedule(dayName) {
   return response;
 }
 
-function getOldestFromFirstSpecies(id) {
+function getOldestFromFirstSpecies(idEmployee) {
   // seu código aqui
+  const animalID = data.employees.find((employee) => idEmployee === employee.id).responsibleFor[0];
+  const { residents } = data.species.find((specie) => specie.id === animalID);
+  residents.sort((a, b) => {
+    if (a.age > b.age) {
+      return -1;
+    }
+    return 0;
+  });
+  return Object.values(residents[0]);
 }
 
 function increasePrices(percentage) {
   // seu código aqui
+  const aux = Number(`1.${percentage}`);
+  const priceKeys = Object.keys(data.prices);
+  priceKeys.forEach((key) => {
+    data.prices[key] = Number(((data.prices[key] * aux) + 0.001).toFixed(2));
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
