@@ -39,8 +39,11 @@ function createEmployee(personalInfo, associatedWith) {
 // Utilização de spread.
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((employee) =>
+    employee.managers.includes(id));
 }
+
+// Com o includes, estou analisando se o meu array (managers) contém o parametro solicitado (id).
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
