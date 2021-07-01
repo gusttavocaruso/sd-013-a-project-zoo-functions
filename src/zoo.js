@@ -1,4 +1,4 @@
-const { species, employees, hours } = require('./data');
+const { species, employees, hours, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -64,6 +64,7 @@ function countAnimals(speecies) {
   return species.find((specie) => specie.name === speecies).residents.length;
 }
 
+// eslint-disable-next-line complexity
 function calculateEntry(entrants) {
   // seu código aqui
   if ((entrants === undefined) || (Object.keys(entrants).length === 0)) {
@@ -108,6 +109,11 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const multPorcent = (100 + percentage) / 100;
+  prices.Adult = Math.round((prices.Adult * multPorcent) * 100) / 100;
+  prices.Senior = Math.round((prices.Senior * multPorcent) * 100) / 100;
+  prices.Child = Math.round((prices.Child * multPorcent) * 100) / 100;
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
