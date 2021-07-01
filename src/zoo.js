@@ -22,16 +22,26 @@ function createEmployee({ id, firstName, lastName }, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const ManagersArray = employees.map((element) => element.managers).join();
+  return console.log(ManagersArray.split().some((element2) => element2.includes(id)));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const obj = { id, firstName, lastName, managers, responsibleFor };
+  return employees.push(obj);
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(specie) {
+  if (!specie) {
+    const obj = {};
+    species.forEach(element => obj[element.name] = element.residents.length);
+    return obj;
+  }
+  const findSpecie = species.find((element) => element.name === specie).residents.length;
+  return findSpecie;
 }
+
+console.log(countAnimals('lions'));
 
 function calculateEntry(entrants) {
   // seu código aqui
@@ -72,3 +82,4 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
+
