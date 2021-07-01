@@ -67,9 +67,10 @@ const localiza = () => species // requisito 09 - Função suporte - Localiza Ani
     return acumulador;
   }, {});
 
-const sortAnimais = residents => residents // requisito 09 - Função suporte
+const sortAnimais = residents => (residents // requisito 09 - Função suporte
   .map(resident => resident.name)
-  .sort();
+  .sort()
+);
 
 const sexoDosAnimais = (residents, sex) => // requisito 09 - Função suporte - Pega o sexo dos animais
 residents
@@ -77,21 +78,21 @@ residents
   .map(resident => resident.name);
 
 const addNomes = (localDosAnimais, sorted, sex) => { // requisito 09 - Função suporte
-species
-  .forEach(({ name, location, residents }) => {
-    const animalObj = {};
-    if (sorted) {
-      animalObj[name] = sortAnimais(residents);
-      localDosAnimais[location].push(animalObj);
-    } else if (sex) {
-      animalObj[name] = sexoDosAnimais(residents, sex);
-      localDosAnimais[location].push(animalObj);
-    } else {
-      animalObj[name] = residents
-        .map(resident => resident.name);
-      localDosAnimais[location].push(animalObj);
-    }
-  });
+  species
+    .forEach(({ name, location, residents }) => {
+      const animalObj = {};
+      if (sorted) {
+        animalObj[name] = sortAnimais(residents);
+        localDosAnimais[location].push(animalObj);
+      } else if (sex) {
+        animalObj[name] = sexoDosAnimais(residents, sex);
+        localDosAnimais[location].push(animalObj);
+      } else {
+        animalObj[name] = residents
+          .map(resident => resident.name);
+        localDosAnimais[location].push(animalObj);
+      }
+    });
   return localDosAnimais;
 };
 
@@ -107,7 +108,8 @@ function getAnimalMap(options = {}) { // requisito 09 - Função PRINCIPAL
   if (includeNames) {
     if (sorted) {
       return addNomes(localDosAnimais, sorted);
-    } else if (sex) {
+    }
+    if (sex) {
       return addNomes(localDosAnimais, false, sex);
     }
     return addNomes(localDosAnimais);
@@ -138,13 +140,13 @@ function getOldestFromFirstSpecies(id) { // requisito 11
   const animalId = employees // Primeiro busca os animais que o funcionário possui sob sua responsabilidade
     .find(({ id: funcionarioId }) => (
       funcionarioId === id // procura um funcionario com o id passado no parametro
-    )).responsibleFor[0] // e com isso trazer os animais que são responsáveis.
+    )).responsibleFor[0]; // e com isso trazer os animais que são responsáveis.
 
   const animalMaisVelho = species // Em segundo, com os animais "em mãos" busca o animal em Species e pega o mais velho
     .find(({ id: funcionarioId }) => (
       funcionarioId === animalId
-    )).residents.sort(({ age: idadeA }, { age: idadeB }) => idadeB - idadeA)[0] // Faz o sort e pega o primeiro do array criado
-  return Object.values(animalMaisVelho) // retorna o animal mais velho como array
+    )).residents.sort(({ age: idadeA }, { age: idadeB }) => idadeB - idadeA)[0]; // Faz o sort e pega o primeiro do array criado
+  return Object.values(animalMaisVelho); // retorna o animal mais velho como array
 }
 
 function increasePrices(percentage) { // requisito 12
