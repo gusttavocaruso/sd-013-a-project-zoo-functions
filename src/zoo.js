@@ -1,4 +1,4 @@
-const { species, employees, prices, hours } = require('./data');
+const { species, employees, prices, hours} = require('./data');
 const data = require('./data');
 
 // ===========================
@@ -127,28 +127,28 @@ function getAnimalMap(options) {
 
 // ===========================
 
-function checarParametro(arrayEntries) {
-  return arrayEntries.reduce((acc, curr) => {
-    if (curr[1].open === 0 && curr[1].close === 0) {
-      acc[curr[0]] = 'CLOSED';
-      return acc;
+function checkWeekDay(arrayEntries) {
+  return arrayEntries.reduce((accumulator, currentValue) => {
+    if (currentValue[1].open === 0 && currentValue[1].close === 0) {
+      accumulator[currentValue[0]] = 'CLOSED';
+      return accumulator;
     }
-    acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`;
-    return acc;
+    accumulator[currentValue[0]] = `Open from ${currentValue[1].open}am until ${currentValue[1].close - 12}pm`; 
+    return accumulator;
   }, {});
 }
 
 function getSchedule(dayName) {
   const arrayEntries = Object.entries(data.hours);
-  if (dayName === undefined) return checarParametro(arrayEntries);
-  const day = arrayEntries.find((weekDay) => weekDay[0] === dayName);
-  const object = {};
+  if (dayName === undefined) return checkWeekDay(arrayEntries);
+  const stringDay = arrayEntries.find((weekDay) => weekDay[0] === dayName); // se weekDay for igual ao dayName, retorna o array referente ao dia da semana
+  const returnObject = {};
   if (dayName === 'Monday') {
-    object[day[0]] = 'CLOSED';
-    return object;
+    returnObject[stringDay[0]] = 'CLOSED';
+    return returnObject;
   }
-  object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
-  return object;
+  returnObject[stringDay[0]] = `Open from ${stringDay[1].open}am until ${stringDay[1].close - 12}pm`;
+  return returnObject;
 }
 
 // ===========================
