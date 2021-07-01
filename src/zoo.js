@@ -12,62 +12,75 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
-  return employees.find((element) => element.firstName === employeeName 
+  return employees.find((element) => element.firstName === employeeName
   || element.lastName === employeeName);
 }
 
-function createEmployee({id, firstName, lastName}, associatedWith) {
-   return {
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
+function createEmployee({ id, firstName, lastName }, associatedWith) {
+  return {
+    id,
+    firstName,
+    lastName,
     managers: associatedWith.managers,
-    responsibleFor: associatedWith.responsibleFor,     
+    responsibleFor: associatedWith.responsibleFor,
   };
 }
 
-function isManager(id) {  
+function isManager(id) {
   let ret = false;
   data.employees.forEach((i) => {
     i.managers.forEach((a) => {
-      if (a === id ) ret = true;
+      if (a === id) ret = true;
     });
   });
 
   return ret;
-}    
+}
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const lastEmployee1 = {
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    managers: managers,
-    responsibleFor: responsibleFor,
- };
- data.employees.push(lastEmployee1);
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  data.employees.push(lastEmployee1);
 }
 
-function countAnimals(especies) {  
+function countAnimals(especies) {
   if (!especies) {
     const req7 = {};
     species.forEach((animal) => {
-      req7[animal.name] = animal.residents.length});
+      req7[animal.name] = animal.residents.length;
+    });
     return req7;
   }
   const findSpecies = species.find((element) => element.name === especies).residents.length;
   return findSpecies;
 }
 
-function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
-  const preco = data.prices;
-
+function calculateEntry(entrants) {
+  if (!entrants) {
+    return 0;
+  }
+  const preco = prices;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
   const sum = (preco.Adult * Adult) + (preco.Child * Child) + (preco.Senior * Senior);
   return sum;
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) {
+    return species.reduce((acc, currentValue) => {
+      if (acc[currentValue.location]) {
+        acc[currentValue.location].push(currentValue.name);
+      } else {
+        acc[currentValue.location] = [currentValue.name];
+      }
+      return acc;
+    }, {});
+  }
 }
 
 function getSchedule(dayName) {
