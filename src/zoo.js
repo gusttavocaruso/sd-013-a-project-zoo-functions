@@ -36,7 +36,8 @@ function createEmployee(personalInfo, associatedWith) {
 
 // REQUISITO 5
 function isManager(id) {
-  // seu código aqui
+  return employees.some((managers) =>
+    managers.managers.some((people) => people.includes(id)));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
