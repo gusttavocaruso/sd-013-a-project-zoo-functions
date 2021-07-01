@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 // REQUISITO 1
@@ -68,10 +68,15 @@ function countAnimals(param) {
 }
 
 // REQUISITO 8
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
+  // const listPrices = data.prices;
+  const result = (prices.Child * Child) + (prices.Senior * Senior)
+  + (prices.Adult * Adult);
+
+  return result;
 }
 
+// REQUISITO 9
 function getAnimalMap(options) {
   // seu código aqui
 }
