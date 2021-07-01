@@ -1,4 +1,4 @@
-const { species } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 // REQUISITO 1
@@ -8,19 +8,33 @@ function getSpeciesByIds(...ids) {
 
 // REQUISITO 2
 function getAnimalsOlderThan(animal, age) {
-  const tipoAnimal = species.filter((tipo) => tipo.name.includes(animal));
-  return tipoAnimal[0].residents.every((element) => element.age >= age);
+  return species.filter((tipo) => tipo.name.includes(animal))[0]
+    .residents.every((element) => element.age >= age);
 }
 
 // REQUISITO 3
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  const employ = {};
+  if (employeeName === undefined) {
+    return employ;
+  }
+  return employees.find((people) =>
+    people.firstName.includes(employeeName) || people.lastName.includes(employeeName));
 }
 
+// REQUISITO 4
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  employees.push({
+    id: personalInfo.id,
+    firstName: personalInfo.firstName,
+    lastName: personalInfo.lastName,
+    managers: associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,
+  });
+  return employees.find((people) => people.id.includes(personalInfo.id));
 }
 
+// REQUISITO 5
 function isManager(id) {
   // seu código aqui
 }
