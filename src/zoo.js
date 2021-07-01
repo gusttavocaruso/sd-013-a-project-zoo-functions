@@ -29,7 +29,15 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  let control = {};
+  if (employeeName) {
+    data.employees.forEach((arrayObjects) => {
+      if ((arrayObjects.firstName === employeeName) || (arrayObjects.lastName === employeeName)) {
+        control = arrayObjects;
+      }
+    });
+  }
+  return control;
 }
 
 function createEmployee(personalInfo, associatedWith) {
