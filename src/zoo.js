@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -66,6 +66,13 @@ function countAnimals(speecies) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+  if ((entrants === undefined) || (Object.keys(entrants).length === 0)) {
+    return 0;
+  }
+  const valorChild = entrants.Child === undefined ? 0 : (entrants.Child * 20.99);
+  const valorSenior = entrants.Senior === undefined ? 0 : (entrants.Senior * 24.99);
+  const valorAdult = entrants.Adult === undefined ? 0 : (entrants.Adult * 49.99);
+  return (valorAdult + valorChild + valorSenior);
 }
 
 function getAnimalMap(options) {
@@ -74,10 +81,31 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   // seu código aqui
+  const funcionamento = {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
+  if (dayName === undefined) {
+    return funcionamento;
+  }
+  return { [dayName]: funcionamento[dayName]};
 }
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const idAnimal = employees.find((employee) => employee.id === id)
+    .responsibleFor[0];
+  const animal = species.find((specie) => specie.id === idAnimal);
+  const biggestAge = animal.residents.reduce((acc, crr) => {
+    return crr.age > acc ? crr.age : acc;
+  }, 0);
+  const oldestAnimal = animal.residents.find((resident) => resident.age === biggestAge);
+  return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
 function increasePrices(percentage) {
