@@ -1,12 +1,12 @@
-const { species } = require('./data');
+const { species: theSpecies } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  let speciesId = [];
+  const speciesId = [];
   ids.forEach((id) => {
-    const specieId = species.find((specie) => specie.id === id);
+    const specieId = theSpecies.find((specie) => specie.id === id);
     speciesId.push(specieId);
-  })   
+  });
   return speciesId;
 }
 
