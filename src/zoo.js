@@ -1,11 +1,21 @@
+const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if (ids.length === 0)
+  return [];
+
+  const animais = data.species.filter((specie) => specie.id === ids);
+  return animais;
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(animal, agee) {
+  const bichos = data.species
+  const {name, age, ...rest}  = bichos;
+  const veryfiName = (animal) => animal === name;
+  const veryfiAge = (agee) => age >= agee;
+  const filtro = bichos.filter(veryfiName);
+ return filtro.every(veryfiAge);
 }
 
 function getEmployeeByName(employeeName) {
@@ -24,7 +34,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(speciess) {
   // seu código aqui
 }
 
