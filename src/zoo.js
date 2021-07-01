@@ -33,10 +33,10 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     managers,
     responsibleFor,
   };
-  return data.employees.push(newEmployee);
+  return employees.push(newEmployee);
 }
 
-function countAnimals(species) {
+function countAnimals() {
   // seu código aqui
 }
 
