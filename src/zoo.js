@@ -28,14 +28,28 @@ function isManager(id) {
     .some((manager) => manager === id);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id = [], firstName = [], lastName = [], managers = [], responsibleFor = []) {
+  employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
+  return employees;
 }
 
 function countAnimals(species1) {
-  // seu código aqui
+  if (species1) {
+    return species
+      .find((especie) => especie.name === species1).residents.length;
+  }
+  const obj = {};
+  species.map((element) => {
+    obj[element.name] = element.residents.length;
+  });
+  return obj;
 }
-
 function calculateEntry(entrants) {
   // seu código aqui
 }
