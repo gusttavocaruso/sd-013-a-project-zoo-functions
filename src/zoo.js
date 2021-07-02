@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { prices, species, employees } = require('./data');
 const data = require('./data');
 
 // REQUISITO 1
@@ -69,7 +69,6 @@ function countAnimals(param) {
 
 // REQUISITO 8
 function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
-  // const listPrices = data.prices;
   const result = (prices.Child * Child) + (prices.Senior * Senior)
   + (prices.Adult * Adult);
 
@@ -98,21 +97,27 @@ function getSchedule(dayName) {
 
 // REQUISITO 11
 function getOldestFromFirstSpecies(id) {
-
   const idEmploy = employees.find((people) =>
     people.id.includes(id)).responsibleFor[0];
 
   const animalOld = species.filter((animal) => animal.id.includes(idEmploy))[0]
     .residents.map((itemAge) => itemAge.age).reduce((a, b) => Math.max(a, b));
+
   const objResult = species.filter((animal) => animal.id.includes(idEmploy))[0]
     .residents.filter((animal) => animal.age === animalOld)[0];
+
   const result = [objResult.name, objResult.sex, objResult.age];
+
   return result;
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
+// REQUISITO 12
 function increasePrices(percentage) {
-  // seu código aqui
+  prices.Adult = Math.round(prices.Adult * (1 + (percentage / 100)) * 100) / 100;
+  prices.Senior = Math.round(prices.Senior * (1 + (percentage / 100)) * 100) / 100;
+  prices.Child = Math.round(prices.Child * (1 + (percentage / 100)) * 100) / 100;
+
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
