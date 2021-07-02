@@ -23,13 +23,13 @@ function getEmployeeByName(employeeName) {
 
 // Requisito 4
 function createEmployee(personalInfo, associatedWith) {
-  const employee = { ...personalInfo, ...associatedWith };
+  const employee = { ...personalInfo, ...associatedWith }; // como queremos juntas os dados lá de cima, criou uma constante empregado que junta os dois dados 
   return employee;
 }
 
 // Requisito 5
 function isManager(id) {
-  return employees.some((employee) => employee.managers.includes(id));
+  return employees.some((employee) => employee.managers.includes(id));// ver se algum empregado tem um manager que inclui o id passado de parametro
 }
 
 // Requisito 6
