@@ -43,9 +43,8 @@ function countAnimals(especies) {
     const especiesObj = {};
     species.forEach(({ name, residents }) => {
       especiesObj[name] = residents.length;
-      return null;
-    });
-    return especiesObj;
+      return especiesObj;
+    }); 
   }
   return species.find((especie) => especie.name === especies).residents.length;
 }
