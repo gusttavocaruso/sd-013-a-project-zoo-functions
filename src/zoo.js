@@ -32,10 +32,15 @@ function isManager(id) {
   return managerEmployee;
 }
 
-console.log(isManager('56d43ba3-a5a7-40f6-8dd7-cbb05082383f'));
-
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  const newEmployee = {
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    managers: managers || [], // Para passar no teste que espera um array vazio.
+    responsibleFor: responsibleFor || [], // Para passar no teste que espera um array vazio.
+  };
+  return data.employees.push(newEmployee); // Coloca esse objeto do novo empregado no array "employees".
 }
 
 function countAnimals(species) {
