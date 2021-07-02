@@ -81,6 +81,19 @@ function getAnimalMap(options) {
   if (!options) {
     return animalMap;
   }
+ // Requisto 2.
+ if (options.includeNames) {
+  // Uso a chave de animalMap pra acessa a lista das species.
+  Object.keys(animalMap).forEach((location) => {
+    //  refazendo a lista orignal de animalMap pra [{anime: [lista de nomes]}]
+    animalMap[location] = animalMap[location].map((nameSpecie) => ({
+      [nameSpecie]: species.find((specie) => specie.name === nameSpecie)
+        .residents.map((names) => names.name),
+    }));
+  });
+  console.log('2');
+  return animalMap;
+}
 
   // Requisito 5.
   if(['female', 'male'].includes(options.sex) && (options.includeNames && options.sorted)){
@@ -134,19 +147,7 @@ function getAnimalMap(options) {
   }
 
 
-  // Requisto 2.
-  if (options.includeNames) {
-    // Uso a chave de animalMap pra acessa a lista das species.
-    Object.keys(animalMap).forEach((location) => {
-      //  refazendo a lista orignal de animalMap pra [{anime: [lista de nomes]}]
-      animalMap[location] = animalMap[location].map((nameSpecie) => ({
-        [nameSpecie]: species.find((specie) => specie.name === nameSpecie)
-          .residents.map((names) => names.name),
-      }));
-    });
-    console.log('2');
-    return animalMap;
-  }
+ 
 
 }
 
