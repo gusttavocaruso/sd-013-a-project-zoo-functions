@@ -15,7 +15,12 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  // if estava com null. Josue me explicou que eu teria que usar uma negação (!employeeName) ou comparar com undefined para retornar um boolean false.
+  if (employeeName === undefined) {
+    return {};
+  }
+  // havia colocado o escopo da minha arrowfunction entre {}. Josue me mostrou que eu deveria retirar as {} para que pudesse retornar um obj.
+  return data.employees.find((each) => each.firstName == employeeName ||    each.lastName == employeeName); 
 }
 
 function createEmployee(personalInfo, associatedWith) {
