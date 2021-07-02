@@ -25,10 +25,28 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
+  const informations = { ...personalInfo, ...associatedWith };
+  return informations;
 }
 
 function isManager(id) {
+  const { employees } = data;
+  const arrayGerente = [];
+  let gerente = false;
+  employees.map((employee) => {
+    arrayGerente.push(employee.managers.some((ids) => ids === id));
+    return arrayGerente;
+  });
+  arrayGerente.forEach((comparacao) => {
+    if (comparacao === true) {
+      gerente = true;
+      return gerente;
+    }
+  });
+  return gerente;
 }
+
+console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
