@@ -25,14 +25,14 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  let employeeCreated = { lastName: personalInfo.lastName,
+  const employeeCreated = { lastName: personalInfo.lastName,
     firstName: personalInfo.firstName,
     id: personalInfo.id,
     managers: associatedWith.managers,
     responsibleFor: associatedWith.responsibleFor,
   };
   return employeeCreated;
-};
+}
 
 function isManager(id) {
   return employees.some((employee) => employee.managers.includes(id));
@@ -46,7 +46,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     managers,
     responsibleFor,
   });
-
 }
 
 function countAnimals(specie) {
