@@ -1,20 +1,31 @@
-const { species } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   return data.species.filter((specie) => ids.includes(specie.id));
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(animal, ageAnimal) {
+  const animalName = data.species.filter(({ name }) => name === animal);
+  const residentsAge = animalName.map(({ residents }) => residents.map((age) => age.age));
+
+  return residentsAge[0].every((ages) => ages >= ageAnimal);
 }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
+function getEmployeeByName(employ) {
+  if (!employ) {
+    return {};
+  }
+  if (data.employees.find(({ firstName }) => firstName === employ) !== undefined) {
+    return data.employees.find(({ firstName }) => firstName === employ);
+  }
+  return data.employees.find(({ lastName }) => lastName === employ);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const newObj = Object.assign(personalInfo, associatedWith);
+  data.employees.push(newObj);
+  return newObj;
 }
 
 function isManager(id) {
