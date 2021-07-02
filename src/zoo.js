@@ -46,13 +46,27 @@ function isManager(id) {
   return gerente;
 }
 
-console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
-
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals() {
+function countAnimals(especies) {
+  const { species } = data;
+  if (especies === undefined) {
+    const quantidadeTodos = species.reduce((acc, curr) => {
+      acc[curr.name] = curr.residents.length;
+      return acc;
+    }, {});
+    return quantidadeTodos;
+  }
+  let quantidadeEspecie = 0;
+  species.forEach((especie) => {
+    if (especie.name === especies) {
+      quantidadeEspecie = especie.residents.length;
+    }
+    return quantidadeEspecie;
+  });
+  return quantidadeEspecie;
 }
 
 function calculateEntry(entrants) {
