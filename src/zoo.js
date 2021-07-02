@@ -56,11 +56,23 @@ function calculateEntry(entrants = {}) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // dificil..requer atenção
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const hour = data.hours;
+  const final = {};
+  const schedule = {
+    Tuesday: `Open from ${hour.Tuesday.open}am until ${hour.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${hour.Wednesday.open}am until ${hour.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${hour.Thursday.open}am until ${hour.Thursday.close - 12}pm`,
+    Friday: `Open from ${hour.Friday.open}am until ${hour.Friday.close - 12}pm`,
+    Saturday: `Open from ${hour.Saturday.open}am until ${hour.Saturday.close - 12}pm`,
+    Sunday: `Open from ${hour.Sunday.open}am until ${hour.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
+  final[dayName] = schedule[dayName];
+  return !dayName ? schedule : final;
 }
 
 function getOldestFromFirstSpecies(id) {
