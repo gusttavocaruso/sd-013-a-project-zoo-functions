@@ -73,11 +73,23 @@ function addEmployee(...params) {
     }
   });
   data.employees.push(newObject);
-  console.log(data.employees);
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const newObject = {};
+  let popularity = 0;
+  if (species) {
+    data.species.forEach((arrayObjects) => {
+      if (arrayObjects.name === species) {
+        popularity = arrayObjects.residents.length;
+      }
+    });
+    return popularity;
+  }
+  data.species.forEach((arrayObjects) => {
+    newObject[arrayObjects.name] = arrayObjects.residents.length;
+  });
+  return newObject;
 }
 
 function calculateEntry(entrants) {
