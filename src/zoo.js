@@ -20,14 +20,15 @@ function getEmployeeByName(employeeName) {
     return {};
   }
   // havia colocado o escopo da minha arrowfunction entre {}. Josue me mostrou que eu deveria retirar as {} para que pudesse retornar um obj.
-  return data.employees.find((each) => each.firstName == employeeName ||    each.lastName == employeeName); 
+  return data.employees.find((each) => each.firstName === employeeName
+  || each.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
   // Feito com ajuda do Josue.
-  return {...personalInfo, ...associatedWith,}
+  return { ...personalInfo, ...associatedWith };
 }
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
 function isManager(id) {
   return data.employees.some((each) => each.managers.includes(id));
 }
