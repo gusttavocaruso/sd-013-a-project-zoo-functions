@@ -54,8 +54,19 @@ function calculateEntry(entrants) {
   return (Adult * adultoZoo) + (Child * criancaZoo) + (Senior * senhorZoo);
 }
 
+function getAnimalMapOptionsUndefined() {
+  const reduceLocation = data.species.reduce((acc, crr) => {
+    const animalLocation = data.species.filter((specie) => specie.location === crr.location)
+      .map((specieMap) => specieMap.name);
+    acc[crr.location] = animalLocation;
+    return acc;
+  }, {});
+  return reduceLocation;
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) return getAnimalMapOptionsUndefined();
+  //if (options.includeNames === true) return getAnimalMapWithName();
 }
 
 function nenhumDiaPassado(keys, Values, diasSemana) {
@@ -102,8 +113,6 @@ function getSchedule(dayName) {
 
   if (dayName && dayName !== 'Monday') return umDiaPassado(keys, Values, diasSemana, dayName);
 }
-
-console.log(getSchedule('Saturday'));
 
 function getOldestFromFirstSpecies(id) {
   const idSpecie = data.employees.find((employee) => employee.id === id).responsibleFor
