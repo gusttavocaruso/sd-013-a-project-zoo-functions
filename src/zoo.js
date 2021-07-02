@@ -97,11 +97,10 @@ function getOldestFromFirstSpecies(id) {
   return Object.values(listAnimals[0]);
 }
 
-function increasePrices(percentage) { 
-  function roundToTwo(num) {    
-    return +(Math.round(num + "e+2")  + "e-2");
-}
-  
+function increasePrices(percentage) {
+  function roundToTwo(num) {
+    return +(Math.round(num + 'e+2') + 'e-2');
+  }  
   const increase = ((percentage + 100) / 100);
   const xAdult = roundToTwo(prices.Adult * increase);
   const xChild = roundToTwo(prices.Child * increase);
@@ -110,26 +109,7 @@ function increasePrices(percentage) {
   data.prices.Adult = xAdult;
   data.prices.Child = xChild;
   data.prices.Senior = xSenior;
-
-
 }
-
-console.log(increasePrices(50), data.prices);
-console.log(increasePrices(30), data.prices);
-/* zoo.increasePrices(50);
-let expected = {
-  'Adult': 74.99,
-  'Senior': 37.49,
-  'Child': 31.49
-};
-assert.deepStrictEqual(data.prices, expected);
-
-zoo.increasePrices(30);
-expected = {
-  'Adult': 97.49,
-  'Senior': 48.74,
-  'Child': 40.94
-}; */
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
