@@ -1,6 +1,8 @@
 const data = require('./data');
 const { hours } = require('./data');
 
+let employeObject = {};
+
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) return [];
   // seu código aqui
@@ -145,12 +147,35 @@ function increasePrices(percentage) {
   const aux = Number(`1.${percentage}`);
   const priceKeys = Object.keys(data.prices);
   priceKeys.forEach((key) => {
-    data.prices[key] = Number(((data.prices[key] * aux) + 0.001).toFixed(2));
+    data.prices[key] = Math.round(((data.prices[key] * aux)) * 100) / 100;
   });
 }
 
+const verifyEmployee = (empregado) => {
+  employeObject[`${empregado.firstName} ${empregado.lastName}`] = []; // Crio uma chave com nome e sobrenome e atribuo um array vazio como valor
+  empregado.responsibleFor.forEach((animalId) => { // Percorro o array de animais pelos quais o empregado é responsável
+    const animalName = data.species.find((specie) => specie.id === animalId).name; // Percorro as espécies e procuro aquela que tem o id igual ao id do animal pelo qual o funcionário é encarregado
+    employeObject[`${empregado.firstName} ${empregado.lastName}`].push(animalName); // Jogo o nome desse animal no array vazio declarado anteriormente
+  });
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName === undefined) { // Se a função não receber parâmetros
+    data.employees.forEach((employee) => { // Percorro cada empregado
+      verifyEmployee(employee);
+    });
+  } else { // se a função receber parametro
+    let empregado; // defino uma var que irá guardar o objeto com as infos do empregado desejado
+    data.employees.forEach((employee) => { // percorro o array que contém todos os empregados
+      const values = Object.values(employee); // pego as os valores do objeto de cada empregado
+      if (values.includes(idOrName)) { // verifico se nesse array vazio contém alguma das chaves passadas por parâmetro
+        empregado = employee; // minha var empregado recebe o objeto do empregado com o qual eu quero trabalhar
+      }
+    });
+    employeObject = {}; // reatribuo o valor do array que vou usar na função verifyEmployee para vazio
+    verifyEmployee(empregado);
+  }
+  return employeObject;
 }
 
 module.exports = {
