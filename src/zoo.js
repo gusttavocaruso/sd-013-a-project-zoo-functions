@@ -58,8 +58,16 @@ function isManager(id) {
   return idsDeTodosManagers.includes(id);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const funcionario = {
+    id, // id: id === functionario.id = id
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+
+  data.employees.push(funcionario);
 }
 
 function countAnimals(species) {
