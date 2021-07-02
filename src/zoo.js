@@ -52,7 +52,15 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  let control = false;
+  data.employees.forEach((arrayObjects) => {
+    arrayObjects.managers.forEach((arrayManagers) => {
+      if (arrayManagers === id) {
+        control = true;
+      }
+    });
+  });
+  return control;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
