@@ -25,22 +25,28 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  employees.push({ lastName: personalInfo.lastName,
+  let employeeCreated = { lastName: personalInfo.lastName,
     firstName: personalInfo.firstName,
     id: personalInfo.id,
     managers: associatedWith.managers,
     responsibleFor: associatedWith.responsibleFor,
-  });
-  return employees.find((employee) =>
-    employee.id.includes(personalInfo.id));
-}
+  };
+  return employeeCreated;
+};
 
 function isManager(id) {
   return employees.some((employee) => employee.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
+
 }
 
 function countAnimals(specie) {
