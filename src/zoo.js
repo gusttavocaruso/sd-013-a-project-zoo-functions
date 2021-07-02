@@ -67,20 +67,36 @@ function getAnimalMap(options) {
   if (!options) {
     const byLocation = () => ({
       NE: species.filter((specie) => specie.location === 'NE')
-      .map((atualSpecie) => atualSpecie.name),
+        .map((atualSpecie) => atualSpecie.name),
       NW: species.filter((specie) => specie.location === 'NW')
-      .map((atualSpecie) => atualSpecie.name),
+        .map((atualSpecie) => atualSpecie.name),
       SE: species.filter((specie) => specie.location === 'SE')
-      .map((atualSpecie) => atualSpecie.name),
+        .map((atualSpecie) => atualSpecie.name),
       SW: species.filter((specie) => specie.location === 'SW')
-      .map((atualSpecie) => atualSpecie.name),
-    })
+        .map((atualSpecie) => atualSpecie.name),
+    });
     return byLocation();
   }
 }
 
 function getSchedule(dayName) {
+  const daysOfWeek = Object.keys(hours);
+  const allDays = daysOfWeek.reduce((acc, day) => {
+    const days = hours[day];
+    acc[day] = `Open from ${days.open}am until ${days.close - 12}pm`;
 
+    return acc;
+  }, {});
+  allDays.Monday = 'CLOSED';
+
+  if (!dayName) {
+    return allDays;
+  }
+
+  const oneDay = {};
+  oneDay[dayName] = allDays[dayName];
+
+  return oneDay;
 }
 
 function getOldestFromFirstSpecies(id) {
