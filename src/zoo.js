@@ -5,14 +5,15 @@ function getSpeciesByIds(...ids) {
   if (ids === undefined) { // Se não tiver parâmetros, retorna um array vazio.
     return [];
   }
-  const speciesList = species.filter((specie) => ids.includes(specie.id)); /* Verifica se o ids é igual ao id dentro de species e retorna o objeto em que o ids for igual ao id */
+  const speciesList = species.filter((specie) => ids.includes(specie.id)); /* Verifica se o parâmetro é igual ao id dentro de species e retorna o objeto em que o parâmetro for igual ao id. */
   return speciesList;
 }
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const olderAnimals = species.find((specie) => specie.name === animal); /* Encontra a primeira especie que tenha o nome igual ao parametro passado e retorna o objeto dessa especie. */
+  return olderAnimals.residents.every((resident) => resident.age >= age); /* Verifica se todos os elementos do array "residents" atendem o requisito passado. */
 }
+console.log(getAnimalsOlderThan(Zena, 20));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
