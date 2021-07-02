@@ -1,4 +1,6 @@
-const { species, employees } = require('./data');
+/* eslint-disable no-unused-expressions */
+const { species, employees, prices } = require('./data');
+const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter((specie, idx) =>
@@ -36,16 +38,25 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees.push(newEmployee);
 }
 
-function countAnimals() {
-  // seu código aqui
+function countAnimals(animal) {
+  if (!animal) {
+    const objSpecies = {};
+    species.forEach((specie) => {
+      objSpecies[specie.name] = specie.residents.length;
+    });
+    return objSpecies;
+  }
+  return species.find((specie) => (specie.name === animal)).residents.length;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(persons) {
+  if (!persons) return 0;
+  return Object.keys(persons).reduce((acc, cur) => acc
+  + (persons[cur] * prices[cur]), 0);
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  
 }
 
 function getSchedule(dayName) {
