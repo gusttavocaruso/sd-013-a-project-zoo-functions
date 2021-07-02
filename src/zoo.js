@@ -33,26 +33,26 @@ function isManager(id) {
 }
 
 // Requisito 6
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const EmployeeAdd = {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {// começou com o parametro com [], porque deixa como padrão caso, não coloquem nada em managers ou responsiblefor
+  const EmployeeAdd = {// Usou Object Property Shorthand ensinado em aula para não repetir os parametros de novo
     id,
     firstName,
     lastName,
     managers,
     responsibleFor,
   };
-  return employees.push(EmployeeAdd);
+  return employees.push(EmployeeAdd);// adicionou o novo empregado no employees
 }
 
 // Requisito 7
 function countAnimals(specie) {
-//   if (!specie) {// não passou parametro
-//     return species.reduce((acc, curr) => {// cada animal
-//       acc[curr.name] = curr.residents.length;//
-//       return acc;
-//     }, {});
-//   }
-//   return species.find((animal) => animal.name === specie).residents.length;
+  if (!specie) {// não passou parametro
+    return species.reduce((acc, curr) => {// cada animal
+      acc[curr.name] = curr.residents.length;// acc vai guardar nele o current.name ou seja o nome do animal e também a quantidade de animais
+      return acc;
+    }, {});// começa com {} o acc porque queremos que fique dentro de um objeto
+  }
+  return species.find((animal) => animal.name === specie).residents.length;// encontra o animal que foi passado no parametro acima, e depois ve a quantidade que tem dentro de residents, como todos os residentes( que são objetos) estão dentro de um array, da para fazer o . length que cada objeto, vira uma posição  
 }
 
 // Requisito 8
