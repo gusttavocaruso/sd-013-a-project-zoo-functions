@@ -89,9 +89,7 @@ function getSchedule(dayName) {
   }, {});
   allDays.Monday = 'CLOSED';
 
-  if (!dayName) {
-    return allDays;
-  }
+  if (!dayName) return allDays;
 
   const oneDay = {};
   oneDay[dayName] = allDays[dayName];
@@ -118,7 +116,21 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const allEmployees = employees.reduce((acc, employee) => {
+    const fullName = `${employee.firstName} ${employee.lastName}`;
+    const animals = employee.responsibleFor;
+    acc[fullName] = animals.map((id) => species.find((specie) => specie.id === id).name);
+    return acc;
+  }, {});
+
+  if (!idOrName) return allEmployees;
+
+  const findEmployee = employees.find((employee) =>
+    employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName);
+  const fullName = `${findEmployee.firstName} ${findEmployee.lastName}`;
+  const animals = findEmployee.responsibleFor;
+
+  return { [fullName]: animals.map((id) => species.find((specie) => specie.id === id).name) };
 }
 
 module.exports = {
