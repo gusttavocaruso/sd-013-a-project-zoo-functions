@@ -4,9 +4,9 @@ const { species } = data;
 
 const { employees } = data;
 
-const genID = (size) => [...Array(size)].map(
-  () => Math.floor(Math.random() * 16).toString(16),
-).join('');
+// const genID = (size) => [...Array(size)].map(
+//   () => Math.floor(Math.random() * 16).toString(16),
+// ).join('');
 function getSpeciesByIds(...ids) {
   return (!ids.length ? [] : species.filter((specie) => ids.includes(specie.id)));
 }
@@ -25,7 +25,7 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   const newEmployee = {
-    id: `${genID(9)}-${genID(4)}-${genID(4)}-${genID(4)}-${genID(12)}`,
+    // id: `${genID(9)}-${genID(4)}-${genID(4)}-${genID(4)}-${genID(12)}`,
     ...personalInfo,
     ...associatedWith,
   };
@@ -36,8 +36,11 @@ function isManager(id) {
   return (employees.some((employee) => employee.managers.includes(id)));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = createEmployee({ id, firstName, lastName }, { managers, responsibleFor });
+  employees.push(newEmployee);
+  console.log(newEmployee);
+  return employees;
 }
 
 function countAnimals(speciesId) {
