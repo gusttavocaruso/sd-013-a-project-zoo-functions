@@ -5,11 +5,12 @@ function getSpeciesByIds(...ids) {
   if (!ids) {
     return undefined;
   }
-  return species.filter((specie) => ids.some((id) => id === specie.id));
+  return species.filter((specie) => ids.find((id) => id === specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const find = species.find((specie) => specie.name === animal);
+  return find.residents.every((idade) => idade.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
