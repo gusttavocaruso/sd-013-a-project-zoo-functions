@@ -127,6 +127,7 @@ function getSchedule(dayName) {
   const arrayEntries = Object.entries(data.hours);
   if (dayName === undefined) return checarParametro(arrayEntries);
   const day = arrayEntries.find((weekDay) => weekDay[0] === dayName);
+  console.log(day);
   const object = {};
   if (dayName === 'Monday') {
     object[day[0]] = 'CLOSED';
@@ -147,7 +148,16 @@ function getOldestFromFirstSpecies(id) {
 // Requisito 12
 // ==========================================================================================================
 function increasePrices(percentage) {
-  // seu código aqui
+  const priceObj = data.prices;
+  const adultPrice = priceObj.Adult + (priceObj.Adult * (percentage / 100));
+  const seniorPrice = priceObj.Senior + (priceObj.Senior * (percentage / 100));
+  const childPrice = priceObj.Child + (priceObj.Child * (percentage / 100));
+
+  priceObj.Adult = Math.round(adultPrice * 100) / 100;
+  priceObj.Senior = Math.round(seniorPrice * 100) / 100;
+  priceObj.Child = Math.round(childPrice * 100) / 100;
+
+  return priceObj;
 }
 
 // ==========================================================================================================
