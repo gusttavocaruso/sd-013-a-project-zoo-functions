@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -11,16 +11,28 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  return employees.find((employee) => employee.firstName === employeeName
-                                  || employee.lastName === employeeName);
+  const checkEmployee = (employees.find((employee) => employee.firstName === employeeName
+    || employee.lastName === employeeName));
+  if (checkEmployee !== undefined) {
+    return checkEmployee;
+  }
+
+  return {};
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const criadoEmployee = {
+    id: personalInfo.id,
+    firstName: personalInfo.firstName,
+    lastName: personalInfo.lastName,
+    managers: associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,
+  };
+  return criadoEmployee;
 }
 
 function isManager(id) {
-  // return employees.find((employee) => employee.id === id)
+  return employees.some(({ managers }) => managers.some((manager) => manager === id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
@@ -36,6 +48,13 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(specie) {
+  if ((specie.length) === 0) {
+    return {};
+  }
+
+  const contAnimal = species.filter((residents) => residents.name === specie);
+  console.log(contAnimal);
+
   // seu código aqui
 }
 
@@ -56,12 +75,18 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const keys = Object.keys(prices);
+  keys.forEach((key) => {
+    prices[key] = Math.round((prices[key]) * (1 + (percentage / 100)) * 100) / 100;
+    console.log(prices[key]);
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
+
+increasePrices(30);
 
 module.exports = {
   calculateEntry,
@@ -79,27 +104,4 @@ module.exports = {
   createEmployee,
 };
 
-// getSpeciesByIds("01422318-ca2d-46b8-b66c-3e9e188244ed");
-// getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46');
-// getAnimalsOlderThan('penguins', 10);
-// getEmployeeByName('Wishart')
-
-// const personalInfo = {
-//   id: '7ed1c9bb-8570-44f6-b718-0666b869573a',
-//   firstName: 'John',
-//   lastName: 'Doe',
-// };
-
-// const associatedWith = {
-//   managers: [
-//     'c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1',
-//     '9e7d4524-363c-416a-8759-8aa7e50c0992'
-//   ],
-//   responsibleFor: [
-//     '0938aa23-f153-4937-9f88-4858b24d6bce',
-//     '89be95b3-47e4-4c5b-b687-1fabf2afa274',
-//     'bb2a76d8-5fe3-4d03-84b7-dba9cfc048b5'
-//   ]
-// };
-
-// createEmployee(personalInfo, associatedWith);
+// countAnimals('snakes')
