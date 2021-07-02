@@ -8,9 +8,11 @@ const getSpeciesByIds = (...ids) => {
 const getAnimalsOlderThan = (animal, age) => data.species.find(({ name }) => name === animal)
   .residents.every((resident) => resident.age > age);
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
-}
+const getEmployeeByName = (employeeName) => {
+  if (!employeeName) return {};
+  return data.employees.find(({ firstName, lastName }) => firstName === employeeName
+    || lastName === employeeName);
+};
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
