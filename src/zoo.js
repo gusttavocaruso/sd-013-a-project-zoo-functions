@@ -1,8 +1,8 @@
 const { species, employees } = require('./data');
 const data = require('./data');
 
-console.table(employees);
-console.table(employees[0]);
+// console.table(employees);
+// console.table(employees[0]);
 
 function getSpeciesByIds(...ids) {
   const resultadoBusca = [];
@@ -25,7 +25,14 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  employees.push({ lastName: personalInfo.lastName,
+    firstName: personalInfo.firstName,
+    id: personalInfo.id,
+    managers: associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,
+  });
+  return employees.find((employee) =>
+    employee.id.includes(personalInfo.id));
 }
 
 function isManager(id) {
