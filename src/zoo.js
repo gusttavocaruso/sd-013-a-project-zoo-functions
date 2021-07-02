@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -46,21 +46,49 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   return total;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getAnimalMap() {
+  const regions = ['NE', 'NW', 'SE', 'SW'];
+  const noParameter = species.map((element) => {
+
+    return element.location;
+    //     .map((element2) => element2.name);
+    // })
+  });
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const newObj = {};
+  const newObj2 = {};
+  for (const key in hours) {
+    newObj[key] = `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
+  }
+  newObj.Monday = 'CLOSED';
+  if (!dayName) return newObj;
+  newObj2[dayName] = newObj[dayName];
+  return newObj2;
 }
 
+//console.log(Object.entries(hours));
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findAnimalById = employees.find((element) => element.id === id).responsibleFor[0];
+  const findResidentsById = species.find((element) => element.id === findAnimalById).residents;
+  const findOldest = findResidentsById.reduce((acc, element) => {
+    if (element.age > acc.age) return element;
+    return acc;
+  });
+  const { name, sex, age } = findOldest;
+  return [name, sex, age];
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  for (const key in prices) {
+    prices[key] = (prices[key] + (prices[key] * percentage / 100)).toFixed(2);
+  }
+  return prices;
 }
+
+console.log(increasePrices(30));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
@@ -81,4 +109,3 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
-
