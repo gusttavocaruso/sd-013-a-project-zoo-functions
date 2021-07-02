@@ -17,7 +17,7 @@ function getAnimalsOlderThan(animal, age) {
   return dataAnimal.residents.every((residente) => residente.age > age);
 }
 
-function getEmployeeByName(employeeName) {
+function getEmployeeByName(employeeName = []) {
   if (typeof employeeName === 'undefined') {
     return {};
   }
@@ -27,7 +27,6 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
   const obj = {
     ...personalInfo,
     ...associatedWith,
@@ -36,9 +35,13 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const managers = ['9e7d4524-363c-416a-8759-8aa7e50c0992',
+    'fdb2543b-5662-46a7-badc-93d960fdc0a8',
+    '0e7b460e-acf4-4e17-bcb3-ee472265db83'];
+  const manager = data.employees.find((employee) => employee.id === id);
+  return manager.managers.includes(...managers);
 }
-
+console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
