@@ -1,10 +1,12 @@
 const { species } = require('./data');
 const { employees } = require('./data');
 const { prices } = require('./data');
+const { hours } = require('./data');
 const data = require('./data');
 // console.log(employees);
 // console.log(species);
-console.log(prices);
+// console.log(prices);
+console.log(hours);
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
@@ -60,9 +62,6 @@ function countAnimals(species2) {
 
 function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   // seu código aqui
-  console.log(Adult);
-  console.log(Child);
-  console.log(Senior);
   const price = prices.Adult * Adult + prices.Senior * Senior + prices.Child * Child;
   return price;
 }
@@ -71,8 +70,38 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+function getScheduleWithParameter(dayName, keyHours) {
+  const objSchedule = {};
+
+  if (dayName !== 'Monday') {
+    keyHours.forEach((key) => {
+      if (key === dayName) {
+        objSchedule[key] = `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
+      }
+    });
+  } else {
+    objSchedule.Monday = 'CLOSED';
+  }
+  return objSchedule;
+}
+function getScheduleWithOutParameter(keyHours) {
+  const objSchedule = {};
+  keyHours.forEach((key) => {
+    if (key !== 'Monday') {
+      objSchedule[key] = `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
+    } else {
+      objSchedule[key] = 'CLOSED';
+    }
+  });
+  return objSchedule;
+}
 function getSchedule(dayName) {
   // seu código aqui
+  const keyHours = Object.keys(hours);
+  if (dayName === undefined) {
+    return getScheduleWithOutParameter(keyHours);
+  }
+  return getScheduleWithParameter(dayName, keyHours);
 }
 
 function getOldestFromFirstSpecies(id) {
