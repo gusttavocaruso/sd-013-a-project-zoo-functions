@@ -44,7 +44,7 @@ function countAnimals(especies) {
     species.forEach(({ name, residents }) => especies[name] = residents.length);
     return especies;
   }
-    return species.find((especie) => especie.name === especies).residents.length;
+  return species.find((especie) => especie.name === especies).residents.length;
 }
 
 function calculateEntry(entrants) {
