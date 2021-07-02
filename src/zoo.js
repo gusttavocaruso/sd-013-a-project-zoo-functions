@@ -1,4 +1,3 @@
-const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -24,7 +23,6 @@ function getEmployeeByName(employ) {
 
 function createEmployee(personalInfo, associatedWith) {
   const newObj = Object.assign(personalInfo, associatedWith);
-  data.employees.push(newObj);
   return newObj;
 }
 
