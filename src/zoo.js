@@ -1,10 +1,10 @@
-const { species, employees, hours, prices } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 // Requisito 1
-function getSpeciesByIds(...ids) {//gerar um array de ids
-  if(!ids) return [];// sem nada retorna vazio 
-  return ids.map((id)=>species.find((specie)=> specie.id === id));//o map vai separar id por id, depois especie por especie vai encontrar aquela cujo id é giual ao id passado lá em cima
+function getSpeciesByIds(...ids) { // gerar um array de ids
+  if (!ids) return [];// sem nada retorna vazio
+  return ids.map((id) => species.find((specie) => specie.id === id));// o map vai separar id por id, depois especie por especie vai encontrar aquela cujo id é giual ao id passado lá em cima
 }
 
 // Requisito 2
@@ -17,7 +17,7 @@ function getAnimalsOlderThan(name, age) {
 function getEmployeeByName(employeeName) {
   if (employeeName === undefined) return {};
   return employees.find((employee) => (
-    employee.firstName === employeeName || employee.lastName === employeeName
+    employee.firstName === employeeName || employee.lastName === employeeName // como aqui no parametro do employeeName pode jogar só o nome ou só o sobrenome, por isso o ou
   ));
 }
 
@@ -45,27 +45,26 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 // Requisito 7
-// function countAnimals(specie) {
+function countAnimals(specie) {
 //   if (!specie) {// não passou parametro
-//     return species.reduce((acc, curr) => {// cada animal 
-//       acc[curr.name] = curr.residents.length;// 
+//     return species.reduce((acc, curr) => {// cada animal
+//       acc[curr.name] = curr.residents.length;//
 //       return acc;
 //     }, {});
 //   }
 //   return species.find((animal) => animal.name === specie).residents.length;
-// }
-
+}
 
 // Requisito 8
-// function calculateEntry(entrants){
+function calculateEntry(entrants) {
 // if (!entrants) {
 // return 0;
-// }
+}
 // const { Adult = 0, Child = 0, Senior = 0 } = entrants;
 // const priceTotal = (Adult * data.prices.Adult)
 // + (Child * data.prices.Child)
 // + (Senior * data.prices.Senior);
-// return priceTotal; 
+// return priceTotal;
 // }
 
 // console.log(calculateEntry())
@@ -86,8 +85,8 @@ function getAnimalMap(options) {
 //   return acc;
 //   }, {});
 //   }
-  
-//   function getSchedule(dayName) {
+
+function getSchedule(dayName) {
 //   const arrayEntries = Object.entries(data.hours);
 //   if (dayName === undefined) return checarParametro(arrayEntries);
 //   const day = arrayEntries.find((weekDay) => weekDay[0] === dayName);
@@ -95,10 +94,10 @@ function getAnimalMap(options) {
 //   if (dayName === 'Monday') {
 //   object[day[0]] = 'CLOSED';
 //   return object;
-//   }
+}
 //   object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
 //   return object;
-//   } 
+//   }
 
 // Requisito 11
 function getOldestFromFirstSpecies(id) {
@@ -106,11 +105,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 // Requisito 12
-// function increasePrices(percentage) {
+function increasePrices(percentage) {
 //   prices.Adult = Math.round((prices.Adult * (1 + (percentage / 100))) * 100) / 100;
 //   prices.Senior = Math.round((prices.Senior * (1 + (percentage / 100))) * 100) / 100;
 //   prices.Child = Math.round((prices.Child * (1 + (percentage / 100))) * 100) / 100;
-// }
+}
 
 // Requisito 13
 function getEmployeeCoverage(idOrName) {
