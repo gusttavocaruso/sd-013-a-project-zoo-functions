@@ -32,7 +32,13 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  let managerInfo = false;
+  employees.forEach((employee) => {
+    employee.managers.forEach((managerId) => {
+      if (managerId === id) managerInfo = true;
+    });
+  });
+  return managerInfo;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
