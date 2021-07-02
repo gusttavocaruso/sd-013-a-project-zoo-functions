@@ -154,8 +154,6 @@ function getOldestFromFirstSpecies(id) {
   return Object.values(oldestAnimal);
 }
 
-console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
-
 // ==========================================================================================================
 // Requisito 12
 // ==========================================================================================================
@@ -175,9 +173,39 @@ function increasePrices(percentage) {
 // ==========================================================================================================
 // Requisito 13
 // ==========================================================================================================
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+function findSpecie(responSpecie) {
+  return data.species.find((specie) => specie.id === responSpecie).name;
 }
+
+function or(objEm, curr) {
+  return objEm.id === curr || objEm.firstName === curr || objEm.lastName === curr;
+}
+
+function findEmployee(curr) {
+  return data.employees.find((objEm) => or(objEm, curr));
+}
+
+function getEmployeeCoverage(idOrName) {
+  const objResp = data.employees;
+  if (idOrName === undefined) {
+    const array = objResp.map((resp) => resp.responsibleFor.map((respSpe) => findSpecie(respSpe)));
+
+    return data.employees.reduce((acc, curr, index) => {
+      const name = `${curr.firstName} ${curr.lastName}`;
+      acc[name] = array[index];
+      return acc;
+    }, {});
+  }
+  return objResp.reduce((acc, curr) => {
+    const employee = findEmployee(idOrName);
+    const name = `${employee.firstName} ${employee.lastName}`;
+    const arraySpec = employee.responsibleFor.map((respSpe) => findSpecie(respSpe));
+    acc[name] = arraySpec;
+    return acc;
+  }, {});
+}
+
+console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
