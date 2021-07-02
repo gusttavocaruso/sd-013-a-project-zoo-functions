@@ -85,8 +85,6 @@ function increasePrices(percentage) {
 
   return prices;
 }
-console.log(increasePrices(50));
-console.log(increasePrices(30));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
