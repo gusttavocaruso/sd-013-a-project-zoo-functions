@@ -4,6 +4,7 @@ const data = require('./data');
 ...ids: ao usarmos o spread, permite que se passe multiplos parametros
         e nos permite manipula-los como arrays.
 */
+// getSpeciesByIds('dsdas', 'dasdasd', '321')
 function getSpeciesByIds(...ids) {
   const speciesEncontradasParaTodosIds = [];
 
@@ -48,6 +49,13 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
+  const idsDeTodosManagers = [];
+
+  data.employees.forEach((e) => {
+    idsDeTodosManagers.push(...e.managers);
+  });
+
+  return idsDeTodosManagers.includes(id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
