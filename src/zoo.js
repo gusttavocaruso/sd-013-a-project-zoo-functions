@@ -146,14 +146,12 @@ function increasePrices(percentage) {
 const employeeCoverage = () => {
   const result = {};
   employees.forEach(({ firstName, lastName, responsibleFor }) => {
-    const animals = species
-      .filter(({ id }) => responsibleFor.some((animalId) => id === animalId))
-      .map(({ name }) => name);
+    const animals = responsibleFor.map((animalId) => species
+      .find(({ id }) => id === animalId).name);
     result[`${firstName} ${lastName}`] = animals;
   });
   return result;
 };
-console.log(employeeCoverage());
 
 function getEmployeeCoverage(idOrName) {
   if (!idOrName) {
@@ -167,8 +165,6 @@ function getEmployeeCoverage(idOrName) {
   const employeeName = `${firstName} ${lastName}`;
   return { [employeeName]: employeeCoverage()[employeeName] };
 }
-console.log(getEmployeeCoverage());
-// console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 module.exports = {
   calculateEntry,
