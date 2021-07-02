@@ -141,8 +141,20 @@ function getSchedule(dayName) {
 // Requisito 11
 // ==========================================================================================================
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee = data.employees.find((employeeObj) => employeeObj.id === id);
+  const responsibility = employee.responsibleFor[0];
+  const animal = data.species.find((specie) => specie.id === responsibility);
+  const olderAge = animal.residents.reduce((acc, resident) => {
+    if (resident.age > acc) {
+      return resident.age;
+    }
+    return acc;
+  }, 0);
+  const oldestAnimal = animal.residents.find((olderAnimal) => olderAnimal.age === olderAge);
+  return Object.values(oldestAnimal);
 }
+
+console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 // ==========================================================================================================
 // Requisito 12
