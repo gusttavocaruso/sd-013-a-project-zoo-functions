@@ -58,22 +58,52 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+function nenhumDiaPassado(keys, Values, diasSemana) {
+  const dSemana = diasSemana;
+  keys.forEach((key, index) => {
+    if (key === 'Monday') {
+      dSemana[key] = 'CLOSED';
+    } else {
+      dSemana[key] = `Open from ${Values[index].open}am until ${Values[index].close - 12}pm`;
+    }
+  });
+  return dSemana;
+}
+
+function monday(keys, diasSemana) {
+  const dSemana = diasSemana;
+  keys.forEach((key, index) => {
+    if (key === 'Monday') {
+      dSemana[key] = 'CLOSED';
+    }
+  });
+  return dSemana;
+}
+
+function umDiaPassado(keys, Values, diasSemana, dayName) {
+  const dSemana = diasSemana;
+  keys.forEach((key, index) => {
+    if (key === dayName) {
+      dSemana[key] = `Open from ${Values[index].open}am until ${Values[index].close - 12}pm`;
+    }
+  });
+  return dSemana;
+}
+
 function getSchedule(dayName) {
   // return `Open from ${Tuesday.open}am until ${Tuesday.close - 12}pm`;
   const diasSemana = {};
   const keys = Object.keys(data.hours);
   const Values = Object.values(data.hours);
 
-  keys.forEach((key, index) => {
-    if (key === 'Monday') {
-      diasSemana[key] = 'CLOSED';
-    } else {
-      diasSemana[key] = `Open from ${Values[index].open}am until ${Values[index].close - 12}pm`;
-    }
-  });
+  if (!dayName) return nenhumDiaPassado(keys, Values, diasSemana);
 
-  return diasSemana;
+  if (dayName === 'Monday') return monday(keys, diasSemana);
+
+  if (dayName && dayName !== 'Monday') return umDiaPassado(keys, Values, diasSemana, dayName);
 }
+
+console.log(getSchedule('Saturday'));
 
 function getOldestFromFirstSpecies(id) {
   const idSpecie = data.employees.find((employee) => employee.id === id).responsibleFor
@@ -91,7 +121,10 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const objCoverage = {};
+  data.employees.forEach((employee) => {
+    objCoverage[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor;
+  });
 }
 
 module.exports = {
