@@ -77,24 +77,64 @@ function getAnimalMap(options) {
   // criar o objeto { NE: [], NW: [], SE: [], SW: [] }
   const animalMap = species.reduce(localizacaoSpecis, {});
 
+  // Requisito 1
   if (!options) {
     return animalMap;
   }
 
- if(options.sorted && options.includeNames){
+  // Requisito 5.
+  if(['female', 'male'].includes(options.sex) && (options.includeNames && options.sorted)){
     // Uso a chave de animalMap pra acessa a lista das species.
     Object.keys(animalMap).forEach((location) => {
       //  refazendo a lista orignal de animalMap pra [{anime: [lista de nomes]}]
       animalMap[location] = animalMap[location].map((nameSpecie) => {
-        let list =  species.find((specie) => specie.name === nameSpecie)
-        .residents.map((names) => names.name).sort();
-        console.log(list);
-         return {[nameSpecie]: list}
+
+        const list = species.find((specie) => specie.name === nameSpecie)
+          .residents.filter((sex) => sex.sex === options.sex).map((listNameSex) => listNameSex.name).sort();
+          console.log(list);
+          return { [nameSpecie]: list };
+        });
+      });
+      console.log('5');
+    return animalMap;
+
+  }
+  
+  // Requisito 4.
+  if(['female', 'male'].includes(options.sex) && options.includeNames){
+    // Uso a chave de animalMap pra acessa a lista das species.
+    Object.keys(animalMap).forEach((location) => {
+      //  refazendo a lista orignal de animalMap pra [{anime: [lista de nomes]}]
+      animalMap[location] = animalMap[location].map((nameSpecie) => {
+        
+        const list = species.find((specie) => specie.name === nameSpecie)
+        .residents.filter((sex) => sex.sex === options.sex).map((listNameSex) => listNameSex.name);
+        return { [nameSpecie]: list };
       });
     });
+    console.log('4');
+    return animalMap;
+  }
+  
+
+  
+  // Requisito 3.
+  if (options.sorted && options.includeNames) {
+    // Uso a chave de animalMap pra acessa a lista das species.
+    Object.keys(animalMap).forEach((location) => {
+      //  refazendo a lista orignal de animalMap pra [{anime: [lista de nomes]}]
+      animalMap[location] = animalMap[location].map((nameSpecie) => {
+        const list = species.find((specie) => specie.name === nameSpecie)
+          .residents.map((names) => names.name).sort();
+        return { [nameSpecie]: list };
+      });
+    });
+    console.log('3');
     return animalMap;
   }
 
+
+  // Requisto 2.
   if (options.includeNames) {
     // Uso a chave de animalMap pra acessa a lista das species.
     Object.keys(animalMap).forEach((location) => {
@@ -104,10 +144,13 @@ function getAnimalMap(options) {
           .residents.map((names) => names.name),
       }));
     });
+    console.log('2');
     return animalMap;
   }
+
 }
-console.log(getAnimalMap({sorted: true, includeNames: true}));
+
+console.log(getAnimalMap({  includeNames: true, sex: 'female', sorted: true }));
 
 function getSchedule(dayName) {
   // seu código aqui
