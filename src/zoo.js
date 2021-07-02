@@ -28,8 +28,11 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const managerEmployee = data.employees.some((employee) => employee.managers.some((manager) => manager === id)); /* Verifica se pelo menos um manager dentro de employees tem um id igual ao parametro e retorna true ou false. */
+  return managerEmployee;
 }
+
+console.log(isManager('56d43ba3-a5a7-40f6-8dd7-cbb05082383f'));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
