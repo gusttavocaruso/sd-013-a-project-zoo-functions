@@ -63,9 +63,37 @@ function calculateEntry(entrants) {
   }, 0);
 }
 
+const localizacaoSpecis = (objet, animal) => {
+  const acomulador = objet;
+  if (acomulador[animal.location]) {
+    acomulador[animal.location].push(animal.name);
+  } else {
+    acomulador[animal.location] = [animal.name];
+  }
+  return acomulador;
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  // criar o objeto { NE: [], NW: [], SE: [], SW: [] }
+  const animalMap = species.reduce(localizacaoSpecis, {});
+
+  if (!options) {
+    return animalMap;
+  }
+
+  if (options.includeNames) {
+    // Uso a chave de animalMap pra acessa a lista das species.
+    Object.keys(animalMap).forEach((location) => {
+      //  refazendo a lista orignal de animalMap pra [{anime: [lista de nomes]}]
+      animalMap[location] = animalMap[location].map((nameSpecie) => ({
+        [nameSpecie]: species.find((specie) => specie.name === nameSpecie)
+          .residents.map((names) => names.name),
+      }));
+    });
+    return animalMap;
+  }
 }
+console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   // seu código aqui
