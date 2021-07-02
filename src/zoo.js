@@ -70,11 +70,24 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+
 }
 
+const { hours } = require('./data');
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const keys = Object.keys(data.hours);
+  const horarios = {};
+  const horario = {};
+
+  keys.forEach((key) => {
+    if (key === 'Monday') {
+      horarios[key] = 'CLOSED';
+    } else horarios[key] = `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
+  });
+
+  horario[dayName] = horarios[dayName];
+  return dayName === undefined ? horarios : horario;
 }
 
 function getOldestFromFirstSpecies(id) {
