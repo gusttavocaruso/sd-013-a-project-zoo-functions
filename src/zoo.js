@@ -96,9 +96,20 @@ function getSchedule(dayName) {
   return { [dayName]: days[dayName] };
 }
 
+// REQUISITO 11
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+
+  const idEmploy = employees.find((people) =>
+    people.id.includes(id)).responsibleFor[0];
+
+  const animalOld = species.filter((animal) => animal.id.includes(idEmploy))[0]
+    .residents.map((itemAge) => itemAge.age).reduce((a, b) => Math.max(a, b));
+  const objResult = species.filter((animal) => animal.id.includes(idEmploy))[0]
+    .residents.filter((animal) => animal.age === animalOld)[0];
+  const result = [objResult.name, objResult.sex, objResult.age];
+  return result;
 }
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
