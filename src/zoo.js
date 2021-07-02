@@ -100,10 +100,26 @@ function increasePrices(percentage) {
   });
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+function getEmployeeCoverage(func) {
+  const gus = {};
+  if (!func) {
+    employees.forEach((acc) => {
+      gus[`${acc.firstName} ${acc.lastName}`] = [];
+      acc.responsibleFor.forEach((e) => {
+        const getAnimalName = species.find((idAnimal) => idAnimal.id === e);
+        gus[`${acc.firstName} ${acc.lastName}`].push(getAnimalName.name);
+      });
+    });
+    return gus;
+  }
+  const id = employees.find((q) => q.id === func || q.firstName === func || q.lastName === func);
+  gus[`${id.firstName} ${id.lastName}`] = [];
+  id.responsibleFor.forEach((item2) => {
+    const getAnimalName = species.find((idAnimal) => idAnimal.id === item2);
+    gus[`${id.firstName} ${id.lastName}`].push(getAnimalName.name);
+  });
+  return gus;
 }
-
 module.exports = {
   calculateEntry,
   getSchedule,
