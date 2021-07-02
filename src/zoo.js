@@ -50,12 +50,17 @@ function countAnimals(species) {
   return animalsQuantities;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
+  const { Adult: Ad, Senior: Se, Child: Ch } = data.prices;
+  return (Adult * Ad) + (Senior * Se) + (Child * Ch);
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  const loc = data.species.reduce((accumulator, current) => {
+    const local = accumulator;
+    local[current.location] = push(current.name);
+  }, {});
+  return loc;
 }
 
 function getSchedule(dayName) {
