@@ -1,4 +1,4 @@
-const { employees } = require('./data');
+const { employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -50,8 +50,9 @@ function countAnimals(species) {
   return species === undefined ? allSpecies : allSpecies[species];
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = {}) {
+  const entrantsKey = Object.keys(entrants);
+  return entrantsKey.reduce((acc, cur) => acc + prices[cur] * entrants[cur], 0);
 }
 
 function getAnimalMap(options) {
