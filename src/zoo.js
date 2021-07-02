@@ -104,7 +104,7 @@ function getOldestFromFirstSpecies(id) {
   const firstAnimal = thisEmployee.responsibleFor[0];
   const allResidents = species.find((specie) => specie.id === firstAnimal).residents;
   const oldestAnimal = Object.values(allResidents.sort((a, b) => b.age - a.age)[0]);
-  
+
   return oldestAnimal;
 }
 
@@ -113,7 +113,6 @@ function increasePrices(percentage) {
   prices.Adult = Math.round((prices.Adult * porcen) * 100) / 100;
   prices.Senior = Math.round((prices.Senior * porcen) * 100) / 100;
   prices.Child = Math.round((prices.Child * porcen) * 100) / 100;
-  console.log(prices);
 
   return prices;
 }
