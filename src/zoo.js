@@ -1,14 +1,14 @@
-const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const { species } = data
+  const { species } = data;
   if (!ids || !ids.length) return [];
-  return species.filter((animal) => ids.includes(animal.id))
+  return species.filter((animal) => ids.includes(animal.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  return species.find((specie) => specie.name === animal).residents.every((resident) => resident.age >= age)
+  const { species } = data;
+  return species.find((spe) => spe.name === animal).residents.every((re) => re.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
