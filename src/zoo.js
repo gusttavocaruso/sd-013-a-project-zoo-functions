@@ -36,16 +36,24 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
-  return employees
-    .some(({ managers }) => managers.some((manager) => manager === id));
+  return employees.some(({ managers }) => managers.some((manager) => manager === id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
+  const createEmployeeObj = () => ({ id, firstName, lastName, managers, responsibleFor });
+  const employeeObject = createEmployeeObj();
+  employees.push(employeeObject);
 }
 
-function countAnimals(species1) {
+function countAnimals(specieName) {
   // seu código aqui
+  if (specieName) {
+    return species.find((specie) => specie.name === specieName).residents.length;
+  }
+  const countAnimalsObj = {};
+  species.forEach((resident) => { countAnimalsObj[resident.name] = resident.residents.length; });
+  return countAnimalsObj;
 }
 
 function calculateEntry(entrants) {
