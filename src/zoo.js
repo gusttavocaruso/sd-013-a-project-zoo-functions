@@ -23,7 +23,7 @@ function createEmployee({ id, firstName, lastName }, associatedWith) {
 
 function isManager(id) {
   const ManagersArray = employees.map((element) => element.managers).join();
-  return console.log(ManagersArray.split().some((element2) => element2.includes(id)));
+  return ManagersArray.split().some((element2) => element2.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -33,8 +33,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(specie) {
   if (!specie) {
-    const obj = {};
-    species.forEach(element => obj[element.name] = element.residents.length);
+    const obj = species.reduce((acc, crr) => ({ ...acc, [crr.name]: crr.residents.length }), {});
     return obj;
   }
   const findSpecie = species.find((element) => element.name === specie).residents.length;
@@ -47,28 +46,27 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
 }
 
 function getAnimalMap() {
-  const regions = ['NE', 'NW', 'SE', 'SW'];
-  const noParameter = species.map((element) => {
+  // const regions = ['NE', 'NW', 'SE', 'SW'];
+  // const noParameter = species.reduce((acc, crr) => {
+  //   return { ...acc, []}
+  // }, {})
 
-    return element.location;
-    //     .map((element2) => element2.name);
-    // })
-  });
 }
 
 function getSchedule(dayName) {
+  const entries = Object.entries(hours);
+  const weekSchedule = entries.reduce((acc, crr) => {
+    return { ...acc, [crr[0]]: `Open from ${crr[1].open}am until ${crr[1].close - 12}pm` };
+  }, {});
+  weekSchedule.Monday = 'CLOSED';
+  console.log(Object.entries(weekSchedule));
+  if (!dayName) return weekSchedule;
   const newObj = {};
-  const newObj2 = {};
-  for (const key in hours) {
-    newObj[key] = `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
-  }
-  newObj.Monday = 'CLOSED';
-  if (!dayName) return newObj;
-  newObj2[dayName] = newObj[dayName];
-  return newObj2;
+  newObj[dayName] = weekSchedule[dayName];
+  return newObj;
 }
 
-//console.log(Object.entries(hours));
+console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   const findAnimalById = employees.find((element) => element.id === id).responsibleFor[0];
@@ -81,18 +79,25 @@ function getOldestFromFirstSpecies(id) {
   return [name, sex, age];
 }
 
+// feito com ajuda do Gustavo Mauricio turma 13A
 function increasePrices(percentage) {
-  for (const key in prices) {
-    prices[key] = (prices[key] + (prices[key] * percentage / 100)).toFixed(2);
-  }
-  return prices;
+  const newPrice = prices;
+  const increase = (percentage / 100) + 1;
+  return Object.keys(newPrice).forEach((element) => {
+    newPrice[element] = Math.round((newPrice[element] * increase * 100)) / 100;
+  });
 }
-
-console.log(increasePrices(30));
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const getanimalsId = employees.map((element) => element.responsibleFor);
+  const emplyeesAndAnimais = getanimalsId.map((animalId) => {
+    const findAnimalsbyId = species.find((specie) => specie.id === animalId);
+    // return `${findAnimalsbyId.name}`
+  })
 }
+
+//console.log(getEmployeeCoverage('Nigel'))
+
 
 module.exports = {
   calculateEntry,
