@@ -1,8 +1,14 @@
+const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if (ids === undefined) { // Se não tiver parâmetros, retorna um array vazio.
+    return [];
+  }
+  const speciesList = species.filter((specie) => ids.includes(specie.id)); /* Verifica se o ids é igual ao id dentro de species e retorna o objeto em que o ids for igual ao id */
+  return speciesList;
 }
+console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
