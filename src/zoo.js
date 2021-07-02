@@ -28,16 +28,35 @@ function createEmployee(personalInfo, associatedWith) {
   };
 }
 
-function isManager(id) {
-  // seu código aqui
+function isManager(ids) {
+  const [managers, id] = data.employees;
+const encontrar = data.employees.some((identify) => identify.id === ids)
+.includes(managers);
+return encontrar;
+  
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return data.employess.push(newEmployee);
 }
 
 function countAnimals(speciess) {
-  // seu código aqui
+  if (!speciess) {
+    const obj = {};
+    data.species.forEach( nome => obj[nome.name] = nome.residents.length);
+    return obj;
+  }
+  
+
+  return data.species.find((nome) => nome.name === speciess)
+  .residents.length;
 }
 
 function calculateEntry(entrants) {
