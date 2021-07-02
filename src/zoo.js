@@ -13,10 +13,14 @@ function getAnimalsOlderThan(animal, age) {
   const olderAnimals = species.find((specie) => specie.name === animal); /* Encontra a primeira especie que tenha o nome igual ao parametro passado e retorna o objeto dessa especie. */
   return olderAnimals.residents.every((resident) => resident.age >= age); /* Verifica se todos os elementos do array "residents" atendem o requisito passado. */
 }
-console.log(getAnimalsOlderThan(Zena, 20));
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) {
+    return {};
+  }
+  const employeeFullname = data.employees.find((employee) => // Não estava reconhecendo apenas o employees, então coloquei o data na frente. 
+    employee.firstName === employeeName || employee.lastName === employeeName); //Encontra o primeiro funcionário que tenha o primeiro ou último nome do parâmetro. 
+  return employeeFullname;
 }
 
 function createEmployee(personalInfo, associatedWith) {
