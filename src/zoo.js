@@ -81,6 +81,20 @@ function getAnimalMap(options) {
     return animalMap;
   }
 
+ if(options.sorted && options.includeNames){
+    // Uso a chave de animalMap pra acessa a lista das species.
+    Object.keys(animalMap).forEach((location) => {
+      //  refazendo a lista orignal de animalMap pra [{anime: [lista de nomes]}]
+      animalMap[location] = animalMap[location].map((nameSpecie) => {
+        let list =  species.find((specie) => specie.name === nameSpecie)
+        .residents.map((names) => names.name).sort();
+        console.log(list);
+         return {[nameSpecie]: list}
+      });
+    });
+    return animalMap;
+  }
+
   if (options.includeNames) {
     // Uso a chave de animalMap pra acessa a lista das species.
     Object.keys(animalMap).forEach((location) => {
@@ -93,7 +107,7 @@ function getAnimalMap(options) {
     return animalMap;
   }
 }
-console.log(getAnimalMap());
+console.log(getAnimalMap({sorted: true, includeNames: true}));
 
 function getSchedule(dayName) {
   // seu código aqui
