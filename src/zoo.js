@@ -25,14 +25,11 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // Feito com ajuda do Josue.
-  return {
-    ...personalInfo,
-    ...associatedWith,
-  }
+  return {...personalInfo, ...associatedWith,}
 }
-
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((each) => each.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
