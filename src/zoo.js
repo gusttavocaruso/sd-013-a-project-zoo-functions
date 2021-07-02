@@ -18,8 +18,7 @@ function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
     return {};
   }
-  const employeeFullname = data.employees.find((employee) => 
-  {employee.firstName === employeeName || employee.lastName === employeeName}); /* Não estava reconhecendo apenas o employees, então coloquei o data na frente. Encontra o primeiro funcionário que tenha o primeiro ou último nome do parâmetro.*/
+  const employeeFullname = data.employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName); /* Não estava reconhecendo apenas o employees, então coloquei o data na frente. Encontra o primeiro funcionário que tenha o primeiro ou último nome do parâmetro.*/
   return employeeFullname;
 }
 
@@ -29,7 +28,8 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
 
-  const managerEmployee = data.employees.some((employee) => employee.managers.some((manager) => manager === id)); /* Verifica se pelo menos um manager dentro de employees tem um id igual ao parametro e retorna true ou false. */
+  const managerEmployee = data.employees.some((employee) => 
+    employee.managers.some((manager) => manager === id)); /* Verifica se pelo menos um manager dentro de employees tem um id igual ao parametro e retorna true ou false. */
   return managerEmployee;
 }
 
@@ -46,8 +46,8 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 
 function countAnimals(species1) {
   if (species1 === undefined) {
-    const animals = { };
-    data.species.forEach((specie) => {animals[specie.name] = specie.residents.length;});
+    const animals = {};
+    data.species.forEach((specie) => { animals[specie.name] = specie.residents.length; });
     return animals;
   }
   return data.species.find((specie) => specie.name === species1).residents.length;
@@ -65,7 +65,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  const 
 }
 
 function getSchedule(dayName) {
