@@ -44,7 +44,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
     managers,
     responsibleFor,
   };
-  employees.push(newEmployee);
+  return employees.push(newEmployee);
 }
 
 function countAnimals(specie) {
@@ -78,8 +78,8 @@ function increasePrices(percentage) {
   const keys = Object.keys(prices);
   keys.forEach((key) => {
     prices[key] = Math.round((prices[key]) * (1 + (percentage / 100)) * 100) / 100;
-    console.log(prices[key]);
   });
+  return keys;
 }
 
 function getEmployeeCoverage(idOrName) {
