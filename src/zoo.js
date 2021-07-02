@@ -23,7 +23,7 @@ function getEmployeeByName(employeeName) {
 
 // Requisito 4
 function createEmployee(personalInfo, associatedWith) {
-  const employee = { ...personalInfo, ...associatedWith }; // como queremos juntas os dados lá de cima, criou uma constante empregado que junta os dois dados 
+  const employee = { ...personalInfo, ...associatedWith }; // como queremos juntas os dados lá de cima, criou uma constante empregado que junta os dois dados
   return employee;
 }
 
@@ -33,8 +33,8 @@ function isManager(id) {
 }
 
 // Requisito 6
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {// começou com o parametro com [], porque deixa como padrão caso, não coloquem nada em managers ou responsiblefor
-  const EmployeeAdd = {// Usou Object Property Shorthand ensinado em aula para não repetir os parametros de novo
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // começou com o parametro com [], porque deixa como padrão caso, não coloquem nada em managers ou responsiblefor
+  const EmployeeAdd = { // Usou Object Property Shorthand ensinado em aula para não repetir os parametros de novo
     id,
     firstName,
     lastName,
@@ -46,28 +46,26 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 // Requisito 7
 function countAnimals(specie) {
-  if (!specie) {// não passou parametro
-    return species.reduce((acc, curr) => {// cada animal
+  if (!specie) { // não passou parametro
+    return species.reduce((acc, curr) => { // cada animal
       acc[curr.name] = curr.residents.length;// acc vai guardar nele o current.name ou seja o nome do animal e também a quantidade de animais
       return acc;
     }, {});// começa com {} o acc porque queremos que fique dentro de um objeto
   }
-  return species.find((animal) => animal.name === specie).residents.length;// encontra o animal que foi passado no parametro acima, e depois ve a quantidade que tem dentro de residents, como todos os residentes( que são objetos) estão dentro de um array, da para fazer o . length que cada objeto, vira uma posição  
+  return species.find((animal) => animal.name === specie).residents.length;// encontra o animal que foi passado no parametro acima, e depois ve a quantidade que tem dentro de residents, como todos os residentes( que são objetos) estão dentro de um array, da para fazer o . length que cada objeto, vira uma posição
 }
 
 // Requisito 8
 function calculateEntry(entrants) {
-// if (!entrants) {
-// return 0;
+  if (!entrants) {
+    return 0;
+  }
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const priceTotal = (Adult * data.prices.Adult)// quantidade de adultos multiplicado pelo valor
++ (Child * data.prices.Child)
++ (Senior * data.prices.Senior);
+  return priceTotal;
 }
-// const { Adult = 0, Child = 0, Senior = 0 } = entrants;
-// const priceTotal = (Adult * data.prices.Adult)
-// + (Child * data.prices.Child)
-// + (Senior * data.prices.Senior);
-// return priceTotal;
-// }
-
-// console.log(calculateEntry())
 
 // Requisito 9
 function getAnimalMap(options) {
