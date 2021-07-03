@@ -101,6 +101,7 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
+  // seu código aqui
   const firstSpecie = employees
     .find((employee) => employee.id === id).responsibleFor[0];
   const getResidents = species
@@ -116,6 +117,10 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const { Adult, Senior, Child } = prices;
+  prices.Adult = Math.ceil(Adult * (100 + (percentage))) / 100;
+  prices.Senior = Math.ceil(Senior * (100 + (percentage))) / 100;
+  prices.Child = Math.ceil(Child * (100 + (percentage))) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
