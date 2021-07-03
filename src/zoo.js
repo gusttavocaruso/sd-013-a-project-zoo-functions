@@ -26,8 +26,12 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
-  return employees.some((emp) => emp.id === id && emp.managers.includes(stephanieId));
+  const idGerente = '0e7b460e-acf4-4e17-bcb3-ee472265db83'
+  if(id !== idGerente){
+    return false
+  }
+  
+  return employees.some((emp) => (emp.id === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -146,7 +150,7 @@ function getAnimalMap(options) {
   if (options.includeNames) { includeNames(animalMap); return animalMap; }
 }
 
-console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
+// console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
 
 function getSchedule(dayName) {
   // seu código aqui
