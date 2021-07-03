@@ -123,8 +123,30 @@ function increasePrices(percentage) {
   prices.Child = Math.ceil(Child * (100 + (percentage))) / 100;
 }
 
+const getAnimal = ([...ids]) => species
+  .filter((specie) => ids
+    .some((id) => specie.id === id))
+  .map((animal) => animal.name);
+
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  const allEmployeesObject = {};
+  employees.forEach((employee) => {
+    allEmployeesObject[`${employee.firstName} ${employee.lastName}`] = (
+      getAnimal(employee.responsibleFor));
+  });
+  const actualEmployeeObject = {};
+  if (idOrName !== undefined) {
+    const actualEmployee = employees
+      .find((employee) => (
+        employee.id === idOrName
+        || employee.firstName === idOrName
+        || employee.lastName === idOrName));
+    actualEmployeeObject[`${actualEmployee.firstName} ${actualEmployee.lastName}`] = getAnimal(
+      actualEmployee.responsibleFor,
+    );
+  }
+  return idOrName ? actualEmployeeObject : allEmployeesObject;
 }
 
 module.exports = {
