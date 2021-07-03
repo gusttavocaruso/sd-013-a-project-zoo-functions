@@ -70,27 +70,65 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push(funcionario); // pesquisei o emplooyees por data.employees e adicionei no final da lista com o push.
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(specie) { // nome da espécie
+  if (!specie) {
+    // retornar um objeto onde a key é o specie.name e o valor é a residents.length
+    const objetoComTodasEspecies = {};
+
+    data.species.forEach((s) => {
+      objetoComTodasEspecies[s.name] = s.residents.length;
+    });
+
+    return objetoComTodasEspecies;
+  }
+
+  const specieObj = data.species.find((s) => s.name === specie);
+
+  return specieObj.residents.length;
 }
 
 function calculateEntry(entrants) {
-  if (entrants === undefined) {
+  if (entrants === undefined) { // se nao for passado parametro ou um passado um objeto vazio, retorna 0.
     return 0;
   }
-  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
-  const priceTotal = (Adult * data.prices.Adult)
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants; // estou desestruturando o objeto e dizendo que caso adult, child se senior nao existirem o seu valor é 0 e igual ao parametro.
+  const priceTotal = (Adult * data.prices.Adult) // agora que aduld, child e senior sao variaveis, posso multiplica-las por data.prices e somá-las.
     + (Child * data.prices.Child)
     + (Senior * data.prices.Senior);
-  return priceTotal;
+  return priceTotal; // retornando o preco total.
 }
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
+function getFraseDeRetorno(open, close) {
+  if (open === 0 && close === 0) {
+    return 'CLOSED';
+  }
 
+  return `Open from ${open}am until ${close % 12}pm`;
+}
+
+function getSchedule(dayName) {
+  if (dayName) {
+    const day = data.hours[dayName]; // data.hours.Monday | data.hours['Monday']
+    return {
+      [dayName]: getFraseDeRetorno(day.open, day.close),
+    };
+  }
+
+  const objetoComTodosHorarios = {};
+  const arrayTodasAsKeysDeHours = Object.keys(data.hours);
+
+  arrayTodasAsKeysDeHours.forEach((dayKey) => {
+    const { hours } = data;
+    const day = hours[dayKey];
+
+    objetoComTodosHorarios[dayKey] = getFraseDeRetorno(day.open, day.close);
+  });
+
+  return objetoComTodosHorarios;
 }
 
 function getOldestFromFirstSpecies(id) {
