@@ -1,6 +1,7 @@
 const { species, employees } = require('./data');
 const data = require('./data');
 
+// Todos os requisitos fizemos um estudo em grupo, todos tentando dar a opnião sobre o código
 // Requisito 1
 function getSpeciesByIds(...ids) { // gerar um array de ids
   if (!ids) return [];// sem nada retorna vazio
@@ -44,7 +45,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees.push(EmployeeAdd);// adicionou o novo empregado no employees
 }
 
-// Requisito 7
+// Requisito 7 Ajuda Luiza
 function countAnimals(specie) {
   if (!specie) { // não passou parametro
     return species.reduce((acc, curr) => { // cada animal
@@ -72,30 +73,30 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-// Requisito 10
-// function checarParametro(arrayEntries) {
-//   return arrayEntries.reduce((acc, curr) => {
-//   if (curr[1].open === 0 && curr[1].close === 0) {
-//   acc[curr[0]] = 'CLOSED';
-//   return acc;
-//   }
-//   acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`;
-//   return acc;
-//   }, {});
-//   }
+// Requisito 10 Ajuda Julia, Isa, Carol, Lanai e Pedro
+function checarParametro(arrayEntries) {
+  return arrayEntries.reduce((acc, curr) => {
+    if (curr[1].open === 0 && curr[1].close === 0) { // { open: 8, close: 18 }- é toda essa parte aqui
+      acc[curr[0]] = 'CLOSED';// curr 0 é o dia da semana virá segunda que é o unico que entra nessa condição acima
+      return acc;
+    }
+    acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`;// aqui virão os outros dia da semana, -12 porque está em am e pm
+    return acc;
+  }, {});
+}
 
 function getSchedule(dayName) {
-//   const arrayEntries = Object.entries(data.hours);
-//   if (dayName === undefined) return checarParametro(arrayEntries);
-//   const day = arrayEntries.find((weekDay) => weekDay[0] === dayName);
-//   const object = {};
-//   if (dayName === 'Monday') {
-//   object[day[0]] = 'CLOSED';
-//   return object;
+  const arrayEntries = Object.entries(data.hours);// vai pegar chave e valor e colocar num array
+  if (dayName === undefined) return checarParametro(arrayEntries);// sobe para a função de cima
+  const day = arrayEntries.find((weekDay) => weekDay[0] === dayName);// vai olhar dia por dia até achar o dia do day name, exemplo se for sexta daí retorna assim :[Friday, {open:10, close:20}]
+  const object = {};
+  if (dayName === 'Monday') {
+    object[day[0]] = 'CLOSED';
+    return object;
+  }
+  object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;// o indice 0 desse day é o dia da semana , daí estamos dizendo para o objeto que estamos add essa chave e valor
+  return object;
 }
-//   object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
-//   return object;
-//   }
 
 // Requisito 11
 function getOldestFromFirstSpecies(id) {
