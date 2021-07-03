@@ -19,13 +19,36 @@ function getAnimalsOlderThan(animal, age) {
   return result;
 }
 getAnimalsOlderThan('otters', 7);
-function getEmployeeByName(employeeName) {
-  // seu código aqui
-}
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+function getEmployeeByName(employeeName = undefined) {
+  if (employeeName === undefined) {
+    return {};
+  }
+  const employees = data.employees
+    .filter((loy) => loy.firstName.includes(employeeName) || loy.lastName.includes(employeeName));
+  return employees[0];
 }
+getEmployeeByName('Emery');
+
+function createEmployee(personalInfo = undefined, associatedWith = undefined) {
+  if (personalInfo === undefined || associatedWith === undefined) {
+    return {};
+  }
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
+  return {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+}
+createEmployee({
+  id: '7ed1c9bb-8570-44f6-b718-0666b869573a',
+  firstName: 'John',
+  lastName: 'Doe',
+});
 
 function isManager(id) {
   // seu código aqui
