@@ -123,10 +123,13 @@ function increasePrices(percentage) {
   prices.Child = Math.ceil(Child * (100 + (percentage))) / 100;
 }
 
-const getAnimal = ([...ids]) => species
-  .filter((specie) => ids
-    .some((id) => specie.id === id))
-  .map((animal) => animal.name);
+const getAnimal = ([...ids]) => {
+  const arrayAnimals = [];
+  ids.forEach((id) => {
+    arrayAnimals.push(species.find((animal) => animal.id === id).name);
+  });
+  return arrayAnimals;
+};
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
