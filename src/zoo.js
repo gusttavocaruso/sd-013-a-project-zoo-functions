@@ -41,9 +41,49 @@ const calculateEntry = (entrants) => {
     + (Senior * data.prices.Senior);
 };
 
-function getAnimalMap(options) {
-  // seu código aqui
-}
+const createObjSpeciesWithResidents = (speciesName, speciesResidents, options) => {
+  const { sorted, sex: residentSex } = options;
+  const obj = {};
+  let residents = speciesResidents;
+
+  if (residentSex) residents = speciesResidents.filter(({ sex }) => sex === residentSex);
+  residents = residents.map((resident) => resident.name);
+  if (sorted) residents.sort();
+  obj[speciesName] = residents;
+  return obj;
+};
+
+const mapSpecies = (species) => species.map((i) => i.name);
+
+const mapSpeciesWithResidents = (species, options) => species.map(
+  ({ name, residents }) => createObjSpeciesWithResidents(name, residents, options),
+);
+
+const setLocation = (options, acc, location) => {
+  const { includeNames } = options;
+  const speciesByLocation = data.species.filter((species) => species.location === location);
+
+  if (!includeNames) {
+    acc[location] = mapSpecies(speciesByLocation);
+  } else {
+    acc[location] = mapSpeciesWithResidents(speciesByLocation, options);
+  }
+
+  return acc;
+};
+
+const getAnimalMap = (options) => {
+  const { includeNames = false, sorted = false, sex = false } = options || {};
+  const consolidatedOptions = { includeNames, sorted, sex };
+
+  return data.species.reduce((acc, { location }) => {
+    // Process each location just one time
+    if (!Object.prototype.hasOwnProperty.call(acc, location)) {
+      setLocation(consolidatedOptions, acc, location);
+    }
+    return acc;
+  }, {});
+};
 
 function getSchedule(dayName) {
   // seu código aqui
