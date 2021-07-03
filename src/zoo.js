@@ -1,15 +1,12 @@
 const data = require('./data');
 
 function getSpeciesByIds(...args) {
-  const arr = [];
-  if (args.length > 0) {
-    args.forEach((animalsIds) => {
-      const objectAnimals = data.species.filter((item) => item.id === animalsIds);
-      arr.push(...objectAnimals);
-    });
-    return arr;
-  }
-  return arr;
+  const returnArray = [];
+  args.forEach((element) => {
+    const elemento = (data.species.filter((specie) => specie.id === element));
+    returnArray.push(...elemento);
+  });
+  return returnArray;
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -79,7 +76,59 @@ function calculateEntry(entrants) {
   return valorTotal;
 }
 
-function getAnimalMap(options) {
+const getAnimalsName = (animalName, sort = false, sexo = false) => {
+  const nameFiltered = data.species.filter(({ name }) => name === animalName);
+  let returnArray = [...nameFiltered[0].residents];
+  if (sexo) {
+    returnArray = returnArray.filter(({ sex }) => sex === sexo);
+  }
+
+  const afterReduce = returnArray.reduce((acc, curr) => {
+    acc.push(curr.name);
+    return acc;
+  }, []);
+
+  if (sort) {
+    afterReduce.sort();
+  }
+
+  return afterReduce;
+};
+
+const getAnimalTemplate = (args) => {
+  const returnObject = data.species.reduce((acc, curr) => {
+    const tmpObj = {};
+    if (Object.prototype.hasOwnProperty.call(args[0], 'sex')
+    && Object.prototype.hasOwnProperty.call(args[0], 'sorted')) {
+      tmpObj[curr.name] = getAnimalsName(curr.name, true, args[0].sex);
+    } else if (Object.prototype.hasOwnProperty.call(args[0], 'sex')) {
+      tmpObj[curr.name] = getAnimalsName(curr.name, false, args[0].sex);
+    } else if (Object.prototype.hasOwnProperty.call(args[0], 'sorted')) {
+      tmpObj[curr.name] = getAnimalsName(curr.name, true, false);
+    } else {
+      tmpObj[curr.name] = getAnimalsName(curr.name);
+    }
+    acc[curr.location].push(tmpObj);
+    return acc;
+  }, { NE: [], NW: [], SE: [], SW: [] });
+  return returnObject;
+};
+
+function getAnimalMap(...args) {
+  let animalTemplate;
+
+  if (args.length > 0) {
+    const argumentos = Object.keys(args[0]);
+    if (argumentos.includes('includeNames')) {
+      animalTemplate = getAnimalTemplate(args);
+      return animalTemplate;
+    }
+  }
+  animalTemplate = data.species.reduce((acc, curr) => {
+    acc[curr.location].push(curr.name);
+    return acc;
+  }, { NE: [], NW: [], SE: [], SW: [] });
+  return animalTemplate;
 }
 
 function getSchedule(dayName) {
