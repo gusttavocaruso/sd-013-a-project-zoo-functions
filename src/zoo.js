@@ -72,17 +72,17 @@ function countAnimals(species) {
 
 // Levei bastante tempo neste requisito. Tentei primeiro usar o map, mas como retornava um array usei o forEach (também por ser mais genérico).
 // Na primeira parte, não existindo parâmetros é criado um novo objeto vazio, que recebe o nome da espécie e sua quantidade em cada iteração do forEach.
-// Na segunda parte, para cada espécie dada como parâmetro o find percorre o objeto até encontrar o primeiro elemento, e retorna a quantidade daquela espécie. 
+// Na segunda parte, para cada espécie dada como parâmetro o find percorre o objeto até encontrar o primeiro elemento, e retorna a quantidade daquela espécie.
 
 function calculateEntry(entrants) {
-if (!entrants) return 0;
-if (entrants === {}) return 0;
-const { Adult, Senior, Child } = prices;
-const price = prices.reduce((acc, crr) => {
-
-}, 0);
-
-
+  if (!entrants || entrants === {}) {
+    return 0;
+  }
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const priceAdult = (Adult * data.prices.Adult);
+  const priceChild = (Child * data.prices.Child);
+  const priceSenior = (Senior * data.prices.Senior);
+  return priceAdult + priceChild + priceSenior;
 }
 
 function getAnimalMap(options) {
@@ -105,4 +105,18 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
 
-
+module.exports = {
+  calculateEntry,
+  getSchedule,
+  countAnimals,
+  getAnimalMap,
+  getSpeciesByIds,
+  getEmployeeByName,
+  getEmployeeCoverage,
+  addEmployee,
+  isManager,
+  getAnimalsOlderThan,
+  getOldestFromFirstSpecies,
+  increasePrices,
+  createEmployee,
+};
