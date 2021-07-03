@@ -1,5 +1,5 @@
 const data = require('./data');
-const { employees, prices } = require('./data');
+const { employees, prices, species } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const result = [];
@@ -109,10 +109,49 @@ function increasePrices(percentage) {
     (prices[ticket] = Math.round((prices[ticket] * (1 + percentage / 100)) * 100) / 100).toFixed();
   });
 }
-console.log(data.prices);
+
+const employeeCoverageWithoutParam = () => {
+  const objectResponsibleFor = {};
+  employees.forEach((employee) => {
+    const animals = employee.responsibleFor.map((animalID) => {
+      const result = data.species.find((specie) => specie.id === animalID).name;
+      return result;
+    });
+    objectResponsibleFor[`${[employee.firstName]} ${[employee.lastName]}`] = animals;
+  });
+  return objectResponsibleFor;
+};
+
+const employeeCoverageWithID = (idOrName) => {
+  const objectResponsibleFor = {};
+  const employeeFound = employees.find((employee) => employee.id === idOrName);
+  const animals = employeeFound.responsibleFor.map((animalId) => {
+    const animal = data.species.find((specie) => specie.id === animalId).name;
+    return animal;
+  });
+  objectResponsibleFor[`${employeeFound.firstName} ${employeeFound.lastName}`] = animals;
+  return objectResponsibleFor;
+};
+
+const employeeCoverageWithName = (name) => {
+  const objectResponsibleFor = {};
+  const employeeFound = employees.find((employee) => {
+    const result = employee.firstName === name || employee.lastName === name;
+    return result;
+  });
+  const animals = employeeFound.responsibleFor.map((animalId) => {
+    const animal = data.species.find((specie) => specie.id === animalId).name;
+    return animal;
+  });
+  objectResponsibleFor[`${employeeFound.firstName} ${employeeFound.lastName}`] = animals;
+  return objectResponsibleFor;
+};
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) return employeeCoverageWithoutParam();
+  const idOrNot = idOrName.split('').some((character) => character === '-');
+  if (idOrNot === true) return employeeCoverageWithID(idOrName);
+  return employeeCoverageWithName(idOrName);
 }
 
 module.exports = {
