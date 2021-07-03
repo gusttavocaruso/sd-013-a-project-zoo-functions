@@ -25,13 +25,9 @@ function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
 
+// Dica dada pelo Josue 
 function isManager(id) {
-  const idGerente = '0e7b460e-acf4-4e17-bcb3-ee472265db83'
-  if(id !== idGerente){
-    return false
-  }
-  
-  return employees.some((emp) => (emp.id === id));
+  return data.employees.some((employee) => employee.managers.includes(id))
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
