@@ -1,4 +1,4 @@
-const { species, employees, prices, hours } = require('./data');
+const { species, employees, prices} = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -96,7 +96,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  
+  // seu código aqui
 }
 
 module.exports = {
