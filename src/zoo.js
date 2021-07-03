@@ -60,11 +60,22 @@ function addEmployee(idP, firstNameP, lastNameP, managersP = [], responsibleForP
 // O requisito pede para que retorne arrays vazios em managers e resposibleFor caso não sejam passados como parâmetros.
 
 function countAnimals(species) {
-  // seu código aqui
+  if (!species) {
+    const obj = {};
+    data.species.forEach((specie) => {
+      obj[specie.name] = specie.residents.length;
+    });
+    return obj;
+  }
+  return data.species.find((specie) => specie.name === species).residents.length;
 }
 
+// Levei bastante tempo neste requisito. Tentei primeiro usar o map, mas como retornava um array usei o forEach (também por ser mais genérico).
+// Na primeira parte, não existindo parâmetros é criado um novo objeto vazio, que recebe o nome da espécie e sua quantidade em cada iteração do forEach.
+// Na segunda parte, para cada espécie dada como parâmetro o find percorre o objeto até encontrar o primeiro elemento, e retorna a quantidade daquela espécie. 
+
 function calculateEntry(entrants) {
-  // seu código aqui
+
 }
 
 function getAnimalMap(options) {
