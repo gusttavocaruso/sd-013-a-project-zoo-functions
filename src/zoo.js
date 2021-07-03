@@ -1,4 +1,5 @@
-const { species, employees } = require('./data');
+/* eslint-disable no-constant-condition */
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -55,8 +56,14 @@ function countAnimals(especie) {
   return a;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = 0) {
+  if (entrants === {}) return 0;
+  const array = Object.keys(entrants);
+
+  return array.reduce((acc, element) => {
+    const total = acc + (entrants[element] * prices[element]);
+    return total;
+  }, 0);
 }
 
 function getAnimalMap(options) {
@@ -64,15 +71,19 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+
 }
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+function getOldestFromFirstSpecies(ids) {
+  /* const lisIds = employees.find((m1) => m1.id === ids).responsibleFor;
+  const listAnimals = species.find((m2) => m2.id === lisIds[0]);
+  console.log(listAnimals); */
 }
+
+getOldestFromFirstSpecies('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1');
 
 function increasePrices(percentage) {
-  // seu código aqui
+
 }
 
 function getEmployeeCoverage(idOrName) {
