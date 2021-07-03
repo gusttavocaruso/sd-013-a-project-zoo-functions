@@ -72,13 +72,10 @@ function getOldestFromFirstSpecies(id) {
   // console.log(funcionario);
   // species.forEach((specie, index) => (specie.id === funcionario[index]), {
   // })
-
 }
 
 function increasePrices(percentage) {
   // seu código aqui
-  //console.log(percentage);
-  //console.log(Object.values(prices) * 0.50)
 }
 
 function getEmployeeCoverage(idOrName) {
