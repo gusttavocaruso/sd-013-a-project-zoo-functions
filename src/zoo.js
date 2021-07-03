@@ -98,11 +98,23 @@ function getSchedule(dayName) {
   return object;
 }
 
-// Requisito 11
+// Requisito 11 Ajuda da Julia
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee1 = employees.find((employee) => employee.id === id);// ver qual empregado tem o id igual do parametro
+  const animalId = employee1.responsibleFor[0];// pega esse empregado e o indice[0] para pegar o id do 1 animal que ele é responsável
+  const FamilyResidents = species.find((specie) => specie.id === animalId).residents;// vai em especies e ve qual id da especie bate com o id do animal, dá um . residents para puxar os 4 animais daquela espécie
+  const OldestAnimal = FamilyResidents.sort((a, b) => b.age - a.age)[0];// um sorte em ordem decrescente para pegar deixar do animal mais velho para o mais novo, pega na posição [0] que já será o mais velho
+  return Object.values(OldestAnimal);
+// depois como quero só o valor, uso object.values porque está vindo assim:
+// {
+//   name: 'Zena',
+//   sex: 'female',
+//   age: 12,
+// },
+// ficando só ['Zena', 'female', 12]
 }
 
+console.log(getOldestFromFirstSpecies('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 // Requisito 12 // link da thread no slack https://trybecourse.slack.com/archives/C017W4EDD4K/p1602438914147800
 function increasePrices(percentage) {
   prices.Adult = Math.round((prices.Adult * (1 + (percentage / 100))) * 100) / 100;// multiplica por 100 para arredondar a casa dos centavos e depois divide por 100 para chegar na resposta
