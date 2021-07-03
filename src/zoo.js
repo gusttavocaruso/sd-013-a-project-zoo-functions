@@ -25,9 +25,9 @@ function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
 
-// Dica dada pelo Josue 
+// Dica dada pelo Josue
 function isManager(id) {
-  return data.employees.some((employee) => employee.managers.includes(id))
+  return employees.some((employee) => employee.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -125,28 +125,38 @@ const includeNames = (objetMap) => {
         .residents.map((names) => names.name),
     }));
   });
+  return animalMap;
 };
+
+// Todos os Is do getAnimalMap
+const isMF = (options) => ['female', 'male'].includes(options.sex);
+
+const isSexNamesSorted = (options) => isMF(options) && (options.includeNames && options.sorted);
+
+const isSexNames = (options) => isMF(options) && options.includeNames;
+
+const isNameSorted = (options) => options.sorted && options.includeNames;
+
+const isOptionsName = (options) => !options || !options.includeNames;
 
 function getAnimalMap(options) {
   const animalMap = species.reduce(localizacaoSpecis, {});
-  if (!options || !options.includeNames) { return animalMap; }
+  if (isOptionsName(options)) { return animalMap; }
 
-  if (['female', 'male'].includes(options.sex) && (options.includeNames && options.sorted)) {
+  if (isSexNamesSorted(options)) {
     sexNameSortes(animalMap, options);
     return animalMap;
   }
-  if (['female', 'male'].includes(options.sex) && options.includeNames) {
+  if (isSexNames(options)) {
     sexIncludeNames(animalMap, options);
     return animalMap;
   }
-  if (options.sorted && options.includeNames) {
+  if (isNameSorted(options)) {
     sortedIncludeNames(animalMap, options);
     return animalMap;
   }
-  if (options.includeNames) { includeNames(animalMap); return animalMap; }
+  return includeNames(animalMap);
 }
-
-// console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
 
 function getSchedule(dayName) {
   // seu código aqui
