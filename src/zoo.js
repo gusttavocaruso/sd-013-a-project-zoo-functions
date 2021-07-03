@@ -54,7 +54,7 @@ function calculateEntry(entrants) {
   return (Adult * adultoZoo) + (Child * criancaZoo) + (Senior * senhorZoo);
 }
 
-function getAnimalMapOptionsUndefined() {
+function getAnimalMapOptionsNameUndefined() {
   const reduceLocation = data.species.reduce((acc, crr) => {
     const animalLocation = data.species.filter((specie) => specie.location === crr.location)
       .map((specieMap) => specieMap.name);
@@ -64,10 +64,47 @@ function getAnimalMapOptionsUndefined() {
   return reduceLocation;
 }
 
-function getAnimalMap(options) {
-  if (!options) return getAnimalMapOptionsUndefined();
-  //if (options.includeNames === true) return getAnimalMapWithName();
+function getAnimalMapWithName(options) {
+  const reduceLocation = data.species.reduce((acc, crr) => {
+    const animalLocation = data.species.filter((specie) => specie.location === crr.location)
+      .map((specieMap) => specieMap.residents.reduce((acumulador) => {
+        const accu = acumulador;
+        accu[specieMap.name] = (options.sorted === true ? specieMap.residents
+          .map((resident) => resident.name).sort() : specieMap.residents
+          .map((resident) => resident.name));
+        return accu;
+      }, {}));
+    acc[crr.location] = animalLocation;
+    return acc;
+  }, {});
+  return reduceLocation;
 }
+
+function getAnimalMapWithNameAndSex(options) {
+  const reduceLocation = data.species.reduce((acc, crr) => {
+    const animalLocation = data.species.filter((specie) => specie.location === crr.location)
+      .map((specieMap) => specieMap.residents.reduce((acumulador) => {
+        const accu = acumulador;
+        accu[specieMap.name] = (options.sorted === true ? specieMap.residents
+          .filter((resident) => resident.sex === options.sex)
+          .map((resident) => resident.name).sort() : specieMap.residents
+          .filter((resident) => resident.sex === options.sex)
+          .map((resident) => resident.name));
+        return accu;
+      }, {}));
+    acc[crr.location] = animalLocation;
+    return acc;
+  }, {});
+  return reduceLocation;
+}
+
+function getAnimalMap(options) {
+  if (!options || !options.includeNames) return getAnimalMapOptionsNameUndefined();
+  if (options.sex) return getAnimalMapWithNameAndSex(options);
+  if (options.includeNames === true) return getAnimalMapWithName(options);
+}
+
+console.log(getAnimalMap({ includeNames: true, sex: 'female' }));
 
 function nenhumDiaPassado(keys, Values, diasSemana) {
   const dSemana = diasSemana;
