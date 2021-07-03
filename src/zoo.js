@@ -33,8 +33,8 @@ function isManager(id) {
   return data.employees.some((each) => each.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers=[], responsibleFor=[]) {
-  const newEmployee = {id,
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = { id,
     firstName,
     lastName,
     managers,
@@ -45,7 +45,9 @@ function addEmployee(id, firstName, lastName, managers=[], responsibleFor=[]) {
 
 function countAnimals(species) {
   if (species === undefined) {
-    return data.species.reduce((counter, currentAnimal) => {
+    return data.species.reduce((previousAnimal, currentAnimal) => {
+      // estava dando erro no lint. Rogerio me ajudou a resolver.
+      const counter = previousAnimal;
       counter[currentAnimal.name] = currentAnimal.residents.length;
       return counter;
     }, {});
