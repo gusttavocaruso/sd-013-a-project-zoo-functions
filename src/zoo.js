@@ -92,30 +92,19 @@ function calculateEntry(entrants) {
   return sum;
 }
 
-const includeNames = (options, specie) => {
-  // let response;
-  let response = {
-    [specie.name]: specie.residents.map((resident) => resident.name),
-  };
-  if (options.sorted) {
+const map = (options, specie) => {
+  let response = {};
+  if (options.sex) {
     response = {
-      [specie.name]: (specie.residents.map((resident) => resident.name)).sort(),
+      [specie.name]: specie.residents
+        .filter((resident) => resident.sex === options.sex)
+        .map((resident) => resident.name),
+    };
+  } else {
+    response = {
+      [specie.name]: specie.residents.map((resident) => resident.name),
     };
   }
-  return response;
-};
-
-const animalSexNames = (options, specie) => {
-  const response = {
-    [specie.name]: [],
-  };
-
-  specie.residents.forEach((resident) => {
-    if (resident.sex === options.sex) {
-      response[specie.name].push(resident.name);
-    }
-  });
-
   if (options.sorted) {
     response[specie.name].sort();
   }
@@ -127,9 +116,9 @@ const auxCondition = (options, specie) => {
     return specie.name;
   }
   if (options.sex && options.includeNames) {
-    return animalSexNames(options, specie);
+    return map(options, specie);
   }
-  return includeNames(options, specie);
+  return map(options, specie);
 };
 
 function getAnimalMap(options) {
