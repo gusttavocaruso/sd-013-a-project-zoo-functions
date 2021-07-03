@@ -2,6 +2,7 @@ const data = require('./data');
 const { hours } = require('./data');
 
 let employeObject = {};
+const animalsObject = {};
 
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) return [];
@@ -91,8 +92,57 @@ function calculateEntry(entrants) {
   return sum;
 }
 
+const includeNames = (options, specie) => {
+  // let response;
+  let response = {
+    [specie.name]: specie.residents.map((resident) => resident.name),
+  };
+  if (options.sorted) {
+    response = {
+      [specie.name]: (specie.residents.map((resident) => resident.name)).sort(),
+    };
+  }
+  return response;
+};
+
+const animalSexNames = (options, specie) => {
+  const response = {
+    [specie.name]: [],
+  };
+
+  specie.residents.forEach((resident) => {
+    if (resident.sex === options.sex) {
+      response[specie.name].push(resident.name);
+    }
+  });
+
+  if (options.sorted) {
+    response[specie.name].sort();
+  }
+  return response;
+};
+
+const auxCondition = (options, specie) => {
+  if (!options || !options.includeNames) {
+    return specie.name;
+  }
+  if (options.sex && options.includeNames) {
+    return animalSexNames(options, specie);
+  }
+  return includeNames(options, specie);
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  data.species.forEach((specie) => {
+    animalsObject[specie.location] = [];
+  });
+  const regions = Object.keys(animalsObject);
+  regions.forEach((region) => {
+    animalsObject[region] = data.species
+      .filter((specie) => specie.location === region)
+      .map((specie) => auxCondition(options, specie));
+  });
+  return animalsObject;
 }
 
 const weekSchedule = () => {
