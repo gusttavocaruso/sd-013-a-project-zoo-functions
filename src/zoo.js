@@ -18,9 +18,9 @@ function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
     return {};
   }
-  const employeeFullname = data.employees.find((employee) => 
-  employee.firstName === employeeName || employee.lastName === employeeName);
-  /* Não estava reconhecendo apenas o employees, então coloquei o data na frente. Encontra o primeiro funcionário que tenha o primeiro ou último nome do parâmetro.*/
+  const employeeFullname = data.employees.find((employee) =>
+    employee.firstName === employeeName || employee.lastName === employeeName);
+  /* Não estava reconhecendo apenas o employees, então coloquei o data na frente. Encontra o primeiro funcionário que tenha o primeiro ou último nome do parâmetro. */
   return employeeFullname;
 }
 
@@ -29,7 +29,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  const managerEmployee = data.employees.some((employee) => 
+  const managerEmployee = data.employees.some((employee) =>
     employee.managers.some((manager) => manager === id));
     /* Verifica se pelo menos um manager dentro de employees tem um id igual ao parametro e retorna true ou false. */
   return managerEmployee;
@@ -48,11 +48,11 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 
 function countAnimals(species1) {
   if (species1 === undefined) {
-    let animals = {};
+    const animals = {};
     data.species.forEach((specie) => {
       animals[specie.name] = specie.residents.length;
     }); /* Para cada "specie" dentro de "species", o objeto animals com o nome de cada specie como chave do objeto,
-    recebe a length do array residents (dentro de species) como valor do objeto, caso nao seja passado nenhum parametro.*/
+    recebe a length do array residents (dentro de species) como valor do objeto, caso nao seja passado nenhum parametro. */
     return animals;
   }
   return data.species.find((specie) => specie.name === species1).residents.length;
@@ -71,7 +71,6 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  
 }
 
 function getSchedule(dayName) {
