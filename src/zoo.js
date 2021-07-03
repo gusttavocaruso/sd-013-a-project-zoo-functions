@@ -1,30 +1,36 @@
 const { species, employees, prices } = require('./data');
 const data = require('./data');
 
+// Questão 1
 function getSpeciesByIds(...ids) {
   return ids.map((id) => species.find((specie) => specie.id === id));
 }
 
+// Questão 2
 function getAnimalsOlderThan(animal, age) {
   // const myAnimal = () => species.find((specie) => specie.name === animal);
   // myAnimal.residents.some((resident) => resident.age < age);
   // return !myAnimal;
 }
 
+// Questão 3
 function getEmployeeByName(employeeName) {
   // seu código aqui
 }
 
+// Questão 4
 function createEmployee(personalInfo, associatedWith) {
   const { id, firstName, lastName } = personalInfo;
   const { managers, responsibleFor } = associatedWith;
   return { id, firstName, lastName, managers, responsibleFor };
 }
 
+// Questão 5
 function isManager(id) {
   return employees.some((employee) => employee.managers.includes(id));
 }
 
+// Questão 6
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const newObject = {
     id,
@@ -36,6 +42,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(newObject);
 }
 
+// Questão 7
 function countAnimals(specie) {
   if (!specie) {
     return species.reduce((acc, curr) => {
@@ -46,6 +53,7 @@ function countAnimals(specie) {
   return species.find((animal) => animal.name === specie).residents.length;
 }
 
+// Questão 8
 function calculateEntry(entrantes) {
   if (!entrantes) return 0;
   const { Adult = 0, Senior = 0, Child = 0 } = entrantes;
@@ -53,10 +61,12 @@ function calculateEntry(entrantes) {
   return calculate;
 }
 
+// Questão 9
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+// Questão 10
 function checkParameters(arrayEntries) {
   return arrayEntries.reduce((acc, curr) => {
     if (curr[1].open === 0 && curr[1].close === 0) {
@@ -81,10 +91,16 @@ function getSchedule(dayName) {
   return object;
 }
 
+// Questão 11: Resolvida com ajuda da Aline Hoshino
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findEmployee = employees.find((employee) => employee.id === id);
+  const animalId = findEmployee.responsibleFor[0];
+  const residentsList = species.find((specie) => specie.id === animalId).residents;
+  const OldestAnimal = residentsList.sort((a, b) => b.age - a.age)[0];
+  return Object.values(OldestAnimal);
 }
 
+// Questão 12
 function increasePrices(percentage) {
   const multiplicador = 1 + percentage / 100;
   const arrayEntries = Object.entries(data.prices);
