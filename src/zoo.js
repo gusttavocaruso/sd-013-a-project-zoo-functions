@@ -2,29 +2,32 @@ const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // seu código aqui..
   return species.filter((specie, index) => specie.id === ids[index]);
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   const encontrar = species.find((especie) => especie.name === animal);
   return encontrar.residents.every((especie) => especie.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   if (typeof (employeeName) === 'undefined') return {};
   return employees.find((fun) => fun.firstName === employeeName || fun.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
-  return { ...personalInfo, ...associatedWith }; // spread
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  // Deve retornar um valor booleano
+  let retorna = false;
+  data.employees.forEach((employe) => {
+    employe.managers.forEach((manage) => {
+      if (manage === id) retorna = true;
+    });
+  });
+  return retorna;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
