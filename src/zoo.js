@@ -3,9 +3,9 @@ const data = require('./data');
 
 // Todos os requisitos fizemos um estudo em grupo, todos tentando dar a opnião sobre o código
 // Requisito 1
-function getSpeciesByIds(...ids) { // gerar um array de ids
-  if (!ids) return [];// sem nada retorna vazio
-  return ids.map((id) => species.find((specie) => specie.id === id));// o map vai separar id por id, depois especie por especie vai encontrar aquela cujo id é giual ao id passado lá em cima
+function getSpeciesByIds(...ids) { 
+  if (!ids) return [];
+  return ids.map((id) => species.find((specie) => specie.id === id));
 }
 
 // Requisito 2
@@ -114,7 +114,6 @@ function getOldestFromFirstSpecies(id) {
 // ficando só ['Zena', 'female', 12]
 }
 
-console.log(getOldestFromFirstSpecies('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 // Requisito 12 // link da thread no slack https://trybecourse.slack.com/archives/C017W4EDD4K/p1602438914147800
 function increasePrices(percentage) {
   prices.Adult = Math.round((prices.Adult * (1 + (percentage / 100))) * 100) / 100;// multiplica por 100 para arredondar a casa dos centavos e depois divide por 100 para chegar na resposta
