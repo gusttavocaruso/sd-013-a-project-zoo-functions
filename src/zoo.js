@@ -6,7 +6,6 @@ function getSpeciesByIds(ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   return data.species.find((specie) => specie.name === animal)
     .residents.every((idade) => idade.age > age);
 }
@@ -21,11 +20,13 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+
 }
 
 function isManager(id) {
   // seu código aqui
+  return data.employees.find((indexItem) => indexItem.id === id)
+    .managers.some((cargo) => cargo === '9e7d4524-363c-416a-8759-8aa7e50c0992');
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
