@@ -8,11 +8,16 @@ function getSpeciesByIds(ids) {
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
   return data.species.find((specie) => specie.name === animal)
-  .residents.every((idade) => idade.age > age);
+    .residents.every((idade) => idade.age > age);
 }
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
+  if (!employeeName !== true) {
+    return data.employees.find((nome) => nome.lastName === employeeName
+      || nome.firstName === employeeName);
+  }
+  return {};
 }
 
 function createEmployee(personalInfo, associatedWith) {
