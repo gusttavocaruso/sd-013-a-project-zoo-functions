@@ -46,30 +46,52 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
 }
 
 function getAnimalMap(params) {
-  const mapByRegion = (region) => {
-    const test = species.filter((element) => element.location === region);
-    return test.map((element2) => element2.name);
-  }
-  if (!params) {
-    const noParameter = species.reduce((acc, crr) => {
-      return { ...acc, [crr.location]: mapByRegion(crr.location) }
-    }, {})
-    return noParameter;
-  }
+  // const mapResidents = (...animal) => {
+  //   const findResidents = species.find((element) => {
+  //     return element.name === animal
+  //   }).residents;
+  //   return findResidents.reduce((acc, crr) => {
+  //     return [...acc, crr.name];
+  //   }, []);
+  // };
+
+  // const parte2 = species.reduce((acc, crr) => {
+  //   return { ...acc, [crr.name]: mapResidents(crr.name) }
+  // }, []);
+  // return parte2;
 }
+// const mapByRegion = (region) => {
+//   const test = species.filter((element) => element.location === region);
+//   return test.map((element2) => element2.name);
+// }
+// if (!params) {
+//   const noParameter = species.reduce((acc, crr) => {
+//     return { ...acc, [crr.location]: mapByRegion(crr.location) }
+//   }, {})
+//   return noParameter;
+// }
+// const test2 = species.reduce((acc, crr) => {
+//   return {...acc, [crr.name]:crr[residents.name]}
+// }, {});
+// return test2;
+
+// parte 2
+
+// console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   const entries = Object.entries(hours);
-  const weekSchedule = entries.reduce((acc, crr) => {
-    return { ...acc, [crr[0]]: `Open from ${crr[1].open}am until ${crr[1].close - 12}pm` };
-  }, {});
+  const msg = (param) => `Open from ${param[1].open}am until ${param[1].close - 12}pm`;
+  const weekSchedule = entries
+    .reduce((acc, crr) => ({ ...acc, [crr[0]]: msg(crr) }), {});
   weekSchedule.Monday = 'CLOSED';
-  console.log(Object.entries(weekSchedule));
   if (!dayName) return weekSchedule;
   const newObj = {};
   newObj[dayName] = weekSchedule[dayName];
   return newObj;
 }
+
+console.log(getSchedule('Monday'));
 
 function getOldestFromFirstSpecies(id) {
   const findAnimalById = employees.find((element) => element.id === id).responsibleFor[0];
@@ -95,7 +117,7 @@ function getEmployeeCoverage(idOrName) {
   const mapByName = (name) => {
     const test = species.filter((element) => element.name === name)
       .map((element2) => element2.responsibleFor);
-  }
+  };
   // const AnimalsAndIds = species.reduce((acc, crr) => {
   //   return [...acc, crr.id, crr.name];
   // }, []);
@@ -111,8 +133,7 @@ function getEmployeeCoverage(idOrName) {
 
   // return test;
 }
-//console.log(getEmployeeCoverage())
-
+// console.log(getEmployeeCoverage())
 
 module.exports = {
   calculateEntry,
@@ -130,17 +151,10 @@ module.exports = {
   createEmployee,
 };
 
-const mapByName = (name) => {
-  const newArray = [];
-  const getAnimalsIds = employees.filter((element) => element.firstName === name)
-    .map((element2) => element2.responsibleFor);
-  const test = getAnimalsIds.forEach((element1) => {
-    species.forEach((element2) => {
-      if (element2.id === element1) return newArray.push(element2.name);
-      console.log(element2.id, element1)
-     })
-  });
-  return newArray;
-}
-
-console.log(mapByName('Burl'))
+// const test2 = findResidents.reduce((acc, crr) => {
+//  return { ...acc, animal: crr[residents].name };
+//     },{});
+// return findResidents;
+// const animalsAndResidents = findResidents.reduce((acc,crr)=> {
+//   return {...acc, [animal]:}
+// },{})
