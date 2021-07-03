@@ -104,8 +104,6 @@ function getAnimalMap(options) {
   if (options.includeNames === true) return getAnimalMapWithName(options);
 }
 
-console.log(getAnimalMap({ includeNames: true, sex: 'female' }));
-
 function nenhumDiaPassado(keys, Values, diasSemana) {
   const dSemana = diasSemana;
   keys.forEach((key, index) => {
@@ -139,15 +137,11 @@ function umDiaPassado(keys, Values, diasSemana, dayName) {
 }
 
 function getSchedule(dayName) {
-  // return `Open from ${Tuesday.open}am until ${Tuesday.close - 12}pm`;
   const diasSemana = {};
   const keys = Object.keys(data.hours);
   const Values = Object.values(data.hours);
-
   if (!dayName) return nenhumDiaPassado(keys, Values, diasSemana);
-
   if (dayName === 'Monday') return monday(keys, diasSemana);
-
   if (dayName && dayName !== 'Monday') return umDiaPassado(keys, Values, diasSemana, dayName);
 }
 
@@ -166,12 +160,36 @@ function increasePrices(percentage) {
   data.prices.Senior = Math.round(data.prices.Senior * (1 + (percentage / 100)) * 100) / 100;
 }
 
-function getEmployeeCoverage(idOrName) {
-  const objCoverage = {};
-  data.employees.forEach((employee) => {
-    objCoverage[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor;
-  });
+function employeeCoverageNoParam() {
+  const coverageReduce = data.employees.reduce((acc, crr) => {
+    const animals = [];
+    crr.responsibleFor.forEach((respFor) =>
+      animals.push(data.species.find((specie) => specie.id === respFor)));
+    acc[`${crr.firstName} ${crr.lastName}`] = animals.map((animal) => animal.name);
+    return acc;
+  }, {});
+  return coverageReduce;
 }
+
+function getEmployeeCoverage(idOrName) {
+  if (!idOrName) return employeeCoverageNoParam();
+  const coverageReduceIdOrName = data.employees
+    .filter((employee) => employee.id === idOrName
+    || employee.firstName === idOrName
+    || employee.lastName === idOrName)
+    .reduce((accIdOrName, crrIdOrName) => {
+      const aIdOrName = accIdOrName;
+      const animalsIdOrName = [];
+      crrIdOrName.responsibleFor.forEach((respFor) =>
+        animalsIdOrName.push(data.species.find((specie) => specie.id === respFor)));
+      aIdOrName[`${crrIdOrName.firstName} ${crrIdOrName.lastName}`] = animalsIdOrName
+        .map((animal) => animal.name);
+      return aIdOrName;
+    }, {});
+  return coverageReduceIdOrName;
+}
+
+console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
