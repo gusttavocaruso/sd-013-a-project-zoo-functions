@@ -101,7 +101,17 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const firstSpecie = employees
+    .find((employee) => employee.id === id).responsibleFor[0];
+  const getResidents = species
+    .filter((specie) => specie.id === firstSpecie)
+    .find((animal) => animal.residents).residents;
+  const getOldestAge = getResidents
+    .map((element) => element.age)
+    .reduce((acc, curr) => (curr > acc ? curr : acc));
+  const getOldAnimal = getResidents
+    .filter((animal) => animal.age === getOldestAge);
+  return getOldAnimal.map(({ name, sex, age }) => [name, sex, age])[0];
 }
 
 function increasePrices(percentage) {
