@@ -1,7 +1,14 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  
+function getSpeciesByIds(...rest) {
+  const array = [];
+  if (rest.length > 0) {
+    rest.forEach((id) => {
+      let dadosSpecies = data.species.filter((objA) => objA.id === id)
+      array.push(...dadosSpecies);
+    })
+  }
+  return array;
 }
 
 function getAnimalsOlderThan(animal, age) {
