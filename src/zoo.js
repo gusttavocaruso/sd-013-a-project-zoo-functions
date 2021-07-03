@@ -3,7 +3,7 @@ const data = require('./data');
 
 // Todos os requisitos fizemos um estudo em grupo, todos tentando dar a opnião sobre o código
 // Requisito 1
-function getSpeciesByIds(...ids) { 
+function getSpeciesByIds(...ids) {
   if (!ids) return [];
   return ids.map((id) => species.find((specie) => specie.id === id));
 }
