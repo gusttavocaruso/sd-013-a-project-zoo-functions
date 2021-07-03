@@ -180,7 +180,7 @@ function getOldestFromFirstSpecies(id) {
   const idAnimal = employees.find((employee) => employee.id === id).responsibleFor[0];
   const listAnimals = species.find((specie) => specie.id === idAnimal).residents;
   const oldSpecie = listAnimals.reduce((acc, fistOld) => {
-    let oldMax = acc;
+    const oldMax = acc;
     return fistOld.age > oldMax ? fistOld.age : oldMax;
   }, 0);
   const oldAnimal = listAnimals.find((animal) => animal.age === oldSpecie);
@@ -189,10 +189,10 @@ function getOldestFromFirstSpecies(id) {
 // https://pt.stackoverflow.com/questions/207612/arredondamento-para-cima-de-float-em-javascript
 function increasePrices(percentage) {
   const keyPrices = Object.keys(prices);
-  keyPrices.forEach((acc) =>{
-    prices[acc] = Math.round((prices[acc] + prices[acc] * (percentage / 100))* 100) /100;
-  })
-  return prices
+  keyPrices.forEach((acc) => {
+    prices[acc] = Math.round((prices[acc] + prices[acc] * (percentage / 100)) * 100) / 100;
+  });
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
