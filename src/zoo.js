@@ -45,12 +45,17 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   return total;
 }
 
-function getAnimalMap() {
-  // const regions = ['NE', 'NW', 'SE', 'SW'];
-  // const noParameter = species.reduce((acc, crr) => {
-  //   return { ...acc, []}
-  // }, {})
-
+function getAnimalMap(params) {
+  const mapByRegion = (region) => {
+    const test = species.filter((element) => element.location === region);
+    return test.map((element2) => element2.name);
+  }
+  if (!params) {
+    const noParameter = species.reduce((acc, crr) => {
+      return { ...acc, [crr.location]: mapByRegion(crr.location) }
+    }, {})
+    return noParameter;
+  }
 }
 
 function getSchedule(dayName) {
@@ -65,8 +70,6 @@ function getSchedule(dayName) {
   newObj[dayName] = weekSchedule[dayName];
   return newObj;
 }
-
-console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   const findAnimalById = employees.find((element) => element.id === id).responsibleFor[0];
@@ -89,14 +92,26 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  const getanimalsId = employees.map((element) => element.responsibleFor);
-  const emplyeesAndAnimais = getanimalsId.map((animalId) => {
-    const findAnimalsbyId = species.find((specie) => specie.id === animalId);
-    // return `${findAnimalsbyId.name}`
-  })
-}
+  const mapByName = (name) => {
+    const test = species.filter((element) => element.name === name)
+      .map((element2) => element2.responsibleFor);
+  }
+  // const AnimalsAndIds = species.reduce((acc, crr) => {
+  //   return [...acc, crr.id, crr.name];
+  // }, []);
+  // return AnimalsAndIds;
+  // const getIds = employees.map((element) => element.responsibleFor);
+  // const test = getIds.map((element) => {
+  //   return element.map((element2) => {
+  //     return AnimalsAndIds.map((element3) => {
+  //       if (element2 === element3[0]) return element3[1];
+  //     })
+  //   });
+  // })
 
-//console.log(getEmployeeCoverage('Nigel'))
+  // return test;
+}
+//console.log(getEmployeeCoverage())
 
 
 module.exports = {
@@ -114,3 +129,18 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
+
+const mapByName = (name) => {
+  const newArray = [];
+  const getAnimalsIds = employees.filter((element) => element.firstName === name)
+    .map((element2) => element2.responsibleFor);
+  const test = getAnimalsIds.forEach((element1) => {
+    species.forEach((element2) => {
+      if (element2.id === element1) return newArray.push(element2.name);
+      console.log(element2.id, element1)
+     })
+  });
+  return newArray;
+}
+
+console.log(mapByName('Burl'))
