@@ -85,6 +85,10 @@ function calculateEntry(entrants) {
   return priceAdult + priceChild + priceSenior;
 }
 
+// Na primeira parte entreguei os pros primeiros requisitos, se o parâmetro for vazio ou igual a um objeto vazio, retorna 0;
+// Depois fiz o destructing e igualei cada elemento a 0, para que quando não for dado um elemento como parâmetro possa ser feita a multiplicação depois (se não, o resultado é NaN);
+// A multiplicação de cada número de adultos, crianças e senhores dado no paraêmtro, pelo valor do ingresso de cada faixa etária;
+
 function getAnimalMap(options) {
   // seu código aqui
 }
@@ -94,8 +98,16 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findSpecie = employees.find((employee) => employee.id === id).responsibleFor[0];
+  const findFirstAnimal = data.species.find((specie) => specie.id === findSpecie).residents;
+  const ageAnimal = findFirstAnimal.sort((a, b) => b.age - a.age)[0];
+  return Object.values(ageAnimal);
 }
+
+// Utilizei primeiro o find para encontrar a primeira especie que o funcionário era responsável, através do id passado como parametro;
+// Utilizei mais uma vez o find para retornar o grupo de animais que faziam parte daquela espécie;
+// Dentro do grupo de animais, coloquei em ordem decrescente os animais por idade e peguei o primeiro elemento;
+// Retornei apenas os valores do objeto anteior.
 
 function increasePrices(percentage) {
   // seu código aqui
