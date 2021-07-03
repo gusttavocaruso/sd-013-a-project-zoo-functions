@@ -85,7 +85,7 @@ function calculateEntry(entrants) {
   return priceAdult + priceChild + priceSenior;
 }
 
-// Na primeira parte entreguei os pros primeiros requisitos, se o parâmetro for vazio ou igual a um objeto vazio, retorna 0;
+// Na primeira parte conclui os dois primeiros requisitos, se o parâmetro for vazio ou igual a um objeto vazio, retorna 0;
 // Depois fiz o destructing e igualei cada elemento a 0, para que quando não for dado um elemento como parâmetro possa ser feita a multiplicação depois (se não, o resultado é NaN);
 // A multiplicação de cada número de adultos, crianças e senhores dado no paraêmtro, pelo valor do ingresso de cada faixa etária;
 
@@ -110,8 +110,17 @@ function getOldestFromFirstSpecies(id) {
 // Retornei apenas os valores do objeto anteior.
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(data.prices).forEach((price) => {
+    data.prices[price] = (
+      Math.round((data.prices[price] + (percentage / 100) * data.prices[price]) * 100) / 100);
+  });
+  return data.prices;
 }
+
+// Demorei para resolver este requisito devido a dois console.log que estavam imprimindo os resultados, quando eu passava eles no lint, os valores apareciam bem maiores lá.
+// Acessei as chaves do objeto prices, percorri os valores com o forEach, e em cata iteração fiz o cálculo para o aumento do preço de acordo com o parâmetro dado.
+// Para resolver o problema de arredondamento, não utilizei o toFixed por retornar uma string, então preferi pesquisar e encontrei a solução com base no link abaixo:
+// https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
