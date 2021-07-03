@@ -95,8 +95,56 @@ function increasePrices(percentage) {
   });
 }
 
+// Questão 13:
+
+const checkEntry = (idOrName) => {
+  const idNumber = employees.some((employee) => employee.id === idOrName);
+  const itIsfirstName = employees.some((employee) => employee.firstName === idOrName);
+  const istIsLastName = employees.some((employee) => employee.lastName === idOrName);
+  return {
+    id: idNumber,
+    firstName: itIsfirstName,
+    lastName: istIsLastName,
+  };
+};
+
+const findName = (idOrName, responseObj) => {
+  if (responseObj.id === true) {
+    const obj1 = employees.find((person) => person.id === idOrName);
+    return obj1;
+  }
+  if (responseObj.firstName === true) {
+    const obj2 = employees.find((person) => person.firstName === idOrName);
+    return obj2;
+  }
+  if (responseObj.lastName === true) {
+    const obj3 = employees.find((person) => person.lastName === idOrName);
+    return obj3;
+  }
+};
+
+const getNameByID = (id) => species.find((specie) => specie.id === id).name;
+
+const EmployeeData = (obj) => {
+  const fullName = `${obj.firstName} ${obj.lastName}`;
+  const speciesArray = obj.responsibleFor.map((specie) => getNameByID(specie));
+  const outputObj = {};
+  outputObj[fullName] = speciesArray;
+  return outputObj;
+};
+
+const generateList = () => employees.reduce((acc, curr) => {
+  const fullName = `${curr.firstName} ${curr.lastName}`;
+  const speciesArray = curr.responsibleFor.map((specie) => getNameByID(specie));
+  acc[fullName] = speciesArray;
+  return acc;
+}, {});
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) return generateList();
+  const whatIsInput = checkEntry(idOrName);
+  const employee = findName(idOrName, whatIsInput);
+  return EmployeeData(employee);
 }
 
 module.exports = {
