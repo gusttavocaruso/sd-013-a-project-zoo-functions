@@ -186,9 +186,13 @@ function getOldestFromFirstSpecies(id) {
   const oldAnimal = listAnimals.find((animal) => animal.age === oldSpecie);
   return Object.values(oldAnimal);
 }
-
+// https://pt.stackoverflow.com/questions/207612/arredondamento-para-cima-de-float-em-javascript
 function increasePrices(percentage) {
-  // seu código aqui
+  const keyPrices = Object.keys(prices);
+  keyPrices.forEach((acc) =>{
+    prices[acc] = Math.round((prices[acc] + prices[acc] * (percentage / 100))* 100) /100;
+  })
+  return prices
 }
 
 function getEmployeeCoverage(idOrName) {
