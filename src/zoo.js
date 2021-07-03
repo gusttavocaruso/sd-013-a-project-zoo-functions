@@ -75,6 +75,13 @@ function countAnimals(species) {
 // Na segunda parte, para cada espécie dada como parâmetro o find percorre o objeto até encontrar o primeiro elemento, e retorna a quantidade daquela espécie. 
 
 function calculateEntry(entrants) {
+if (!entrants) return 0;
+if (entrants === {}) return 0;
+const { Adult, Senior, Child } = prices;
+const price = prices.reduce((acc, crr) => {
+
+}, 0);
+
 
 }
 
@@ -98,18 +105,4 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
 
-module.exports = {
-  calculateEntry,
-  getSchedule,
-  countAnimals,
-  getAnimalMap,
-  getSpeciesByIds,
-  getEmployeeByName,
-  getEmployeeCoverage,
-  addEmployee,
-  isManager,
-  getAnimalsOlderThan,
-  getOldestFromFirstSpecies,
-  increasePrices,
-  createEmployee,
-};
+
