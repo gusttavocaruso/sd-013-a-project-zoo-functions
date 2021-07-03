@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 // Todos os requisitos fizemos um estudo em grupo, todos tentando dar a opnião sobre o código
@@ -103,11 +103,11 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
-// Requisito 12
+// Requisito 12 // link da thread no slack https://trybecourse.slack.com/archives/C017W4EDD4K/p1602438914147800
 function increasePrices(percentage) {
-//   prices.Adult = Math.round((prices.Adult * (1 + (percentage / 100))) * 100) / 100;
-//   prices.Senior = Math.round((prices.Senior * (1 + (percentage / 100))) * 100) / 100;
-//   prices.Child = Math.round((prices.Child * (1 + (percentage / 100))) * 100) / 100;
+  prices.Adult = Math.round((prices.Adult * (1 + (percentage / 100))) * 100) / 100;// multiplica por 100 para arredondar a casa dos centavos e depois divide por 100 para chegar na resposta
+  prices.Senior = Math.round((prices.Senior * (1 + (percentage / 100))) * 100) / 100;
+  prices.Child = Math.round((prices.Child * (1 + (percentage / 100))) * 100) / 100;
 }
 
 // Requisito 13
