@@ -111,16 +111,6 @@ const map = (options, specie) => {
   return response;
 };
 
-const auxCondition = (options, specie) => {
-  if (!options || !options.includeNames) {
-    return specie.name;
-  }
-  if (options.sex && options.includeNames) {
-    return map(options, specie);
-  }
-  return map(options, specie);
-};
-
 function getAnimalMap(options) {
   data.species.forEach((specie) => {
     animalsObject[specie.location] = [];
@@ -129,7 +119,12 @@ function getAnimalMap(options) {
   regions.forEach((region) => {
     animalsObject[region] = data.species
       .filter((specie) => specie.location === region)
-      .map((specie) => auxCondition(options, specie));
+      .map((specie) => {
+        if (!options || !options.includeNames) {
+          return specie.name;
+        }
+        return map(options, specie);
+      });
   });
   return animalsObject;
 }
