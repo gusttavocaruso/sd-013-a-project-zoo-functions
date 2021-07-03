@@ -49,14 +49,14 @@ function countAnimals(especies) {
   return species.find((especie) => especie.name === especies).residents.length;
 }
 
-function calculateEntry(entrants) {
-  if (!entrants || entrants === {}) return 0;
+function calculateEntry(entrants = 0) {
+  if (entrants === {}) return 0;
   const precoAdultos = entrants.Adult * prices.Adult || 0;
   const precoSeniors = entrants.Senior * prices.Senior || 0;
   const precoChilds = entrants.Child * prices.Child || 0;
-  return (precoAdultos + precoSeniors + precoChilds)
+  return (precoAdultos + precoSeniors + precoChilds);
 }
-calculateEntry({ 'Adult': 2, 'Child': 3, 'Senior': 1 })
+
 function getAnimalMap(options) {
   // seu código aqui
 }
