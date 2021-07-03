@@ -65,7 +65,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  const 
+  
 }
 
 function getSchedule(dayName) {
