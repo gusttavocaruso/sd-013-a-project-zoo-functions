@@ -91,8 +91,6 @@ function getSchedule(dayName) {
   return newObj;
 }
 
-console.log(getSchedule('Monday'));
-
 function getOldestFromFirstSpecies(id) {
   const findAnimalById = employees.find((element) => element.id === id).responsibleFor[0];
   const findResidentsById = species.find((element) => element.id === findAnimalById).residents;
@@ -113,27 +111,32 @@ function increasePrices(percentage) {
   });
 }
 
-function getEmployeeCoverage(idOrName) {
-  const mapByName = (name) => {
-    const test = species.filter((element) => element.name === name)
-      .map((element2) => element2.responsibleFor);
-  };
-  // const AnimalsAndIds = species.reduce((acc, crr) => {
-  //   return [...acc, crr.id, crr.name];
-  // }, []);
-  // return AnimalsAndIds;
-  // const getIds = employees.map((element) => element.responsibleFor);
-  // const test = getIds.map((element) => {
-  //   return element.map((element2) => {
-  //     return AnimalsAndIds.map((element3) => {
-  //       if (element2 === element3[0]) return element3[1];
-  //     })
-  //   });
-  // })
+const fetchId = (id) => {
+  for (let i = 0; i < id.length; i += 1) {
+    species.forEach((element) => {
+      if (element.id === id[i]) return id.splice(i, 1, element.name);
+    });
+  }
+  return id;
+};
 
-  // return test;
+function getEmployeeCoverage(idOrName) {
+  const newObj = {};
+  if (!idOrName) {
+    const namesAndAnimals = employees
+      .reduce((acc, crr) =>
+        ({ ...acc, [`${crr.firstName} ${crr.lastName}`]: fetchId(crr.responsibleFor) }), {});
+    return namesAndAnimals;
+  }
+  employees.forEach((member) => {
+    if (member.firstName === idOrName || member.lastName === idOrName || member.id === idOrName) {
+      newObj[`${member.firstName} ${member.lastName}`] = fetchId(member.responsibleFor);
+    }
+  });
+  return newObj;
 }
-// console.log(getEmployeeCoverage())
+
+console.log(getEmployeeCoverage('Nigel'));
 
 module.exports = {
   calculateEntry,
@@ -150,11 +153,3 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
-
-// const test2 = findResidents.reduce((acc, crr) => {
-//  return { ...acc, animal: crr[residents].name };
-//     },{});
-// return findResidents;
-// const animalsAndResidents = findResidents.reduce((acc,crr)=> {
-//   return {...acc, [animal]:}
-// },{})
