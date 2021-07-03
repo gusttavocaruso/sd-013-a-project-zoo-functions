@@ -51,7 +51,12 @@ createEmployee({
 });
 
 function isManager(id) {
-  // seu código aqui
+  const manager = data.employees
+    .filter((worker) => worker.managers[0] === id);
+  if (manager.length === 0) {
+    return false;
+  }
+  return true;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
