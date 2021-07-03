@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -10,8 +10,6 @@ function getAnimalsOlderThan(animal, age) {
   // myAnimal.residents.some((resident) => resident.age < age);
   // return !myAnimal;
 }
-
-console.log(getAnimalsOlderThan('otters', 7));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
@@ -59,8 +57,28 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+function checkParameters(arrayEntries) {
+  return arrayEntries.reduce((acc, curr) => {
+    if (curr[1].open === 0 && curr[1].close === 0) {
+      acc[curr[0]] = 'CLOSED';
+      return acc;
+    }
+    acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`;
+    return acc;
+  }, {});
+}
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const arrayEntries = Object.entries(data.hours);
+  if (!dayName) return checkParameters(arrayEntries);
+  const day = arrayEntries.find((weekDay) => weekDay[0] === dayName);
+  const object = {};
+  if (day[1].open === 0 && day[1].close === 0) {
+    object[day[0]] = 'CLOSED';
+    return object;
+  }
+  object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+  return object;
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -68,11 +86,17 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const multiplicador = 1 + percentage / 100;
+  const arrayEntries = Object.entries(data.prices);
+  arrayEntries.forEach((item) => {
+    const value = data.prices[item[0]] * multiplicador;
+    const rounded = Math.round(value * 100) / 100;
+    data.prices[item[0]] = rounded;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  
 }
 
 module.exports = {
