@@ -24,7 +24,6 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
   return data.employees.find((indexItem) => indexItem.id === id)
     .managers.some((cargo) => cargo === '9e7d4524-363c-416a-8759-8aa7e50c0992');
 }
@@ -35,8 +34,15 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 
 function countAnimals(species) {
   // seu código aqui
+  if (!species !== true) {
+    return data.species.find((nome) => nome.name === species)
+      .residents.length;// .residents.reduce((acc, curr) => acc + curr);
+  }
+  return data.species.reduce((acc, value) => {
+    acc[value.name] = value.residents.length;
+    return acc;
+  }, {});
 }
-
 function calculateEntry(entrants) {
   // seu código aqui
 }
