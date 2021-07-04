@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const {
   species,
   employees,
@@ -84,6 +85,7 @@ function calculateEntry(entrants) {
 
   return (Child * childPrice + Senior * seniorPrice + Adult * adultPrice);
 }
+
 function getAnimalMap(options = {}) {
   const animalsByLocation = {
     NE: filterAnimals('NE', options),
@@ -94,6 +96,7 @@ function getAnimalMap(options = {}) {
 
   return animalsByLocation;
 }
+
 function getSchedule(dayName) {
   if (!dayName) {
     const days = Object.keys(hours);
@@ -105,15 +108,15 @@ function getSchedule(dayName) {
       return { ...acc, [day]: openCloseMsg };
     }, {});
   }
-
   return dayName === 'Monday' ? { [dayName]: 'CLOSED' }
-  : { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
+    : { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
 }
 
 function getOldestFromFirstSpecies(id) {
   const employee = employees.find((emp) => emp.id === id);
   const firstAnimal = species.find((specie) => specie.id === employee.responsibleFor[0]);
-  const oldestAnimal = firstAnimal.residents.reduce((acc, resident) => (resident.age > acc.age ? resident : acc));
+  const oldestAnimal = firstAnimal.residents
+    .reduce((acc, resident) => (resident.age > acc.age ? resident : acc));
   return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
@@ -126,11 +129,11 @@ function increasePrices(percentage) {
 }
 
 const getAnimalsOfEmployee = (animalsId) => animalsId
-.reduce((acc, id) => {
-  const animalsName = species.filter((specie) => specie.id === id)
-    .reduce(((acc2, specie) => acc2 + specie.name), []);
-  return [...acc, animalsName];
-}, []);
+  .reduce((acc, id) => {
+    const animalsName = species.filter((specie) => specie.id === id)
+      .reduce(((acc2, specie) => acc2 + specie.name), []);
+    return [...acc, animalsName];
+  }, []);
 
 function getEmployeeCoverage(idOrName) {
   if (!idOrName) {
@@ -152,7 +155,7 @@ function getEmployeeCoverage(idOrName) {
   const animalsOfEmployee = getAnimalsOfEmployee(responsibleFor);
   return { [fullName]: animalsOfEmployee };
 }
-module.exports = {
+export default {
   calculateEntry,
   getSchedule,
   countAnimals,
