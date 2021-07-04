@@ -26,11 +26,13 @@ function isManager(id) {
   return employees.some((employee) => employee.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(theSpecies) {
+  // if (theSpecies === '') return {};
+  // return species.reduce((acumulator, currentValue) => acumulator + currentValue);
 }
 
 function calculateEntry(entrants) {
