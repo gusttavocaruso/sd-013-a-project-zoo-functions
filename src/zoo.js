@@ -1,4 +1,4 @@
-const { species } = require('./data');
+const { species, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -86,7 +86,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  prices.Adult = Math.round(((prices.Adult * (percentage / 100)) + prices.Adult) * 100) / 100; /* Dar um novo valor aos prices. Multiplicando o atual price pelo parametro / 100, representando a porcentagem do price atual, e finalizando somando com o valor dele, representando assim um aumento no percentual no price de acordo com o parametro passado. */
+  prices.Child = Math.round(((prices.Child * (percentage / 100)) + prices.Child) * 100) / 100;
+  prices.Senior = Math.round(((prices.Senior * (percentage / 100)) + prices.Senior) * 100) / 100;
+  /* Metodo "(* 100) / 100" para deixar com duas casas decimais retirado deste link: https://metring.com.br/arredondar-numero-em-javascript */
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
