@@ -26,7 +26,7 @@ function isManager(id) {
     .map((employee) => employee.managers)
     .reduce((acc, current) => [...acc, ...current], [])
     .some((manager) => manager === id);
-    // return employees.some((employee)) => employee.managers.includes(id));
+  // return employees.some((employee)) => employee.managers.includes(id));
 }
 
 function addEmployee(id = [], firstName = [], lastName = [], managers = [], responsibleFor = []) {
