@@ -36,7 +36,6 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
   const newEmployee = {
     id,
     firstName,
@@ -48,14 +47,8 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(specie) {
-  if ((specie.length) === 0) {
-    return {};
-  }
-
-  const contAnimal = species.filter((residents) => residents.name === specie);
-  console.log(contAnimal);
-
-  // seu código aqui
+  const contAnimal = species.find((animal) => animal.name === specie).residents.length;
+  return contAnimal;
 }
 
 function calculateEntry(entrants) {
@@ -86,8 +79,6 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
 
-increasePrices(30);
-
 module.exports = {
   calculateEntry,
   getSchedule,
@@ -103,5 +94,3 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
-
-// countAnimals('snakes')
