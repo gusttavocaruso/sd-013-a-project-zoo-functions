@@ -1,18 +1,35 @@
-const { species } = require("./data");
+// const { species } = require("./data");
 const data = require("./data");
 
-function getSpeciesByIds(ids) {
-  const speciesId = ids.map((specie) => {
-    return specie.id;
-  });
+function getSpeciesByIds(...ids) {
+  const filtered = [];
+  // busca cada id passado
+  ids.forEach((id) =>
+    // add cada especie igual no array
+    filtered.push(data.species.find((specie) => specie.id === id))
+  );
+  return filtered;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const animalOlder = data.species.filter((specie) => {
+    return specie.name === animal;
+  });
+  const verify = data.species.forEach((element) => {
+    if (element.name === animalOlder && element.residents.age > age)
+      return verify;
+  });
+  return animal;
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) {
+    return {};
+  }
+  const found = data.employees.find((item) => {
+    return item.firstName === employeeName || item.lastName === employeeName;
+  });
+  return found;
 }
 
 function createEmployee(personalInfo, associatedWith) {
