@@ -26,6 +26,7 @@ function isManager(id) {
     .map((employee) => employee.managers)
     .reduce((acc, current) => [...acc, ...current], [])
     .some((manager) => manager === id);
+    // return employees.some((employee)) => employee.managers.includes(id));
 }
 
 function addEmployee(id = [], firstName = [], lastName = [], managers = [], responsibleFor = []) {
@@ -47,6 +48,10 @@ function countAnimals(especies) {
     return especiesObj;
   }
   return species.find((especie) => especie.name === especies).residents.length;
+  // const all animals = species.reduce((acc, curr) => {
+  // acc[current.name] = current.residents.length;
+  // return acc;
+  // }, {})
 }
 
 function calculateEntry(entrants = 0) {
