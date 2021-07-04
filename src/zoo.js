@@ -4,18 +4,28 @@ function getSpeciesByIds(...ids) {
   const control = [];
   if (ids) {
     data.species.forEach((arrayObjects) => {
-     ids.forEach((parametros) => {
-      if (arrayObjects.id === parametros) {
-        control.push(arrayObjects);
-      } 
-     });
+      ids.forEach((parametros) => {
+        if (arrayObjects.id === parametros) {
+          control.push(arrayObjects);
+        }
+      });
     });
-  } 
+  }
   return control;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  let control = true;
+  data.species.forEach((arrayObjects) => {
+    if (animal === arrayObjects.name) {
+      arrayObjects.residents.forEach((animals) => {
+        if (age > animals.age) {
+          control = false;
+        }
+      });
+    }
+  });
+  return control;
 }
 
 function getEmployeeByName(employeeName) {
