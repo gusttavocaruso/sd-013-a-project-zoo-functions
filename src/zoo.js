@@ -203,12 +203,27 @@ const idsAnimalsToNames = (listaId) => {
   return listAnimalsNames;
 };
 
-
 function getEmployeeCoverage(idOrName) {
+  if (!idOrName) {
+    return employees.reduce((acc, employee) => {
+      const { firstName, lastName, responsibleFor } = employee;
+      const employeeResposible = acc;
+      employeeResposible[`${firstName} ${lastName}`] = idsAnimalsToNames(responsibleFor);
+      return employeeResposible;
+    }, {});
+  }
 
+  const { firstName, lastName, responsibleFor } = employees.find((employee) =>
+    Object.values(employee).includes(idOrName));
+
+  return { [`${firstName} ${lastName}`]: idsAnimalsToNames(responsibleFor) };
 }
 
-console.log(getEmployeeCoverage('rogerio'));
+// console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'))
+
+console.log(getEmployeeCoverage());
+
+// console.log(getEmployeeCoverage('Spry'))
 
 module.exports = {
   calculateEntry,
