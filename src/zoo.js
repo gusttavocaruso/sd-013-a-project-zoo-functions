@@ -176,14 +176,19 @@ function getOldestFromFirstSpecies(id) {
 // ===========================
 
 function increasePrices(percentage) {
+  const { Adult, Senior, Child } = data.prices;
   const percent = (percentage / 100) + 1;
-  prices.Adult = Math.round(((prices.Adult * percent) * 100) / 100);
-  prices.Senior = Math.round(((prices.Senior * percent) * 100) / 100);
-  prices.Child = Math.round(((prices.Child * percent) * 100) / 100);
-  return prices;
+  const pricesAdult = Math.round((percent * Adult) * 100) / 100;
+  const pricesSenior = Math.round((percent * Senior) * 100) / 100;
+  const pricesChild = Math.round((percent * Child) * 100) / 100;
+  data.prices = {
+    Adult: pricesAdult,
+    Senior: pricesSenior,
+    Child: pricesChild,
+  };
+  return data.prices;
 }
 
-console.log(increasePrices(20));
 // ===========================
 
 // Requisito 13
