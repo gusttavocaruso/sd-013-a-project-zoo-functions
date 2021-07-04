@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -71,16 +71,37 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-
+  const keyHoras = Object.keys(hours);
+  const valorHora = Object.values(hours);
+  const cronograma = {};
+  const valueOpen = valorHora.map((m1) => m1.open);
+  const valueClose = valorHora.map((m2) => m2.close);
+  keyHoras.filter((element, i) => {
+    if (valueOpen[i] === 0) {
+      cronograma[element] = 'CLOSED';
+    } else {
+      cronograma[element] = `Open from ${valueOpen[i]}am until ${valueClose[i]}pm`;
+    }
+    return null;
+  });
+  /* return cronograma; */
+  /* if (dayName) {}; */
 }
 
 function getOldestFromFirstSpecies(ids) {
-  /* const lisIds = employees.find((m1) => m1.id === ids).responsibleFor;
+  const lisIds = employees.find((m1) => m1.id === ids).responsibleFor;
   const listAnimals = species.find((m2) => m2.id === lisIds[0]);
-  console.log(listAnimals); */
-}
+  const maximo = listAnimals.residents.map((c1) => c1.age).reduce((a, b) => Math.max(a, b));
+  const perfilAnimal = [];
 
-getOldestFromFirstSpecies('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1');
+  const listIdade = listAnimals.residents
+    .find((elemento) => elemento.age === maximo);
+
+  const { name, sex, age } = listIdade;
+  perfilAnimal.push(name, sex, age);
+
+  return perfilAnimal;
+}
 
 function increasePrices(percentage) {
 
