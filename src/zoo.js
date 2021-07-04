@@ -14,16 +14,11 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 // Questão 3
-function getEmployeeByName(employeeName) {
-  if (!employeeName) return {};
-  return employees.find(({ firstName, lastName }, index) => {
-    if (firstName === employeeName || lastName === employeeName) {
-      return employees[index];
-    }
-  });
+function getEmployeeByName(employee) {
+  if (!employee) return {};
+  const ind = employees.findIndex((a) => a.firstName === employee || a.lastName === employee);
+  return employees[ind];
 }
-
-console.log(getEmployeeByName('Wishart'));
 
 // Questão 4
 function createEmployee(personalInfo, associatedWith) {
