@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (!ids) {
@@ -34,7 +34,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees.some((employee) => employee.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -42,12 +42,30 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees.push(newEmployee);
 }
 
-function countAnimals(count) {
-  // seu código aqui
+function countAnimals(animal) {
+  if (!animal) {
+    return species.reduce((acc, curr) => {
+      acc[curr.name] = curr.residents.length;
+      return acc;
+    }, {});
+  }
+
+  const animalParam = species.find((family) => family.name === animal);
+  return animalParam.residents.length;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  const keys = Object.keys(entrants);
+  if (!entrants || keys.length === 0) {
+    return 0;
+  }
+
+  return keys.reduce((total, key) => {
+    const quantity = entrants[key];
+    const price = prices[key];
+
+    return total + (quantity * price);
+  }, 0);
 }
 
 function getAnimalMap(options) {
