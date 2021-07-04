@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 const { species, employees, prices } = require('./data');
 const data = require('./data');
 
@@ -55,10 +54,24 @@ function calculateEntry(persons) {
   + (persons[cur] * prices[cur]), 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
-}
+function getAnimalMap(localization) {
+  if (!localization) {
+    const reduced = species.reduce((acc, cur) => {
+      acc[cur.location] = species
+        .filter((specie) => (cur.location === specie.location));
+      return acc;
+    }, {});
+    const valoresDoObj = Object.values(reduced);
+    valoresDoObj.reduce((acc, cur, idx) => {
+      return acc + cu
+    }, []);
 
+
+    return valoresDoObj;
+  }
+}
+console.log(getAnimalMap());[
+  [
 function getSchedule(dayName) {
   // seu código aqui
 }
