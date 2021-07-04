@@ -1,3 +1,4 @@
+const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -29,7 +30,15 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  let control = {};
+  if (employeeName) {
+    data.employees.forEach((objectsEmployees) => {
+      if ((objectsEmployees.firstName === employeeName) || (objectsEmployees.lastName === employeeName)) {
+        control = objectsEmployees;
+      }
+    });
+  }
+  return control;
 }
 
 function createEmployee(personalInfo, associatedWith) {
