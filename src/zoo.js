@@ -1,12 +1,8 @@
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  if (typeof ids === 'undefined') {
-    return [];
-  }
-}
 
-getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce')
+}
 
 function getAnimalsOlderThan(animal, age) {
   const dataSpecies = data.species;
@@ -19,7 +15,6 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqu
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -27,7 +22,8 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const verify = data.employees.some((i) => i.managers.some((elem) => elem === id || elem === []));
+  return verify;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
