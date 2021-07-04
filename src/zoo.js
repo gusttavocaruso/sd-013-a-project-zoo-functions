@@ -195,9 +195,20 @@ function increasePrices(percentage) {
   return prices;
 }
 
+const idsAnimalsToNames = (listaId) => {
+  const listAnimalsNames = [];
+  listaId.forEach((id) => {
+    listAnimalsNames.push(species.find((specie) => specie.id === id).name);
+  });
+  return listAnimalsNames;
+};
+
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+
 }
+
+console.log(getEmployeeCoverage('rogerio'));
 
 module.exports = {
   calculateEntry,
