@@ -30,12 +30,18 @@ function isManager(id) {
     'fdb2543b-5662-46a7-badc-93d960fdc0a8',
     '0e7b460e-acf4-4e17-bcb3-ee472265db83',
   ];
-  const isTrue = managers.some((manager) => manager === id);
-  return isTrue;
+  return managers.some((manager) => manager === id);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  employees.push(newEmployee);
 }
 
 function countAnimals(especie) {
