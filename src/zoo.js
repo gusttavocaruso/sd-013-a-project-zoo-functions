@@ -31,9 +31,9 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   let control = {};
   if (employeeName) {
-    data.employees.forEach((objectsEmployees) => {
-     if ((objectsEmployees.firstName === employeeName) || (objectsEmployees.lastName === employeeName)) {
-       control = objectsEmployees;
+    data.employees.forEach((info) => {
+      if ((info.firstName === employeeName) || (info.lastName === employeeName)) {
+        control = info;
       }
     });
   }
