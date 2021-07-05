@@ -18,9 +18,14 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const teste = [personalInfo, associatedWith];
-  return teste.reduce((acc, curr) => acc + curr);
-
+  const novoEmpre = {};
+  const testeId = personalInfo.id;
+  novoEmpre.id = testeId;
+  novoEmpre.firstName = personalInfo.firstName;
+  novoEmpre.lastName = personalInfo.lastName;
+  novoEmpre.managers = associatedWith.managers;
+  novoEmpre.responsibleFor = associatedWith.responsibleFor;
+  return novoEmpre;
 }
 
 function isManager(id) {
