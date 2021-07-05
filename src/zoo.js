@@ -96,12 +96,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(animal) {
   if (animal === undefined) {
     const def = {};
+
     data.species.forEach((specie) => {
       def[specie.name] = specie.residents.length;
     });
+
     // console.log(def);
     return def;
   }
+
   const fnd = data.species.find((chave) => chave.name === animal);
   // console.log(fnd);
   // console.log(fnd.residents.length);
@@ -110,9 +113,17 @@ function countAnimals(animal) {
 
 // countAnimals('lions');
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry({ Adult = 0, Senior = 0, Child = 0 } = 0) {
+  const entrada = data.prices;
+  //   console.log(`${adultP} adultos por ${entrada.Adult} são ${(entrada.Adult * adultP)}
+  // ${seniorP} idosos por ${entrada.Senior} são ${(entrada.Senior * seniorP)}
+  // ${childP} crianças por ${entrada.Child} são ${(entrada.Child * childP)}`);
+  const total = (entrada.Adult * Adult) + (entrada.Senior * Senior) + (entrada.Child * Child);
+  // console.log(`O total é ${total}`);
+  return total;
 }
+
+// calculateEntry({childP: '10'});
 
 function getAnimalMap(options) {
   // seu código aqui
