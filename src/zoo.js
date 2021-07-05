@@ -8,11 +8,13 @@ const data = require('./data');
 // console.log(prices);
 // console.log(hours);
 
+// ============================================================================================
 function getSpeciesByIds(...ids) {
   // seu código aqui
   return species.filter((element) => ids.includes(element.id));
 }
 
+// ============================================================================================
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
   const animalList = species.find((element) => element.name === animal);
@@ -20,6 +22,7 @@ function getAnimalsOlderThan(animal, age) {
   return ageList;
 }
 
+// ============================================================================================
 function getEmployeeByName(employeeName) {
   // seu código aqui
   const employeCheck = employees.find((element) => (
@@ -27,6 +30,7 @@ function getEmployeeByName(employeeName) {
   return employeeName === undefined ? {} : employeCheck;
 }
 
+// ============================================================================================
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
   const createInfo = {};
@@ -34,11 +38,13 @@ function createEmployee(personalInfo, associatedWith) {
   return createInfo;
 }
 
+// ============================================================================================
 function isManager(id) {
   // seu código aqui
   return employees.some((element) => (element.managers.includes(id)));
 }
 
+// ============================================================================================
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
   employees.push({
@@ -50,6 +56,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
+// ============================================================================================
 function countAnimals(species2) {
   // seu código aqui
   const animalList = {};
@@ -60,16 +67,19 @@ function countAnimals(species2) {
   return species2 === undefined ? animalList : animalUnique.residents.length;
 }
 
+// ============================================================================================
 function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   // seu código aqui
   const price = prices.Adult * Adult + prices.Senior * Senior + prices.Child * Child;
   return price;
 }
 
+// ============================================================================================
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+// ============================================================================================
 function getScheduleWithParameter(dayName, keyHours) {
   const objSchedule = {};
 
@@ -95,6 +105,7 @@ function getScheduleWithOutParameter(keyHours) {
   });
   return objSchedule;
 }
+
 function getSchedule(dayName) {
   // seu código aqui
   const keyHours = Object.keys(hours);
@@ -104,6 +115,7 @@ function getSchedule(dayName) {
   return getScheduleWithParameter(dayName, keyHours);
 }
 
+// ============================================================================================
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
   const arrayAnimal = [];
@@ -118,6 +130,7 @@ function getOldestFromFirstSpecies(id) {
   return arrayAnimal;
 }
 
+// ============================================================================================
 function increasePrices(percentage) {
   // seu código aqui
   let priceAdult = prices.Adult;
@@ -139,10 +152,47 @@ function increasePrices(percentage) {
   return prices;
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+// ============================================================================================
+function withOutIdOrname() {
+  const listEmployees = {};
+
+  employees.forEach((employee) => {
+    const nameComplete = `${employee.firstName} ${employee.lastName}`;
+
+    const listAnimals = employee.responsibleFor.map((animal) => {
+      const result = species.find((specie) => specie.id === animal);
+      return result.name;
+    });
+
+    listEmployees[nameComplete] = listAnimals;
+  });
+
+  return listEmployees;
 }
 
+function withIdOrname(param) {
+  const animalList = [];
+
+  const employeeResult = employees.find((employee) => (
+    employee.id === param || employee.firstName === param || employee.lastName === param));
+
+  employeeResult.responsibleFor.forEach((animal) => {
+    const animalSpecie = species.find((specie) => specie.id === animal);
+    animalList.push(animalSpecie.name);
+  });
+
+  const nameComplete = `${employeeResult.firstName} ${employeeResult.lastName}`;
+
+  return { [nameComplete]: animalList };
+}
+
+function getEmployeeCoverage(idOrName) {
+  // seu código aqui
+
+  return !idOrName ? withOutIdOrname() : withIdOrname(idOrName);
+}
+
+// ============================================================================================
 module.exports = {
   calculateEntry,
   getSchedule,
