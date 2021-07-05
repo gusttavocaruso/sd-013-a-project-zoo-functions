@@ -60,8 +60,48 @@ function calculateEntry(entrants) {
   return soma;
 }
 
+const locationNoParame = () => {
+  const names = data.species.reduce((acc, current) => {
+    acc[current.location] = data.species
+      .filter((element) => element.location === current.location)
+      .map((nome) => nome.name);
+    return acc;
+  }, {});
+  return names;
+};
+
+const localitionName = (localizacao) => {
+  const animalnames = [];
+  const nomes = data.species.filter((element) => element.location === localizacao);
+  nomes.reduce((acc, current, index) => {
+    const objAnimal = {};
+    const array = nomes[index].residents.map((element) => element.name);
+    objAnimal[current.name] = array;
+    animalnames.push(objAnimal);
+    return acc;
+  }, {});
+  return animalnames;
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) {
+    console.log('Entrei');
+    return locationNoParame();
+  }
+  const { includeNames = false, sorted = false, sex = '' } = options;
+  if (includeNames === true) {
+    return data.species.reduce((acc, current) => {
+      acc[current.location] = localitionName(current.location);
+      return acc;
+    }, {});
+  }
+  if (sorted === true) {
+    return data.species.reduce((acc, current) => {
+      acc[current.location] = localitionName(current.location);
+      return acc;
+    }, {});
+  }
+  if (sex !== '') return console.log(sex);
 }
 
 const hoursPrint = (manha, tarde) => `Open from ${manha}am until ${tarde - 12}pm`;
