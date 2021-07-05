@@ -110,11 +110,16 @@ const getSchedule = (dayName = false) => {
   return schedule;
 };
 
-console.log(getSchedule('Monday'));
-
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-}
+const getOldestFromFirstSpecies = (id) => {
+  const { employees, species } = data;
+  const speciesId = employees.find((employee) => employee.id === id)['responsibleFor'][0];
+  const firstSpecies = species.find((item) => item.id === speciesId);
+  const oldest = firstSpecies.residents.reduce((oldest, cur) => {
+    if (oldest.age < cur.age) oldest = cur;
+    return oldest;
+  });
+  return Object.values(oldest);
+};
 
 function increasePrices(percentage) {
   // seu código aqui
