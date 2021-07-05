@@ -10,6 +10,7 @@ function getSpeciesByIds(...ids) {
     const fnd = data.species.find((speciesP) => speciesP.id === id);
     specsIds.push(fnd);
   });
+  // console.log(specsIds);
   return specsIds;
 }
 
