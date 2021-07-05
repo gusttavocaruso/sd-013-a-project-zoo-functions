@@ -5,8 +5,8 @@ const { hours } = require('./data');
 const data = require('./data');
 // console.log(employees);
 // console.log(species);
-// console.log(prices);
-console.log(hours);
+console.log(prices);
+// console.log(hours);
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
@@ -110,7 +110,26 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  let priceAdult = prices.Adult;
+  let priceSenior = prices.Senior;
+  let priceChild = prices.Child;
+
+  priceAdult = ((percentage / 100) * priceAdult) + priceAdult;
+  priceSenior = ((percentage / 100) * priceSenior) + priceSenior;
+  priceChild = ((percentage / 100) * priceChild) + priceChild;
+
+  priceAdult = (Math.round(priceAdult * 100) / 100);
+  priceSenior = (Math.round(priceSenior * 100) / 100);
+  priceChild = (Math.round(priceChild * 100) / 100);
+
+  prices.Adult = parseFloat(priceAdult);
+  prices.Senior = parseFloat(priceSenior);
+  prices.Child = parseFloat(priceChild);
+
+  return prices;
 }
+// console.log(increasePrices(50));
+// console.log(increasePrices(30));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
