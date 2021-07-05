@@ -1,9 +1,21 @@
+const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
-}
+/* ------------------------------------1°Requisito--------------------------------------------------*/
+/* Requsito realizado com ajuda da Lanai Conceição */
+/* Qual o objetivo dessa função?
+   - Busca espécies de animais por id.
+   - ID é passado como parâmetro
+   - Retorna um array contendo as espécies*/
+/* O que será avaliado ?
+  - Parâmetro vazio -> retorna array vazio
+  - Parâmetro com único ID -> retorna array com espécie referente ao ID
+  - Parâmetro com mais de 1 ID retorna array -> com espécies referente aos ID's*/ 
 
+function getSpeciesByIds(...ids) {
+  return ids.map((element) => species.find((specie) => specie.id === element));
+}
+/* ----------------------------------------------------------------------------------------------------- */
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
 }
