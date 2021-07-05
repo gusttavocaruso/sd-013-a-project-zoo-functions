@@ -84,6 +84,8 @@ function getAnimalMap(options) {
   }
 }
 
+
+
 function getSchedule(dayName) {
   const obj = data.hours;
   const ret = {};
@@ -101,7 +103,10 @@ function getSchedule(dayName) {
 console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee = employees.find((funcionario) => funcionario.id === id);
+  const firstSpecie = species.find((animal) => animal.id === employee.responsibleFor[0]); // pegando a primeira espécie que o funcionário é responsável.
+  const residentes = firstSpecie.residents.sort((a, b) => b.age - a.age);
+  return Object.values(residentes[0]);
 }
 
 function increasePrices(percentage) {
