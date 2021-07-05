@@ -15,10 +15,21 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   return ids.map((element) => species.find((specie) => specie.id === element));
 }
-/* ----------------------------------------------------------------------------------------------------- */
+/*---------------------------------------------------------------------------------------------------*/
+
+/* ------------------------------------2°Requisito--------------------------------------------------*/
+/* Requsito realizado com ajuda da Lanai Conceição */
+/* Qual o objetivo dessa função?
+   - A partir do nome da espécia e uma idade mínima, verifica-se se todos possuem a idade mínima       específicada.
+   - Deve retorna um boleano*/
+   /* O que será avaliado ?
+   Ao passar nome e idade retorna-se um boleano(true or false) */
+
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-}
+      return species.find((specie) => specie.name === animal).residents
+      .every((resident) => resident.age >= age)
+  }
+console.log(getAnimalsOlderThan('otters',10));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
