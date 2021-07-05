@@ -1,4 +1,5 @@
-const { species, employees, prices } = require('./data');
+/* eslint-disable max-lines-per-function */
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -69,16 +70,22 @@ function getAnimalMap(parameters = {}) {
       return acc;
     }, {});
   }
-  // eslint-disable-next-line max-lines-per-function
+  // eslint-disable-next-line
+  // eslint-disable-next-line complexity
   return species.reduce((acc, cur) => {
     const { name, residents, location } = cur;
     if (!acc[location]) acc[location] = [];
     let useResidents = residents;
     if (sex !== '') {
       useResidents = residents.filter((resident) => resident.sex === sex);
-      console.log(useResidents);
     }
-    const ObjectEspecieResident = useResidents.reduce((acumulator, current) => {
+    let ObjectEspecieResident = '';
+    if (useResidents.length === 0) {
+      const ResidentGone = { bears: [] };
+      acc[location].push(ResidentGone);
+      return acc;
+    }
+    ObjectEspecieResident = useResidents.reduce((acumulator, current) => {
       // eslint-disable-next-line no-param-reassign
       if (!acumulator[cur.name]) acumulator[cur.name] = [];
       acumulator[cur.name].push(current.name);
@@ -91,10 +98,38 @@ function getAnimalMap(parameters = {}) {
     return acc;
   }, {});
 }
-console.log(getAnimalMap({ includeNames: true, sorted: true, sex: 'female' }));
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function getSchedule(dayName) {
-  // seu código aqui
+  let string = '';
+  const objDay = {};
+  if (!dayName) {
+    const printHoras = Object.keys(hours);
+    return printHoras.reduce((acc, cur, index) => {
+      let { open, close } = Object.values(hours)[index];
+      if (open === close) {
+        acc[printHoras[index]] = 'CLOSED';
+        return acc;
+      }
+      if (close > 12) close -= 12;
+      if (open > 12) open -= 12;
+      acc[printHoras[index]] = `Open from ${open}am until ${close}pm`;
+      return acc;
+    }, {});
+  }
+  Object.keys(hours).forEach((dia) => {
+    if (dayName === dia) {
+      const { open, close } = hours[dayName];
+      if (open === close) {
+        string = 'CLOSED';
+        objDay[dia] = string;
+        return objDay;
+      }
+      string = `Open from ${open}am until ${close - 12}pm`;
+      objDay[dia] = string;
+    }
+  });
+  return objDay;
 }
 
 function getOldestFromFirstSpecies(id) {
