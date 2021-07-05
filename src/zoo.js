@@ -1,4 +1,4 @@
-const { prices } = require('./data');
+const { prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -75,19 +75,30 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
 }
+
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  if (!percentage || percentage === 0) return prices;
+  const percent = (percentage / 100) + 1;
+  const { Senior, Adult, Child } = data.prices;
+  const valueSenior = Math.round((Senior * percent) * 100) / 100;
+  const valueAdult = Math.round((Adult * percent) * 100) / 100;
+  const valueChild = Math.round((Child * percent) * 100) / 100;
+
+  data.prices = {
+    Adult: valueAdult,
+    Child: valueChild,
+    Senior: valueSenior,
+  };
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
