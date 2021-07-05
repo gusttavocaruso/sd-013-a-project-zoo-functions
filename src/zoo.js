@@ -56,8 +56,31 @@ function calculateEntry(entrants) {
       accumulator + (entrants[currentValue] * prices[currentValue]), 0);
 }
 
+// Feito com Pedro Trasfereti
+function createAnimalMap(param, cardinalPoints) {
+  return cardinalPoints.map((cardinalPoint) => ([
+    cardinalPoint,
+    speciesData.filter((specie) => specie.location === cardinalPoint)
+      .map((animal) => {
+        const residents = animal.residents.map((resident) => resident.name);
+        if (param === 'no-options') return animal.name;
+        if (param === 'include-names') {
+          return ({ [animal.name]: residents });
+        }
+        return ({ [animal.name]: residents.sort() });
+      }),
+  ]));
+}
 function getAnimalMap(options) {
-  // seu código aqui
+  const cardinalPoints = ['NE', 'NW', 'SE', 'SW'];
+  console.log(options);
+  if (!options) return Object.fromEntries(createAnimalMap('no-options', cardinalPoints));
+  if (options.includeNames) {
+    if (options.sorted) {
+      return Object.fromEntries(createAnimalMap('sorted', cardinalPoints));
+    }
+    return Object.fromEntries(createAnimalMap('include-names', cardinalPoints));
+  }
 }
 
 function getSchedule(dayName) {
