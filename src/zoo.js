@@ -1,3 +1,4 @@
+const { species } = require('./data');
 const data = require('./data');
 
 // ==========================================================================================================
@@ -68,15 +69,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 // ==========================================================================================================
 // Requisito 7
 // ==========================================================================================================
-function countAnimals(species) {
-  if (species === undefined) {
+function countAnimals(speciesAnimals) {
+  if (speciesAnimals === undefined) {
     return data.species.reduce((acc, current) => {
       acc[current.name] = current.residents.length;
       return acc;
     }, {});
   }
 
-  return data.species.find((specie) => specie.name === species).residents.length;
+  return data.species.find((specie) => specie.name === speciesAnimals).residents.length;
 }
 
 // ==========================================================================================================
@@ -94,19 +95,75 @@ function calculateEntry(entrants) {
 }
 
 // ==========================================================================================================
-// Requisito 9
+// Requisito 9 - Requisito resolvido assistindo ao vídeo do Oliva nesse link: https://trybecourse.slack.com/archives/C016CCMKN9E/p1598393557448900?thread_ts=1597773758.316400&cid=C016CCMKN9E
 // ==========================================================================================================
-function getAnimalMap(options) {
-  if (options === undefined) {
-    return {
-      NE: data.species.filter((specie) => (specie.location === 'NE')).map((name) => name.name),
-      NW: data.species.filter((specie) => (specie.location === 'NW')).map((name) => name.name),
-      SE: data.species.filter((specie) => (specie.location === 'SE')).map((name) => name.name),
-      SW: data.species.filter((specie) => (specie.location === 'SW')).map((name) => name.name),
-    };
-  }
+
+// Função que retorna um array com todas as pontos cardeais e colaterais, o qual será percorrido depois.
+function getLocations() {
+  return ['N', 'S', 'E', 'W', 'NW', 'NE', 'SE', 'SW'];
 }
-// console.log(getAnimalMap());
+
+// função que será usada para aplicar o filtro das localizações e será chamada nas demais funções.
+function retrieveFilteredAnimalsByLocation(location) {
+  return species.filter((specie) => specie.location === location);
+}
+
+// Função que é chamada quando o parâmetro da função principal, getAnimalMap, é undefined (não tem parâmetro).
+// A função usa o forEach para percorrer o Array getLocations (pontos cardeais) e acessar cada ponto cardeal (cada elemento do array);
+// Depois de acessar cada elemento do array, a função usa um filtro em "data.species" pra filtrar os objetos que tem a localização igual ao elemento do array;
+// O filter vai retornar um array com os objetos filtrados. Então usa-se um map para percorrer cada objeto filtrado e retornar um array com o nome das species.
+// O if é usado para, caso o array seja vazio, não retorná-lo (o array é vazio quando o filter não ache nenhum elemento que respeite a regra de negócio)
+// Se não for vazio, ele adiciona no modelo chave/valor ao objeto criado vazio.
+function getAnimalsPerLocation(locations) {
+  const animalsPerLocation = {};
+
+  locations.forEach((location) => {
+    const filterSpecies = retrieveFilteredAnimalsByLocation(location).map((obj) => obj.name);
+    if (filterSpecies.length !== 0) animalsPerLocation[location] = filterSpecies;
+  });
+
+  return animalsPerLocation;
+}
+
+// função que filtra por sexo:
+function getSpeciesBySex(obj, sex) {
+  return obj.residents.filter((resident) => {
+    const needFiltering = sex !== undefined;
+    return needFiltering ? resident.sex === sex : true; // se não precisa de filtro, retorna true e ele não filtra.
+  })
+    .map((objResidents) => objResidents.name);
+}
+
+// Subrrequisito 2 => Com a opção `includeNames: true` especificada, retorna nomes de animais
+// A lógica é mais ou menos como a anterior, porém o map retorna um array de objetos e esse array de objetos é adicionado como valor do objeto maior (animalsPerLocation) => as chaves são as localizações
+function getAnimalsPerLocationWithName(locations, sorted, sex) {
+  const animalsPerLocation = {};
+
+  locations.forEach((location) => {
+    const filterSpecies = retrieveFilteredAnimalsByLocation(location).map((obj) => {
+      const specieName = obj.name;
+      const residents = getSpeciesBySex(obj, sex);
+      if (sorted) residents.sort();
+      return { [specieName]: residents };
+    });
+    if (filterSpecies.length !== 0) animalsPerLocation[location] = filterSpecies;
+  });
+
+  return animalsPerLocation;
+}
+
+function getAnimalMap(options) {
+  const locations = getLocations();
+
+  if (!options) return getAnimalsPerLocation(locations);
+
+  const { includeNames = false, sorted = false, sex } = options; // o default tem que ser falso, para caso ele não for passado. Se não colocar isso, ele retorna undefined e o if pode não funcionar.
+
+  if (includeNames) {
+    return getAnimalsPerLocationWithName(locations, sorted, sex);
+  }
+  return getAnimalsPerLocation(locations);
+}
 
 // ==========================================================================================================
 // Requisito 10
@@ -204,8 +261,6 @@ function getEmployeeCoverage(idOrName) {
     return acc;
   }, {});
 }
-
-console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
