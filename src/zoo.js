@@ -1,17 +1,19 @@
-const data = require('./data');
+const { employees, species, prices, hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const {species} = data 
-  return species.filter(({ id }) => ids.includes(id))
+  return species.filter(({ id }) => ids.includes(id));
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(animal, animalAge) {
+  return (
+    species.filter(
+      ({ name, residents }) =>
+        name === animal && residents.every(({ age }) => age >= animalAge),
+    ).length > 0
+  );
 }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
-}
+function getEmployeeByName(employeeName) {}
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
