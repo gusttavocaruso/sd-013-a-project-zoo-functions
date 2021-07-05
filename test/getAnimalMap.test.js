@@ -36,6 +36,7 @@ describe('Implemente a função getAnimalMap', () => {
       ]
     };
 
+
     assert.deepStrictEqual(actual, expected);
   });
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const {
   species,
   employees,
@@ -38,10 +37,11 @@ function isManager(id) {
   return isManagerBool;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const employee = {
     id,
     firstName,
+    lastName,
     managers,
     responsibleFor,
   };
@@ -86,6 +86,29 @@ function calculateEntry(entrants) {
   return (Child * childPrice + Senior * seniorPrice + Adult * adultPrice);
 }
 
+const filterBySex = (residents, sex) => {
+  if (sex === 'both') {
+    return residents.map((resident) => resident.name);
+  }
+  return residents.filter((resident) => resident.sex === sex)
+    .map((resident) => resident.name);
+};
+
+const isSorted = (sorted, names) => (sorted ? names.sort() : names);
+
+const filterAnimals = (location, { includeNames = false, sorted = false, sex = 'both' }) => {
+  const speciesFiltered = species.filter((specie) => specie.location === location)
+    .reduce((acc, specie) => {
+      const { name, residents } = specie;
+      if (includeNames) {
+        const residentsName = filterBySex(residents, sex);
+        return [...acc, { [name]: isSorted(sorted, residentsName) }];
+      }
+      return [...acc, name];
+    }, []);
+  return speciesFiltered;
+};
+
 function getAnimalMap(options = {}) {
   const animalsByLocation = {
     NE: filterAnimals('NE', options),
@@ -108,6 +131,7 @@ function getSchedule(dayName) {
       return { ...acc, [day]: openCloseMsg };
     }, {});
   }
+
   return dayName === 'Monday' ? { [dayName]: 'CLOSED' }
     : { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
 }
@@ -155,7 +179,8 @@ function getEmployeeCoverage(idOrName) {
   const animalsOfEmployee = getAnimalsOfEmployee(responsibleFor);
   return { [fullName]: animalsOfEmployee };
 }
-export default {
+
+module.exports = {
   calculateEntry,
   getSchedule,
   countAnimals,
