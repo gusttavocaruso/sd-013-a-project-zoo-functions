@@ -1,5 +1,5 @@
 const data = require('./data');
-const { employees, prices, species } = require('./data');
+const { employees, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const result = [];
@@ -61,15 +61,106 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap(options) {
-  // const result = data.species.map((specie) => {
-  //   let animals = data.species.filter((animal) => animal.location === specie.location)
-  //   animals = animals.map((animal) => animal.name);
-  //   return {`${specie.location}`: `${animals}`};
-  // });
+const animalMapWithoutParam = () => {
+  const locationAnimalsObj = {};
+  const locationAnimalsSet = new Set();
+  data.species.forEach((specie) => {
+    const { location } = specie;
+    locationAnimalsSet.add(location);
+  });
+  locationAnimalsSet.forEach((location) => {
+    const animals = data.species.filter((specie) => specie.location === location)
+      .map((animal) => animal.name);
+    locationAnimalsObj[location] = animals;
+  });
+  return locationAnimalsObj;
+};
+
+const animalMapIncludeNames = () => {
+  const objLocation = {};
+  const locationAnimalsSet = new Set();
+  data.species.forEach((specie) => {
+    const { location } = specie;
+    locationAnimalsSet.add(location);
+  });
+  locationAnimalsSet.forEach((animalsLocation) => {
+    const names = data.species.filter((specie) => animalsLocation === specie.location)
+      .map((animal) => animal.residents.map((animalInfo) => animalInfo.name));
+    const animals = data.species.filter((specie) => specie.location === animalsLocation)
+      .map((animal) => (animal.name));
+    const animalsAndNames = animals.map((animal, i) => ({ [animal]: names[i] }));
+    objLocation[animalsLocation] = animalsAndNames;
+  });
+  return objLocation;
+};
+
+const maleOrFemale = (sex) => {
+  const objLocation = {};
+  const locationAnimalsSet = new Set();
+  data.species.forEach((specie) => {
+    const { location } = specie;
+    locationAnimalsSet.add(location);
+  });
+  locationAnimalsSet.forEach((animalsLocation) => {
+    const names = data.species.filter((specie) => animalsLocation === specie.location)
+      .map((animal) => animal.residents.filter((resident) => resident.sex === sex)
+        .map((animalInfo) => animalInfo.name));
+    const animals = data.species.filter((specie) => specie.location === animalsLocation)
+      .map((animal) => (animal.name));
+    const animalsAndNames = animals.map((animal, i) => ({ [animal]: names[i] }));
+    objLocation[animalsLocation] = animalsAndNames;
+  });
+  return objLocation;
+};
+
+const maleOrFemaleSorted = (animalSex) => {
+  const sortedMap = {};
+  let locations = new Set();
+  data.species.forEach(({ location }) => locations.add(location));
+  locations = Array.from(locations);
+  const map = maleOrFemale(animalSex);
+  const mapValues = Object.values(map);
+  mapValues.forEach((location) => location.forEach((animal) => {
+    const values = Object.values(animal);
+    values.forEach((animalNames) => animalNames.sort());
+  }));
+  mapValues.forEach((arrayAnimals, i) => {
+    sortedMap[locations[i]] = arrayAnimals;
+  });
+  return sortedMap;
+};
+console.log(maleOrFemaleSorted('female').NE[0]);
+
+const mapSorted = (options) => {
+  if (options.sex) return maleOrFemaleSorted(options.sex);
+  const sortedMap = {};
+  let locations = new Set();
+  data.species.forEach(({ location }) => locations.add(location));
+  locations = Array.from(locations);
+  const map = animalMapIncludeNames();
+  const mapValues = Object.values(map);
+  mapValues.forEach((location) => {
+    location.forEach((animal) => {
+      const values = Object.values(animal);
+      values.forEach((animalNames) => animalNames.sort());
+    });
+  });
+  mapValues.forEach((arrayAnimals, i) => {
+    sortedMap[locations[i]] = arrayAnimals;
+  });
+  return sortedMap;
+};
+
+function getAnimalMap(options = true) {
+  if (options.includeNames) {
+    if (options.sorted) return mapSorted(options);
+    if (options.sex) return maleOrFemale(options.sex);
+    return animalMapIncludeNames();
+  }
+  return animalMapWithoutParam();
 }
 
-// USAR Keys
+// USAR Keys seria uma maneira mais facil e menos complexa
 const scheduleWithoutParameter = (weekDays) => {
   const schedule = {};
   weekDays.forEach((day) => {
