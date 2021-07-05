@@ -1,5 +1,6 @@
 // const { species } = require('./data');
 const { employees } = require('./data');
+// const prices = require('./data')
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -32,7 +33,8 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  return { ...personalInfo, ...associatedWith };
+  const spread = { ...personalInfo, ...associatedWith };
+  return spread;
 }
 
 function isManager(id) {
@@ -47,16 +49,16 @@ function isManager(id) {
   return findManager;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // const newEmployee = {
-  //   id: id,
-  //   firstName: firstName,
-  //   lastName: lastName,
-  //   managers: managers,
-  //   responsibleFor: responsibleFor,
-  // };
-  // employees.push(newEmployee);
-  // return data.employees;
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = {
+    ['id']: id,
+    ['firstName']: firstName,
+    ['lastName']: lastName,
+    ['managers']: managers,
+    ['responsibleFor']: responsibleFor,
+  };
+  employees.push(newEmployee);
+  return data.employees;
 }
 
 function countAnimals(species) {
@@ -71,11 +73,20 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  // if (entrants != Number) {
+  //   return 0;
+  // }
+  const adults = (entrants.Adult * data.prices.Adult);
+  const childs = (entrants.Child * data.prices.Child);
+  const seniors = (entrants.Senior * data.prices.Senior);
+  const total = (adults + childs + seniors);
+  return total;
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  if (options === undefined) {
+    return options.sort;
+  }
 }
 
 function getSchedule(dayName) {
@@ -87,7 +98,12 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const increase = data.prices.forEach((item) => {
+    const price = data.prices[item];
+    const newPrice = price + (price * (percentage / 100));
+    return newPrice;
+  });
+  return increase;
 }
 
 function getEmployeeCoverage(idOrName) {
