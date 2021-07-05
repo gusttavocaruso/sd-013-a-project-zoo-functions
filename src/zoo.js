@@ -20,14 +20,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const objPersonal = {
-    id: personalInfo.id,
-    firstName: personalInfo.firstName,
-    lastName: personalInfo.lastName,
-    managers: associatedWith.managers,
-    responsibleFor: associatedWith.responsibleFor,
-  };
-  return objPersonal;
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
@@ -45,9 +38,14 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees.push(newPerson);
 }
 
-// function countAnimals(species) {
-// seu código aqui
-// }
+function countAnimals(speciesParam) {
+  const allAnimals = species.reduce((acc, curr) => {
+    acc[curr.name] = curr.residents.length;
+    return acc;
+  }, {});
+  if (!speciesParam) return allAnimals;
+  return allAnimals[speciesParam];
+}
 
 function calculateEntry(entrants) {
   // seu código aqui
@@ -76,7 +74,7 @@ function getEmployeeCoverage(idOrName) {
 module.exports = {
   calculateEntry,
   getSchedule,
-  // countAnimals,
+  countAnimals,
   getAnimalMap,
   getSpeciesByIds,
   getEmployeeByName,
