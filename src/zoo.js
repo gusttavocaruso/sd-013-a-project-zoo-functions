@@ -108,7 +108,7 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // const findEmployee = data.employees.find((employee) => employee.id === id);
+  const findEmployee = data.employees.find((employee) => employee.id === id);
   const animalFinder = data.species.find((specie) => id.responsibleFor[0] === specie.id);
   const sortAnimalF = animalFinder.residents.sort((a, b) => b.age - a.age)[0];
   return [sortAnimalF.name, sortAnimalF.sex, sortAnimalF.age];
