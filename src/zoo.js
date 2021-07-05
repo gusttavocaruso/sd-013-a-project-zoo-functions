@@ -84,8 +84,6 @@ function getAnimalMap(options) {
   }
 }
 
-
-
 function getSchedule(dayName) {
   const obj = data.hours;
   const ret = {};
