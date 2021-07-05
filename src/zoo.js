@@ -71,21 +71,21 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
+  const cronograma = {};
   const keyHoras = Object.keys(hours);
   const valorHora = Object.values(hours);
-  const cronograma = {};
   const valueOpen = valorHora.map((m1) => m1.open);
   const valueClose = valorHora.map((m2) => m2.close);
+
   keyHoras.filter((element, i) => {
     if (valueOpen[i] === 0) {
       cronograma[element] = 'CLOSED';
-    } else {
-      cronograma[element] = `Open from ${valueOpen[i]}am until ${valueClose[i]}pm`;
-    }
+    } else { cronograma[element] = `Open from ${valueOpen[i]}am until ${valueClose[i] - 12}pm`; }
     return null;
   });
-  /* return cronograma; */
-  /* if (dayName) {}; */
+  if (!dayName) return cronograma;
+  const objSelecionado = Object.entries(cronograma).find((m1) => m1.includes(dayName));
+  return objSelecionado.reduce((acc, value) => ({ [acc]: value }));
 }
 
 function getOldestFromFirstSpecies(ids) {
@@ -104,12 +104,25 @@ function getOldestFromFirstSpecies(ids) {
 }
 
 function increasePrices(percentage) {
+  // ainda vou fazer
+}
 
+function listCompleta(callback) {
+  const listFirsName = employees.map((names) => names.firstName);
+  const listLastName = employees.map((sobre) => sobre.lastName);
+  const concatenacao = listFirsName.map((m1, i) => `${m1} ${listLastName[i]}`);
+
+  const responsible = employees.map((respon) => respon.responsibleFor);
+  const pegarPorId = species.map((m1) => m1.name);
+
+  return concatenacao;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) return listCompleta();
 }
+
+/* console.log(getEmployeeCoverage()); */
 
 module.exports = {
   calculateEntry,
