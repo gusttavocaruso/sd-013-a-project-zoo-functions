@@ -36,12 +36,15 @@ function countAnimals(species) {
   if (species === undefined) {
     return data.species.reduce((res, num) => {
       res[num.name] = num.residents.length;
-      return res;}, {});
+      return res;
+    }, {});
   }
   return data.species.reduce((res, num) => {
     if (num.name === species) {
-      return num.residents.length;}
-    return res;}, 0);
+      return num.residents.length;
+    }
+    return res;
+  }, 0);
 }
 
 function calculateEntry(entrants) {
