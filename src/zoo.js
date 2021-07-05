@@ -98,17 +98,14 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  function roundToTwo(num) {
-    return +(Math.round(num + 'e+2') + 'e-2');
-  }  
   const increase = ((percentage + 100) / 100);
-  const xAdult = roundToTwo(prices.Adult * increase);
-  const xChild = roundToTwo(prices.Child * increase);
-  const xSenior = roundToTwo(prices.Senior * increase);
+  const xAdult = (prices.Adult * increase);
+  const xChild = (prices.Child * increase);
+  const xSenior = (prices.Senior * increase);
 
-  data.prices.Adult = xAdult;
-  data.prices.Child = xChild;
-  data.prices.Senior = xSenior;
+  data.prices.Adult = Math.round(xAdult * 100) / 100;
+  data.prices.Child = Math.round(xChild * 100) / 100;
+  data.prices.Senior = Math.round(xSenior * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
