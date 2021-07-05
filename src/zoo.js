@@ -49,20 +49,30 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(newEmployee);
 }
 
-function countAnimals(objSpecies) {
-  const objOutputCountSpecies = {};
-  if (objSpecies === '' || objSpecies === null || objSpecies === undefined) {
-    species.forEach((item) => {
-      objOutputCountSpecies[item.name] = item.residents.length;
-    });
-    return objOutputCountSpecies;
+function countAnimals(animalName) {
+  if (!animalName) {
+    return species.reduce((acc, { name, residents }) => ({
+      ...acc,
+      [name]: residents.length,
+    }), {});
   }
-  const blnThereIsTheAnimal = species.some((item) => item.name === objSpecies);
-  if (blnThereIsTheAnimal === true) {
-    const theuniqueSpecie = species.find((item) => item.name === objSpecies);
-    return theuniqueSpecie.residents.length;
-  }
+  return species.find(({ name }) => name === animalName).residents.length;
 }
+// ********************************************
+// My first solution...
+// ********************************************
+// const objOutputCountSpecies = {};
+// if (objSpecies === '' || objSpecies === null || objSpecies === undefined) {
+//   species.forEach((item) => {
+//     objOutputCountSpecies[item.name] = item.residents.length;
+//   });
+//   return objOutputCountSpecies;
+// }
+// const blnThereIsTheAnimal = species.some((item) => item.name === objSpecies);
+// if (blnThereIsTheAnimal === true) {
+//   const theuniqueSpecie = species.find((item) => item.name === objSpecies);
+//   return theuniqueSpecie.residents.length;
+// }
 
 function calculateEntry(entrants = 0) {
   const { Adult = 0, Senior = 0, Child = 0 } = entrants;
