@@ -11,8 +11,10 @@ function getAnimalsOlderThan(animal, age) {
     .every((resident) => resident.age >= age);
 }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
+function getEmployeeByName(name) {
+  if (name === undefined) return {};
+  return data.employees
+    .find((employee) => ((employee.firstName === name)) || (employee.lastName === name));
 }
 
 function createEmployee(personalInfo, associatedWith) {
