@@ -1,14 +1,13 @@
-const { species } = require("./data");
-const { employees } = require("./data");
-const data = require("./data");
+// const { species } = require('./data');
+const { employees } = require('./data');
+const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   const filtered = [];
   // busca cada id passado
   ids.forEach((id) =>
     // add cada especie igual no array
-    filtered.push(data.species.find((specie) => specie.id === id))
-  );
+    filtered.push(data.species.find((specie) => specie.id === id)));
   return filtered;
 }
 
@@ -26,7 +25,8 @@ function getEmployeeByName(employeeName) {
   }
   // fazendo as comparações do valor passado com o primeiro e ultimo nome
   const found = data.employees.find((item) => {
-    return item.firstName === employeeName || item.lastName === employeeName;
+    const result = item.firstName === employeeName || item.lastName === employeeName;
+    return result;
   });
   return found;
 }
@@ -48,15 +48,15 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  const newEmployee = {
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    managers: managers,
-    responsibleFor: responsibleFor,
-  };
-  employees.push(newEmployee);
-  return data.employees;
+  // const newEmployee = {
+  //   id: id,
+  //   firstName: firstName,
+  //   lastName: lastName,
+  //   managers: managers,
+  //   responsibleFor: responsibleFor,
+  // };
+  // employees.push(newEmployee);
+  // return data.employees;
 }
 
 function countAnimals(species) {
@@ -64,10 +64,10 @@ function countAnimals(species) {
   // if ((species = undefined)) {
   //   return data.species.popularity;
   // }
-  const result = data.species.forEach((animal) => {
-    animal.name === data.species.name;
-  });
-  return result;
+  // const result = data.species.forEach((animal) => {
+  //   animal.name === data.species.name;
+  // });
+  // return result;
 }
 
 function calculateEntry(entrants) {
