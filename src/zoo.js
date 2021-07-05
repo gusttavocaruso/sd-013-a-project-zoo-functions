@@ -19,7 +19,8 @@ function getSpeciesByIds(...ids) {
 function getAnimalsOlderThan(animal, age) {
   const fnd = data.species.find((SpecieDentroDeSpecies) => SpecieDentroDeSpecies.name === animal);
   // console.log(fnd);
-  return fnd.residents.every((ResidentesDentroDeSpeciesFnd) => ResidentesDentroDeSpeciesFnd.age >= age);
+  return fnd.residents.every((ResidentesDentroDeSpeciesFnd) =>
+    ResidentesDentroDeSpeciesFnd.age >= age);
 }
 
 // console.log(getAnimalsOlderThan('penguins', 10));
@@ -153,11 +154,13 @@ function getSchedule(dayName) {
 // getSchedule('Thursday');
 
 function getOldestFromFirstSpecies(id) {
-  const cuidador = data.employees.find((EmpregadoDentroDeEmployees) => EmpregadoDentroDeEmployees.id === id);
+  const cuidador = data.employees.find((EmpregadoDentroDeEmployees) =>
+    EmpregadoDentroDeEmployees.id === id);
   // console.log(cuidador);
   // console.log('');
 
-  const animal = data.species.find((specieDentrodeSpecies) => specieDentrodeSpecies.id === cuidador.responsibleFor[0]);
+  const animal = data.species.find((specieDentrodeSpecies) =>
+    specieDentrodeSpecies.id === cuidador.responsibleFor[0]);
   // console.log(animal);
   // console.log('');
 
