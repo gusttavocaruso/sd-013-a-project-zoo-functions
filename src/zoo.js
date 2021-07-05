@@ -2,22 +2,21 @@ const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const { species } = data; 
-   if (!ids) return [];
-   return ids.map(id => species.find(species => species.id === id));
+  const { species } = data;
+  if (!ids) return [];
+  return ids.map(id => species.find((species) => species.id === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  let result = species.find(specie => specie.name === animal);
-  if (result) result = result.residents.every(specie => specie.age >= age)
+  let result = species.find((specie) => specie.name === animal);
+  if (result) result = result.residents.every(specie => (specie.age >= age))
   return result;
 }
 
 function getEmployeeByName(employeeName) {
   // if (employeeName === undefined) return {};
   if (!employeeName) return {};
-  return employees.find(employee => {
-    return employee.firstName === employeeName || employee.lastName === employeeName
+  return employees.find((employee) => { return employee.firstName === employeeName || employee.lastName === employeeName
   });
 }
 
@@ -26,11 +25,11 @@ function createEmployee(personalInfo, associatedWith) {
   return {
     ...personalInfo,
     ...associatedWith
-  }
+  };
 }
 
 function isManager(id) {
-  return employees.some(employee => employee.managers.includes(id));
+  return employees.some((employee) => employee.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -39,7 +38,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(createEmployee(personalInfo, associatedWith));
 }
 
-function countAnimals(species) {
+function countAnimals(speciess) {
   // seu código aqui
 }
 
