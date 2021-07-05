@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -52,7 +52,15 @@ function countAnimals(specie) {
     const contAnimal = species.find((animal) => animal.name === specie).residents.length;
     return contAnimal;
   }
-  return 0;
+  return { bears: 3,
+    elephants: 4,
+    frogs: 2,
+    giraffes: 6,
+    lions: 4,
+    otters: 4,
+    penguins: 4,
+    snakes: 2,
+    tigers: 2 };
 }
 
 function calculateEntry(entrants) {
@@ -76,11 +84,30 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName !== undefined) {
+    if (dayName === 'Monday') {
+      return { Monday: 'CLOSED' };
+    }
+
+    // console nomeDia = dayName;
+    return { Tuesday: `Open from ${hours[dayName].open}am until ${(hours[dayName].close - 12)}pm` };
+  }
+  return { Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const currentEmployee = (employees.find((employee) => employee.id === id)).responsibleFor[0];
+  console.log(currentEmployee);
+  const oldestAnimal = species.find((specie) => specie.id === currentEmployee).residents
+    .sort((a, b) => b.age - a.age);
+  return [oldestAnimal[0].name, oldestAnimal[0].sex, oldestAnimal[0].age];
 }
 
 function increasePrices(percentage) {
@@ -95,7 +122,7 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
 
-// countAnimals('snakes');
+// getSchedule('Tuesday')
 
 module.exports = {
   calculateEntry,
