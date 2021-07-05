@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -74,22 +74,13 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   // seu código aqui
-  // console.log(dayName);
-  // const { ...hora } = hours
-  // console.log(hora);
-  // const obj = ({ hora: 4 })
-  // console.log(obj);
-  // const test = hours.find(hour => hour.hora)
-  // console.log(test);
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-  // console.log(`Parametro id: ${id}`);
-  // const funcionario = employees.find((employe) => employe.id === id).responsibleFor;
-  // console.log(funcionario);
-  // species.forEach((specie, index) => (specie.id === funcionario[index]), {
-  // })
+  const funcionario = employees.find((employe) => employe.id === id);
+  const firstSpecie = species.find((specie) => specie.id === funcionario.responsibleFor[0]);
+  const oldest = firstSpecie.residents.sort((a, b) => b.age - a.age);
+  return Object.values(oldest[0]);
 }
 
 function increasePrices(percentage) {
