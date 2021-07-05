@@ -32,8 +32,8 @@ function isManager(id) {
     fun.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(speciesName) {
