@@ -64,17 +64,26 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
+const hoursPrint = (manha, tarde) => `Open from ${manha}am until ${tarde - 12}pm`;
+
+const createObjHorarios = () => {
   const dias = Object.keys(data.hours);
+  const horas = Object.values(data.hours);
   return dias.reduce((acc, current, index) => {
-    if (current === 'Monday') {
-      acc[current] = 'CLOSED';
-    } else {
-      acc[current] = `Open from ${data.hours[current].open}am until ${data.hours[current].close}pm`;
-    }
+    if (current === 'Monday') acc[current] = 'CLOSED';
+    else { acc[current] = hoursPrint(horas[index].open, horas[index].close); }
     return acc;
   }, {});
+};
+
+function getSchedule(dayName) {
+  const objHorarios = createObjHorarios();
+  const objDia = {};
+  if (!dayName) {
+    return objHorarios;
+  }
+  objDia[dayName] = objHorarios[dayName];
+  return objDia;
 }
 
 function getOldestFromFirstSpecies(id) {
