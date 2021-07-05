@@ -1,19 +1,25 @@
 const data = require('./data');
 
 function getSpeciesByIds(ids) {
-  // seu código aqui
+    if (ids.length === 0) return [];
+    const speciesIds = species.filter((specie) => ids.includes(specie.id));
+    return speciesIds;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const getAnimal = species.find((specie) => specie.name === animal);
+  const checkAge = getAnimal.residents.every((resident) => resident.age >= age);
+  return checkAge;
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+  const eN = employees.find((em) => employeeName === em.firstName || employeeName === em.lastName);
+  return eN;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
