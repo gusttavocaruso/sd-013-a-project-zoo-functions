@@ -1,10 +1,12 @@
 const data = require('./data');
 
+const { species } = data;
+
 function getSpeciesByIds(...rest) {
   const array = [];
   if (rest.length > 0) {
     rest.forEach((id) => {
-      const dadosSpecies = data.species.filter((objA) => objA.id === id);
+      const dadosSpecies = species.filter((objA) => objA.id === id);
       array.push(...dadosSpecies);
     });
   }
@@ -12,7 +14,8 @@ function getSpeciesByIds(...rest) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-
+  const nomeAnimais = species.find((specie) => specie.name === animal);
+  return nomeAnimais.residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -20,7 +23,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
@@ -31,12 +34,12 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 
 }
 
-function countAnimals(species) {
+function countAnimals(speciesName) {
 
 }
 
 function calculateEntry(entrants) {
-
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
 }
 
 function getAnimalMap(options) {
