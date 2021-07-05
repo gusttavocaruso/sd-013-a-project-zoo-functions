@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 // console.table(employees);
@@ -55,7 +55,6 @@ function countAnimals(specie) {
       return acc;
     }, {});
   }
-
   return species.find((specimen) => specimen.name === specie).residents.length;
 }
 
