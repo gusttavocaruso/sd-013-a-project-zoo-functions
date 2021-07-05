@@ -88,35 +88,24 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+const showHour = (am, pm) => `Open from ${pm}am until ${pm - 12}pm`;
+
 const createSchedule = () => {
   const dias = Object.keys(data.hours);
   const horas = Object.values(data.hours);
 
   if (!dayName) {
-    dias.reduce((now, i, j) => {
+    dias.reduce((agr, i, j) => {
       if (i === 'Monday') {
-        now[i] = 'CLOSED';
+        agr[i] = 'CLOSED';
       } else {
-        now[i] = 'Open from ${horas[j].open}am until ${horas[j].close - 12}pm';  
+        agr[i] = showHour(horas[j].open, horas[j].close);
       }
 
-      return now;
+      return agr;
     });
-  };
-}
-
-function getSchedule(dayName) {
-  const array = {};
-  const schedule = createSchedule();
-
-  if (!dayName) {
-    return schedule;
   }
-
-  array[dayName] = schedule[dayName];
-
-  return array;
-}
+};
 
 function getOldestFromFirstSpecies(id) {
   const foundEmployee = data.employees.find((element) => element.id === id);
