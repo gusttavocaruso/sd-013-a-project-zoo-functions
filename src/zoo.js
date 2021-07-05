@@ -61,6 +61,9 @@ function isManager(id) {
   return findManager;
 }
 
+// ==================
+
+// Requisito 6
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const newEmployee = {
     id,
@@ -72,8 +75,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(newEmployee);
 }
 
-function countAnimals() {
-  // seu código aqui
+// =================
+
+// Requisito 7
+function countAnimals(animal) {
+  const newObject = {};
+  species.forEach((specie) => {
+    newObject[specie.name] = specie.residents.length;
+  });
+  if (animal === undefined) return newObject;
+  return newObject[animal];
 }
 
 function calculateEntry(entrants) {
