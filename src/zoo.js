@@ -94,11 +94,10 @@ const createSchedule = () => {
   const dias = Object.keys(data.hours);
   const horas = Object.values(data.hours);
 
-  dias.reduce((agr, i, j) => {
-    if (i === 'Monday') {
-      agr[i] = 'CLOSED';
-    } else { agr[i] = showHour(horas[j].open, horas[j].close); }
-  return agr;
+  dias.reduce((acc, i, j) => {
+    if (i === 'Monday') acc[i] = 'CLOSED'; 
+    else { acc[i] = showHour(horas[j].open, horas[j].close); }
+  return acc;
   }, {});
 };
 
