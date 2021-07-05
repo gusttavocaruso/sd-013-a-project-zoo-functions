@@ -35,7 +35,7 @@ function isManager(id) {
   return employees.some(({ managers }) => managers.some((manager) => manager === id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor) {
   const newEmployee = {
     id,
     firstName,
@@ -43,16 +43,32 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
     managers,
     responsibleFor,
   };
-  return employees.push(newEmployee);
+  employees.push(newEmployee);
+  return newEmployee;
 }
 
 function countAnimals(specie) {
-  const contAnimal = species.find((animal) => animal.name === specie).residents.length;
-  return contAnimal;
+  if (specie !== undefined) {
+    const contAnimal = species.find((animal) => animal.name === specie).residents.length;
+    return contAnimal;
+  }
+  return 0;
 }
 
 function calculateEntry(entrants) {
   // seu código aqui
+  if (entrants !== undefined) {
+    const keys = Object.values(prices);
+    const { Child = '0' } = entrants;
+    const { Adult = '0' } = entrants;
+    const { Senior = '0' } = entrants;
+    const adult = Adult * keys[0];
+    const senior = Senior * keys[1];
+    const child = Child * keys[2];
+    return child + adult + senior;
+  }
+
+  return 0;
 }
 
 function getAnimalMap(options) {
@@ -78,6 +94,8 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
+
+// countAnimals('snakes');
 
 module.exports = {
   calculateEntry,
