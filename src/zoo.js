@@ -99,10 +99,10 @@ const createSchedule = () => {
       agr[i] = 'CLOSED';
     } else {
       agr[i] = showHour(horas[j].open, horas[j].close);
-    }
+    } 
 
-    return agr;
-    });
+  return agr;
+  }, {});
 };
 
 function getSchedule(dayName) {
