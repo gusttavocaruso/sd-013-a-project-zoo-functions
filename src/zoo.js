@@ -126,7 +126,7 @@ const getOldestFromFirstSpecies = (id) => {
 const increasePrices = (percentage) => {
   Object.entries(data.prices).forEach(([key, value]) => {
     const newPrice = value * (percentage / 100 + 1);
-    data.prices[key] = parseFloat(newPrice.toFixed(2));
+    data.prices[key] = Math.round(newPrice * 100) / 100;
   });
 };
 
