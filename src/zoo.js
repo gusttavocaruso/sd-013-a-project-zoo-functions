@@ -6,9 +6,8 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animalName, age) {
-  return species.filter((specie) => specie.name === animalName)
-    .every((specie) => specie.residents
-      .every((animal) => animal.age > age));
+  return species.find((specie) => specie.name === animalName).residents
+    .every((animal) => animal.age > age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -59,8 +58,49 @@ function calculateEntry(entrants = { Adult: 0, Senior: 0, Child: 0 }) {
   return result;
 }
 
+function getLocationsAnimals() {
+  const result = {};
+  species.forEach((specie) => {
+    if (result[specie.location] === undefined) {
+      result[specie.location] = [specie.name];
+    } else {
+      result[specie.location].push(specie.name);
+    }
+  });
+  return result;
+}
+
+function filterAnimalsBySexAndMapTheirName(specie, sex) {
+  if (sex === undefined) {
+    return specie.residents.map((animal) => animal.name);
+  }
+  if (sex === 'female') {
+    return specie.residents.filter((animal) => animal.sex === sex).map((animal) => animal.name);
+  }
+  if (sex === 'male') {
+    return specie.residents.filter((animal) => animal.sex === sex).map((animal) => animal.name);
+  }
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  const result = {};
+  if (options === undefined) {
+    return getLocationsAnimals();
+  }
+  const { includeNames, sorted, sex } = options;
+  if (includeNames) {
+    species.forEach((specie) => {
+      const speciesNames = filterAnimalsBySexAndMapTheirName(specie, sex);
+      if (sorted) {
+        speciesNames.sort();
+      }
+      (result[specie.location] === undefined)
+        ? result[specie.location] = [{ [specie.name]:
+      [...speciesNames] }] : result[specie.location].push({ [specie.name]: [...speciesNames] });
+    });
+    return result;
+  }
+  return 'lions';
 }
 
 function getSchedule(dayName) {

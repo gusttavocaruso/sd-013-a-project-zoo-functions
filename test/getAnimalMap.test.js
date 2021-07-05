@@ -118,12 +118,12 @@ describe('Implemente a função getAnimalMap', () => {
 
   it('Só retorna informações ordenadas e com sexo se a opção `includeNames: true` for especificada', () => {
     let options = { sex: 'female' }
-    let actual = zoo.getAnimalMap(options)['NE'][0];
+    let actual = zoo.getAnimalMap(options);
     let expected = 'lions';
     assert.strictEqual(actual, expected);
 
     options = { sex: 'female', sorted: true }
-    actual = zoo.getAnimalMap(options)['NE'][0];
+    actual = zoo.getAnimalMap(options);
     expected = 'lions';
     assert.strictEqual(actual, expected);
   });
