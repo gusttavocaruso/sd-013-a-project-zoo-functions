@@ -17,7 +17,7 @@ function getAnimalsOlderThan(animal, age) {
   return dataAnimal.residents.every((residente) => residente.age > age);
 }
 
-function getEmployeeByName(employeeName = []) {
+function getEmployeeByName(employeeName) {
   if (typeof employeeName === 'undefined') {
     return {};
   }
@@ -53,13 +53,30 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+
+}
+function calback(entrantsInd, entrantsValue) {
+  let total = 0;
+  for (let o = 0; o < Object.keys(data.prices).length; o += 1) {
+    if (entrantsInd === Object.keys(data.prices)[o]) {
+      const result = entrantsValue * Object.values(data.prices)[o];
+      total += result;
+    }
+  } return total;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = 0) {
+  let expected = 0;
+  for (let i = 0; i < Object.keys(entrants).length; i += 1) {
+    const entry = calback(Object.keys(entrants)[i], Object.values(entrants)[i]);
+    expected += entry;
+  } return expected;
 }
-
+console.log(calculateEntry({
+  Adult: 1,
+  Senior: 1,
+  Child: 1,
+}));
 function getAnimalMap(options) {
   // seu código aqui
 }
