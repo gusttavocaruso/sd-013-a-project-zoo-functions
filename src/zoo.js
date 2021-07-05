@@ -110,8 +110,29 @@ function increasePrices(percentage) {
   });
 }
 
+const buscaAnimalName = (animalId) => {
+  const objAnimal = data.species.find((element) => element.id === animalId);
+  return objAnimal.name;
+};
+
+const buscaFuncionario = (idOuNome) => data.employees.find((element) => element.id === idOuNome
+    || element.firstName === idOuNome
+      || element.lastName === idOuNome);
+
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  if (!idOrName) {
+    return data.employees.reduce((acc, valorAtual) => {
+      acc[`${valorAtual.firstName} ${valorAtual.lastName}`] = valorAtual.responsibleFor
+        .map((element) => buscaAnimalName(element));
+      return acc;
+    }, {});
+  }
+  const objResult = {};
+  const objFuncionario = buscaFuncionario(idOrName);
+  objResult[`${objFuncionario.firstName} ${objFuncionario.lastName}`] = objFuncionario
+    .responsibleFor.map((element) => buscaAnimalName(element));
+  return objResult;
 }
 
 module.exports = {
