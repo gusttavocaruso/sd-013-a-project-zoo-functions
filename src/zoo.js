@@ -1,17 +1,20 @@
 const { species, employees, prices } = require('./data');// Atualizo o require com os arrays que quero obter do arquivo data.
 
 function getSpeciesByIds(...ids) {
-  return species.filter(({ id }) => ids.includes(id));// Pego o array species e filtro ele de forma que em cada iteração por um elemento-objeto-especie eu pego a propriedade "id" e comparo se ela é igual a algum dos parametros passados em "...ids", se for, este elemento-objeto-animal entra no array que está sendo montado na funcao, ao final, a funcao retorna este array.
+  return species.filter(({ id }) => ids.includes(id));
 }
 
-// console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
-
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(animal, idade) {
+  return species.filter(({ name }) => name === animal)[0].residents
+    .every(({ age }) => age >= idade);
 }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
+function getEmployeeByName(string) {
+  if (string === undefined) {
+    return {};
+  }
+  return employees
+    .filter(({ firstName, lastName }) => firstName === string || lastName === string)[0];
 }
 
 function createEmployee(personalInfo, associatedWith) {
