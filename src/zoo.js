@@ -49,7 +49,7 @@ function isManager(id) {
   return found;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const newEmployee = {
     id,
     firstName,
@@ -74,16 +74,14 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (!entrants) {
+  if (!entrants || entrants === {}) {
     return 0;
   }
 
-  const adult = entrants.Adult * data.prices.Adult;
-  const child = entrants.Child * data.prices.Child;
-  const senior = entrants.Senior * data.prices.Senior;
-  const total = adult + child + senior;
-
-  return total;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const price = data.prices;
+  const t = (Adult * price.Adult) + (Child * price.Child) + (Senior * price.Senior);
+  return t;
 }
 
 function getAnimalMap(options) {
