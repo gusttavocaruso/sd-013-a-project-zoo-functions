@@ -4,22 +4,22 @@ function getSpeciesByIds(...ids) {
   const def = [];
   if (ids === undefined) return def;
 
-  const specsIds = [];
+  const AnimalId = [];
 
   ids.forEach((id) => {
-    const fnd = data.species.find((speciesP) => speciesP.id === id);
-    specsIds.push(fnd);
+    const fnd = data.species.find((SpecieDentroDeSpecies) => SpecieDentroDeSpecies.id === id);
+    AnimalId.push(fnd);
   });
-  // console.log(specsIds);
-  return specsIds;
+  // console.log(AnimalId);
+  return AnimalId;
 }
 
 // console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, age) {
-  const fnd = data.species.find((speciesP) => speciesP.name === animal);
+  const fnd = data.species.find((SpecieDentroDeSpecies) => SpecieDentroDeSpecies.name === animal);
   // console.log(fnd);
-  return fnd.residents.every((residentsP) => residentsP.age >= age);
+  return fnd.residents.every((ResidentesDentroDeSpeciesFnd) => ResidentesDentroDeSpeciesFnd.age >= age);
 }
 
 // console.log(getAnimalsOlderThan('penguins', 10));
@@ -28,7 +28,9 @@ function getEmployeeByName(employeeName) {
   const def = {};
   if (employeeName === undefined) return def;
 
-  return data.employees.find((em) => em.firstName === employeeName || em.lastName === employeeName);
+  return data.employees.find((EmpregadoDentroDeEmployees) =>
+    EmpregadoDentroDeEmployees.firstName === employeeName
+    || EmpregadoDentroDeEmployees.lastName === employeeName);
 }
 
 // console.log(getEmployeeByName('Emery'));
@@ -64,18 +66,18 @@ function createEmployee(personalInfo, associatedWith) {
 // console.log(createEmployee(personalInfo, associatedWith));
 
 function isManager(id) {
-  let isMan = false;
+  let boleano = false;
 
-  data.employees.forEach((employee) => {
-    // console.log(employee);
-    employee.managers.forEach((manager) => {
-      // console.log(manager);
+  data.employees.forEach((EmpregadoDentroDeEmployees) => {
+    // console.log(EmpregadoDentroDeEmployees);
+    EmpregadoDentroDeEmployees.managers.forEach((GerenteDentroDeEmployeesManagers) => {
+      // console.log(GerenteDentroDeEmployeesManagers);
       // console.log(id);
       // console.log('comparado com');
-      if (manager === id) isMan = true;
+      if (GerenteDentroDeEmployeesManagers === id) boleano = true;
     });
   });
-  return isMan;
+  return boleano;
 }
 
 // console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
@@ -98,15 +100,15 @@ function countAnimals(animal) {
   if (animal === undefined) {
     const def = {};
 
-    data.species.forEach((specie) => {
-      def[specie.name] = specie.residents.length;
+    data.species.forEach((SpecieDentroDeSpecies) => {
+      def[SpecieDentroDeSpecies.name] = SpecieDentroDeSpecies.residents.length;
     });
 
     // console.log(def);
     return def;
   }
 
-  const fnd = data.species.find((chave) => chave.name === animal);
+  const fnd = data.species.find((SpecieDentroDeSpecies) => SpecieDentroDeSpecies.name === animal);
   // console.log(fnd);
   // console.log(fnd.residents.length);
   return fnd.residents.length;
@@ -131,19 +133,19 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const hor = data.hours;
+  const Horarios = data.hours;
   const def = {};
 
   if (dayName === undefined) {
-    Object.keys(hor).forEach((h) => {
-      def[h] = h === 'Monday' ? 'CLOSED'
-        : `Open from ${hor[h].open}am until ${hor[h].close - 12}pm`;
+    Object.keys(Horarios).forEach((horaEmHours) => {
+      def[horaEmHours] = horaEmHours === 'Monday' ? 'CLOSED'
+        : `Open from ${Horarios[horaEmHours].open}am until ${Horarios[horaEmHours].close - 12}pm`;
     });
     // console.log(def);
     return def;
   }
   def[dayName] = dayName === 'Monday' ? 'CLOSED'
-    : `Open from ${hor[dayName].open}am until ${hor[dayName].close - 12}pm`;
+    : `Open from ${Horarios[dayName].open}am until ${Horarios[dayName].close - 12}pm`;
   // console.log(def);
   return def;
 }
@@ -151,11 +153,11 @@ function getSchedule(dayName) {
 // getSchedule('Thursday');
 
 function getOldestFromFirstSpecies(id) {
-  const cuidador = data.employees.find((employee) => employee.id === id);
+  const cuidador = data.employees.find((EmpregadoDentroDeEmployees) => EmpregadoDentroDeEmployees.id === id);
   // console.log(cuidador);
   // console.log('');
 
-  const animal = data.species.find((specie) => specie.id === cuidador.responsibleFor[0]);
+  const animal = data.species.find((specieDentrodeSpecies) => specieDentrodeSpecies.id === cuidador.responsibleFor[0]);
   // console.log(animal);
   // console.log('');
 
@@ -176,8 +178,8 @@ function increasePrices(percentage) {
   const precos = data.prices;
   // console.log(precos);
 
-  Object.keys(precos).forEach((preco) => {
-    precos[preco] = Math.round((precos[preco] * mult * 100)) / 100;
+  Object.keys(precos).forEach((precoDentrodePrices) => {
+    precos[precoDentrodePrices] = Math.round((precos[precoDentrodePrices] * mult * 100)) / 100;
   });
   // console.log(precos);
 }
