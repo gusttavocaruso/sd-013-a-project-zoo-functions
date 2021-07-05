@@ -114,6 +114,7 @@ function getMapSexSorted(locations, options) {
     animalObject[specie.name] = arrayNomes;
     locations[localAnimal].push(animalObject);
   });
+  return locations;
 }
 
 function getMapSex(locations, options) {
@@ -129,6 +130,7 @@ function getMapSex(locations, options) {
     animalObject[specie.name] = arrayNomes;
     locations[localAnimal].push(animalObject);
   });
+  return locations;
 }
 
 function getMapRemaining(options = {}) {
@@ -140,9 +142,9 @@ function getMapRemaining(options = {}) {
     return locations;
   }
   if (options.sorted === true) {
-    getMapSexSorted(locations, options);
+    return getMapSexSorted(locations, options);
   }
-  getMapSex(locations, options);
+  return getMapSex(locations, options);
 }
 
 function getAnimalMap(options = {}) {
@@ -153,11 +155,11 @@ function getAnimalMap(options = {}) {
     });
     return locations;
   }
-  if (options.sorted === true) {
+  if (options.sorted === true && options.sex === undefined) {
     getMapSorting(locations);
     return locations;
   }
-  if (options.includeNames === true && options.sex === undefined) {
+  if (options.sex === undefined) {
     getMapWithoutSorting(locations);
     return locations;
   }
