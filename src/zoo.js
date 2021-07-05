@@ -63,22 +63,46 @@ function calculateEntry(entrants = 0) {
   return Number.isNaN(price) ? 0 : price;
 }
 
+const createSimpleObject = (regions) => {
+  const animalObject = {};
+  regions.forEach((region) => {
+    animalObject[region] = species
+      .filter((specie) => specie.location === region)
+      .map((animal) => animal.name);
+  });
+  return animalObject;
+};
+
+const createIncludeName = (regions, sorted, sex) => {
+  const animalObject = {};
+  regions.forEach((region) => {
+    animalObject[region] = species.filter((specie) => specie.location === region)
+      .map(({ name, residents }) => {
+        const animalNames = {};
+        let residentNames = [];
+        if (sex) {
+          residentNames = residents
+            .filter((resident) => resident.sex === sex)
+            .map((residentName) => residentName.name);
+        } else {
+          residentNames = residents.map((residentName) => residentName.name);
+        }
+        animalNames[name] = sorted ? residentNames.sort() : residentNames;
+        return animalNames;
+      });
+  });
+  return animalObject;
+};
+
 function getAnimalMap(options) {
   // seu código aqui
-  /* const { includeNames = false, sorted = false, sex = '' } = options;
-  const getAnimals = (region) => {
-    return species
-    .filter((specie) => specie.location === region)
-    .map((animal) => {
-      return {
-        [animal.name]: animal.residents.map((arrayAnimal) => arrayAnimal.name)
-      }
-    });
+  const regions = ['NE', 'NW', 'SE', 'SW'];
+  if (!options) {
+    return createSimpleObject(regions);
   }
-  const objAnimals = {
-    NE: getAnimals('NE'), NW: getAnimals('NW'), SE: getAnimals('SE'), SW: getAnimals('SW'),
-  };
-  return objAnimals; */
+  const { includeNames, sorted, sex } = options;
+  const categorizedeObject = createIncludeName(regions, sorted, sex);
+  return includeNames ? categorizedeObject : createSimpleObject(regions);
 }
 
 const daySchedule = () => {
@@ -134,17 +158,17 @@ const getAnimal = ([...ids]) => {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
   const allEmployeesObject = {};
-  employees.forEach((employee) => {
-    allEmployeesObject[`${employee.firstName} ${employee.lastName}`] = (
-      getAnimal(employee.responsibleFor));
+  employees.forEach(({ firstName, lastName, responsibleFor }) => {
+    allEmployeesObject[`${firstName} ${lastName}`] = (
+      getAnimal(responsibleFor));
   });
   const actualEmployeeObject = {};
-  if (idOrName !== undefined) {
+  if (idOrName) {
     const actualEmployee = employees
-      .find((employee) => (
-        employee.id === idOrName
-        || employee.firstName === idOrName
-        || employee.lastName === idOrName));
+      .find(({ firstName, lastName, id }) => (
+        id === idOrName
+        || firstName === idOrName
+        || lastName === idOrName));
     actualEmployeeObject[`${actualEmployee.firstName} ${actualEmployee.lastName}`] = getAnimal(
       actualEmployee.responsibleFor,
     );
