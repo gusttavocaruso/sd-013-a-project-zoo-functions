@@ -54,24 +54,45 @@ function calculateEntry(persons) {
   + (persons[cur] * prices[cur]), 0);
 }
 
-function getAnimalMap(localization) {
-  if (!localization) {
-    const reduced = species.reduce((acc, cur) => {
-      acc[cur.location] = species
-        .filter((specie) => (cur.location === specie.location));
+// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line sonarjs/cognitive-complexity
+// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line sonarjs/cognitive-complexity
+// eslint-disable-next-line max-lines-per-function
+function getAnimalMap(parameters = {}) {
+  const { includeNames = false, sorted = false, sex = '' } = parameters;
+  if (includeNames === false) {
+    return species.reduce((acc, cur) => {
+      const { name, location } = cur;
+      if (!acc[location]) acc[location] = [];
+      acc[location].push(name);
       return acc;
     }, {});
-    const valoresDoObj = Object.values(reduced);
-    valoresDoObj.reduce((acc, cur, idx) => {
-      return acc + cu
-    }, []);
-
-
-    return valoresDoObj;
   }
+  // eslint-disable-next-line max-lines-per-function
+  return species.reduce((acc, cur) => {
+    const { name, residents, location } = cur;
+    if (!acc[location]) acc[location] = [];
+    let useResidents = residents;
+    if (sex !== '') {
+      useResidents = residents.filter((resident) => resident.sex === sex);
+      console.log(useResidents);
+    }
+    const ObjectEspecieResident = useResidents.reduce((acumulator, current) => {
+      // eslint-disable-next-line no-param-reassign
+      if (!acumulator[cur.name]) acumulator[cur.name] = [];
+      acumulator[cur.name].push(current.name);
+      return acumulator;
+    }, {});
+    if (sorted === true && ObjectEspecieResident[name] !== undefined) {
+      ObjectEspecieResident[name] = ObjectEspecieResident[name].sort();
+    }
+    acc[location].push(ObjectEspecieResident);
+    return acc;
+  }, {});
 }
-console.log(getAnimalMap());[
-  [
+console.log(getAnimalMap({ includeNames: true, sorted: true, sex: 'female' }));
+
 function getSchedule(dayName) {
   // seu código aqui
 }

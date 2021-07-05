@@ -16,8 +16,7 @@ describe('Implemente a função getAnimalMap', () => {
   it('Com a opção `includeNames: true` especificada, retorna nomes de animais', () => {
     const options = { includeNames: true };
     const actual = zoo.getAnimalMap(options);
-    const expected = {
-      NE: [
+    const expected = {      NE: [
         { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
         { giraffes: ['Gracia', 'Antone', 'Vicky', 'Clay', 'Arron', 'Bernard'] }
       ],
