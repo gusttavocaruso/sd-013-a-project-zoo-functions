@@ -112,18 +112,23 @@ const getSchedule = (dayName = false) => {
 
 const getOldestFromFirstSpecies = (id) => {
   const { employees, species } = data;
-  const speciesId = employees.find((employee) => employee.id === id)['responsibleFor'][0];
+  const speciesId = employees.find((employee) => employee.id === id).responsibleFor[0];
   const firstSpecies = species.find((item) => item.id === speciesId);
-  const oldest = firstSpecies.residents.reduce((oldest, cur) => {
-    if (oldest.age < cur.age) oldest = cur;
-    return oldest;
+  const oldest = firstSpecies.residents.reduce((acc, cur) => {
+    if (acc.age < cur.age) {
+      return cur;
+    }
+    return acc;
   });
   return Object.values(oldest);
 };
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
+const increasePrices = (percentage) => {
+  Object.entries(data.prices).forEach(([key, value]) => {
+    const newPrice = value * (percentage / 100 + 1);
+    data.prices[key] = parseFloat(newPrice.toFixed(2));
+  });
+};
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
