@@ -123,15 +123,31 @@ function calculateEntry({ Adult = 0, Senior = 0, Child = 0 } = 0) {
   return total;
 }
 
-// calculateEntry({childP: '10'});
+// calculateEntry({Child: '10'});
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const hor = data.hours;
+  const def = {};
+
+  if (dayName === undefined) {
+    Object.keys(hor).forEach((h) => {
+      def[h] = h === 'Monday' ? 'CLOSED'
+        : `Open from ${hor[h].open}am until ${hor[h].close - 12}pm`;
+    });
+    // console.log(def);
+    return def;
+  }
+  def[dayName] = dayName === 'Monday' ? 'CLOSED'
+    : `Open from ${hor[dayName].open}am until ${hor[dayName].close - 12}pm`;
+  // console.log(def);
+  return def;
 }
+
+// getSchedule('Thursday');
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
