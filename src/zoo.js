@@ -29,11 +29,10 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(ids) {
-  const [managers, id] = data.employees;
-const encontrar = data.employees.some((identify) => identify.id === ids)
-.includes(managers);
-return encontrar;
-  
+  const [managers] = data.employees;
+  const encontrar = data.employees.some((identify) => identify.id === ids)
+    .includes(managers);
+  return encontrar;
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -50,17 +49,20 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(speciess) {
   if (!speciess) {
     const obj = {};
-    data.species.forEach(nome => obj[nome.name] = nome.residents.length);
+    data.species.forEach((nome) => { obj[nome.name] = nome.residents.length; });
     return obj;
   }
-  
 
   return data.species.find((nome) => nome.name === speciess)
-  .residents.length;
+    .residents.length;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  const {prices} = data;
+  if (!entrants) {
+    return 0;
+  }
+  return Object.keys(entrants).reduce((acc, curr) => acc + entrants[curr] * prices[curr], 0);
 }
 
 function getAnimalMap(options) {
@@ -68,7 +70,13 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const {hours} = data;
+  const {Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, Monday} = hours;
+  const obj = {};
+  if (!dayName) {Object.keys(hours).forEach((dia) => obj[dia] = `${dia}: Open from ${Object.values(dia[0])}pm until ${Object.values(dia[1])}pm`)};
+  return obj;
+
+  obj[dayName] = Object.values(dayName);
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -76,11 +84,23 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const {prices} = data;
+  const chavesObjetos = Object.keys(prices);
+  chavesObjetos.forEach((value) => value = prices[value] * Math.round((percentage / 100) * 100) / 100);
+  
+  
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const {employees} = data;
+  const alEmployees = {}
+  if (!idOrName) {
+  const fullName = employess.map((employ) => {`${employ.firstName} ${employ.lastName}`
+  fullName.forEach((per) => {per = responsibleFor[employ]})
+});
+  
+  
+  }
 }
 
 module.exports = {
