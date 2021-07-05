@@ -58,21 +58,6 @@ function countAnimals(animalName) {
   }
   return species.find(({ name }) => name === animalName).residents.length;
 }
-// ********************************************
-// My first solution...
-// ********************************************
-// const objOutputCountSpecies = {};
-// if (objSpecies === '' || objSpecies === null || objSpecies === undefined) {
-//   species.forEach((item) => {
-//     objOutputCountSpecies[item.name] = item.residents.length;
-//   });
-//   return objOutputCountSpecies;
-// }
-// const blnThereIsTheAnimal = species.some((item) => item.name === objSpecies);
-// if (blnThereIsTheAnimal === true) {
-//   const theuniqueSpecie = species.find((item) => item.name === objSpecies);
-//   return theuniqueSpecie.residents.length;
-// }
 
 function calculateEntry(entrants = 0) {
   const { Adult = 0, Senior = 0, Child = 0 } = entrants;
@@ -81,8 +66,44 @@ function calculateEntry(entrants = 0) {
   return result;
 }
 
-function getAnimalMap(options) {
-  // Escreva seu código aqui...
+const getLocations = () => species.reduce((acc, { location }) => (!acc[location] ? {
+  ...acc,
+  [location]: [],
+} : acc), {});
+
+console.log(getLocations());
+
+const getAllAnimalsName = (arrayResidents, strSex) => {
+  // Se foi descriminado sexo:
+  if (strSex !== 'all') {
+    return arrayResidents.filter(({ sex }) => sex === strSex)
+      .map(({ name }) => name);
+  }
+  return arrayResidents.map(({ name }) => name);
+};
+
+const isSorted = (arrayOfAnimalsName, sorted) =>
+  (sorted ? arrayOfAnimalsName.sort() : arrayOfAnimalsName);
+
+const filterAnimals = (location, { includeNames = false, sorted = false, sex = 'all' }) => {
+  const speciesFiltered = species.filter((specie) => specie.location === location)
+    .reduce((acc, specie) => {
+      const { name, residents } = specie;
+      if (includeNames) {
+        const residentsName = getAllAnimalsName(residents, sex);
+        return [...acc, { [name]: isSorted(residentsName, sorted) }];
+      }
+      return [...acc, name];
+    }, []);
+  return speciesFiltered;
+};
+
+function getAnimalMap(options = {}) {
+  const animalsByLocation = getLocations();
+  Object.keys(animalsByLocation).forEach((location) => {
+    animalsByLocation[location] = filterAnimals(location, options);
+  });
+  return animalsByLocation;
 }
 
 function getSchedule(dayName = 0) {
@@ -98,6 +119,8 @@ function getSchedule(dayName = 0) {
     : `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
   return output;
 }
+
+getAnimalMap();
 
 function getOldestFromFirstSpecies(id) {
   const employee = employees.find((item) => item.id === id);
