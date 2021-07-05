@@ -25,12 +25,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  const managers = [
-    '9e7d4524-363c-416a-8759-8aa7e50c0992',
-    'fdb2543b-5662-46a7-badc-93d960fdc0a8',
-    '0e7b460e-acf4-4e17-bcb3-ee472265db83',
-  ];
-  return managers.some((manager) => manager === id);
+  return employees.some((employee) => employee.managers.some((manager) => manager === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -45,13 +40,30 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(especie) {
-  // seu código aqui
+  const objeto = {};
+  if (especie === undefined) {
+    species.forEach((specie) => {
+      objeto[specie.name] = specie.residents.length;
+    });
+    return objeto;
+  }
+  const animal = species.find((specie) => specie.name === especie);
+  return animal.residents.length;
 }
+
+// countAnimals();
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  // if (!entrants) return 0;
+  // let chaves = Object.keys(entrants);
+  // let price = Object.values(prices);
+  // // chaves.map((valor) => );
+  // console.log(price);
+  // console.log(chaves);
 }
+// let entrants = { 'Adult': 2, 'Child': 3, 'Senior': 1 }; calculateEntry(entrants);
 
+console.log(calculateEntry({}));
 function getAnimalMap(options) {
   // seu código aqui
 }
