@@ -117,15 +117,11 @@ function getEmployeeCoverage(idOrName) {
     }, {});
   }
   const find = employees.find((person) => person.firstName === idOrName
-    || person.lastName === idOrName 
+    || person.lastName === idOrName
     || person.id === idOrName);
   return { [`${find.firstName} ${find.lastName}`]:
     (find.responsibleFor).map((id) => species.find((specie) => specie.id === id).name) };
-};
-
-
-console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
-
+}
 
 module.exports = {
   calculateEntry,
