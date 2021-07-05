@@ -19,12 +19,24 @@ function getEmployeeByName(employeeName) {
   return findEmplyee;
 }
 
-function createEmployee(personalInfo, associatedWith) {
+function createEmployee({ id, firstName, lastName },
   // seu código aqui
+  { managers, responsibleFor }) {
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return newEmployee;
 }
 
 function isManager(id) {
   // seu código aqui
+  const findManager = employees
+    .some((employee) => employee.managers.includes(id));
+  return findManager;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
