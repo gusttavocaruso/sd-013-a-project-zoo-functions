@@ -29,8 +29,10 @@ function isManager(cod) {
   // return gerenteSim;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const personalInfo = ({ id, firstName, lastName });
+  const associatedWith = ({ managers, responsibleFor });
+  employees.push(createEmployee(personalInfo, associatedWith));
 }
 
 function countAnimals(especies) {
