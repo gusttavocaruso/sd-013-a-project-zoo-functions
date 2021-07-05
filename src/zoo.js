@@ -28,7 +28,8 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-
+  return employees.some((fun) =>
+    fun.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
