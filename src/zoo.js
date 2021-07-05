@@ -1,5 +1,7 @@
 const data = require('./data');
 
+const { employees } = data;
+
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) return [];
 
@@ -32,7 +34,8 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees
+    .some((employee) => employee.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
