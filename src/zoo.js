@@ -57,9 +57,18 @@ function countAnimals(speciesAnimal) {
   return contagem;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
-}
+const calculateEntry = ({ Adult = 0, Senior = 0, Child = 0 } = 0) => {
+  const { prices } = data;
+  const validation = {
+    Adult,
+    Senior,
+    Child,
+  };
+
+  const price = (prices.Adult * validation.Adult)
+  + (prices.Child * validation.Child) + (prices.Senior * validation.Senior);
+  return price;
+};
 
 function getAnimalMap(options) {
   // seu código aqui
