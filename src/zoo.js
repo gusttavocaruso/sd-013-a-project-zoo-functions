@@ -12,7 +12,6 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 const { employees, species, prices, hours } = data;
-const areas = ['NE', 'NW', 'SE', 'SW'];
 
 function getSpeciesByIds(...ids) {
   if (!ids || !ids.length) return [];
@@ -71,18 +70,34 @@ function calculateEntry({ Adult, Senior, Child } = 0) {
   return calc.reduce((a, c) => a + c, 0);
 }
 
-function getAnimalMap(options) {
-  const animals = [];
-  areas.forEach((area) => animals.push(species.filter((s) => s.location === area)
-    .map((a) => a.name)));
-  const names = [];
-  species.forEach((s) => names.push(s.residents.map((a) => a.name)));
-  if (!options) return areas.reduce((o, k, i) => ({ ...o, [k]: animals[i] }), {});
-  return areas.reduce((o, k, i) => ({ ...o, [k]: [] }), {});
+// Feito com Erick Santos
+function createAnimalMap(param, cardinalPoints) {
+  return cardinalPoints.map((cardinalPoint) => ([
+    cardinalPoint,
+    species.filter((specie) => specie.location === cardinalPoint)
+      .map((animal) => {
+        const residents = animal.residents.map((resident) => resident.name);
+        if (param === 'no-options') return animal.name;
+        if (param === 'include-names') {
+          return ({ [animal.name]: residents });
+        }
+        return ({ [animal.name]: residents.sort() });
+      }),
+  ]));
 }
-console.log(getAnimalMap('o'));
 
-// console.log(getAnimalMap());
+// Feito com Erick Santos
+function getAnimalMap(options) {
+  const cardinalPoints = ['NE', 'NW', 'SE', 'SW'];
+  console.log(options);
+  if (!options) return Object.fromEntries(createAnimalMap('no-options', cardinalPoints));
+  if (options.includeNames) {
+    if (options.sorted) {
+      return Object.fromEntries(createAnimalMap('sorted', cardinalPoints));
+    }
+    return Object.fromEntries(createAnimalMap('include-names', cardinalPoints));
+  }
+}
 
 function getSchedule(dayName) {
   const days = Object.keys(hours);
