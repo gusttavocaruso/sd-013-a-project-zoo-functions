@@ -6,7 +6,7 @@ function getSpeciesByIds(...ids) {
 }
 console.log(getSpeciesByIds());
 
-// =========================
+// ===================
 
 function getAnimalsOlderThan(animal, age) {
   const findSpecie = species
@@ -15,7 +15,7 @@ function getAnimalsOlderThan(animal, age) {
   return findSpecie;
 }
 
-// =========================
+// ===================
 
 function getEmployeeByName(employeeName) {
   if (employeeName === undefined) return {};
@@ -23,6 +23,8 @@ function getEmployeeByName(employeeName) {
     .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
   return findEmployee;
 }
+
+// ====================
 
 function createEmployee({ id, firstName, lastName }, { managers, responsibleFor }) {
   const newEmployee = {
@@ -35,8 +37,23 @@ function createEmployee({ id, firstName, lastName }, { managers, responsibleFor 
   return newEmployee;
 }
 
+// function createEmployee2(personalInfo, associatedWith) {
+//   const objeto = {
+//     id: personalInfo.id,
+//     firstName: personalInfo.firstName,
+//     lastName: personalInfo.lastName,
+//     managers: associatedWith.managers,
+//     responsibleFor: associatedWith.responsibleFor,
+//   };
+//   return objeto;
+// }
+
+// ==================
+
 function isManager(id) {
-  // seu código aqui
+  const findManager = employees
+    .some((employee) => employee.managers.includes(id));
+  return findManager;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
