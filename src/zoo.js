@@ -1,4 +1,4 @@
-const { employees, species, prices, hours } = require("./data");
+const { employees, species } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter(({ id }) => ids.includes(id));
@@ -8,7 +8,7 @@ function getAnimalsOlderThan(animal, animalAge) {
   return (
     species.filter(
       ({ name, residents }) =>
-        name === animal && residents.every(({ age }) => age >= animalAge)
+        name === animal && residents.every(({ age }) => age >= animalAge),
     ).length > 0
   );
 }
@@ -17,7 +17,7 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return employees.find(
     (person) =>
-      person.firstName === employeeName || person.lastName === employeeName
+      person.firstName === employeeName || person.lastName === employeeName,
   );
 }
 
@@ -32,11 +32,13 @@ function isManager(id) {
   return employees.some((idNumber) => idNumber.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  if (!managers) {
-    managers = [];
-    responsibleFor = [];
-  }
+function addEmployee(
+  id,
+  firstName,
+  lastName,
+  managers = [],
+  responsibleFor = [],
+) {
   employees.push({
     id,
     firstName,
@@ -47,12 +49,10 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   return employees;
 }
 
-function countAnimals(species) {
-  // seu código aqui
-}
+function countAnimals(speciees) {}
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(...entrants) {
+  if (!entrants) return 0;
 }
 
 function getAnimalMap(options) {
