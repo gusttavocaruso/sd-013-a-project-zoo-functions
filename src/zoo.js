@@ -96,7 +96,10 @@ function getSchedule(dayName) {
 
 // REQUISITO 11 _______________________________________________________________________
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const person = employees.find((idP) => id === idP.id);
+  const animal = species.find((specie) => specie.id === person.responsibleFor[0]);
+  const oldestAnimal = animal.residents.sort((a, b) => b.age - a.age);
+  return Object.values(oldestAnimal[0]);
 }
 
 // REQUISITO 12 _______________________________________________________________________
