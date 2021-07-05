@@ -1,4 +1,4 @@
-const { employees, prices } = require('./data');
+const { employees, prices, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -35,7 +35,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push(addNewEmployee);
 }
 
-function countAnimals(species) {
+function countAnimals(Species) {
   const allSpecies = {
     lions: 4,
     tigers: 2,
@@ -47,7 +47,7 @@ function countAnimals(species) {
     elephants: 4,
     giraffes: 6,
   };
-  return species === undefined ? allSpecies : allSpecies[species];
+  return Species === undefined ? allSpecies : allSpecies[Species];
 }
 
 function calculateEntry(entrants = {}) {
@@ -76,7 +76,10 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findId = employees.find((employee) => employee.id === id).responsibleFor[0];
+  const findAnimal = species.find((animal) => animal.id === findId).residents;
+  const toLocateOld = findAnimal.sort((a, b) => b.age - a.age)[0];
+  return [toLocateOld.name, toLocateOld.sex, toLocateOld.age];
 }
 
 function increasePrices(percentage) {
