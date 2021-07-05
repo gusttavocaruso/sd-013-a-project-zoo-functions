@@ -1,18 +1,16 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
   // seu código aqui
-  return data.species.filter((animal) => animal.id === ids);
+  return data.species.filter((animal) => ids.find((nome) => animal.id === nome));
 }
-
 function getAnimalsOlderThan(animal, age) {
   return data.species.find((specie) => specie.name === animal)
     .residents.every((idade) => idade.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
-  if (!employeeName !== true) {
+  if (!employeeName === false) {
     return data.employees.find((nome) => nome.lastName === employeeName
       || nome.firstName === employeeName);
   }
@@ -20,12 +18,14 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
+  const teste = [personalInfo, associatedWith];
+  return teste.reduce((acc, curr) => acc + curr);
 
 }
 
 function isManager(id) {
   return data.employees.find((indexItem) => indexItem.id === id)
-    .managers.some((cargo) => cargo === '9e7d4524-363c-416a-8759-8aa7e50c0992');
+    .managers.every((cargo) => cargo === '9e7d4524-363c-416a-8759-8aa7e50c0992');
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
@@ -36,7 +36,7 @@ function countAnimals(species) {
   // seu código aqui
   if (!species !== true) {
     return data.species.find((nome) => nome.name === species)
-      .residents.length;// .residents.reduce((acc, curr) => acc + curr);
+      .residents.length;
   }
   return data.species.reduce((acc, value) => {
     acc[value.name] = value.residents.length;
@@ -44,7 +44,9 @@ function countAnimals(species) {
   }, {});
 }
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) {
+    return 0;
+  }
 }
 
 function getAnimalMap(options) {
