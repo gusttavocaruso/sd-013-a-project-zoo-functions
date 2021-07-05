@@ -69,12 +69,48 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   return entries;
 }
 
+function animalsByLocation() {
+  return {
+    NE: data.species
+      .filter((specie) => specie.location === 'NE')
+      .map((habitant) => habitant.name),
+    NW: data.species
+      .filter((specie) => specie.location === 'NW')
+      .map((habitant) => habitant.name),
+    SE: data.species
+      .filter((specie) => specie.location === 'SE')
+      .map((habitant) => habitant.name),
+    SW: data.species
+      .filter((specie) => specie.location === 'SW')
+      .map((habitant) => habitant.name),
+  };
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) {
+    return animalsByLocation();
+  }
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = data.hours;
+  const toReturn = {};
+  if (!dayName) {
+    // Pega todos os dias da semana, que são as chaves do "hours"
+    Object.keys(schedule)
+    // Para cada dia da semana...
+      .forEach((weekday) => {
+        // Coloca o dia da semana como chave, depois verifica se é segunda feira. Se for segunda-feira, o valor da chave 'Monday' é CLOSED
+        toReturn[weekday] = weekday === 'Monday' ? 'CLOSED'
+        // Caso não seja segunda-feira, o valor da chave do dia semana, será o texto com os respectivos horários do dia
+          : `Open from ${schedule[weekday].open}am until ${(schedule[weekday].close) - 12}pm`;
+      });
+    return toReturn;
+  }
+  // Verifica se o dia informado como parâmetro é 'Monday', se for coloca nessa chave o valor CLOSED, caso contrário, coloca os respectivos horários na chave do dia da semana.
+  toReturn[dayName] = dayName === 'Monday' ? 'CLOSED'
+    : `Open from ${schedule[dayName].open}am until ${(schedule[dayName].close) - 12}pm`;
+  return toReturn;
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -82,7 +118,6 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
 }
 
 function getEmployeeCoverage(idOrName) {
