@@ -88,7 +88,7 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-const showHour = (am, pm) => `Open from ${pm}am until ${pm - 12}pm`;
+const showHour = (am, pm) => `Open from ${am}am until ${pm - 12}pm`;
 
 const createSchedule = () => {
   const dias = Object.keys(data.hours);
