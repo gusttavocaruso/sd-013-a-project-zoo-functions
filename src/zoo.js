@@ -61,8 +61,12 @@ function countAnimals(theSpecie) {
 function calculateEntry(entrants) {
   if (!entrants || Object.keys(entrants).length === 0) return 0;
 
-  return Object.keys(entrants)
-    .reduce((acumulator, theEntrant) => acumulator + (entrants[theEntrant] * prices[theEntrant]), 0);
+  const result = Object.keys(entrants).reduce((acc, theEntrant) => {
+    const updatedEntry = acc + (entrants[theEntrant] * prices[theEntrant]);
+    return updatedEntry;
+  }, 0);
+
+  return result;
 }
 
 // eslint-disable-next-line max-lines-per-function
