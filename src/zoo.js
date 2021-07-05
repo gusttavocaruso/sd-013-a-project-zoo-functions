@@ -1,19 +1,46 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  
+function getSpeciesByIds(...ids) {
+  if (!ids) {
+    const arrayVazio = [];
+    return arrayVazio;
+  }
+
+  const array = [];
+  ids.forEach((id) => {
+    const found = data.species.find((element) => element.id === id);
+    array.push(found);
+  });
+
+  return array;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const found = data.species.find((element) => element.name === animal);
+  const check = found.residents.every((element) => element.age >= age);
+
+  return check;
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) {
+    const arrayVazio = {};
+    return arrayVazio;
+  }
+
+  return data.employees.find((e) => e.firstName === employeeName || e.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const create = {
+    id: personalInfo.id,
+    firstName: personalInfo.firstName,
+    lastName: personalInfo.lastName,
+    managers: associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,
+  };
+
+  return create;
 }
 
 function isManager(id) {
