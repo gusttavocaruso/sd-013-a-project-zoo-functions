@@ -70,7 +70,6 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-
 }
 
 const { hours } = require('./data');
@@ -107,8 +106,28 @@ function increasePrices(percentage) {
   return prices;
 }
 
+const idAnimal = (listaId) => {
+  const animalsName = [];
+  listaId.forEach((id) => {
+    animalsName.push(data.species.find((specie) => specie.id === id).name);
+  });
+  return animalsName;
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName === undefined) {
+    return data.employees.reduce((acc, employee) => {
+      const { firstName, lastName, responsibleFor } = employee;
+      const responsible = acc;
+      responsible[`${firstName} ${lastName}`] = idAnimal(responsibleFor);
+      return responsible;
+    }, {});
+  }
+
+  const { firstName, lastName, responsibleFor } = data.employees.find((employee) =>
+    Object.values(employee).includes(idOrName));
+
+  return { [`${firstName} ${lastName}`]: idAnimal(responsibleFor) };
 }
 
 module.exports = {
