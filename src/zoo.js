@@ -29,13 +29,15 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(ids) {
-  const [managers] = data.employees;
-  const encontrar = data.employees.some((identify) => identify.id === ids)
-    .includes(managers);
-  return encontrar;
+  const {employees} = data;
+  const test = 'teste';
+  const funcionario = employees.find((employ) => {employ.id === ids});
+  return funcionario.some((tru) => {typeof tru.id === typeof test});
+
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const {employees} = data;
   const newEmployee = {
     id,
     firstName,
@@ -43,7 +45,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     managers,
     responsibleFor,
   };
-  return data.employess.push(newEmployee);
+  employees.push(newEmployee);
 }
 
 function countAnimals(speciess) {
@@ -80,7 +82,13 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const {employees, species} = data;
+  let array = [];
+  const pessoa = employees.find((currObj) => currObj.id === id);
+  const primeiraSpe = pessoa.responsibleFor.find((currO) => currO[0]);
+  const primeiraSpecie = species.find((i) => i.id === primeiraSpe);
+  const quase = primeiraSpecie.residents.sort((a, b) => b.age - a.age)[0];
+  return Object.values(quase);
 }
 
 function increasePrices(percentage) {
