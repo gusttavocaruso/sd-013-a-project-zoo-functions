@@ -51,11 +51,11 @@ function isManager(id) {
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const newEmployee = {
-    ['id']: id,
-    ['firstName']: firstName,
-    ['lastName']: lastName,
-    ['managers']: managers,
-    ['responsibleFor']: responsibleFor,
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
   };
   employees.push(newEmployee);
   return data.employees;
@@ -80,7 +80,7 @@ function calculateEntry(entrants) {
   const childs = (entrants.Child * data.prices.Child);
   const seniors = (entrants.Senior * data.prices.Senior);
   const total = (adults + childs + seniors);
-  return total;
+  return total.toFixed(2);
 }
 
 function getAnimalMap(options) {
