@@ -1,24 +1,31 @@
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
+  // Retorna um array vazio caso não haja id algum
   if (!ids) return [];
-  const toReturn = [];
+  const animalArray = [];
   ids.forEach((id) => {
+    // Procura o primeiro animal que corresponda ao id da vez
     const currentAnimal = data.species.find((specie) => specie.id === id);
-    toReturn.push(currentAnimal);
+    // Coloca o animal encontrado no array de animais
+    animalArray.push(currentAnimal);
   });
-  return toReturn;
+  return animalArray;
 }
 
 function getAnimalsOlderThan(animal, age) {
   return data.species
+    // Procura a primeira espécie que tem o nome igual ao informado como parâmetro
     .find((specie) => specie.name === animal)
+    // Verifica se todos os animais daquela espécie possuem o atributo age maior do que o informado como parâmetro
     .residents.every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
+  // Se não for informado nenhum empregado, retorna um objeto vazio
   if (!employeeName) return {};
   return data.employees
+    // Procura o primeiro empregado que o primeiro ou último nome correspondam ao informado como parâmetro
     .find((employee) => (
       (employee.firstName === employeeName)
       || (employee.lastName === employeeName)
@@ -36,10 +43,14 @@ function createEmployee({ id, firstName, lastName }, { managers, responsibleFor 
 }
 
 function isManager(id) {
+  // Verifica se algum dos empregados possue o id informado como manager,
+  // caso possua isso indica que o id informado era de um manager e a função retorna true
   return data.employees.some((employee) => employee.managers.includes((id)));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  // Começa com os valores de managers e responsibleFor como arrays vazios pois
+  // são necessários para caracterizar um employee, todavia não são informados como parâmetro
   data.employees.push({
     id,
     firstName,
@@ -50,21 +61,29 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
+  // Se não é informada espécie alguma, precisa listar todos os habitantes
   if (!species) {
+    // Cria um objeto para retornar com todos os animais
     const everyAnimalPopulation = {};
+    // Para cada animal, coloca uma chave no objeto com o nome da espécie e valor de número de habitantes
     data.species.forEach((specie) => {
       everyAnimalPopulation[specie.name] = specie.residents.length;
     });
     return everyAnimalPopulation;
   }
+  // Procura a primeira ocorrencia da espécie informada como parâmetro
   const specieChosen = data.species.find((specie) => specie.name === species);
+  // Verifica quantos habitantes tal espécie possui
   return specieChosen.residents.length;
 }
 
 function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
+  // Começa com o valor total como 0, caso não seja informado nenhum pagante
+  // Busca os valores de cada entrada individualmente
   const adultPrice = data.prices.Adult;
   const childPrice = data.prices.Child;
   const seniorPrice = data.prices.Senior;
+  // Multiplica o número de pagantes de cada setor pelo valor do ingresso
   const entries = (adultPrice * Adult) + (seniorPrice * Senior) + (childPrice * Child);
   return entries;
 }
