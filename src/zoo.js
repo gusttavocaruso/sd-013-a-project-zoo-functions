@@ -1,4 +1,4 @@
-const { species } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 /* ------------------------------------1°Requisito--------------------------------------------------*/
@@ -24,15 +24,31 @@ function getSpeciesByIds(...ids) {
    - Deve retorna um boleano*/
    /* O que será avaliado ?
    Ao passar nome e idade retorna-se um boleano(true or false) */
+   
 
 function getAnimalsOlderThan(animal, age) {
       return species.find((specie) => specie.name === animal).residents
       .every((resident) => resident.age >= age)
   }
-console.log(getAnimalsOlderThan('otters',10));
+
+/*---------------------------------------------------------------------------------------------------*/
+
+/* ------------------------------------3°Requisito--------------------------------------------------*/
+/* Qual o objetivo dessa função? 
+  -Busca pessoas colaboradoras através do primeiro ou do último nome delas*/
+/*O que será avaliado ?
+  -Sem parâmetros, retorna um objeto vazio
+  -Quando provido o primeiro ou último nome do funcionário, retorna o objeto do funcionário */
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined ){
+    return {}
+  }
+  return employees.find((employee) => {
+    if (employee.firstName === employeeName|| employee.lastName === employeeName){
+      return employee
+  }
+})
 }
 
 function createEmployee(personalInfo, associatedWith) {
