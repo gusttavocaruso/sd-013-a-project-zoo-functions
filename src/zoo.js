@@ -72,8 +72,38 @@ function increasePrices(percentage) {
   });
 }
 
+const criaObjeto = (employee) => {
+  const objeto = {};
+  const fullName = `${employee.firstName} ${employee.lastName}`;
+  objeto[fullName] = [];
+  employee.responsibleFor.forEach((item) => {
+    const { name } = data.species.find(({ id }) => id === item);
+    objeto[fullName].push(name);
+  });
+  return objeto;
+};
+
+const encontraId = (id) => {
+  const find = data.employees.find((employee) => employee.id === id);
+  return criaObjeto(find);
+};
+
+const encontraNome = (name) => {
+  const find = data.employees.find(({ firstName, lastName }) => firstName === name
+    || lastName === name);
+  return criaObjeto(find);
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const objeto = {};
+    data.employees.forEach((employee) => {
+      Object.assign(objeto, criaObjeto(employee));
+    });
+    return objeto;
+  }
+  if (idOrName.length > 25) return encontraId(idOrName);
+  return encontraNome(idOrName);
 }
 
 module.exports = {
