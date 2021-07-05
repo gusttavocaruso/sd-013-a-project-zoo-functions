@@ -1,35 +1,63 @@
 const data = require('./data');
+const {species} = data;
+const {employees} = data;
+const {prices} = data;
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
-}
+function getSpeciesByIds(...ids) {
+  if(ids === undefined) { 
+    return [] 
+  }
+  const search = species.filter((specie) => ids.includes(specie.id))
+    return search;
+  }
+
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const searchName = species.find ((specie) => specie.name === animal);
+  const searchAge = searchName.residents.every((resident) => resident.age >= age);
+  return searchAge;
 }
+
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+  const get = employees.find((param) => employeeName === param.firstName || employeeName === param.lastName);
+    return get;
 }
+
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+ const newCollaborator = { ...personalInfo, ...associatedWith };
+ return newCollaborator;
 }
+
 
 function isManager(id) {
-  // seu código aqui
+ const collaborator = employees.some((employee) => employee.managers.includes(id));
+ return collaborator;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return employees.push({id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
-  // seu código aqui
+
+function countAnimals(speciesAnimal) {
+  const totalAnimals = species.reduce((acc, current) => {
+    acc[current.name] = current.residents.length;
+    return acc;
+  }, { });
+  if (!speciesAnimal) {
+    return totalAnimals};
+  return totalAnimals(speciesAnimal);
 }
+
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if(!entrants || Object.keys(entrants).length === 0) return 0;
+  const { Adult = 0, Senior = 0, Chil = 0 } = entrants;
+  return Adult * data.prices.Adult + Senior * data.prices.Senior + Chid * data.prices.Child;
 }
 
 function getAnimalMap(options) {
