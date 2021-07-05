@@ -56,7 +56,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
     lastName,
     managers,
     responsibleFor,
-  }
+  };
 
   return data.employees.push(newEmployee);
 }
@@ -64,7 +64,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 function countAnimals(species) {
   if (!species) {
     const objVazio = {};
-    data.species.forEach((animal) => {obj[animal.name] = animal.residents.length; });
+    data.species.forEach((animal) => { objVazio[animal.name] = animal.residents.length; });
     return objVazio;
   }
 
@@ -74,7 +74,7 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (!entrants){
+  if (!entrants) {
     return 0;
   }
 
