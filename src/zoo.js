@@ -56,30 +56,24 @@ function countAnimals(species) {
 
 }
 
-// function calback(entrantsInd, entrantsValue) {
-//   let total = 0;
-//   for (let o = 0; o < Object.keys(data.prices).length; o += 1) {
-//     if (entrantsInd === Object.keys(data.prices)[o]) {
-//       const result = entrantsValue * Object.values(data.prices)[o];
-//       total += result;
-//     }
-//   } return total;
-// }
-
-// function calculateEntry(entrants = 0) {
-//   let expected = 0;
-//   for (let i = 0; i < Object.keys(entrants).length; i += 1) {
-//     const entry = calback(Object.keys(entrants)[i], Object.values(entrants)[i]);
-//     expected += entry;
-//   } return expected;
-// }
-
-function calculateEntry(entrants) {
-  if (!entrants) return 0;
-  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
-  const totalPrice = Adult * prices.Adult + Child * prices.Child + Senior * prices.Senior;
-  return totalPrice;
+function calback(entrantsInd, entrantsValue) {
+  let total = 0;
+  for (let o = 0; o < Object.keys(data.prices).length; o += 1) {
+    if (entrantsInd === Object.keys(data.prices)[o]) {
+      const result = entrantsValue * Object.values(data.prices)[o];
+      total += result;
+    }
+  } return total;
 }
+
+function calculateEntry(entrants = 0) {
+  let expected = 0;
+  for (let i = 0; i < Object.keys(entrants).length; i += 1) {
+    const entry = calback(Object.keys(entrants)[i], Object.values(entrants)[i]);
+    expected += entry;
+  } return expected;
+}
+
 console.log(calculateEntry({
   Adult: 1,
   Senior: 1,
