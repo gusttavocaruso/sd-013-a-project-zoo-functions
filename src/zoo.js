@@ -33,7 +33,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (species === undefined) {
+    return data.species.reduce((res, num) => {
+      res[num.name] = num.residents.length;
+      return res;}, {});
+  }
+  return data.species.reduce((res, num) => {
+    if (num.name === species) {
+      return num.residents.length;}
+    return res;}, 0);
 }
 
 function calculateEntry(entrants) {
@@ -41,11 +49,11 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  
 }
 
 function getOldestFromFirstSpecies(id) {
