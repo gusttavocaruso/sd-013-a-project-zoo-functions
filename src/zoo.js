@@ -1,3 +1,4 @@
+const moment = require('moment');
 const data = require('./data');
 
 const getSpeciesByIds = (...ids) => {
@@ -85,9 +86,31 @@ const getAnimalMap = (options) => {
   }, {});
 };
 
-function getSchedule(dayName) {
-  // seu código aqui
-}
+const formatSchedule = (start, end) => {
+  if (!start && !end) {
+    return 'CLOSED';
+  }
+  const open = moment(start, 'HH');
+  const close = moment(end, 'HH');
+  return `Open from ${open.format('ha')} until ${close.format('ha')}`;
+};
+
+const getSchedule = (dayName = false) => {
+  const { hours } = data;
+  const schedule = {};
+
+  if (!dayName) {
+    return Object.entries(hours).reduce((acc, entry) => {
+      acc[entry[0]] = formatSchedule(entry[1].open, entry[1].close);
+      return acc;
+    }, schedule);
+  }
+
+  schedule[dayName] = formatSchedule(hours[dayName].open, hours[dayName].close);
+  return schedule;
+};
+
+console.log(getSchedule('Monday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
