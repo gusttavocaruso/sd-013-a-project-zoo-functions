@@ -163,8 +163,37 @@ function increasePrices(percentage) {
   });
 }
 
+function getNameSpecies(employee) {
+  const idsDeSpecies = employee.responsibleFor;
+  const arrayNameSpecies = [];
+
+  idsDeSpecies.forEach((id) => {
+    const specieEncontrada = data.species.find((specie) => specie.id === id);
+
+    arrayNameSpecies.push(specieEncontrada.name);
+  });
+
+  return arrayNameSpecies;
+}
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const objectAllEmployees = {};
+    data.employees.forEach((e) => {
+      const keyDoObjeto = `${e.firstName} ${e.lastName}`;
+      const nameSpecies = getNameSpecies(e);
+      objectAllEmployees[keyDoObjeto] = nameSpecies;
+    });
+    return objectAllEmployees;
+  }
+
+  const employee = data.employees.find((e) => (
+    e.id === idOrName || e.firstName === idOrName || e.lastName === idOrName
+  ));
+  const keyDoObjeto = `${employee.firstName} ${employee.lastName}`;
+  const nameSpecies = getNameSpecies(employee);
+
+  return { [keyDoObjeto]: nameSpecies };
 }
 
 module.exports = {
