@@ -94,18 +94,29 @@ const createSchedule = () => {
   const dias = Object.keys(data.hours);
   const horas = Object.values(data.hours);
 
-  if (!dayName) {
-    dias.reduce((agr, i, j) => {
-      if (i === 'Monday') {
-        agr[i] = 'CLOSED';
-      } else {
-        agr[i] = showHour(horas[j].open, horas[j].close);
-      }
+  dias.reduce((agr, i, j) => {
+    if (i === 'Monday') {
+      agr[i] = 'CLOSED';
+    } else {
+      agr[i] = showHour(horas[j].open, horas[j].close);
+    }
 
-      return agr;
+    return agr;
     });
-  }
 };
+
+function getSchedule(dayName) {
+  const array = {};
+  const schedule = createSchedule();
+
+  if (!dayName) {
+    return schedule;
+  }
+
+  array[dayName] = schedule[dayName];
+
+  return array;
+}
 
 function getOldestFromFirstSpecies(id) {
   const foundEmployee = data.employees.find((element) => element.id === id);
