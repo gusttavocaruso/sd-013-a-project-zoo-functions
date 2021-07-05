@@ -18,11 +18,15 @@ function getEmployeeByName(string) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
-function isManager(id) {
-  // seu código aqui
+function isManager(cod) {
+  const gerenteSim = employees
+    .filter(({ managers }) => managers
+      .some((manager) => manager === cod));
+  return (gerenteSim.length >= 1);
+  // return gerenteSim;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
