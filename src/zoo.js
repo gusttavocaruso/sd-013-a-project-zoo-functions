@@ -11,13 +11,8 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-const { employees } = data;
-
-const { species } = data;
-
-const { prices } = data;
-
-const { hours } = data;
+const { employees, species, prices, hours } = data;
+const areas = ['NE', 'NW', 'SE', 'SW'];
 
 function getSpeciesByIds(...ids) {
   if (!ids || !ids.length) return [];
@@ -62,8 +57,8 @@ function countAnimals(animalSpecies) {
       .residents.length;
   }
   const countAll = {};
-  species.forEach((s) => {
-    countAll[s.name] = s.residents.length;
+  species.forEach((a) => {
+    countAll[a.name] = a.residents.length;
   });
   return countAll;
 }
@@ -76,30 +71,18 @@ function calculateEntry({ Adult, Senior, Child } = 0) {
   return calc.reduce((a, c) => a + c, 0);
 }
 
-// const lions = species.find((s) => s.name === 'lions').residents.map((a) => a.name);
-// const giraffes = species.find((s) => s.name === 'giraffes').residents.map((a) => a.name);
-// const tigers = species.find((s) => s.name === 'tigers').residents.map((a) => a.name);
-// const bears = species.find((s) => s.name === 'bears').residents.map((a) => a.name);
-// const elephants = species.find((s) => s.name === 'elephants').residents.map((a) => a.name);
-// const penguins = species.find((s) => s.name === 'penguins').residents.map((a) => a.name);
-// const otters = species.find((s) => s.name === 'otters').residents.map((a) => a.name);
-// const frogs = species.find((s) => s.name === 'frogs').residents.map((a) => a.name);
-// const snakes = species.find((s) => s.name === 'snakes').residents.map((a) => a.name);
-
 function getAnimalMap(options) {
-  // const areas = ['NE', 'NW', 'SE', 'SW'];
-  // const names = [species.filter((s) => s.location === 'NE')
-  //   .map((a) => a.name), species.filter((s) => s.location === 'NW')
-  //   .map((a) => a.name), species.filter((s) => s.location === 'SE')
-  //   .map((a) => a.name), species.filter((s) => s.location === 'SW')
-  //   .map((a) => a.name)];
-  if (!options) {
-    return 0;
-    // return areas.reduce((o, k, i) => ({ ...o, [k]: names[i] }), {});
-  }
-  // if (options.includeNames) {
-  // }
+  const animals = [];
+  areas.forEach((area) => animals.push(species.filter((s) => s.location === area)
+    .map((a) => a.name)));
+  const names = [];
+  species.forEach((s) => names.push(s.residents.map((a) => a.name)));
+  if (!options) return areas.reduce((o, k, i) => ({ ...o, [k]: animals[i] }), {});
+  return areas.reduce((o, k, i) => ({ ...o, [k]: [] }), {});
 }
+console.log(getAnimalMap('o'));
+
+// console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   const days = Object.keys(hours);
