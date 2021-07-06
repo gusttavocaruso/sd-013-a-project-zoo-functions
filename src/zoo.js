@@ -3,20 +3,9 @@ const { hours } = require('./data');
 
 let employeObject = {};
 const animalsObject = {};
+let objectDays = {}
 
-function getSpeciesByIds(...ids) {
-  if (ids.length === 0) return [];
-  // seu código aqui
-  const animals = [];
-  ids.forEach((elem) => {
-    data.species.forEach((specie) => {
-      if (specie.id === elem) {
-        animals.push(specie);
-      }
-    });
-  });
-  return animals;
-}
+const getSpeciesByIds = (...ids) => data.species.filter((specie) => ids.includes(specie.id));
 
 function getAnimalsOlderThan(animal, age) {
   let response;
@@ -57,7 +46,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(animal) {
-  // seu código aqui
   if (animal === undefined) {
     return data.species.reduce((acc, crr) => {
       acc[crr.name] = crr.residents.length;
@@ -73,23 +61,11 @@ function countAnimals(animal) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
   if (entrants === undefined) return 0;
-  let sum = 0;
-  const adults = entrants.Adult;
-  const seniors = entrants.Senior;
-  const child = entrants.Child;
-
-  if (adults !== undefined) {
-    sum += data.prices.Adult * adults;
-  }
-  if (seniors !== undefined) {
-    sum += data.prices.Senior * seniors;
-  }
-  if (child !== undefined) {
-    sum += data.prices.Child * child;
-  }
-  return sum;
+  const entries = Object.entries(entrants);
+  return entries.reduce((sum, entrie) => {
+    return sum + data.prices[entrie[0]] * entrie[1]
+  }, 0)
 }
 
 const map = (options, specie) => {
@@ -129,38 +105,26 @@ function getAnimalMap(options) {
   return animalsObject;
 }
 
-const weekSchedule = () => {
-  const object = {};
-  const days = Object.keys(hours);
-  days.forEach((day) => {
-    if (hours[day].close !== 0 && hours[day].open !== 0) {
-      object[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
-    } else {
-      object[day] = 'CLOSED';
-    }
-  });
-  return object;
-};
-
 const daySchedule = (day) => {
-  const object = {};
   if (hours[day].close !== 0 && hours[day].open !== 0) {
-    object[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    objectDays[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
   } else {
-    object[day] = 'CLOSED';
+    objectDays[day] = 'CLOSED';
   }
-  return object;
 };
 
 function getSchedule(dayName) {
-  // seu código aqui
-  let response;
   if (dayName === undefined) {
-    response = weekSchedule();
-  } else {
-    response = daySchedule(dayName);
+    const days = Object.keys(hours);
+    days.forEach((day) => {
+      daySchedule(day);
+    })
   }
-  return response;
+  else {
+    objectDays = {}
+    daySchedule(dayName)
+  }
+  return objectDays;
 }
 
 function getOldestFromFirstSpecies(idEmployee) {
