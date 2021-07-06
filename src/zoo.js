@@ -60,8 +60,31 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+// Só consegui entender vendo a fórmula da colega Aline
+
+function check(objectEntries) {
+  return objectEntries.reduce((acc, curr) => {
+    if (curr[1].open === 0 && curr[1].close === 0) {
+      acc[curr[0]] = 'CLOSED';
+      return acc;
+    }
+    acc[curr[0]] = `Open from ${curr[1].open}am until ${curr[1].close - 12}pm`;
+    return acc;
+  }, {});
+}
+
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName === undefined) return check(Object
+    .entries(data.hours));
+  const day = Object.entries(data.hours)
+    .find((weekDay) => weekDay[0] === dayName);
+  const object = {};
+  if (dayName === 'Monday') {
+    object[day[0]] = 'CLOSED';
+    return object;
+  }
+  object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+  return object;
 }
 
 function getOldestFromFirstSpecies(id) {
