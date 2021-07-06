@@ -1,9 +1,8 @@
-const { hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   const { species } = data;
-  if (!ids || !ids.length) return [];
+  if (!ids) return [];
   return species.filter((animal) => ids.includes(animal.id));
 }
 
@@ -14,7 +13,7 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   const { employees } = data;
-  if (!employeeName || !employeeName.length) return {};
+  if (!employeeName) return {};
   return employees.find((name) =>
     name.firstName === employeeName || name.lastName === employeeName);
 }
@@ -75,27 +74,33 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+const convertorAmPm = (hour) => {
+  if (hour > 12) return `${(hour - 12)}pm`;
+  if (hour === 0) return '12pm';
+  return `${hour}am`;
+};
+
+const geradorMensagem = (dayName, cronograma) => {
+  if (cronograma[dayName].open !== cronograma[dayName].close) {
+    return `Open from ${convertorAmPm(cronograma[dayName]
+      .open)} until ${convertorAmPm(cronograma[dayName].close)}`;
+  }
+  return ('CLOSED');
+};
+
 function getSchedule(dayName) {
-  const newObj = {};
-  const allWeek = {
-    Tuesday: 'Open from 8am until 6pm',
-    Wednesday: 'Open from 8am until 6pm',
-    Thursday: 'Open from 10am until 8pm',
-    Friday: 'Open from 10am until 8pm',
-    Saturday: 'Open from 8am until 10pm',
-    Sunday: 'Open from 8am until 8pm',
-    Monday: 'CLOSED',
-  };
-  if (!dayName) return allWeek;
-  Object.keys(hours).forEach((week) => {
-    if (week === dayName) {
-      newObj[week] = `Open from ${hours[week].open}am until ${hours[week].close - 12}pm`;
-    }
-    if (week === 'Monday') newObj[week] = 'CLOSED';
-  });
-  return (newObj);
+  const cronograma = {};
+  const { hours } = data;
+  if (dayName) {
+    cronograma[dayName] = geradorMensagem(dayName, hours);
+  } else {
+    Object.keys(hours).forEach((day) => {
+      cronograma[day] = geradorMensagem(day, hours);
+    });
+  }
+  return cronograma;
 }
-console.log(getSchedule('Friday'));
+
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
