@@ -7,9 +7,8 @@ function getSpeciesByIds(firstId, secondId) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const checkAnimalsAge = species
-  .filter(specie => specie.name === animal)
-  .every(specie => specie.residents.age >= age);
+  const findAnimal = species.find(specie => specie.name === animal);
+  const checkAnimalsAge = findAnimal.residents.every(resident => resident.age >= 7);
 
   return checkAnimalsAge;
 }
