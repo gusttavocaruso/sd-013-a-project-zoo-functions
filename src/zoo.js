@@ -94,8 +94,28 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const dayAndHour = Object.entries(data.hours);
+  if (dayName) {
+    const newSchedule = dayAndHour.find(([day]) => day === dayName);
+    const [day, { open, close }] = newSchedule;
+    if (dayName === 'Monday') return { [dayName]: 'CLOSED' };
+    return { [day]: `Open from ${open}am until ${close - 12}pm` };
+  }
+  return dayAndHour.reduce((acc, [day, { open, close }]) => {
+    acc[day] = `Open from ${open}am until ${close - 12}pm`;
+    if (day === 'Monday') acc[day] = 'CLOSED';
+    return acc;
+  }, {});
 }
+
+// Requisito que eu mais levei tempo. Fiz muita pesquisa no slack e contei com a ajuda do código https://github.com/tryber/sd-011-project-zoo-functions/pull/100/commits/9008a2ce8f18e7007beae92fd8e48fe3d3ff101f
+// Criei um array com as chaves (os dias) e valores (horários de abertura e fechamento), percorri um find nesse array comparando o dia passado como parâmetro com as chaves;
+// Para cada iteração ele retorna a chave (day) com a frase contida na linha 102;
+// Caso o dia passado como parâmetro seja 'Monday' ele teroan 'CLOSED', como descrito na linha 101;
+// Tentei por bastante tempo fazer a primeira parte do código, mas sem o destructuring na linha 100, desta forma não conseguia puxar os valores de 'open' e 'close' na linha 102;
+// Na segunda parte fiz um reduce no array das chaves e valores de data.hours, que recebeu como parâmetros o acumulador, e o valor atual para cada iteração (dia, open e close);
+// Retorna o acumulador contendo o dia se ele for diferente de Monday, com a frase contida na linha 105;
+// Se o dia for igual a segunda, retorna o acumulador contendo este dia com o valor Closed;
 
 function getOldestFromFirstSpecies(id) {
   const findSpecie = employees.find((employee) => employee.id === id).responsibleFor[0];
@@ -123,7 +143,6 @@ function increasePrices(percentage) {
 // https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
 }
 
 module.exports = {
