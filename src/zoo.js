@@ -62,8 +62,27 @@ function calculateEntry(entrants) {
       .reduce((total, price) => total + price));
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+// eslint-disable-next-line max-lines-per-function
+function getAnimalMap(options = {}) {
+  const locations = Object.values(species).reduce((specieLocation, specie) => {
+    if (specie.location in specieLocation) {
+      (options.includeNames) ? specieLocation[specie.location]
+        .push({ [specie.name]: (options.sorted ? (specie.residents
+          .map((x) => x.name)).sort()
+          : (specie.residents.map((x) => x.name))) })
+        : specieLocation[specie.location].push(specie.name);
+    } else {
+      (options.includeNames) ? Object.assign(specieLocation,
+        { [specie.location]: [{ [specie.name]: (options.sorted ? (specie.residents.map((x) => x.name)).sort()
+          : (specie.residents.map((x) => x.name))) }] })
+        : Object.assign(specieLocation, { [specie.location]: [specie.name] });
+    }
+    return specieLocation;
+  }, {});
+  // console.log("antes",locations);
+  // console.log(Object.values(locations).sort());
+  // console.log("depois",locations);
+  return (locations);
 }
 
 function getSchedule(dayName) {
