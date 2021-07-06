@@ -60,12 +60,8 @@ function countAnimals(species) {
 function calculateEntry(entrants) {
   if (!entrants || Object.keys(entrants).length === 0) return 0;
 
-  const adult = entrants.Adult || 0;
-  const child = entrants.Child || 0;
-  const senior = entrants.Senior || 0;
-
-  const totalPriceEntry = () => (adult * prices.Adult)
-+ (child * prices.Child) + (senior * prices.Senior);
+  const totalPriceEntry = () => (entrants.Adult * prices.Adult)
++ (entrants.Child * prices.Child) + (entrants.Senior * prices.Senior);
 
   return totalPriceEntry();
 }
