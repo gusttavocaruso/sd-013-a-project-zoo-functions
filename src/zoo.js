@@ -14,7 +14,7 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(name) {
-  if (name === undefined) return {};
+  if (!name) return {};
   return data.employees
     .find((employee) => ((employee.firstName === name) || (employee.lastName === name)));
 }
@@ -42,12 +42,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(species) {
   const counts = {};
-  data.species.forEach((animal) => { counts[animal.name] = animal.residents.length; });
+  data.species
+    .forEach((animal) => { counts[animal.name] = animal.residents.length; });
   return species === undefined ? counts : counts[species];
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants) return 0;
+  return Object.entries(entrants)
+    .map((category) => data.prices[category[0]] * category[1])
+    .reduce((a, b) => a + b, 0);
 }
 
 function getAnimalMap(options) {
