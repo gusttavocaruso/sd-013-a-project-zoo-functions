@@ -3,7 +3,7 @@ const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return species.filter((element) => ids.some((n1) => n1 === element.id));
+  return species.filter((element) => ids.find((n1) => n1 === element.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -104,25 +104,15 @@ function getOldestFromFirstSpecies(ids) {
 }
 
 function increasePrices(percentage) {
-  // ainda vou fazer
-}
-
-function listCompleta(callback) {
-  const listFirsName = employees.map((names) => names.firstName);
-  const listLastName = employees.map((sobre) => sobre.lastName);
-  const concatenacao = listFirsName.map((m1, i) => `${m1} ${listLastName[i]}`);
-
-  const responsible = employees.map((respon) => respon.responsibleFor);
-  const pegarPorId = species.map((m1) => m1.name);
-
-  return concatenacao;
+  const keys = Object.keys(prices);
+  keys.forEach((key) => {
+    data.prices[key] = parseFloat((prices[key] * (1 + percentage / 100) + 0.001).toFixed(2));
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
-  if (!idOrName) return listCompleta();
+  // Digite seu código aqui
 }
-
-/* console.log(getEmployeeCoverage()); */
 
 module.exports = {
   calculateEntry,
