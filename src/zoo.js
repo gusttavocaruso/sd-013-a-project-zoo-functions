@@ -81,11 +81,15 @@ function getSchedule(dayName) {
   }
   obj[days[0]] = `Open from ${days[1].open}am until ${days[1].close - 12}pm`;
   return obj;
-} console.log(getSchedule('Tuesday'));
+}
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const checked = employees.find((check) => check.id === id).responsibleFor[0];
+  const objResidents = species.find((specie) => specie.id === checked).residents;
+  const orderAnimals = objResidents.sort((a, b) => b.age - a.age)[0];
+  return Object.values(orderAnimals);
 }
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
