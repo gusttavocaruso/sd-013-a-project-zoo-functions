@@ -4,7 +4,7 @@ const data = require('./data');
 pesquisa no material do course e notion da turma 13-A */
 function getSpeciesByIds(...ids) {
   if (!ids) return undefined;
-  const newArray = ids.map((idsItem) => species.find((specieItem) => specieItem.id === idsItem));
+  const newArray = species.filter((specieItem) => ids.find((idsItem) => specieItem.id === idsItem));
   return newArray;
 }
 
