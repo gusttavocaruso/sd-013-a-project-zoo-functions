@@ -29,15 +29,9 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(ids) {
-  const {employees} = data;
-  const test = 'teste';
-  const funcionario = employees.find((employ) => {employ.id === ids});
-  return funcionario.some((tru) => {typeof tru.id === typeof test});
-
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const {employees} = data;
   const newEmployee = {
     id,
     firstName,
@@ -60,7 +54,7 @@ function countAnimals(speciess) {
 }
 
 function calculateEntry(entrants) {
-  const {prices} = data;
+  const { prices } = data;
   if (!entrants) {
     return 0;
   }
@@ -72,18 +66,9 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const {hours} = data;
-  const {Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, Monday} = hours;
-  const obj = {};
-  if (!dayName) {Object.keys(hours).forEach((dia) => obj[dia] = `${dia}: Open from ${Object.values(dia[0])}pm until ${Object.values(dia[1])}pm`)};
-  return obj;
-
-  obj[dayName] = Object.values(dayName);
 }
 
 function getOldestFromFirstSpecies(id) {
-  const {employees, species} = data;
-  let array = [];
   const pessoa = employees.find((currObj) => currObj.id === id);
   const primeiraSpe = pessoa.responsibleFor.find((currO) => currO[0]);
   const primeiraSpecie = species.find((i) => i.id === primeiraSpe);
@@ -92,24 +77,10 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  const {prices} = data;
-  const chavesObjetos = Object.keys(prices);
-  chavesObjetos.forEach((value) => value = prices[value] * Math.round((percentage / 100) * 100) / 100);
-  
-  
+
 }
 
-function getEmployeeCoverage(idOrName) {
-  const {employees} = data;
-  const alEmployees = {}
-  if (!idOrName) {
-  const fullName = employess.map((employ) => {`${employ.firstName} ${employ.lastName}`
-  fullName.forEach((per) => {per = responsibleFor[employ]})
-});
-  
-  
-  }
-}
+function getEmployeeCoverage(idOrName) {}
 
 module.exports = {
   calculateEntry,
