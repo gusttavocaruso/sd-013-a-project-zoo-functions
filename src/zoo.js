@@ -1,6 +1,7 @@
+/* eslint-disable complexity */
 const data = require('./data');
 
-const { employees } = data;
+const { employees, prices } = data;
 
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) return [];
@@ -24,7 +25,7 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
 
-  const employeeByName = data.employees
+  const employeeByName = employees
     .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
   return employeeByName;
 }
@@ -57,7 +58,20 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
+
+  const adult = entrants.Adult || 0;
+  const child = entrants.Child || 0;
+  const senior = entrants.Senior || 0;
+
+  const priceAdult = prices.Adult;
+  const priceChild = prices.Child;
+  const priceSenior = prices.Senior;
+
+  const totalPriceEntry = () => (adult * priceAdult)
++ (child * priceChild) + (senior * priceSenior);
+
+  return totalPriceEntry();
 }
 
 function getAnimalMap(options) {
