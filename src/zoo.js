@@ -43,7 +43,7 @@ function countAnimals(especie) {
 function calculateEntry(entrants) {
   const { Adult, Child, Senior } = prices;
   let entriesPrices = [];
-  if (entrants && Object.keys(entrants).length >= 1) {
+  if (entrants) {
     entriesPrices = [
       (entrants.Adult * Adult),
       (entrants.Child * Child),
