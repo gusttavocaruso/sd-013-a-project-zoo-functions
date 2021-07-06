@@ -75,8 +75,8 @@ function check(objectEntries) {
 
 function getSchedule(dayName) {
   if (dayName === undefined) {
-    return check(Object.entries(data.hours))
-  };
+    return check(Object.entries(data.hours));
+  }
   const day = Object.entries(data.hours)
     .find((weekDay) => weekDay[0] === dayName);
   const object = {};
