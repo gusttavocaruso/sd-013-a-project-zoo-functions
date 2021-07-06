@@ -3,7 +3,7 @@ const data = require('./data');
 const { species } = data;
 const { employees } = data;
 const { prices } = data;
-const { hours } = data;
+// const { hours } = data;
 
 function getSpeciesByIds(...ids) {
   if (ids === undefined) {
@@ -44,10 +44,10 @@ function countAnimals(speciesNames) {
     acc[current.name] = current.residents.length;
     return acc;
   }, {});
-   if(!speciesNames) 
+  if (!speciesNames) {
     return totalAnimals;
-  
-   return totalAnimals[speciesNames];
+  }
+  return totalAnimals[speciesNames];
 }
 
 function calculateEntry(entrants) {
@@ -61,22 +61,20 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  
-  
+
 }
 
 function getOldestFromFirstSpecies(id) {
- const peopleEmployee = employees.find((employee) => employee.id === id);
- const specie1 = species.find((specie) => specie.id === peopleEmployee.responsibleFor[0]);
- const old = specie1.residents.sort((a,b) => b.age - a.age);
- return Object.values(old[0]); 
-
+  const peopleEmployee = employees.find((employee) => employee.id === id);
+  const specie1 = species.find((specie) => specie.id === peopleEmployee.responsibleFor[0]);
+  const old = specie1.residents.sort((a, b) => b.age - a.age);
+  return Object.values(old[0]);
 }
 
 function increasePrices(percentage) {
-  const increasePrices = Object.keys(data.prices);
+  const upPrices = Object.keys(data.prices);
   increasePrices.forEach((price) => {
- data.prices[price] = Math.round(data.prices[price] * (1 + percentage / 100) * 100) / 100;
+    data.prices[price] = Math.round(data.prices[price] * (1 + percentage / 100) * 100) / 100;
   });
 }
 
