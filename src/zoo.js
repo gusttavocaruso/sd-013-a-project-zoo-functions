@@ -94,7 +94,21 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const everyEmployee = data.employees.reduce((accumulator, currentEmployee) => { // Reduse para reduzir todo o array em um objeto.
+    const employeeFullName = `${currentEmployee.firstName} ${currentEmployee.lastName}`; // Nome completo do funcionario para ser uma chave no objeto.
+    const allAnimals = currentEmployee.responsibleFor; // Todos os animais que o employee é responsável.
+    accumulator[employeeFullName] = allAnimals.map((animalId) => species.find((specie) => specie.id === animalId).name); /* ".map" pega o array responsibleFor com as ids de animais e cria um novo array com o nome das especies que tem o id no array responsibleFor. */
+    return accumulator; // Retorna um objeto com todos os funcionarios e os animais.
+  }, {}); // Accumulator inicia como um objeto vazio.
+
+  if (idOrName === undefined) {
+    return everyEmployee;
+  }
+  const employeeIdOrName = data.employees.find((employee) =>
+    employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName); /* Encontra o primeiro funcionario que tem o id, firstName, ou lastName igual ao parametro passado. */
+  const employeeFullName = `${employeeIdOrName.firstName} ${employeeIdOrName.lastName}`; // Nome completo do funcionario para ser retornado.
+  const allAnimals = employeeIdOrName.responsibleFor; // Animais que o employeeIdOrName é responsável.
+  return {[employeeFullName]: allAnimals.map((animalId) => species.find((specie) => specie.id === animalId).name)}; // Retorna o nome completo do funcionario e o nome da especie na qual ele é responsável.
 }
 
 module.exports = {
