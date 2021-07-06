@@ -104,42 +104,46 @@ function getAnimalMap(parameters = {}) {
   return returnObWithParameters(sex, sorted);
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
-function getSchedule(dayName) {
+function noParametersExecute(dayName) {
+  const printHoras = Object.keys(hours);
+  return printHoras.reduce((acc, cur, index) => {
+    let { open, close } = Object.values(hours)[index];
+    if (open === close) {
+      acc[printHoras[index]] = 'CLOSED';
+      return acc;
+    }
+    if (close > 12) close -= 12;
+    if (open > 12) open -= 12;
+    acc[printHoras[index]] = `Open from ${open}am until ${close}pm`;
+    return acc;
+  }, {});
+}
+function returnOneDay(dayName, dia) {
   let string = '';
   const objDay = {};
-  if (!dayName) {
-    const printHoras = Object.keys(hours);
-    return printHoras.reduce((acc, cur, index) => {
-      let { open, close } = Object.values(hours)[index];
-      if (open === close) {
-        acc[printHoras[index]] = 'CLOSED';
-        return acc;
-      }
-      if (close > 12) close -= 12;
-      if (open > 12) open -= 12;
-      acc[printHoras[index]] = `Open from ${open}am until ${close}pm`;
-      return acc;
-    }, {});
+  const { open, close } = hours[dayName];
+  if (open === close) {
+    string = 'CLOSED';
+    objDay[dia] = string;
+    return objDay;
   }
+  string = `Open from ${open}am until ${close - 12}pm`;
+  objDay[dia] = string;
+  return objDay;
+}
+function getSchedule(dayName) {
+  if (!dayName) return noParametersExecute(dayName);
+  let retorno;
   Object.keys(hours).forEach((dia) => {
     if (dayName === dia) {
-      const { open, close } = hours[dayName];
-      if (open === close) {
-        string = 'CLOSED';
-        objDay[dia] = string;
-        return objDay;
-      }
-      string = `Open from ${open}am until ${close - 12}pm`;
-      objDay[dia] = string;
+      retorno = returnOneDay(dayName, dia);
     }
   });
-  return objDay;
+  return retorno;
 }
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
-}
 
 function increasePrices(percentage) {
   // seu código aqui
