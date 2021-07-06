@@ -1,4 +1,4 @@
-const { prices, hours } = require('./data');
+const { prices, hours, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -23,8 +23,7 @@ function getEmployeeByName(employ) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const newObj = Object.assign(personalInfo, associatedWith);
-  return newObj;
+  return Object.assign(personalInfo, associatedWith);
 }
 
 function isManager(idOfEmploy) {
@@ -48,14 +47,14 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push(employ);
 }
 
-function countAnimals(species) {
-  const specie = data.species.filter(({ name }) => name === species);
+function countAnimals(speciesAnim) {
+  const specie = data.species.filter(({ name }) => name === speciesAnim);
   const lenght = specie.map(({ residents }) => residents.length)[0];
   const allSpecies = data.species.map(({ name }) => name);
   const amountSpecies = data.species.map(({ residents }) => residents.length);
 
   const objectSpecie = {};
-  if (!species) {
+  if (!speciesAnim) {
     for (let i = 0; i < allSpecies.length; i += 1) {
       objectSpecie[allSpecies[i]] = amountSpecies[i];
     }
@@ -75,12 +74,41 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
+  // terminar depois!
+  const returnObj = {};
+  // const { includeNames } = options;
+  const regions = ['NE', 'NW', 'SE', 'SW'];
+
+  if (!options) { // ativa apenas quando não há parametros.
+    regions.forEach((region) => {
+      returnObj[region] = species.filter(({ location }) => location === region)
+        .map((item) => item.name);
+    });
+  }
+  return returnObj;
 }
 
 function getSchedule(dayName) {
+  const week = Object.keys(hours);
+  const val = Object.values(hours);
+  const alert = {};
+
+  week.forEach((it, i) => {
+    alert[it] = `Open from ${val[i].open}am until ${val[i].close - 12}pm`;
+  });
+
+  /* for (let i = 0; i < week.length; i += 1) {
+    alert[week[i]] = `Open from ${values[i].open}am until ${values[i].close - 12}pm`; */
+  alert.Monday = 'CLOSED';
+  if (dayName === 'Monday') return { Monday: 'CLOSED' };
+  if (dayName) {
+    const indi = {};
+    indi[dayName] = alert[dayName];
+    return indi;
+  }
+  return alert;
 }
-
-
+console.log(getSchedule('Tuesday'));
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
