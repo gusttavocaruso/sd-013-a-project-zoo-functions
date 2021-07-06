@@ -44,7 +44,7 @@ function countAnimals(species) {
   const counts = {};
   data.species
     .forEach((animal) => { counts[animal.name] = animal.residents.length; });
-  return species === undefined ? counts : counts[species];
+  return !species ? counts : counts[species];
 }
 
 function calculateEntry(entrants) {
@@ -67,7 +67,10 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(data.prices)
+    .forEach((categ) => {
+      data.prices[categ] = Math.round(data.prices[categ] * (percentage / 100 + 1) * 100) / 100;
+    });
 }
 
 function getEmployeeCoverage(idOrName) {
