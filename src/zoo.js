@@ -60,7 +60,7 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   if (!entrants) return 0;
-  let { Adult = 0, Senior = 0, Child = 0 } = entrants;
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
   const resultado = ((Adult * prices.Adult) + (Senior * prices.Senior) + (Child * prices.Child));
   return resultado;
 }
@@ -79,7 +79,8 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   Object.keys(data.prices)
-    .forEach((tipo) => { data.prices[tipo] = Math.round(data.prices[tipo] * (percentage / 100 + 1) * 100) / 100;
+    .forEach((tipo) => { 
+      data.prices[tipo] = Math.round(data.prices[tipo] * (percentage / 100 + 1) * 100) / 100;
   });
 }
 
