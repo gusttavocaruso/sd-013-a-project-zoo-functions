@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(firstId, secondId) {
