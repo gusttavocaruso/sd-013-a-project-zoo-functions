@@ -111,7 +111,20 @@ function increasePrices(percentage) {
 
 // REQUISITO 13 _______________________________________________________________________
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const employeeResponsibleFor = employees.reduce((acc, curr) => {
+      const fullName = `${curr.firstName} ${curr.lastName}`;
+      acc[fullName] = curr.responsibleFor.map((animal) =>
+        species.find((spec) => animal === spec.id).name);
+      return acc;
+    }, {});
+    return employeeResponsibleFor;
+  }
+  const findEmployee = employees.find((employee) =>
+    employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName);
+  const fullName = `${findEmployee.firstName} ${findEmployee.lastName}`;
+  return { [fullName]: findEmployee.responsibleFor.map((animal) =>
+    species.find((specie) => animal === specie.id).name) };
 }
 
 module.exports = {
