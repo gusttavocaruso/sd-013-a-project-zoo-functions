@@ -100,13 +100,10 @@ function getOldestFromFirstSpecies(id) {
 function increasePrices(percentage) {
   Object.keys(data.prices).forEach((element) => {
     data.prices[element] += (data.prices[element] * (percentage / 100));
-    data.prices[element] = parseFloat(data.prices[element].toFixed(2));
+    data.prices[element] = Math.round(data.prices[element] * 100) / 100;
   });
   return data.prices;
 }
-
-// console.log(increasePrices(50));
-// console.log(increasePrices(30));
 
 function getEmployeeCoverage(idOrName) {
   const employees = data.employees.reduce((acc, curr) => {
