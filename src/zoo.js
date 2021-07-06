@@ -138,14 +138,25 @@ function getOldestFromFirstSpecies(id) {
     // Pega o primeiro animal que o funcionário é responsável
     .responsibleFor[0];
   // Busca todos os animais com o id encontrado acima
-  const wholeSpecie = data.species.find((specie) => specie.id === animalID).residents
+  const wholeSpecie = data.species.find((specie) => specie.id === animalID)
     // Coloca os animais em ordem por idade
-    .sort((a, b) => b.age - a.age);
+    .residents.sort((a, b) => b.age - a.age);
   // Retorna o valor das chaves do animal mais velho
   return Object.values(wholeSpecie[0]);
 }
 
 function increasePrices(percentage) {
+  // Transforma a porcentagem fornecida em um número para multiplicar o valor original, ex: 20 em 1,2
+  const toMultiply = parseFloat(`1.${percentage}`);
+  // Busca os valores originais
+  const originalPrices = data.prices;
+  // Faz uma operação com cada chave presente no objeto possuidor dos valores originais
+  Object.keys(originalPrices).forEach((priceCategory) => {
+    // Multiplica o valor original pela porcentagem convertida
+    const newPrice = toMultiply * originalPrices[priceCategory];
+    // Atribui o novo valor arredondado a chave da vez
+    originalPrices[priceCategory] = Math.round(newPrice * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
