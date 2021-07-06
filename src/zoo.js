@@ -97,12 +97,31 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
+function getSchedule(dayName = undefined) {
+  // const schedule = data.hours
+  // console.log(schedule);
+  // if (dayName === undefined) {
+  //   return schedule;
+  // }
+  // const result = {};
+  // const output = Object.entries(schedule).find((day) => day.includes(dayName));
+  // console.log(output);
+  // const a = output.reduce((key, value) => result[key] = value);
+  // console.log(result);
+
+  // Object.entries(schedule).find((day) => day.includes(dayName))
+  //   .reduce((key, value) => {
+  //     result[key] = value;
+  //     return result;
+  //   });
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const animal = data.employees.find((worker) => worker.id === id).responsibleFor[0];
+  const oldestAnimal = species
+    .find((specie) => specie.id === animal).residents.sort((a, b) => b.age - a.age)[0];
+  const result = [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
+  return result;
 }
 
 function increasePrices(percentage) {
