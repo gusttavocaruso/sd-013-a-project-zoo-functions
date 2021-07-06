@@ -69,45 +69,13 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function dayOfWeek(day) {
-  if (day === 'Monday') {
-    return 'CLOSED'
-  }
-  if (day === 'Tuesday') {
-    return 'Open from 8am until 6pm'
-  }
-  if (day === 'Wednesday') {
-    return 'Open from 8am until 6pm'
-  }
-  if (day === 'Thursday') {
-    return 'Open from 10am until 8pm'
-  }
-  if (day === 'Friday') {
-    return 'Open from 10am until 8pm';
-  }
-  if (day === 'Saturday') {
-    return 'Open from 8am until 10pm'
-  }
-  if (day === 'Sunday'){
-    return 'Open from 8am until 8pm'
-  }
-}
-
 function getSchedule(dayName) {
-  const schedule = {};
-  if (dayName === undefined) {
-    return  {
-      'Tuesday': 'Open from 8am until 6pm',
-      'Wednesday': 'Open from 8am until 6pm',
-      'Thursday': 'Open from 10am until 8pm',
-      'Friday': 'Open from 10am until 8pm',
-      'Saturday': 'Open from 8am until 10pm',
-      'Sunday': 'Open from 8am until 8pm',
-      'Monday': 'CLOSED'
-    };
+
   }
-  if (dayName){
-  schedule[dayName] = dayOfWeek(dayName)
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else
+  //if sem comparação. é verdadeiro quando recebe um parametro. mas não é boolean. apenas entra na condição.
+  if (dayName) {
+    schedule[dayName] = dayOfWeek(dayName);
   }
   return schedule;
 }
@@ -116,8 +84,12 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
+// https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
 function increasePrices(percentage) {
-  // seu código aqui
+  const prices = Object.keys(data.prices);
+  prices.forEach((price) => {
+    data.prices[price] = Math.round(data.prices[price] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
