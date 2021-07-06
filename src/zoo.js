@@ -59,7 +59,7 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  // seu código aqui 1
 }
 
 function getAnimalMap(options) {
