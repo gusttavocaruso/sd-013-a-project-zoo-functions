@@ -1,7 +1,11 @@
+const { species } = require('./data');
 const data = require('./data');
-
-function getSpeciesByIds(ids) {
-  // seu código aqui
+/* Requisito feito com base na aula de revisão da turma 12,
+pesquisa no material do course e notion da turma 13-A */
+function getSpeciesByIds(...ids) {
+  if (!ids) return undefined;
+  const newArray = ids.map((idsItem) => species.find((specieItem) => specieItem.id === idsItem));
+  return newArray;
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -24,7 +28,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(spec) {
   // seu código aqui
 }
 
