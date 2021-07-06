@@ -1,4 +1,5 @@
 const data = require('./data');
+const { hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
@@ -57,7 +58,20 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const horaSemana = Object.keys(hours).reduce((acc, semana) => {
+    const { open, close } = hours[semana];
+    const horaNoite = close - 12;
+    if (!open && !close) {
+      acc[semana] = 'CLOSED';
+    } else {
+      acc[semana] = `Open from ${open}am until ${horaNoite}pm`;
+    }
+    return acc;
+  }, {});
+  if (!dayName) {
+    return horaSemana;
+  }
+  return { [dayName]: horaSemana[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
