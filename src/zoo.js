@@ -8,14 +8,15 @@ function getSpeciesByIds(...ids) {
 
 // REQUISITO 2
 function getAnimalsOlderThan(animal, age) {
-  return species.filter((tipo) => tipo.name.includes(animal))[0]
+  return species
+    .filter((tipo) => tipo.name.includes(animal))[0]
     .residents.every((element) => element.age >= age);
 }
 
 // REQUISITO 3
 function getEmployeeByName(employeeName) {
   const employ = {};
-  if (!employeeName) {
+  if (employeeName === undefined) {
     return employ;
   }
   return employees.find((people) =>
@@ -41,7 +42,13 @@ function isManager(id) {
 }
 
 // REQUISITO 6
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+function addEmployee(
+  id,
+  firstName,
+  lastName,
+  managers = [],
+  responsibleFor = [],
+) {
   employees.push({
     id,
     firstName,
@@ -69,6 +76,7 @@ function countAnimals(param) {
 
 // REQUISITO 8
 function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
+  // const listPrices = data.prices;
   const result = (prices.Child * Child) + (prices.Senior * Senior)
   + (prices.Adult * Adult);
 
@@ -97,13 +105,16 @@ function getSchedule(dayName) {
 
 // REQUISITO 11
 function getOldestFromFirstSpecies(id) {
-  const idEmploy = employees.find((people) =>
-    people.id.includes(id)).responsibleFor[0];
+  const idEmploy = employees.find((people) => people.id.includes(id))
+    .responsibleFor[0];
 
-  const animalOld = species.filter((animal) => animal.id.includes(idEmploy))[0]
-    .residents.map((itemAge) => itemAge.age).reduce((a, b) => Math.max(a, b));
+  const animalOld = species
+    .filter((animal) => animal.id.includes(idEmploy))[0]
+    .residents.map((itemAge) => itemAge.age)
+    .reduce((a, b) => Math.max(a, b));
 
-  const objResult = species.filter((animal) => animal.id.includes(idEmploy))[0]
+  const objResult = species
+    .filter((animal) => animal.id.includes(idEmploy))[0]
     .residents.filter((animal) => animal.age === animalOld)[0];
 
   const result = [objResult.name, objResult.sex, objResult.age];
@@ -113,16 +124,45 @@ function getOldestFromFirstSpecies(id) {
 
 // REQUISITO 12
 function increasePrices(percentage) {
-  prices.Adult = Math.round(prices.Adult * (1 + (percentage / 100)) * 100) / 100;
-  prices.Senior = Math.round(prices.Senior * (1 + (percentage / 100)) * 100) / 100;
-  prices.Child = Math.round(prices.Child * (1 + (percentage / 100)) * 100) / 100;
+  prices.Adult = Math.round(prices.Adult * (1 + percentage / 100) * 100) / 100;
+  prices.Senior = Math.round(prices.Senior * (1 + percentage / 100) * 100) / 100;
+  prices.Child = Math.round(prices.Child * (1 + percentage / 100) * 100) / 100;
 
   return prices;
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+function listEmployeeAndAnimals() {
+  const newArray = {};
+  employees.forEach((item) => {
+    newArray[`${item.firstName} ${item.lastName}`] = [];
+    item.responsibleFor.forEach((idAnimal) => {
+      const animalsList = species.find((idSpecie) => idSpecie.id === idAnimal);
+      newArray[`${item.firstName} ${item.lastName}`].push(animalsList.name);
+    });
+  });
+  return newArray;
 }
+
+// REQUISITO 13
+function getEmployeeCoverage(idOrName) {
+  if (!idOrName) {
+    return listEmployeeAndAnimals();
+  }
+
+  const result = {};
+  const selectEmploy = employees.find((employ) =>
+    employ.id === idOrName || employ.firstName === idOrName || employ.lastName === idOrName);
+
+  result[`${selectEmploy.firstName} ${selectEmploy.lastName}`] = [];
+
+  selectEmploy.responsibleFor.forEach((idAnimal) => {
+    const arrNameAnimals = species.find((specie) => specie.id === idAnimal);
+    result[`${selectEmploy.firstName} ${selectEmploy.lastName}`].push(arrNameAnimals.name);
+  });
+  return result;
+}
+console.log(getEmployeeCoverage());
+// console.log(getEmployeeCoverage('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 module.exports = {
   calculateEntry,
