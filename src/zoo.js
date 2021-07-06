@@ -3,7 +3,7 @@ const { hours } = require('./data');
 
 let employeObject = {};
 const animalsObject = {};
-let objectDays = {}
+let objectDays = {};
 
 const getSpeciesByIds = (...ids) => data.species.filter((specie) => ids.includes(specie.id));
 
@@ -63,9 +63,7 @@ function countAnimals(animal) {
 function calculateEntry(entrants) {
   if (entrants === undefined) return 0;
   const entries = Object.entries(entrants);
-  return entries.reduce((sum, entrie) => {
-    return sum + data.prices[entrie[0]] * entrie[1]
-  }, 0)
+  return entries.reduce((sum, entrie) => sum + data.prices[entrie[0]] * entrie[1], 0);
 }
 
 const map = (options, specie) => {
@@ -118,11 +116,10 @@ function getSchedule(dayName) {
     const days = Object.keys(hours);
     days.forEach((day) => {
       daySchedule(day);
-    })
-  }
-  else {
-    objectDays = {}
-    daySchedule(dayName)
+    });
+  } else {
+    objectDays = {};
+    daySchedule(dayName);
   }
   return objectDays;
 }
