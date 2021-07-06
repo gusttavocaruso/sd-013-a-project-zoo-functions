@@ -64,8 +64,12 @@ function calculateEntry(entrants) {
   const child = entrants.Child || 0;
   const senior = entrants.Senior || 0;
 
-  return (adult * prices.Adult)
-  + (child * prices.Child) + (senior * prices.Senior);
+  const priceAdult = prices.Adult;
+  const priceChild = prices.Child;
+  const priceSenior = prices.Senior;
+
+  return (adult * priceAdult)
+  + (child * priceChild) + (senior * priceSenior);
 }
 
 function getAnimalMap(options) {
