@@ -2,8 +2,6 @@ const data = require('./data');
 
 const { species } = data;
 const { employees } = data;
-const { prices } = data;
-// const { hours } = data;
 
 function getSpeciesByIds(...ids) {
   if (ids === undefined) {
@@ -21,7 +19,9 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
-  const get = employees.find((param) => employeeName === param.firstName || employeeName === param.lastName);
+  const get = employees.find((param) =>
+    employeeName === param.firstName
+ || employeeName === param.lastName);
   return get;
 }
 
@@ -73,7 +73,7 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   const upPrices = Object.keys(data.prices);
-  increasePrices.forEach((price) => {
+  upPrices.forEach((price) => {
     data.prices[price] = Math.round(data.prices[price] * (1 + percentage / 100) * 100) / 100;
   });
 }
