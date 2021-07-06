@@ -60,7 +60,6 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   return sum;
 }
 
-
 function getAnimalMap(options) {
   // seu código aqui
 }
