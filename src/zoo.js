@@ -95,7 +95,15 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findAnimal = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  let older = 0;
+  data.species.find((specie) => specie.id === findAnimal).residents
+    .forEach((resident) => {
+      if (older < resident.age) older = resident.age;
+    });
+  const oldest = Object.values(data.species.find((specie) => specie.id === findAnimal)
+    .residents.find((resident) => resident.age === older));
+  return oldest;
 }
 
 function increasePrices(percentage) {
