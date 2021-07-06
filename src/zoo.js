@@ -55,48 +55,53 @@ function calculateEntry(persons) {
   + (persons[cur] * prices[cur]), 0);
 }
 
-// eslint-disable-next-line max-lines-per-function
-// eslint-disable-next-line sonarjs/cognitive-complexity
-// eslint-disable-next-line max-lines-per-function
-// eslint-disable-next-line sonarjs/cognitive-complexity
-// eslint-disable-next-line max-lines-per-function
-function getAnimalMap(parameters = {}) {
-  const { includeNames = false, sorted = false, sex = '' } = parameters;
-  if (includeNames === false) {
-    return species.reduce((acc, cur) => {
-      const { name, location } = cur;
-      if (!acc[location]) acc[location] = [];
-      acc[location].push(name);
-      return acc;
-    }, {});
-  }
-  // eslint-disable-next-line
-  // eslint-disable-next-line complexity
+function verifyUseResidents(acc, location) {
+  acc[location] = [];
+}
+function returnObjectWithLocation() {
+  return species.reduce((acc, cur) => {
+    const { name, location } = cur;
+    if (!acc[location]) verifyUseResidents(acc, location);
+    acc[location].push(name);
+    return acc;
+  }, {});
+}
+function bears(acc, location) {
+  const ResidentGone = { bears: [] };
+  acc[location].push(ResidentGone);
+  return acc;
+}
+function pushResident(useResidents, cur) {
+  return useResidents.reduce((acumulator, current) => {
+    const newObj = acumulator;
+    if (!newObj[cur.name]) newObj[cur.name] = [];
+    acumulator[cur.name].push(current.name);
+    return newObj;
+  }, {});
+}
+function sortObjectNames(ObjectEspecieResident, name) {
+  const newobj = { name: ObjectEspecieResident[name].sort() };
+  return newobj;
+}
+function returnObWithParameters(sex, sorted) {
   return species.reduce((acc, cur) => {
     const { name, residents, location } = cur;
-    if (!acc[location]) acc[location] = [];
     let useResidents = residents;
-    if (sex !== '') {
-      useResidents = residents.filter((resident) => resident.sex === sex);
-    }
-    let ObjectEspecieResident = '';
-    if (useResidents.length === 0) {
-      const ResidentGone = { bears: [] };
-      acc[location].push(ResidentGone);
-      return acc;
-    }
-    ObjectEspecieResident = useResidents.reduce((acumulator, current) => {
-      // eslint-disable-next-line no-param-reassign
-      if (!acumulator[cur.name]) acumulator[cur.name] = [];
-      acumulator[cur.name].push(current.name);
-      return acumulator;
-    }, {});
-    if (sorted === true && ObjectEspecieResident[name] !== undefined) {
-      ObjectEspecieResident[name] = ObjectEspecieResident[name].sort();
-    }
+    if (!acc[location]) verifyUseResidents(acc, location);
+    if (sex !== '') useResidents = residents.filter((resident) => resident.sex === sex);
+    if (useResidents.length === 0) return bears(acc, location);
+    const ObjectEspecieResident = pushResident(useResidents, cur);
+    if (sorted === true) sortObjectNames(ObjectEspecieResident, name);
     acc[location].push(ObjectEspecieResident);
     return acc;
   }, {});
+}
+function getAnimalMap(parameters = {}) {
+  const { includeNames = false, sorted = false, sex = '' } = parameters;
+  if (includeNames === false) {
+    return returnObjectWithLocation();
+  }
+  return returnObWithParameters(sex, sorted);
 }
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
