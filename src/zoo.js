@@ -73,13 +73,13 @@ const calculateEntry = ({ Adult = 0, Senior = 0, Child = 0 } = 0) => {
 function getAnimalMap(options) {
   // seu código aqui
 }
-//Josué lobo ajudou >:D
+// Josué lobo ajudou >:D
 const convertorAmPm = (hour) => {
   if (hour > 12) return `${(hour - 12)}pm`;
   if (hour === 0) return '12pm';
   return `${hour}am`;
 };
-//Josué lobo ajudou >:D
+// Josué lobo ajudou >:D
 const geradorMensagem = (dayName, cronograma) => {
   if (cronograma[dayName].open !== cronograma[dayName].close) {
     return `Open from ${convertorAmPm(cronograma[dayName]
@@ -87,7 +87,7 @@ const geradorMensagem = (dayName, cronograma) => {
   }
   return ('CLOSED');
 };
-//Josué lobo ajudou >:D
+// Josué lobo ajudou >:D
 function getSchedule(dayName) {
   const cronograma = {};
   const { hours } = data;
