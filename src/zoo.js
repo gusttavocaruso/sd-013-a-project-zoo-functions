@@ -68,9 +68,7 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   if (dayName === 'Monday') {
-    return {
-      Monday: 'CLOSED',
-    };
+    return { Monday: 'CLOSED' };
   }
   if (!dayName) {
     return {
@@ -83,6 +81,10 @@ function getSchedule(dayName) {
       Monday: 'CLOSED',
     };
   }
+  const obj = {};
+  const horas = Object.values(data.hours[dayName]);
+  obj[dayName] = `Open from ${horas[0]}am until ${horas[1] / 3}pm`;
+  return obj;
 }
 
 function getOldestFromFirstSpecies(id) {
