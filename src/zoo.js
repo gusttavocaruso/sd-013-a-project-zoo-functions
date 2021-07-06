@@ -64,12 +64,8 @@ function calculateEntry(entrants) {
   const child = entrants.Child || 0;
   const senior = entrants.Senior || 0;
 
-  const priceAdult = prices.Adult;
-  const priceChild = prices.Child;
-  const priceSenior = prices.Senior;
-
-  const totalPriceEntry = () => (adult * priceAdult)
-+ (child * priceChild) + (senior * priceSenior);
+  const totalPriceEntry = () => (adult * prices.Adult)
++ (child * prices.Child) + (senior * prices.Senior);
 
   return totalPriceEntry();
 }
