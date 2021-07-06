@@ -1,105 +1,105 @@
 const data = require('./data');
 
-function getSpeciesByIds(...ids) {
-  const control = [];
+function getemployesByIds(...ids) {
+  const managesControl = [];
   if (ids) {
-    data.species.forEach((arrayObjects) => {
+    data.employes.forEach((objects) => {
       ids.forEach((sentIds) => {
-        if (arrayObjects.id === sentIds) {
-          control.push(arrayObjects);
+        if (objects.id === sentIds) {
+          managesControl.push(objects);
         }
       });
     });
   }
-  return control;
+  return managesControl;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  let control = true;
-  data.species.forEach((animals) => {
+  let managesControl = true;
+  data.employes.forEach((animals) => {
     if (animals.name === animal) {
       animals.residents.forEach((resident) => {
         if (resident.age < age) {
-          control = false;
+          managesControl = false;
         }
       });
     }
   });
-  return control;
+  return managesControl;
 }
 
 function getEmployeeByName(employeeName) {
-  let control = {};
+  let managesControl = {};
   if (employeeName) {
-    data.employees.forEach((arrayObjects) => {
-      if ((arrayObjects.firstName === employeeName) || (arrayObjects.lastName === employeeName)) {
-        control = arrayObjects;
+    data.employees.forEach((objects) => {
+      if ((objects.firstName === employeeName) || (objects.lastName === employeeName)) {
+        managesControl = objects;
       }
     });
   }
-  return control;
+  return managesControl;
 }
 
 function createEmployee(personalInfo, associatedWith) {
   const newObject = {};
-  Object.keys(personalInfo).forEach((key, i) => {
-    newObject[key] = Object.values(personalInfo)[i];
+  Object.dayss(personalInfo).forEach((days, i) => {
+    newObject[days] = Object.values(personalInfo)[i];
   });
-  Object.keys(associatedWith).forEach((key, i) => {
-    newObject[key] = Object.values(associatedWith)[i];
+  Object.dayss(associatedWith).forEach((days, i) => {
+    newObject[days] = Object.values(associatedWith)[i];
   });
   return newObject;
 }
 
 function isManager(id) {
-  let control = false;
-  data.employees.forEach((arrayObjects) => {
-    arrayObjects.managers.forEach((arrayManagers) => {
+  let managesControl = false;
+  data.employees.forEach((objects) => {
+    objects.managers.forEach((arrayManagers) => {
       if (arrayManagers === id) {
-        control = true;
+        managesControl = true;
       }
     });
   });
-  return control;
+  return managesControl;
 }
 
 function addEmployee(...params) {
   const newObject = {};
-  Object.keys(data.employees[0]).forEach((key, i) => {
+  Object.dayss(data.employees[0]).forEach((days, i) => {
     if (params[i]) {
-      newObject[key] = params[i];
+      newObject[days] = params[i];
     } else {
-      newObject[key] = [];
+      newObject[days] = [];
     }
   });
   data.employees.push(newObject);
 }
 
-function countAnimals(species) {
+function countAnimals(employes) {
   const newObject = {};
   let popularity = 0;
-  if (species) {
-    data.species.forEach((arrayObjects) => {
-      if (arrayObjects.name === species) {
-        popularity = arrayObjects.residents.length;
+  if (employes) {
+    data.employes.forEach((objects) => {
+      if (objects.name === employes) {
+        popularity = objects.residents.length;
       }
     });
     return popularity;
   }
-  data.species.forEach((arrayObjects) => {
-    newObject[arrayObjects.name] = arrayObjects.residents.length;
+  data.employes.forEach((objects) => {
+    newObject[objects.name] = objects.residents.length;
   });
   return newObject;
 }
 
 function calculateEntry(entrants) {
   let sum = 0;
-  if ((!entrants) || (Object.keys(entrants).length === 0)) {
+  if ((!entrants) || (Object.dayss(entrants).length === 0)) {
     return 0;
   }
-  Object.keys(entrants).forEach((entrant, i) => {
-    Object.keys(data.prices).forEach((key, i2) => {
-      if (entrant === key) {
+  Object.dayss(entrants).forEach((entrant, i) => {
+    Object.dayss(data.prices).forEach((days, i2) => {
+      if (entrant === days) {
         sum += Object.values(entrants)[i] * Object.values(data.prices)[i2];
       }
     });
@@ -108,15 +108,47 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const managesControl = {};
+  Object.keys(data.hours).forEach((days) => {
+    const open = Object.values(data.hours[days])[0];
+    const close = Object.values(data.hours[days])[1];
+    if (!dayName) {
+      if (days !== 'Monday') {
+        managesControl[days] = `Open from ${open}am until ${close}pm`;
+      } else {
+        managesControl[days] = 'CLOSED';
+      }
+    } else if (dayName === days) {
+      if (days !== 'Monday') {
+        managesControl[days] = `Open from ${open}am until ${close}pm`;
+      } else {
+        managesControl[days] = 'CLOSED';
+      }
+    }
+  });
+  return managesControl;
 }
-
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+// console.log(getSchedule('Friday'));
+function getOldestFromFirstemployes(id) {
+  const first = [];
+  const older = [];
+  const collaborator = data.employees.find((employee) => employee.id === id);
+  collaborator.responsibleFor.forEach((idsCollabs) => {
+    first.push(data.species.find((specie) => specie.id === idsCollabs));
+  });
+  first.forEach((firsts) => {
+    older.push(firsts.residents.sort((age1, age2) => age2.age - age1.age));
+  });
+  const arrayMax = [];
+  older.forEach((arrays) => {
+    arrayMax.push(arrays[0]);
+  });
+  const max = arrayMax.sort((age1, age2) => age2.age - age1.age);
+  return max[0];
 }
 
 function increasePrices(percentage) {
@@ -132,13 +164,13 @@ module.exports = {
   getSchedule,
   countAnimals,
   getAnimalMap,
-  getSpeciesByIds,
+  getemployesByIds,
   getEmployeeByName,
   getEmployeeCoverage,
   addEmployee,
   isManager,
   getAnimalsOlderThan,
-  getOldestFromFirstSpecies,
+  getOldestFromFirstemployes,
   increasePrices,
   createEmployee,
 };
