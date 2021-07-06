@@ -82,7 +82,7 @@ function getAnimalName(animalName, sorted, sex) {
 function getAnimalMap(options = {}) {
   const { includeNames = false, sorted = false, sex } = options;
   let result = species.reduce((acc, cur) => {
-    const { name, location} = cur;
+    const { name, location } = cur;
     if (!acc[location]) {
       acc[location] = [];
     }
