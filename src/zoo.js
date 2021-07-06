@@ -1,14 +1,14 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(firstId, secondId) {
-  const getSpecies = species.filter(specie => specie.id === firstId || specie.id === secondId);
+  const getSpecies = species.filter((specie) => specie.id === firstId || specie.id === secondId);
   return getSpecies;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const findAnimal = species.find(specie => specie.name === animal);
-  const checkAnimalsAge = findAnimal.residents.every(resident => resident.age >= 7);
+  const findAnimal = species.find((specie) => specie.name === animal);
+  const checkAnimalsAge = findAnimal.residents.every((resident) => resident.age >= 7);
 
   return checkAnimalsAge;
 }
@@ -18,9 +18,9 @@ function getEmployeeByName(employeeName) {
     return {};
   }
 
-  const findEmployee = employees.find(employee => employee.firstName === employeeName || employee.lastName === employeeName);
+  const fndEmp = employees.find((e) => e.firstName === employeeName || e.lastName === employeeName);
 
-  return findEmployee;
+  return fndEmp;
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -32,13 +32,13 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  const newEmployee = {id,
+  const newEmployee = { id,
     firstName,
     lastName,
     managers,
     responsibleFor,
-  }
-  
+  };
+
   if (managers === undefined) {
     newEmployee.managers = [];
   }
@@ -49,8 +49,17 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   employees.push(newEmployee);
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(animal) {
+  // DESCOBRIR A LÓGICA CERTA:
+  //   if (animal === undefined) {
+  //     species.map(specie => {specie: specie.residents.length})
+  //   }
+
+  //   const findAnimal = species
+  //   .find(specie => specie === animal)
+  //   .map(specie => specie.residents.length);
+
+  //   return findAnimal;
 }
 
 function calculateEntry(entrants) {
@@ -70,7 +79,7 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+
 }
 
 function getEmployeeCoverage(idOrName) {
