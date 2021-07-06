@@ -51,9 +51,20 @@ function calculateEntry(entrants) {
     accumulator + prices[key] * entrants[key], 0);
 }
 
+const posicao = species.reduce((acc, { name, location }) => {
+  if (acc[location] === undefined) {
+    acc[location] = [name];
+  } else {
+    acc[location].push(name);
+  }
+  return acc;
+}, {});
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) return posicao;
 }
+
+console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   // seu código aqui
