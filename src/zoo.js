@@ -29,6 +29,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(ids) {
+  return data.employees.some((employ) => employ.managers.includes(ids));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -66,6 +67,22 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
+  if (dayName === 'Monday') {
+    return {
+      Monday: 'CLOSED',
+    };
+  }
+  if (!dayName) {
+    return {
+      Tuesday: 'Open from 8am until 6pm',
+      Wednesday: 'Open from 8am until 6pm',
+      Thursday: 'Open from 10am until 8pm',
+      Friday: 'Open from 10am until 8pm',
+      Saturday: 'Open from 8am until 10pm',
+      Sunday: 'Open from 8am until 8pm',
+      Monday: 'CLOSED',
+    };
+  }
 }
 
 function getOldestFromFirstSpecies(id) {
