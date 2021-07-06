@@ -24,15 +24,29 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  // ENCONTRAR SOLUÇÃO
 }
 
 function isManager(id) {
-  // seu código aqui
+  // ENCONTRAR SOLUÇÃO
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  const newEmployee = {id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  }
+  
+  if (managers === undefined) {
+    newEmployee.managers = [];
+  }
+  if (responsibleFor === undefined) {
+    newEmployee.responsibleFor = [];
+  }
+
+  employees.push(newEmployee);
 }
 
 function countAnimals(species) {
