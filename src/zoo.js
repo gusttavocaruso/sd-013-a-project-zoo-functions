@@ -1,6 +1,10 @@
+// REQUIRIMENTOS .DATA-
 const data = require('./data');
+
 const { species } = require('./data');
+
 const { employees } = data;
+
 const { prices } = data;
 
 function getSpeciesByIds(...ids) {
@@ -34,8 +38,17 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return newEmp;
 }
 
-function countAnimals(species) {
-  // seu código aqui
+// parametro alterado devido a erro de escopo no lint
+function countAnimals(especies) {
+  const allAnimals = species.reduce((acc, current) => {
+    acc[current.name] = current.residents.length;
+    return acc;
+  }, {});
+
+  if (!especies) {
+    return allAnimals;
+  }
+  return allAnimals[especies];
 }
 
 function calculateEntry(entrants) {
