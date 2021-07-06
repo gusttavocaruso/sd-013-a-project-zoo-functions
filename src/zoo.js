@@ -2,29 +2,29 @@ const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const { species } = data;
   if (!ids) return [];
-  return ids.map(id => species.find((species) => species.id === id));
+  // return ids.map(id => especies.find((especie) => especie.id === id));
+  return species.filter((specie) => ids.includes(specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
   let result = species.find((specie) => specie.name === animal);
-  if (result) result = result.residents.every(specie => (specie.age >= age))
+  if (result) result = result.residents.every((specie) => (specie.age >= age));
   return result;
 }
 
 function getEmployeeByName(employeeName) {
   // if (employeeName === undefined) return {};
   if (!employeeName) return {};
-  return employees.find((employee) => { return employee.firstName === employeeName || employee.lastName === employeeName
-  });
+  return employees.find((employee) => { 
+    return employee.firstName === employeeName || employee.lastName === employeeName});
 }
 
 function createEmployee(personalInfo, associatedWith) {
   // return Object.assign({}, personalInfo, associatedWith);
   return {
     ...personalInfo,
-    ...associatedWith
+    ...associatedWith,
   };
 }
 
