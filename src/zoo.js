@@ -128,9 +128,28 @@ const increasePrices = (percentage) => {
   });
 };
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+const getEmployeeByIdOrName = (idOrName) => data.employees.find(
+  ({ id, firstName, lastName }) => [id, firstName, lastName].includes(idOrName),
+);
+
+const getCoverage = (employee) => {
+  const { firstName, lastName, responsibleFor } = employee;
+  const result = {};
+  result[`${firstName} ${lastName}`] = data.species
+    .filter(({ id }) => responsibleFor.includes(id))
+    .map(({ name }) => name);
+  return result;
+};
+
+const getEmployeeCoverage = (idOrName) => {
+  if (!idOrName) {
+    return data.employees.reduce(
+      (acc, cur) => Object.assign(acc, getCoverage(cur)), {},
+    );
+  }
+
+  return getCoverage(getEmployeeByIdOrName(idOrName));
+};
 
 module.exports = {
   calculateEntry,
