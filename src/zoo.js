@@ -54,9 +54,12 @@ function countAnimals(Species) {
   return quantidade;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
+  const values = Object.values({ Adult, Child, Senior });
+  const sum = values[0] * 49.99 + values[1] * 20.99 + values[2] * 24.99;
+  return sum;
 }
+
 
 function getAnimalMap(options) {
   // seu código aqui
