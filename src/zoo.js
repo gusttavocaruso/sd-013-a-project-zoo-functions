@@ -57,30 +57,46 @@ function calculateEntry(entrants) {
 }
 
 // Feito com Pedro Trasfereti
-function createAnimalMap(param, cardinalPoints) {
+const noOptions = 'no-options';
+function createAnimalMap(option, cardinalPoints) {
   return cardinalPoints.map((cardinalPoint) => ([
     cardinalPoint,
     speciesData.filter((specie) => specie.location === cardinalPoint)
       .map((animal) => {
         const residents = animal.residents.map((resident) => resident.name);
-        if (param === 'no-options') return animal.name;
-        if (param === 'include-names') {
-          return ({ [animal.name]: residents });
+        if (option === noOptions) return animal.name;
+        if (option === 'sorted') {
+          return ({ [animal.name]: residents.sort() });
         }
+        return ({ [animal.name]: residents });
+      }),
+  ]));
+}
+function filterBySex(includeNames, sex, sort, cardinalPoints) {
+  if (!includeNames) return createAnimalMap(noOptions, cardinalPoints);
+  return cardinalPoints.map((cardinalPoint) => ([
+    cardinalPoint,
+    speciesData.filter((specie) => specie.location === cardinalPoint)
+      .map((animal) => {
+        const residents = animal.residents
+          .filter((resident) => resident.sex === sex).map((resident) => resident.name);
+        if (!sort) return ({ [animal.name]: residents });
         return ({ [animal.name]: residents.sort() });
       }),
   ]));
 }
 function getAnimalMap(options) {
   const cardinalPoints = ['NE', 'NW', 'SE', 'SW'];
-  console.log(options);
-  if (!options) return Object.fromEntries(createAnimalMap('no-options', cardinalPoints));
-  if (options.includeNames) {
-    if (options.sorted) {
-      return Object.fromEntries(createAnimalMap('sorted', cardinalPoints));
-    }
-    return Object.fromEntries(createAnimalMap('include-names', cardinalPoints));
+  if (!options) return Object.fromEntries(createAnimalMap(noOptions, cardinalPoints));
+  if (options.sex) {
+    return Object.fromEntries(
+      filterBySex(options.includeNames, options.sex, options.sorted, cardinalPoints),
+    );
   }
+  if (options.sorted) {
+    return Object.fromEntries(createAnimalMap('sorted', cardinalPoints));
+  }
+  return Object.fromEntries(createAnimalMap('include-names', cardinalPoints));
 }
 
 function getSchedule(dayName) {
