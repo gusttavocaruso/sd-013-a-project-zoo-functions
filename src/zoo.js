@@ -12,6 +12,7 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 const { employees, species, prices, hours } = data;
+const noOptions = 'no-options';
 
 function getSpeciesByIds(...ids) {
   if (!ids || !ids.length) return [];
@@ -71,32 +72,51 @@ function calculateEntry({ Adult, Senior, Child } = 0) {
 }
 
 // Feito com Erick Santos
-function createAnimalMap(param, cardinalPoints) {
+function createAnimalMap(option, cardinalPoints) {
   return cardinalPoints.map((cardinalPoint) => ([
     cardinalPoint,
     species.filter((specie) => specie.location === cardinalPoint)
       .map((animal) => {
         const residents = animal.residents.map((resident) => resident.name);
-        if (param === 'no-options') return animal.name;
-        if (param === 'include-names') {
-          return ({ [animal.name]: residents });
+        if (option === noOptions) return animal.name;
+        if (option === 'sorted') {
+          return ({ [animal.name]: residents.sort() });
         }
-        return ({ [animal.name]: residents.sort() });
+        return ({ [animal.name]: residents });
       }),
   ]));
 }
 
+/* Criei outra função para lidar com as opções 'sex' e reduzir a complexidade cognitiva
+das demais funções, ela recebe como parametro includeNames (T/F), sexo ('male'/'female'),
+sort (T/F) e os pontos cardiais */
+function filterBySex(includeNames, sex, sort, cardinalPoints) {
+  if (!includeNames) return createAnimalMap(noOptions, cardinalPoints);
+  return cardinalPoints.map((cardinalPoint) => ([
+    cardinalPoint,
+    species.filter((specie) => specie.location === cardinalPoint)
+      .map((animal) => {
+        const residents = animal.residents
+          .filter((resident) => resident.sex === sex).map((resident) => resident.name);
+        if (!sort) return ({ [animal.name]: residents });
+        return ({ [animal.name]: residents.sort() });
+      }),
+  ]));
+}
 // Feito com Erick Santos
 function getAnimalMap(options) {
   const cardinalPoints = ['NE', 'NW', 'SE', 'SW'];
-  console.log(options);
-  if (!options) return Object.fromEntries(createAnimalMap('no-options', cardinalPoints));
-  if (options.includeNames) {
-    if (options.sorted) {
-      return Object.fromEntries(createAnimalMap('sorted', cardinalPoints));
-    }
-    return Object.fromEntries(createAnimalMap('include-names', cardinalPoints));
+
+  if (!options) return Object.fromEntries(createAnimalMap(noOptions, cardinalPoints));
+  if (options.sex) {
+    return Object.fromEntries(
+      filterBySex(options.includeNames, options.sex, options.sorted, cardinalPoints),
+    );
   }
+  if (options.sorted) {
+    return Object.fromEntries(createAnimalMap('sorted', cardinalPoints));
+  }
+  return Object.fromEntries(createAnimalMap('include-names', cardinalPoints));
 }
 
 function getSchedule(dayName) {
