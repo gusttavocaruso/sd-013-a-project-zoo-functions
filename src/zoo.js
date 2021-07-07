@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
@@ -143,8 +142,21 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const specieResponsibility = employees.find((employee) => employee.id === id).responsibleFor[0];
+  console.log(specieResponsibility);
+  const fistSpecie = species.find((specie) => specie.id === specieResponsibility);
+  console.log(fistSpecie);
+  const retorno = fistSpecie.residents.reduce((acc, cur) => {
+    if (cur.age > acc.age) {
+      acc.name = cur.name;
+      acc.sex = cur.sex;
+      acc.age = cur.age;
+    }
+    return acc;
+  }, { name: '', sex: '', age: 0 });
+  return [retorno.name, retorno.sex, retorno.age];
 }
+
 function increasePrices(percentage) {
   // seu código aqui
 }
