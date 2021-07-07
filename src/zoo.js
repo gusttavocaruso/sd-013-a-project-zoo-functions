@@ -1,5 +1,6 @@
 // const { employees } = require('./data');
-// const { prices } = require('./data');
+const { prices } = require('./data');
+
 const data = require('./data');
 
 // const { prices } = data;
@@ -66,23 +67,17 @@ function countAnimals(species) {
 }
 // console.log(countAnimals('snakes'));
 function calculateEntry(entrants) {
-  // seu código aqui
-/*  let soma = 0;
-  const somaKeys = (key) => {
-    soma += entrants[key] * prices[key];
-  };
-  // let recebeEntrants = entrants;
   if (typeof entrants === 'undefined') {
     return 0;
   } if (Object.keys(entrants).length === 0) {
     return 0;
   }
-for (key in entrants) {
-  if (Object.prototype.hasOwnProperty.call(entrants, key) && Object.prototype.hasOwnProperty.call(prices, key)) {
-    somaKeys(key);
-  }
-  }
-  return soma; */
+  // let pricesEntrants = Object.values(entrants);
+  const pricesObj = Object.keys(entrants).reduce(
+    (acc, curValue) => acc + prices[curValue] * entrants[curValue], 0,
+  );
+
+  return pricesObj;
 }
 
 function getAnimalMap(options) {
