@@ -87,7 +87,22 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const verifyParam = (employee) => (idOrName === employee.firstName)
+  || (idOrName === employee.lastName) || (idOrName === employee.id);
+  const nameSearch = (arrayOfIds) => {
+    const speciesName = [];
+    arrayOfIds.forEach((id) => speciesName
+      .push(species.find((specie) => specie.id === id).name));
+    return speciesName;
+  };
+  const employeeName = (employee) => `${employee.firstName} ${employee.lastName}`;
+  const alias = employeeName; // cria um alias de employeeName para a linha 101 não ultrapassar o máximo de 100 caracteres do lint;
+  const employeesReduce = employees
+    .reduce((acc, cV) => ({ ...acc, [alias(cV)]: nameSearch(cV.responsibleFor) }), {});
+
+  if (!idOrName) return employeesReduce;
+  const result = employees.find((employee) => verifyParam(employee));
+  return { [employeeName(result)]: nameSearch(result.responsibleFor) };
 }
 
 module.exports = {
