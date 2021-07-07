@@ -19,6 +19,11 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
+  if (!employeeName) return {};
+  const searchEmployee = data.employees
+    .find((name) => (name.firstName === employeeName) || (name.lastName === employeeName));
+  return searchEmployee;
+  // Usa-se o find, pois deseja-se achar o primeiro correspondente. Com filter não funciona.
 }
 
 function createEmployee(personalInfo, associatedWith) {
