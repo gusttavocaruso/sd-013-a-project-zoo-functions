@@ -1,8 +1,7 @@
-const { species, employees, prices } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
-// Referência:
-// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions/rest_parameters
-// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators
+// Referências tiradas dos resumos do Notion da BeeDev:
+// https://www.notion.so/a6bcb381fbb241bf9f7c160d6228db71?v=cc21a930d42a4a22b96a31d2b966644e
 function getSpeciesByIds(...ids) {
   if (!ids) {
     return undefined;
@@ -11,18 +10,18 @@ function getSpeciesByIds(...ids) {
   return species.filter((specie) => ids.find((id) => id === specie.id));
 }
 
-// Aqui algo
 function getAnimalsOlderThan(animal, age) {
   const findAnimal = species.find((specie) => specie.name === animal);
   return findAnimal.residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+  return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
