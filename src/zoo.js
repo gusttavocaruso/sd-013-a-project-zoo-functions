@@ -79,8 +79,8 @@ function getSchedule(dayName) {
     const { open, close } = hours[dayName];
     return (open && close) ? {
       [dayName]: `Open from ${open}am until ${close - 12}pm`,
-    } : {
       [dayName]: 'CLOSED',
+    } : {
     };
   }
   return {
@@ -103,7 +103,10 @@ function getOldestFromFirstSpecies(receivedId) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const multi = `1.${percentage}`;
+  Object.keys(prices).forEach((key) => {
+    prices[key] = Math.round((prices[key] * multi) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
