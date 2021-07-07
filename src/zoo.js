@@ -89,7 +89,7 @@ function getOldestFromFirstSpecies(id) {
   const animalsOld = employees.find((employee) => employee.id === id)
     .responsibleFor.find((animal) => animal);
   const aleatoryAnimal = data.species.find((specie) => specie.id === animalsOld)
-    .residents.filter((animalsOld) => animalsOld).sort((a, b) => b.age - a.age);
+    .residents.filter((nameAnimal) => nameAnimal).sort((a, b) => b.age - a.age);
   return Object.values(aleatoryAnimal[0]);
 }
 
