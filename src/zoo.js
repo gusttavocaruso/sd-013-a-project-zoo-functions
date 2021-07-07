@@ -24,7 +24,7 @@ function getAnimalsOlderThan(animal, age) {
   });
   return control;
 }
-console.log(getAnimalsOlderThan('otters', 7));
+
 function getEmployeeByName(employeeName) {
   let control = {};
   if (employeeName) {
@@ -61,7 +61,7 @@ function isManager(id) {
 
 function addEmployee(...params) {
   const newObject = {};
-  Object.days(data.employees[0]).forEach((days, i) => {
+  Object.keys(data.employees[0]).forEach((days, i) => {
     if (params[i]) {
       newObject[days] = params[i];
     } else {
