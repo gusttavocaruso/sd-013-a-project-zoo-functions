@@ -53,9 +53,33 @@ function calculateEntry(entrants) {
   return entriesPrices.reduce((acc, curr) => (curr ? acc + curr : acc), 0);
 }
 
+// ------------ Requisito 9
+
+const filterByLocation = (Obj, Loc) => Obj.filter((item) => item.location === Loc);
+const getAnimalSpecies = (Arr) => Arr.map((element) => element.name);
+const getAnimalNames = (Arr) => Arr.map((element) => {
+  const speciesWithNames = {};
+  speciesWithNames[element.name] = element.residents.map((animal) => animal.name);
+  return speciesWithNames;
+});
+
 function getAnimalMap(options) {
-  // seu código aqui
+  const animalMap = {};
+  const locations = ['NE', 'NW', 'SE', 'SW'];
+
+  if (!options) {
+    locations.forEach((location) => {
+      animalMap[location] = getAnimalSpecies(filterByLocation(species, location));
+    });
+  } else if (options.includeNames) {
+    locations.forEach((location) => {
+      animalMap[location] = getAnimalNames(filterByLocation(species, location));
+    });
+  }
+  return animalMap;
 }
+
+// ---------------
 
 function getSchedule(dayName) {
   // seu código aqui
