@@ -1,4 +1,5 @@
 // const { employees } = require('./data');
+// const { prices } = require('./data');
 const data = require('./data');
 
 // const { prices } = data;
@@ -55,20 +56,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
-  // const { residents } = data;
-/* if (typeof species === 'undefined') {
+  if (typeof species === 'undefined') {
     const myobject = {};
-    // eslint-disable-next-line no-restricted-syntax
-    for (const index of data.species) {
-      myobject[index.name] = index.residents.length;
-    }
+    data.species.forEach((specie) => { myobject[specie.name] = specie.residents.length; });
     return myobject;
   }
   const spec = data.species.filter((specie) => specie.name === species);
-  return spec[0].residents.length; */
+  return spec[0].residents.length;
 }
-
+// console.log(countAnimals('snakes'));
 function calculateEntry(entrants) {
   // seu código aqui
 /*  let soma = 0;
@@ -124,13 +120,16 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
-/* const formula = percentage / 100;
-  for(i in prices){
+/* for(i in prices){
    prices[i] = (prices[i] + prices[i] * formula + 0.001).toFixed(2)
  } */
-// prices
-}
+  // const formula = percentage / 100;
+  // const precos = Object.values(prices);
+  // const newPrecos = precos.map((item) => (item + item * formula + 0.001).toFixed(2));
+  // return prices['Adult'] = newPrecos[0];
 
+}
+// console.log((increasePrices(50)));
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
