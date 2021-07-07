@@ -44,14 +44,12 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (!entrants) return 0;
-  // const array = entrants.forEach((item) => Object.entries(item));
-  const entrantsValues = Object.values(entrants);
+  if (!entrants || entrants === {}) return 0;
 
-  console.log(entrantsValues);
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
+
+  return Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
 }
-// unfinished
-// calculateEntry({ Adult: 3, Child: 1 });
 
 function getAnimalMap(options) {
   // seu código aqui
