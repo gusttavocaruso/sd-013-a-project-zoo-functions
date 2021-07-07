@@ -1,4 +1,4 @@
-const { employees, species, prices } = require('./data');
+const { employees, species, prices, hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter(({ id }) => ids.includes(id));
@@ -72,16 +72,34 @@ function calculateEntry(entrants) {
   }, 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
-}
+function getAnimalMap({ sex, sorted, includeNames }) {}
 
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName) {
+    const { open, close } = hours[dayName];
+    return (open && close) ? {
+      [dayName]: `Open from ${open}am until ${close - 12}pm`,
+    } : {
+      [dayName]: 'CLOSED',
+    };
+  }
+  return {
+    Tuesday: `Open from ${hours.Tuesday.open}am until ${hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${hours.Wednesday.open}am until ${hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${hours.Thursday.open}am until ${hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${hours.Friday.open}am until ${hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${hours.Saturday.open}am until ${hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${hours.Sunday.open}am until ${hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
 }
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+function getOldestFromFirstSpecies(receivedId) {
+  const { responsibleFor } = employees.find(({ id }) => id === receivedId);
+  const localSpecies = getSpeciesByIds(responsibleFor[0]);
+  const r1 = localSpecies.flatMap(({ residents }) => residents);
+  const r2 = r1.find(({ age }) => age === Math.max(...r1.map(({ age: age1 }) => age1)));
+  return Object.values(r2);
 }
 
 function increasePrices(percentage) {
