@@ -20,7 +20,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const result = {...personalInfo, ...associatedWith};
+  const result = { ...personalInfo, ...associatedWith };
 
   return result;
 }
@@ -33,7 +33,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(animalSpecies) {
   // seu código aqui
 }
 
