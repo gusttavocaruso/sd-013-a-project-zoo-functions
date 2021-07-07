@@ -15,15 +15,40 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  let controlador = true;
+  data.species.forEach((elements) => {
+    if (animal === elements.name) {
+      elements.residents.forEach((animals) => {
+        if (age > animals.age) {
+          controlador = false;
+        }
+      });
+    }
+  });
+  return controlador;
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  let controlador = {};
+  if (employeeName) {
+    data.employees.forEach((info) => {
+      if ((info.firstName === employeeName) || (info.lastName === employeeName)) {
+        controlador = info;
+      }
+    });
+  }
+  return controlador;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const newObject = {};
+  Object.keys(personalInfo).forEach((key, index) => {
+    newObject[key] = Object.values(personalInfo)[index];
+  });
+  Object.keys(associatedWith).forEach((key, index) => {
+    newObject[key] = Object.values(associatedWith)[index];
+  });
+  return newObject;
 }
 
 function isManager(id) {
