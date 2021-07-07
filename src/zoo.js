@@ -1,6 +1,6 @@
 const { species } = require('./data');
 const data = require('./data');
-/* Requisito feito com base na aula de revisão da turma 12,
+/* Requisito 1 feito com base na aula de revisão da turma 12,
 pesquisa no material do course e notion da turma 13-A */
 function getSpeciesByIds(...ids) {
   if (!ids) return undefined;
@@ -8,8 +8,10 @@ function getSpeciesByIds(...ids) {
   return newArray;
 }
 
+/* Requisito 1 realizado com o auxílio do aluno Micael Maicon - Turma 13 - Tribo A */
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const nomeSel = species.filter((nameItem) => nameItem.name === animal);
+  return nomeSel[0].residents.every((item) => item.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
