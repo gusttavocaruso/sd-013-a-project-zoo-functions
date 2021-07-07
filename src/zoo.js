@@ -141,8 +141,7 @@ const getEmployeeByIdOrName = (idOrName) => data.employees.find(
 const getCoverage = (employee) => {
   const { firstName, lastName, responsibleFor } = employee;
   const result = {};
-  result[`${firstName} ${lastName}`] = data.species
-    .filter(({ id }) => responsibleFor.includes(id))
+  result[`${firstName} ${lastName}`] = getSpeciesByIds(...responsibleFor)
     .map(({ name }) => name);
   return result;
 };
