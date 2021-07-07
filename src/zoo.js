@@ -30,7 +30,11 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  employees.push({ id, firstName, lastName, managers, responsibleFor });
+  const lastEmployee = employees[employees.length - 1];
+
+  if (!lastEmployee.managers) lastEmployee.managers = [];
+  if (!lastEmployee.responsibleFor) lastEmployee.responsibleFor = [];
 }
 
 function countAnimals(animalSpecies) {
