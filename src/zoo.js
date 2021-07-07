@@ -28,6 +28,10 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  // Percebi que a estrutura desejada, é praticamente a que é passada nos parâmetros.
+  // Uma lógica interessante aqui é utilizar o spread operator. Para espalhar os elementos
+  // de cada objeto passado como parametro.
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
