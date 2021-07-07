@@ -90,11 +90,11 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   let sum = 0;
-  if ((!entrants) || (Object.dayss(entrants).length === 0)) {
+  if ((!entrants) || (Object.keys(entrants).length === 0)) {
     return 0;
   }
-  Object.dayss(entrants).forEach((entrant, i) => {
-    Object.dayss(data.prices).forEach((days, i2) => {
+  Object.keys(entrants).forEach((entrant, i) => {
+    Object.keys(data.prices).forEach((days, i2) => {
       if (entrant === days) {
         sum += Object.values(entrants)[i] * Object.values(data.prices)[i2];
       }
