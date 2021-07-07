@@ -1,71 +1,70 @@
 const data = require('./data');
 
 function getemployesByIds(...ids) {
-  const managesControl = [];
+  const control = [];
   if (ids) {
     data.employes.forEach((objects) => {
       ids.forEach((sentIds) => {
         if (objects.id === sentIds) {
-          managesControl.push(objects);
+          control.push(objects);
         }
       });
     });
   }
-  return managesControl;
+  return control;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  let managesControl = true;
+  let control = true;
   data.employes.forEach((animals) => {
     if (animals.name === animal) {
       animals.residents.forEach((resident) => {
         if (resident.age < age) {
-          managesControl = false;
+          control = false;
         }
       });
     }
   });
-  return managesControl;
+  return control;
 }
 
 function getEmployeeByName(employeeName) {
-  let managesControl = {};
+  let control = {};
   if (employeeName) {
     data.employees.forEach((objects) => {
       if ((objects.firstName === employeeName) || (objects.lastName === employeeName)) {
-        managesControl = objects;
+        control = objects;
       }
     });
   }
-  return managesControl;
+  return control;
 }
 
-function createEmployee(personalInfo, associatedWith) {
+function createEmployee(...ids) {
   const newObject = {};
-  Object.dayss(personalInfo).forEach((days, i) => {
-    newObject[days] = Object.values(personalInfo)[i];
-  });
-  Object.dayss(associatedWith).forEach((days, i) => {
-    newObject[days] = Object.values(associatedWith)[i];
+  ids.forEach((id) => {
+    Object.keys(id).forEach((key, i) => {
+      newObject[key] = Object.values(id)[i];
+    });
   });
   return newObject;
 }
 
 function isManager(id) {
-  let managesControl = false;
+  let control = false;
   data.employees.forEach((objects) => {
     objects.managers.forEach((arrayManagers) => {
       if (arrayManagers === id) {
-        managesControl = true;
+        control = true;
       }
     });
   });
-  return managesControl;
+  return control;
 }
 
 function addEmployee(...params) {
   const newObject = {};
-  Object.dayss(data.employees[0]).forEach((days, i) => {
+  Object.days(data.employees[0]).forEach((days, i) => {
     if (params[i]) {
       newObject[days] = params[i];
     } else {
@@ -112,27 +111,22 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const managesControl = {};
+  const control = {};
+  const message = (days, open, close) => {
+    control[days] = (days !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
+  };
   Object.keys(data.hours).forEach((days) => {
     const open = Object.values(data.hours[days])[0];
     const close = Object.values(data.hours[days])[1];
     if (!dayName) {
-      if (days !== 'Monday') {
-        managesControl[days] = `Open from ${open}am until ${close}pm`;
-      } else {
-        managesControl[days] = 'CLOSED';
-      }
+      message(days, open, close);
     } else if (dayName === days) {
-      if (days !== 'Monday') {
-        managesControl[days] = `Open from ${open}am until ${close}pm`;
-      } else {
-        managesControl[days] = 'CLOSED';
-      }
+      message(days, open, close);
     }
   });
-  return managesControl;
+  return control;
 }
-// console.log(getSchedule('Friday'));
+
 function getOldestFromFirstemployes(id) {
   const first = [];
   const older = [];
@@ -152,13 +146,29 @@ function getOldestFromFirstemployes(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const newPrices = Object.values(data.prices).map((price) => price + (price * (percentage / 100)));
+  Object.keys(data.prices).forEach((key, i) => {
+    data.prices[key] = newPrices[i].toFixed(2);
+  });
+  return data.prices;
 }
-
+// console.log(increasePrices(50));
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const newObject = {};
+  let control = [];
+  if (!idOrName) {
+    data.employees.forEach((employee) => {
+      control = data.species.map((specie) => {
+        if ((employee.responsibleFor.indexOf(specie.id) !== -1) && (specie.name !== undefined)) {
+          return specie.name;
+        }
+      });
+      newObject[`${employee.firstName} ${employee.lastName}`] = control;
+    });
+  }
+  return newObject;
 }
-
+// console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
