@@ -52,11 +52,9 @@ function countAnimals(animal) {
 }
 
 function calculateEntry(entrants) {
-  const keys = Object.keys(entrants);
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
 
-  if (!entrants || keys.length === 0) return 0;
-
-  return keys.reduce((total, key) => {
+  return Object.keys(entrants).reduce((total, key) => {
     const quantity = entrants[key];
     const price = prices[key];
 
@@ -74,7 +72,7 @@ function getSchedule(dayName) {
     if (hours[weekDay].open !== 0 && hours[weekDay].close !== 0) {
       schedule[weekDay] = `Open from ${hours[weekDay].open}am until ${hours[weekDay].close - 12}pm`;
     } else {
-      return 'CLOSED';
+      schedule[weekDay] = 'CLOSED';
     }
   });
 
