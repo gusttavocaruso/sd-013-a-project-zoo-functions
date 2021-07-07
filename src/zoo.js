@@ -24,7 +24,9 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // ENCONTRAR SOLUÇÃO
+  const newEmployee = { ...personalInfo, ...associatedWith };
+
+  return newEmployee;
 }
 
 function isManager(id) {
@@ -72,8 +74,6 @@ function countAnimals(animal) {
 
   return allAnimalsCounter;
 }
-
-console.log(countAnimals());
 
 function calculateEntry(entrants) {
   // seu código aqui
