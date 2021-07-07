@@ -16,18 +16,15 @@ function getemployesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   let control = true;
-  data.employes.forEach((animals) => {
-    if (animals.name === animal) {
-      animals.residents.forEach((resident) => {
-        if (resident.age < age) {
-          control = false;
-        }
-      });
+  const animalName = data.species.find((element) => element.name === animal);
+  animalName.residents.forEach((resident) => {
+    if (resident.age < age) {
+      control = false;
     }
   });
   return control;
 }
-
+console.log(getAnimalsOlderThan('otters', 7));
 function getEmployeeByName(employeeName) {
   let control = {};
   if (employeeName) {
@@ -153,22 +150,50 @@ function increasePrices(percentage) {
   return data.prices;
 }
 
+const emptyIdOrName = (newObject) => {
+  let capture = [];
+  data.employees.forEach((employee) => {
+    data.species.forEach((specie) => {
+      if (employee.responsibleFor.indexOf(specie.id) !== -1) {
+        capture.push(specie.name);
+      }
+    });
+    newObject[`${employee.firstName} ${employee.lastName}`] = capture;
+    capture = [];
+  });
+};
+
+const noEmptyIdOrName = (newObject, id, name, capture) => {
+  if (id) {
+    data.species.forEach((specie) => {
+      if (id.responsibleFor.indexOf(specie.id) !== -1) {
+        capture.push(specie.name);
+      }
+    });
+    newObject[`${id.firstName} ${id.lastName}`] = capture;
+  } else if (name) {
+    data.species.forEach((specie) => {
+      if (name.responsibleFor.indexOf(specie.id) !== -1) {
+        capture.push(specie.name);
+      }
+    });
+    newObject[`${name.firstName} ${name.lastName}`] = capture;
+  }
+};
+
 function getEmployeeCoverage(idOrName) {
   const newObject = {};
-  let control = [];
   if (!idOrName) {
-    data.employees.forEach((employee) => {
-      control = data.species.map((specie) => {
-        if ((employee.responsibleFor.indexOf(specie.id) !== -1) && (specie.name !== undefined)) {
-          return specie.name;
-        }
-      });
-      newObject[`${employee.firstName} ${employee.lastName}`] = control;
-    });
+    emptyIdOrName(newObject);
+  } else {
+    const capture = [];
+    const id = data.employees.find((e) => e.id === emptyIdOrName);
+    const name = data.employees.find((e) => e.firstName === idOrName || e.lastName === idOrName);
+    noEmptyIdOrName(newObject, id, name, capture);
   }
   return newObject;
 }
-// console.log(getEmployeeCoverage());
+
 module.exports = {
   calculateEntry,
   getSchedule,
