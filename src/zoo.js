@@ -68,14 +68,42 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
   // seu código aqui
 }
+// const { hours } = require('./data');
 
-function getSchedule(dayName) {
-
+function convertHours(hours) {
+  if (hours < 12) {
+    return `${hours}am`;
   }
-  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else
-  //if sem comparação. é verdadeiro quando recebe um parametro. mas não é boolean. apenas entra na condição.
+  return `${hours - 12}pm`;
+}
+
+function message(day, schedule) {
+  if (schedule[day].open === schedule[day].close) {
+    return 'CLOSED';
+  }
+  return `Open from ${convertHours(schedule[day].open)
+  } until ${convertHours(schedule[day].close)}`;
+}
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else
+// if sem comparação. é verdadeiro quando recebe um parametro. mas não é boolean. apenas entra na condição.
+// desafio 10 resolvido com ajuda do Josué Lobo.
+function getSchedule(dayName) {
+  const schedule = {};
+  if (dayName === undefined) {
+    return { Tuesday: 'Open from 8am until 6pm',
+      Wednesday: 'Open from 8am until 6pm',
+      Thursday: 'Open from 10am until 8pm',
+      Friday: 'Open from 10am until 8pm',
+      Saturday: 'Open from 8am until 10pm',
+      Sunday: 'Open from 8am until 8pm',
+      Monday: 'CLOSED' };
+  }
   if (dayName) {
-    schedule[dayName] = dayOfWeek(dayName);
+    schedule[dayName] = message(dayName, data.hours);
+  } else {
+    Object.values().forEach((day) => {
+      schedule[day] = message(day);
+    });
   }
   return schedule;
 }
