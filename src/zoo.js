@@ -1,9 +1,6 @@
 const { species, employees, prices } = require('./data');
 const data = require('./data');
 
-// console.table(employees);
-// console.table(employees[0]);
-
 function getSpeciesByIds(...ids) {
   const resultadoBusca = [];
   ids.forEach((specieId) => {
@@ -74,7 +71,12 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  //  79 localiza o funcionário da id passada;
+  const empregado = employees.find((idEmployee) => idEmployee.id === id);
+  //  81 encontra a primeira espécie de animal gerenciado pelo funcionário;
+  const animalMaisVelho = species.find((specie) => specie.id === empregado.responsibleFor[0])
+    .residents.sort((a, b) => b.age - a.age)[0]; //  82 coloca os animais em ordem de idade decrescente e seleciona o primeiro, ou seja, o mais velho;
+  return Object.values(animalMaisVelho);
 }
 
 function increasePrices(percentage) {
