@@ -84,6 +84,7 @@ return employees.some((employee) => employee.managers.some((manager) => manager 
 /*---------------------------------------------------------------------------------------------------*/
 
 /* ------------------------------------6°Requisito--------------------------------------------------*/
+/* Referência: https://stackoverflow.com/questions/6254050/how-to-add-an-object-to-an-array */
 /* Qual o objetivo dessa função? 
   - Adicionar uma nova pessoa colaboradora ao array employees
 */
@@ -101,9 +102,26 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 employees.push(objAdd)
 }
 
-function countAnimals(species) {
-  // seu código aqui
+/*---------------------------------------------------------------------------------------------------*/
+
+/* ------------------------------------7°Requisito--------------------------------------------------*/
+/* Qual o objetivo dessa função? 
+  - Contabilizar a quantidade de animais.
+*/
+/*O que será avaliado ?
+  - Sem parâmetros, retorna animais e suas quantidades
+  - Com o nome de uma espécie de animal, retorna somente a quantidade */
+
+function countAnimals(animals) {
+  const allAnimals = {}
+  if (animals === undefined ){
+    species.filter((specie) => {
+      allAnimals[specie.name] = specie.residents.length})
+      return allAnimals 
+  }
+    return species.find((specie) => specie.name === animals).residents.length  
 }
+console.log(countAnimals());
 
 function calculateEntry(entrants) {
   // seu código aqui
