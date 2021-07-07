@@ -54,6 +54,7 @@ function calculateEntry(entrants) {
 }
 
 // ------------ Requisito 9
+// ---------------tentativa de refatoração
 // const buildMap = (buildFnc) => {
 //   const animalMap = {};
 //   const locations = ['NE', 'NW', 'SE', 'SW'];
@@ -62,35 +63,36 @@ function calculateEntry(entrants) {
 //     animalMap[location] = buildFnc();
 //   });
 // };
-const filterByLocation = (Obj, Loc) => Obj.filter((item) => item.location === Loc);
-const getSpecies = (Arr) => Arr.map((element) => element.name);
-const getSpeciesAndNames = (Arr) => Arr.map((element) => {
-  const speciesWithNames = {};
-  speciesWithNames[element.name] = element.residents.map((animal) => animal.name);
-  return speciesWithNames;
-});
+// -------------final da tentativa
+// const filterByLocation = (Obj, Loc) => Obj.filter((item) => item.location === Loc);
+// const getSpecies = (Arr) => Arr.map((element) => element.name);
+// const getSpeciesAndNames = (Arr) => Arr.map((element) => {
+//   const speciesWithNames = {};
+//   speciesWithNames[element.name] = element.residents.map((animal) => animal.name);
+//   return speciesWithNames;
+// });
 
-function getAnimalMap(options) {
-  const animalMap = {};
-  const locations = ['NE', 'NW', 'SE', 'SW'];
+function getAnimalMap(options) {}
+//   const animalMap = {};
+//   const locations = ['NE', 'NW', 'SE', 'SW'];
 
-  if (!options) {
-    locations.forEach((location) => {
-      animalMap[location] = getSpecies(filterByLocation(species, location));
-    });
-  } else {
-    if (options.includeNames) {
-      locations.forEach((location) => {
-        animalMap[location] = getSpeciesAndNames(filterByLocation(species, location));
-      });
-    } if (options.sort) {
-      locations.forEach((location) => {
-        animalMap[location][0][0] = animalMap[location][0][0].sort();
-      })
-    }
-  }
-  return animalMap;
-}
+//   if (!options) {
+//     locations.forEach((location) => {
+//       animalMap[location] = getSpecies(filterByLocation(species, location));
+//     });
+//   } else {
+//     if (options.includeNames) {
+//       locations.forEach((location) => {
+//         animalMap[location] = getSpeciesAndNames(filterByLocation(species, location));
+//       });
+//     } if (options.sort) {
+//       locations.forEach((location) => {
+//         animalMap[location][0][0] = animalMap[location][0][0].sort();
+//       })
+//     }
+//   }
+//   return animalMap;
+// }
 
 // ---------------
 const timeAmPm = (time) => (time < 12 ? `${time}am` : `${time - 12}pm`);
@@ -110,8 +112,19 @@ function getSchedule(dayName) {
   return Obj;
 }
 
+const isOldest = (resident, residents) => {
+  const ages = residents.map((item) => item.age);
+  const maxAge = Math.max(...ages);
+  return resident.age === maxAge;
+};
+
+const getOldest = (Arr) => Object.values(Arr.find((element) => isOldest(element, Arr)));
+
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const employee = employees.find((element) => element.id === id);
+  const animal = species.find((element) => element.id === employee.responsibleFor[0]);
+  return getOldest(animal.residents);
 }
 
 function increasePrices(percentage) {
