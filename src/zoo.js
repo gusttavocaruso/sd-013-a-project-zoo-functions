@@ -148,11 +148,11 @@ function getOldestFromFirstemployes(id) {
 function increasePrices(percentage) {
   const newPrices = Object.values(data.prices).map((price) => price + (price * (percentage / 100)));
   Object.keys(data.prices).forEach((key, i) => {
-    data.prices[key] = newPrices[i].toFixed(2);
+    data.prices[key] = Math.round(newPrices[i] * 2) / 2 - 0.01;
   });
   return data.prices;
 }
-// console.log(increasePrices(50));
+
 function getEmployeeCoverage(idOrName) {
   const newObject = {};
   let control = [];
