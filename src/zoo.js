@@ -17,15 +17,17 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
-  return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+  return employees.find((employee) => employee.firstName === employeeName
+  || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
 
+// Referência: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
 function isManager(id) {
-  // seu código aqui
+  return employees.some((employee) => employee.managers.includes(id) === true);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
