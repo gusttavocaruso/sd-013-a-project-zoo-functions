@@ -1,11 +1,20 @@
+const { species, employees, prices } = require('./data');
 const data = require('./data');
-// Iniciando Projeto
-function getSpeciesByIds(ids) {
-  // seu código aqui
+// Referência:
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions/rest_parameters
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators
+function getSpeciesByIds(...ids) {
+  if (!ids) {
+    return undefined;
+  }
+
+  return species.filter((specie) => ids.find((id) => id === specie.id));
 }
 
+// Aqui algo
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const findAnimal = species.find((specie) => specie.name === animal);
+  return findAnimal.residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
