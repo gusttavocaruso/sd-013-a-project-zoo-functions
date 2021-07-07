@@ -26,10 +26,12 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
+  return { ...personalInfo, ...associatedWith };
   // seu código aqui
 }
 
 function isManager(id) {
+  return employees.some((employee) => employee.managers.includes(id));
   // seu código aqui
 }
 
@@ -37,7 +39,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(speciess) {
   // seu código aqui
 }
 
