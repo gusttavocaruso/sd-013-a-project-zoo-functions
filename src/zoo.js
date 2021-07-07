@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, hours, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -54,10 +54,17 @@ function calculateEntry(entrants) {
 }
 
 // ------------ Requisito 9
+// const buildMap = (buildFnc) => {
+//   const animalMap = {};
+//   const locations = ['NE', 'NW', 'SE', 'SW'];
 
+//   locations.forEach((location) => {
+//     animalMap[location] = buildFnc();
+//   });
+// };
 const filterByLocation = (Obj, Loc) => Obj.filter((item) => item.location === Loc);
-const getAnimalSpecies = (Arr) => Arr.map((element) => element.name);
-const getAnimalNames = (Arr) => Arr.map((element) => {
+const getSpecies = (Arr) => Arr.map((element) => element.name);
+const getSpeciesAndNames = (Arr) => Arr.map((element) => {
   const speciesWithNames = {};
   speciesWithNames[element.name] = element.residents.map((animal) => animal.name);
   return speciesWithNames;
@@ -69,20 +76,38 @@ function getAnimalMap(options) {
 
   if (!options) {
     locations.forEach((location) => {
-      animalMap[location] = getAnimalSpecies(filterByLocation(species, location));
+      animalMap[location] = getSpecies(filterByLocation(species, location));
     });
-  } else if (options.includeNames) {
-    locations.forEach((location) => {
-      animalMap[location] = getAnimalNames(filterByLocation(species, location));
-    });
+  } else {
+    if (options.includeNames) {
+      locations.forEach((location) => {
+        animalMap[location] = getSpeciesAndNames(filterByLocation(species, location));
+      });
+    } if (options.sort) {
+      locations.forEach((location) => {
+        animalMap[location][0][0] = animalMap[location][0][0].sort();
+      })
+    }
   }
   return animalMap;
 }
 
 // ---------------
+const timeAmPm = (time) => (time < 12 ? `${time}am` : `${time - 12}pm`);
+const openSentence = (Obj) => {
+  if (Obj.open === Obj.close) return 'CLOSED';
+  return `Open from ${timeAmPm(Obj.open)} until ${timeAmPm(Obj.close)}`;
+};
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const Obj = {};
+  if (dayName) {
+    Obj[dayName] = openSentence(hours[dayName]);
+    return Obj;
+  } Object.entries(hours).forEach((item) => {
+    Obj[item[0]] = openSentence(item[1]);
+  });
+  return Obj;
 }
 
 function getOldestFromFirstSpecies(id) {
