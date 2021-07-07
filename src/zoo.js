@@ -17,11 +17,20 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  return { ...personalInfo, ...associatedWith };
+  const employee = personalInfo;
+  employee.managers = associatedWith.managers;
+  employee.responsibleFor = associatedWith.responsibleFor;
+  return employee;
 }
 
 function isManager(id) {
-  // seu código aqui
+  let aux = false;
+  employees.forEach((employee) => {
+    employee.managers.forEach((manager) => {
+      if (manager === id) aux = true;
+    });
+  });
+  return aux;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
