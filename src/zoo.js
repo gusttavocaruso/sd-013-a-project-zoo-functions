@@ -1,4 +1,4 @@
-const { species } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 /* Requisito 1 feito com base na aula de revisão da turma 12,
 pesquisa no material do course e notion da turma 13-A */
@@ -15,7 +15,10 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+  const peopleSearch = employees.find((firstItem) =>
+    firstItem.firstName === employeeName || firstItem.lastName === employeeName);
+  return peopleSearch;
 }
 
 function createEmployee(personalInfo, associatedWith) {
