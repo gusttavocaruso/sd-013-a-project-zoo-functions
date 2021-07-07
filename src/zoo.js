@@ -8,7 +8,7 @@ function getSpeciesByIds(...ids) {
   return newArray;
 }
 
-/* Requisito 1 realizado com o auxílio do aluno Micael Maicon - Turma 13 - Tribo A */
+/* Requisito 2 realizado com o auxílio do aluno Micael Maicon - Turma 13 - Tribo A */
 function getAnimalsOlderThan(animal, age) {
   const nomeSel = species.filter((nameItem) => nameItem.name === animal);
   return nomeSel[0].residents.every((item) => item.age >= age);
