@@ -1,18 +1,17 @@
 const data = require('./data');
 
-const { species, employees } = data;
+const { species, employees, prices } = data;
 
-function getSpeciesByIds(...args) {
-  const newArray = [];
-  args.forEach((element) => {
-    const elemento = data.species.filter((specie) => species.id === element);
-    newArray.push(...elemento);
-  });
-  return newArray;
+function getSpeciesByIds(...ids) {
+  if (!ids) return [];
+  return species.filter((specie) => ids.includes(specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
+  const animalName = species.find((specie) => specie.name === animal);
+  const verifyAnimalAge = animalName.residents.every((resident) => resident.age >= age);
 
+  return verifyAnimalAge;
 }
 
 function getEmployeeByName(employeeName) {
@@ -21,7 +20,14 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  return { ...personalInfo, ...associatedWith };
+  const newObject = {};
+  Object.keys(personalInfo).forEach((key, item) => {
+    newObject[key] = Object.values(personalInfo)[item];
+  });
+  Object.keys(associatedWith).forEach((key, item) => {
+    newObject[key] = Object.values(associatedWith)[item];
+  });
+  return newObject;
 }
 
 function isManager(id) {
@@ -67,7 +73,10 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const chave = Object.keys(prices);
+  chave.forEach((key) => {
+    chave[key] = Math.round(prices[key] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
