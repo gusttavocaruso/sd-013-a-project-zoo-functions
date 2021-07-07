@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 /* ------------------------------------1°Requisito--------------------------------------------------*/
@@ -105,6 +105,7 @@ employees.push(objAdd)
 /*---------------------------------------------------------------------------------------------------*/
 
 /* ------------------------------------7°Requisito--------------------------------------------------*/
+/* Referência: https://stackoverflow.com/questions/14234646/adding-elements-to-object/14234701 */
 /* Qual o objetivo dessa função? 
   - Contabilizar a quantidade de animais.
 */
@@ -121,11 +122,43 @@ function countAnimals(animals) {
   }
     return species.find((specie) => specie.name === animals).residents.length  
 }
-console.log(countAnimals());
+/*---------------------------------------------------------------------------------------------------*/
 
+/* ------------------------------------8°Requisito--------------------------------------------------*/
+/* Referência: https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/ */
+/* Qual o objetivo dessa função? 
+  - partir da quantidade de visitantes e a faixa etária de cada um, esta função é responsável por retornar o preço total a ser cobrado
+*/
+/*O que será avaliado ?
+  - Retorna 0 se nenhum argumento for passado
+  - Retorna 0 se um objeto vazio for passado
+  - Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos */
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined){
+    return 0
+  }
+  if (Object.keys(entrants).length === 0 ){
+    return 0
+  }
+    const {Adult} = entrants;
+    const {Child} = entrants;
+    const {Senior} = entrants;
+    if (Child === undefined && Adult === undefined ){
+      return prices.Senior*Senior
+    }if (Child === undefined && Senior === undefined ){
+      return prices.Adult*Adult
+    }if (Senior === undefined && Adult === undefined ){
+      return prices.Child*Child
+    }if (Child === undefined ){
+      return prices.Adult*Adult + prices.Senior*Senior
+    }if (Senior === undefined ){
+      return prices.Adult*Adult + prices.Child*Child
+    } if (Adult === undefined ){
+      return prices.Senior*Senior + prices.Child*Child
+    } 
+    return prices.Senior*Senior + prices.Child*Child + prices.Adult*Adult
 }
+console.log(calculateEntry());
 
 function getAnimalMap(options) {
   // seu código aqui
