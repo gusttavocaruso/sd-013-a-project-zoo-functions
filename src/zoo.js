@@ -60,13 +60,15 @@ function countAnimals(animal) {
   if (animal !== undefined) {
     const findAnimal = species.find((specie) => specie.name === animal);
     const countHowManyAnimals = findAnimal.residents.length;
-  
     return countHowManyAnimals;
   }
-
+  // Com a ajuda do Sumo no plantão
   const allAnimalsCounter = {};
 
-  species.forEach(specie => allAnimalsCounter[specie.name] = specie['residents'].length);
+  species.forEach((specie) => {
+    allAnimalsCounter[specie.name] = specie.residents.length;
+    return allAnimalsCounter;
+  });
 
   return allAnimalsCounter;
 }
