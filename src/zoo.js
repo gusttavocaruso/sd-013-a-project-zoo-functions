@@ -28,7 +28,14 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // ENCONTRAR SOLUÇÃO
+  const findPersonById = employees.find((employee) => employee.id === id);
+  const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
+
+  if (findPersonById.managers[0] === stephanieId || findPersonById.managers[0] === undefined) {
+    return true;
+  }
+
+  return false;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
