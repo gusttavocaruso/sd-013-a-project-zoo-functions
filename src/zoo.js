@@ -113,7 +113,7 @@ const getSchedule = (dayName = false) => {
   schedule[dayName] = formatSchedule(hours[dayName].open, hours[dayName].close);
   return schedule;
 };
-console.log(getSchedule())
+
 const getOldestFromFirstSpecies = (id) => {
   const { employees, species } = data;
   const speciesId = employees.find((employee) => employee.id === id).responsibleFor[0];
