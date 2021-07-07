@@ -55,6 +55,23 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   return (Adult * Ad) + (Senior * Se) + (Child * Ch);
 }
 
+const animalMapIncName = (mapAnimal, sorted, sex) => {
+  const mapAnimals = mapAnimal;
+  Object.keys(mapAnimals).forEach((element) => {
+    mapAnimals[element] = mapAnimals[element].map((curr) => {
+      const sectionAnimal = data.species.find((obj) => obj.name === curr);
+      let population = sectionAnimal.residents;
+      if (sex === 'female' || sex === 'male') {
+        population = population.filter((animalSex) => animalSex.sex === sex);
+      }
+      const arr = population.map((nam) => `${nam.name}`);
+      console.log(arr);
+      if (sorted === true) arr.sort();
+      return { [curr]: arr };
+    });
+  });
+};
+
 function getAnimalMap({ includeNames = false, sorted = false, sex = false } = false) {
   const mapAnimals = data.species.reduce((acc, crt) => {
     if (acc[crt.location] !== undefined) {
@@ -65,19 +82,13 @@ function getAnimalMap({ includeNames = false, sorted = false, sex = false } = fa
     }
     return acc;
   }, {});
+  if (includeNames === true) {
+    animalMapIncName(mapAnimals, sorted, sex);
+  }
   return mapAnimals;
 }
-// if (includeNames = true) {
-//   Object.keys(mapAnimals).forEach((element) => {
-//     mapAnimals[element] = mapAnimals[element].map((curr) => {
-//       const sectionAnimal = data.species.find((element) => element.name === curr);
-//       const arr = sectionAnimal.residents.map((nam) => `${nam.name}`);
-//       return { [curr]: arr };
-//     });
-//   });
-// }
 
-// console.log(getAnimalMap({ includeNames: true }));
+console.log(getAnimalMap({ includeNames: true }));
 
 function getSchedule(dayName) {
   const dataHour = { ...data.hours };
