@@ -120,11 +120,19 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const pricesObject = data.prices;
+  const increase = percentage / 100;
+  Object.keys(pricesObject).forEach((key) => {
+    pricesObject[key] += (pricesObject[key] * increase);
+    pricesObject[key] = Math.round(pricesObject[key] * 100) / 100;
+  });
+  data.prices = pricesObject;
+  return data.prices;
 }
 
+console.log(increasePrices(50));
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
 }
 
 module.exports = {
