@@ -1,4 +1,5 @@
 const data = require('./data');
+const { employees } = data;
 
 function getSpeciesByIds(...ids) {
   const control = [];
@@ -41,10 +42,17 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const newObject = {};
+  Object.keys(personalInfo).forEach((key, i) => {
+    newObject[key] = Object.values(personalInfo)[i];
+  });
+  Object.keys(associatedWith).forEach((key, i) => {
+    newObject[key] = Object.values(associatedWith)[i];
+  });
+  return newObject;
 }
 
-function isManager(id) {
+function isManager() {
   // seu código aqui
 }
 
