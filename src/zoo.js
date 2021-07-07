@@ -1,5 +1,4 @@
 const { species, employees } = require('./data');
-const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   const speciesSelected = species.filter((specie, index) => specie.id === ids[index]);
@@ -27,7 +26,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-
+  return employees.some((employee) => employee.managers.some((manager) => manager === id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
