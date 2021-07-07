@@ -119,7 +119,7 @@ function getSchedule(dayName) {
     const open = Object.values(data.hours[days])[0];
     const close = Object.values(data.hours[days])[1];
     if (!dayName) {
-      message(days, open, close);
+      control[days] = (days !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
     } else if (dayName === days) {
       message(days, open, close);
     }
