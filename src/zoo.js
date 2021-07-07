@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 // Referências tiradas dos resumos do Notion da BeeDev:
 // https://www.notion.so/a6bcb381fbb241bf9f7c160d6228db71?v=cc21a930d42a4a22b96a31d2b966644e
@@ -53,7 +53,15 @@ function countAnimals(specieName) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants) return 0;
+  const adultPrice = prices.Adult * entrants.Adult;
+  const seniorPrice = prices.Senior * entrants.Senior;
+  const childPrice = prices.Child * entrants.Child;
+  let demand = 0;
+  if (adultPrice) demand += adultPrice;
+  if (seniorPrice) demand += seniorPrice;
+  if (childPrice) demand += childPrice;
+  return demand;
 }
 
 function getAnimalMap(options) {
