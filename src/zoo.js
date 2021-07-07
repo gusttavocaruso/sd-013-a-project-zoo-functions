@@ -79,8 +79,8 @@ function getSchedule(dayName) {
     const { open, close } = hours[dayName];
     return (open && close) ? {
       [dayName]: `Open from ${open}am until ${close - 12}pm`,
-      [dayName]: 'CLOSED',
     } : {
+      [dayName]: 'CLOSED',
     };
   }
   return {
