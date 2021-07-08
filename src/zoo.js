@@ -1,11 +1,13 @@
 const { species, employees } = require('./data');
 const data = require('./data');
 
+// Requisito 1
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
   return species.filter((specie) => ids.includes(specie.id));
 }
 
+// Requisito 2
 function getAnimalsOlderThan(animal, age) {
   const findSpecie = species
     .find((specie) => specie.name === animal)
@@ -13,6 +15,7 @@ function getAnimalsOlderThan(animal, age) {
   return findSpecie;
 }
 
+// Requisito 3
 function getEmployeeByName(employeeName) {
   if (employeeName === undefined) return {};
   const findEmplyee = employees
@@ -20,8 +23,8 @@ function getEmployeeByName(employeeName) {
   return findEmplyee;
 }
 
+// Requisito 4
 function createEmployee({ id, firstName, lastName },
-  // seu código aqui
   { managers, responsibleFor }) {
   const newEmployee = {
     id,
@@ -33,15 +36,15 @@ function createEmployee({ id, firstName, lastName },
   return newEmployee;
 }
 
+// Requisito 5
 function isManager(id) {
-  // seu código aqui
   const findManager = employees
     .some((employee) => employee.managers.includes(id));
   return findManager;
 }
 
+// Requisito 6
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   const newEmployee = {
     id,
     firstName,
@@ -52,8 +55,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(newEmployee);
 }
 
+// Requisito 7
 function countAnimals(animal) {
-  // seu código aqui
   const newObject = {};
   species.forEach((specie) => {
     newObject[specie.name] = specie.residents.length;
@@ -62,26 +65,35 @@ function countAnimals(animal) {
   return newObject[animal];
 }
 
+// Requisito 8
 function calculateEntry(entrants) {
   // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
+  return Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
 }
 
+// Requisito 9
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+// Requisito 10
 function getSchedule(dayName) {
   // seu código aqui
 }
 
+// Requisito 11
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
+// Requisito 12
 function increasePrices(percentage) {
   // seu código aqui
 }
 
+// Requisito 13
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
