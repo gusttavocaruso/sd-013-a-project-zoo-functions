@@ -35,12 +35,28 @@ function isManager(id) {
   // seu código aqui
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return employees.push(
+    { id,
+      firstName,
+      lastName,
+      managers,
+      responsibleFor },
+  );
   // seu código aqui
 }
 
 function countAnimals(speciess) {
+  const animals = species.reduce((accumulator, currentValue) => {
+    accumulator[currentValue.name] = currentValue.residents.length;
+    return accumulator;
+  }, {});
   // seu código aqui
+
+  if (speciess === undefined) {
+    return animals;
+  }
+  return animals[speciess];
 }
 
 function calculateEntry(entrants) {
