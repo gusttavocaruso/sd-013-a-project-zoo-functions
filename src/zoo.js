@@ -69,40 +69,40 @@ function calculateEntry(entrants) {
   return result;
 }
 /* funções auxiliares para getAnimalMap() */
-function noParams(theLocation) {
-  const result = {};
+// function noParams(theLocation) {
+//   const result = {};
 
-  theLocation.forEach((location) => {
-    result[location] = species
-      .filter((specie) => specie.location === location)
-      .map((animal) => animal.name);
-  });
+//   theLocation.forEach((location) => {
+//     result[location] = species
+//       .filter((specie) => specie.location === location)
+//       .map((animal) => animal.name);
+//   });
 
-  return result;
-}
+//   return result;
+// }
 
-function includeNames(theLocation, options) {
-  // const result = {};
-  // theLocation.forEach((location) => {
-  //   result[location] = species.filter((animal) => animal.location === location)
-  //     .map((animal) => {
-  //       const mapped = {};
-  //       const filteredSex = animal.residents.filter((specie) => specie.sex === options.sex);
-  //       mapped[animal.name] = animal.residents.map((resident) => resident.name);
-  //       if (options.sex) {
-  //         mapped[animal.name] = filteredSex.map((resident) => resident.name);
-  //       } else {
-  //         mapped[animal.name] = animal.residents.map((resident) => resident.name);
-  //       }
-  //       if (options.sorted) mapped[animal.name] = mapped[animal.name].sort();
-  //       return mapped;
-  //     });
-  // });
+// function includeNames(theLocation, options) {
+//   const result = {};
+//   theLocation.forEach((location) => {
+//     result[location] = species.filter((animal) => animal.location === location)
+//       .map((animal) => {
+//         const mapped = {};
+//         const filteredSex = animal.residents.filter((specie) => specie.sex === options.sex);
+//         mapped[animal.name] = animal.residents.map((resident) => resident.name);
+//         if (options.sex) {
+//           mapped[animal.name] = filteredSex.map((resident) => resident.name);
+//         } else {
+//           mapped[animal.name] = animal.residents.map((resident) => resident.name);
+//         }
+//         if (options.sorted) mapped[animal.name] = mapped[animal.name].sort();
+//         return mapped;
+//       });
+//   });
 
-  // return result;
-}
+//   return result;
+// }
 
-function sortedAnimals(options) {}
+// function sortedAnimals(options) {}
 
 /* fim das funções auxiliares */
 
