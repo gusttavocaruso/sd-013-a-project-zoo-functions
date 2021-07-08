@@ -30,7 +30,9 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const eManager = data.employees.find((employee) => employee.managers.includes(id));
+  if (eManager) return true;
+  return false;
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -64,7 +66,16 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const time = Object.keys(data.hours);
+  const agenda = time.reduce((acc, curr) => {
+    acc[curr] = `Open from ${data.hours[curr].open}am until ${data.hours[curr].close - 12}pm`;
+    return acc;
+  }, {});
+  agenda.Monday = 'CLOSED';
+  if (time.includes(dayName) === true) {
+    return { [dayName]: agenda[dayName] };
+  }
+  return agenda;
 }
 
 function getOldestFromFirstSpecies(id) {
