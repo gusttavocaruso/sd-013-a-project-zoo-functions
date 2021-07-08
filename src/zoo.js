@@ -31,7 +31,6 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
 }
 
 function isManager(id) {
@@ -93,8 +92,27 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const newObj = {};
+  if (!idOrName) {
+    employees.forEach((employee) => {
+      const getName = `${employee.firstName} ${employee.lastName}`;
+      const getAnimals = employee.responsibleFor;
+      const animals = getAnimals.map((id) => data.species.find((specie) => specie.id === id).name);
+      newObj[getName] = animals;
+    });
+  } employees.forEach((employee) => {
+    if (employee.id === idOrName
+      || employee.firstName === idOrName
+      || employee.lastName === idOrName) {
+      const getName = `${employee.firstName} ${employee.lastName}`;
+      const getAnimals = employee.responsibleFor;
+      const animals = getAnimals.map((id) => data.species.find((specie) => specie.id === id).name);
+      newObj[getName] = animals;
+    }
+  }); return newObj;
 }
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
