@@ -33,7 +33,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (!species) {
+    return data.species.reduce((counter1, currentValue) => {
+      // A constante serve para corrigir um erro no lint, alguns colegas me ajudaram.
+      const counter = counter1;
+      counter[currentValue.name] = currentValue.residents.length;
+      return counter;
+    }, {});
+  }
+  return data.species.find((specs) => specs.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
