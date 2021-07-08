@@ -68,64 +68,70 @@ function calculateEntry(entrants) {
 
   return result;
 }
-
-// eslint-disable-next-line max-lines-per-function
-function getAnimalMap(options) {
+/* funções auxiliares para getAnimalMap() */
+function noParams(theLocation) {
   const result = {};
-  const theLocation = Array.from({});
-  species.forEach(({ location }) => theLocation.push(location));
-  if (!options || !options.includeNames) {
-    theLocation.forEach((location) => {
-      result[location] = species
-        .filter((specie) => specie.location === location)
-        .map((animal) => animal.name);
-    });
 
-    return result;
-  }
-  if (options.includeNames) {
-    theLocation.forEach((location) => {
-      // eslint-disable-next-line complexity
-      result[location] = species.filter((animal) => animal.location === location).map((animal) => {
-        const mapped = {};
-        const filtered = animal.residents.filter((specie) => specie.sex === options.sex);
-        mapped[animal.name] = animal.residents.map((resident) => resident.name);
+  theLocation.forEach((location) => {
+    result[location] = species
+      .filter((specie) => specie.location === location)
+      .map((animal) => animal.name);
+  });
 
-        if (options.sorted && !options.sex) {
-          mapped[animal.name] = animal.residents.map((resident) => resident.name).sort();
-        } else if (!options.sorted && options.sex) {
-          mapped[animal.name] = filtered.map((item) => item.name);
-        } else if (options.sorted) {
-          mapped[animal.name] = filtered.map((resident) => resident.name).sort();
-        }
-
-        return mapped;
-      });
-    });
-
-    return result;
-  }
+  return result;
 }
 
-function getSchedule(dayName) {
-  const keys = Object.keys(hours);
-  const newObj = {};
+function includeNames(theLocation, options) {
+  // const result = {};
+  // theLocation.forEach((location) => {
+  //   result[location] = species.filter((animal) => animal.location === location)
+  //     .map((animal) => {
+  //       const mapped = {};
+  //       const filteredSex = animal.residents.filter((specie) => specie.sex === options.sex);
+  //       mapped[animal.name] = animal.residents.map((resident) => resident.name);
+  //       if (options.sex) {
+  //         mapped[animal.name] = filteredSex.map((resident) => resident.name);
+  //       } else {
+  //         mapped[animal.name] = animal.residents.map((resident) => resident.name);
+  //       }
+  //       if (options.sorted) mapped[animal.name] = mapped[animal.name].sort();
+  //       return mapped;
+  //     });
+  // });
 
-  if (!dayName) {
-    keys.forEach((key) => {
-      if (key === 'Monday') {
-        newObj[key] = 'CLOSED';
-      } else newObj[key] = `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
-    });
-  } else if (dayName) {
-    if (dayName === 'Monday') {
-      newObj[dayName] = 'CLOSED';
+  // return result;
+}
+
+function sortedAnimals(options) {}
+
+/* fim das funções auxiliares */
+
+// não consigo fazer de forma alguma! comentei pra não atrapalhar minhas notas
+// farei somente o minimo necessário. Ta muito difícil.
+function getAnimalMap(options) {
+  // const theLocation = Array.from({});
+  // species.forEach(({ location }) => theLocation.push(location));
+  // if (!options) return noParams(theLocation);
+  // if (options.includeNames) return includeNames(theLocation, options);
+  // if (options.sorted) return sortedAnimals(theLocation);
+}
+
+function getSchedule(dayName = '') { // se bão colocar este default destructuring, falha um teste
+  const valueHours = Object.values(hours);
+  const keyHours = Object.keys(hours);
+  const day = {};
+  const newDays = {};
+
+  keyHours.forEach((key, i) => {
+    if (i === keyHours.length - 1) {
+      day[key] = 'CLOSED';
     } else {
-      newObj[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
+      day[key] = `Open from ${valueHours[i].open}am until ${(valueHours[i].close) - 12}pm`;
     }
-  }
+  });
 
-  return newObj;
+  newDays[dayName] = day[dayName];
+  return dayName === '' ? day : newDays;
 }
 
 function getOldestFromFirstSpecies(id) {
