@@ -1,3 +1,4 @@
+const { employees} = require('./data');
 const data = require('./data');
 // const { species } = require('./data');
 
@@ -26,8 +27,9 @@ function isManager(id) {
   return data.employees.some(({ managers }) => managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const addEmployee = {id, firstName, lastName, managers , responsibleFor};
+  return data.employees.push(addEmployee);
 }
 
 function countAnimals(species) {
