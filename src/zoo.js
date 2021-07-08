@@ -36,10 +36,13 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
-  const office = data.employees.find((manager) =>
-    manager.managers.find((managerID) => managerID === id));
-  if (office) return true;
-  return false;
+  // Tentei com find(). Não deu certo pois o mesmo retorna o valor do
+  // elemento que passa no teste da função callback.
+  // O some() verifica se ALGUM dos elementos passa no teste. Retornando
+  // true para caso encontre algum elemento que passou no teste.
+  // O includes() é magnífico. Retornando true ou false se o elemento passado
+  // pertença ao array ou ao objeto.
+  return data.employees.some((manager) => manager.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
