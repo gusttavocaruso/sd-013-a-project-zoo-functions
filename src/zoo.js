@@ -60,8 +60,9 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
+  // feito com ajuda de alguns colegas.
   const empId = data.employees.find((emp) => emp.id === id);
-  const spcs = data.spcs.find((spc) => spc.id === empId.responsibleFor[0]);
+  const spcs = data.species.find((spc) => spc.id === empId.responsibleFor[0]);
   const old = spcs.residents.sort((fst, scd) => scd.age - fst.age);
   return Object.values(old[0]);
 }
