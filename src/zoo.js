@@ -49,8 +49,8 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   if (!entrants) return 0;
-  return Object.entries(entrants)
-    .map((category) => data.prices[category[0]] * category[1])
+  return Object.keys(entrants)
+    .map((category) => data.prices[category] * entrants[category])
     .reduce((a, b) => a + b, 0);
 }
 
@@ -63,14 +63,16 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employeeById = data.employees.find((employee) => employee.id === id);
+  const firstSpecieResidents = getSpeciesByIds(employeeById.responsibleFor[0])[0].residents;
+  const oldestAnimal = firstSpecieResidents.sort((b, a) => a.age - b.age)[0];
+  return Object.values(oldestAnimal);
 }
 
 function increasePrices(percentage) {
+  const adjustedPct = percentage / 100 + 1;
   Object.keys(data.prices)
-    .forEach((categ) => {
-      data.prices[categ] = Math.round(data.prices[categ] * (percentage / 100 + 1) * 100) / 100;
-    });
+    .forEach((el) => { data.prices[el] = Math.round(data.prices[el] * adjustedPct * 100) / 100; });
 }
 
 function getEmployeeCoverage(idOrName) {
