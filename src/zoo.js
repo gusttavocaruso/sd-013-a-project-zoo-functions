@@ -1,4 +1,4 @@
-const { employees} = require('./data');
+// const { employees } = require('./data');
 const data = require('./data');
 // const { species } = require('./data');
 
@@ -28,8 +28,8 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const addEmployee = {id, firstName, lastName, managers , responsibleFor};
-  return data.employees.push(addEmployee);
+  const addEmp = { id, firstName, lastName, managers, responsibleFor };
+  return data.employees.push(addEmp);
 }
 
 function countAnimals(species) {
