@@ -21,13 +21,17 @@ function getEmployeeByName(employeeName) {
   return peopleSearch;
 }
 
+/* Requisito 4 realizado com auxĺio do link:
+https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Object/assign */
 function createEmployee(personalInfo, associatedWith) {
   const create = {};
   return Object.assign(create, personalInfo, associatedWith);
 }
 
+/* Requisito 5 realizado com auxĺio do link:
+https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/includes */
 function isManager(id) {
-  // seu código aqui
+  return employees.some((employeeItem) => employeeItem.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
