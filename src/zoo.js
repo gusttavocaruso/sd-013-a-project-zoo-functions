@@ -1,4 +1,4 @@
-
+const { hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -14,10 +14,10 @@ function getEmployeeByName(employeeName) {
   if (typeof employeeName === 'undefined') return {};
   if ((data.employees.some((name) => name.firstName === employeeName)) === false) {
     return data.employees.find((nameFun) => nameFun.lastName === employeeName);
-  };
+  }
   if (data.employees.some((name) => name.lastName === employeeName) === false) {
     return data.employees.find((nameFun) => nameFun.firstName === employeeName);
-  };
+  }
 }
 
 function createEmployee({ id, firstName, lastName }, { managers, responsibleFor }) {
@@ -31,7 +31,8 @@ function createEmployee({ id, firstName, lastName }, { managers, responsibleFor 
 }
 
 function isManager(id) {
-  const verifyManager = data.employees.some(({ managers }) => managers.some((manager) => manager === id));
+  const verifyManager = data.employees
+    .some(({ managers }) => managers.some((manager) => manager === id));
   return verifyManager;
 }
 
@@ -46,21 +47,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(animal) {
-  if (typeof animal === 'undefined') {
-    return {
-      'bears': 3,
-      'elephants': 4,
-      'frogs': 2,
-      'giraffes': 6,
-      'lions': 4,
-      'otters': 4,
-      'penguins': 4,
-      'snakes': 2,
-      'tigers': 2,
-    };
+  const animais = data.species.reduce((acc, curr) => {
+    acc[curr.name] = curr.residents.length;
+    return acc;
+  }, {});
+
+  if (!animal) {
+    return animais;
   }
-  const name = data.species.find((elemento) => elemento.name === animal);
-  return name.residents.length;
+  return animais[animal];
 }
 
 function calculateEntry(entrants = 0) {
@@ -70,61 +65,69 @@ function calculateEntry(entrants = 0) {
   return total;
 }
 
-function getAnimalMap(options) {
-  const localidade = Array.from({});
-  const obj = {};
-  data.species.forEach(({location}) => localidade.push(location));
-  if ((!options) || (!options.includeNames)) {
-    localidade.forEach((local) => obj[local] = data.species.
-    filter((specie) => specie.location === local).map((value) => value.name));
-    return obj;
-  }
-  if (options.includeNames) {
-    localidade.forEach((local) => {
-      obj[local] = data.species.filter((value) => value.location === local).map((animal) => {
-        const novoObj = {};
-        const filter = animal.residents.filter((specie) => specie.sex === options.sex);
-        novoObj[animal.name] = animal.residents.map((value) => value.name);
-        // eslint-disable-next-line complexity
-        if (!options.sex && options.sorted) {
-          novoObj[animal.name] = animal.residents.map((resident) => resident.name).sort();
-        } else if (options.sex && !options.sorted) {
-          novoObj[animal.name] = filter.map((value) => value.name);
-        } else if (options.sorted) {
-          novoObj[animal.name] = filter.map((value) => value.name).sort();
+function createMapAnimal(option, points) {
+  return points.map((point) => ([
+    point,
+    data.species.filter((specie) => specie.location === point)
+      .map((value) => {
+        const resident = value.residents.map((val) => val.name);
+        if (option === 'optionsNo') return value.name;
+        if (option === 'sorted') {
+          return ({ [value.name]: resident.sort() });
         }
-        return novoObj;
-      });
-    });
-    return obj;
+        return ({ [value.name]: resident });
+      }),
+  ]));
+}
+
+function sexMapAnimal(includeNames, sex, sort, points) {
+  if (!includeNames) return createMapAnimal('optionsNo', points);
+  return points.map((point) => ([
+    point,
+    data.species.filter((specie) => specie.location === point)
+      .map((value) => {
+        const residents = value.residents
+          .filter((resident) => resident.sex === sex).map((resident) => resident.name);
+        if (!sort) return ({ [value.name]: residents });
+        return ({ [value.name]: residents.sort() });
+      }),
+  ]));
+}
+
+function getAnimalMap(options) {
+  const points = ['NE', 'NW', 'SE', 'SW'];
+
+  if (!options) return Object.fromEntries(createMapAnimal('optionsNo', points));
+  if (options.sex) {
+    return Object.fromEntries(
+      sexMapAnimal(options.includeNames, options.sex, options.sorted, points),
+    );
   }
+  if (options.sorted) {
+    return Object.fromEntries(createMapAnimal('sorted', points));
+  }
+  return Object.fromEntries(createMapAnimal('include-names', points));
 }
 
 function getSchedule(dayName) {
-  const obj = {};
-  if (!dayName) {
-    Object.keys(data.hours).forEach((chave) => {
-      if (chave === 'Monday') {
-        obj[chave] = 'CLOSED';
-      } else {
-        obj[chave] = `Open from ${data.hours[chave].open}am until ${data.hours[chave].close - 12}pm`
-      };
-    });
-  }
-  if (dayName) {
-    if (dayName === 'Monday') {
-      obj[dayName] = 'CLOSED';
-    } else {
-      obj[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`
-    };
-  }
-  return obj;
+  const mensagem = ['CLOSED'];
+  const dias = Object.keys(hours);
+  dias.slice(0, -1).forEach((elem, i) => (
+    mensagem.push(`Open from ${hours[dias[i]].open}am until ${hours[dias[i]].close - 12}pm`)));
+  mensagem.push(mensagem.shift());
+
+  const sche = Object.assign(...dias.map((chave, index) => ({ [chave]: mensagem[index] })));
+  if (!dayName) return sche;
+  const dia = Object.entries(sche).find((element) => element[0] === dayName);
+  return {
+    [dayName]: dia[1],
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
   const primeiroAnimal = data.employees.find((animal) => animal.id === id).responsibleFor[0];
   const animalMaisVelhor = data.species.find((specie) => specie.id === primeiroAnimal)
-  .residents.sort((a, b) => b.age - a.age);
+    .residents.sort((a, b) => b.age - a.age);
   return [animalMaisVelhor[0].name, animalMaisVelhor[0].sex, animalMaisVelhor[0].age];
 }
 
@@ -144,7 +147,7 @@ const showAnimal = () => {
     });
   });
   return obj;
-}
+};
 
 function getEmployeeCoverage(idOrName = 0) {
   if (idOrName === 0) {
@@ -152,9 +155,10 @@ function getEmployeeCoverage(idOrName = 0) {
     return ret;
   }
   const obj = {};
-  const selectEmployee = data.employees.find((value) => { 
-    return value.id === idOrName || value.lastName === idOrName || value.firstName === idOrName;
-  });
+  const selectEmployee = data.employees.find((value) => value
+    .id === idOrName || value
+    .lastName === idOrName || value
+    .firstName === idOrName);
   obj[`${selectEmployee.firstName} ${selectEmployee.lastName}`] = [];
   selectEmployee.responsibleFor.forEach((id) => {
     const arrAnimais = data.species.find((specieId) => specieId.id === id);
