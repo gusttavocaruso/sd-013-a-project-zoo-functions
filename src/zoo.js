@@ -143,9 +143,7 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   const specieResponsibility = employees.find((employee) => employee.id === id).responsibleFor[0];
-  console.log(specieResponsibility);
   const fistSpecie = species.find((specie) => specie.id === specieResponsibility);
-  console.log(fistSpecie);
   const retorno = fistSpecie.residents.reduce((acc, cur) => {
     if (cur.age > acc.age) {
       acc.name = cur.name;
@@ -163,8 +161,43 @@ function increasePrices(percentage) {
   });
 }
 
+function addKeysInObj(acc, cur) {
+  const { firstName, lastName } = cur;
+  acc[`${firstName} ${lastName}`] = [];
+  return acc;
+}
+
+function creatObjWithArrays(idOrName) {
+  if (!idOrName) {
+    const theGuys = employees.reduce((acc, cur) => addKeysInObj(acc, cur), {});
+    return theGuys;
+  }
+  const theGuy = [];
+  if (idOrName.length >= 20) {
+    theGuy.push(employees.find((employee) => employee.id === idOrName));
+    return theGuy.reduce((acc, cur) => addKeysInObj(acc, cur), {});
+  }
+  theGuy.push(employees.find((employee) => employee.firstName === idOrName || employee
+    .lastName === idOrName));
+  return theGuy.reduce((acc, cur) => addKeysInObj(acc, cur), {});
+}
+
+function populaObjeto(objDeTrabalho) {
+  Object.keys(objDeTrabalho).forEach((key) => {
+    const FistName = key.split(' ')[0];
+    const responsibleGuy = (employees.find((guy) => guy.firstName === FistName)).responsibleFor;
+    responsibleGuy.forEach((responsible) => {
+      species.forEach((specie) => {
+        if (responsible === specie.id) objDeTrabalho[key].push(specie.name);
+      });
+    });
+  });
+}
+
 function getEmployeeCoverage(idOrName) {
-  
+  const objDeTrabalho = creatObjWithArrays(idOrName);
+  populaObjeto(objDeTrabalho);
+  return objDeTrabalho;
 }
 
 module.exports = {
