@@ -1,6 +1,6 @@
 const data = require('./data');
 
-const { species, employees, prices } = data;
+const { species, employees, prices, hours } = data;
 
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
@@ -19,13 +19,12 @@ function getEmployeeByName(employeeName) {
   return employees.find((em) => employeeName === em.firstName || employeeName === em.lastName);
 }
 
-function createEmployee(personalInfo, associatedWith) {
+function createEmployee(...personalInfo) {
   const newObject = {};
-  Object.keys(personalInfo).forEach((key, item) => {
-    newObject[key] = Object.values(personalInfo)[item];
-  });
-  Object.keys(associatedWith).forEach((key, item) => {
-    newObject[key] = Object.values(associatedWith)[item];
+  personalInfo.forEach((id) => {
+    Object.keys(id).forEach((key, item) => {
+      newObject[key] = Object.values(id)[item];
+    });
   });
   return newObject;
 }
@@ -65,9 +64,23 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
-}
+  const newObject = {};
+  const msn = (key, open, close) => {
+    newObject[key] = (key !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
+  };
+  Object.keys(hours).forEach((key) => {
+    const open = Object.values(hours[key])[0];
+    const close = Object.values(hours[key])[1] - 12;
+    if (!dayName) {
+      newObject[key] = (key !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
+    } else if (dayName === key) {
+      msn(key, open, close);
+    }
+  });
 
+  return newObject;
+}
+console.log(getSchedule('Tuesday'));
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
