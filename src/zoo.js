@@ -53,14 +53,14 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
-  /*  (emptyParam(entrants)) ? 0
-  :
-  {adult = entrants['Adult'], child = entrants['Child'], senior = entrants['Senior']} = entrants;
-  const PriceAdult = prices.Adult
-  const PriceChild = prices.Child
-  const PriceSenior = prices.Senior
-  const total = ((adult*PriceAdult)+(child*PriceChild)+(senior*PriceSenior)) */
+  if(!entrants)  return 0;
+  const {Adult=0, Child=0, Senior=0 } = entrants
+  const values = data.prices
+  const total = (Adult * values.Adult) + (Child * values.Child) + (Senior * values.Senior)
+  return total
 }
+
+console.log(calculateEntry());
 
 function getAnimalMap(options) {
   // seu código aqui
