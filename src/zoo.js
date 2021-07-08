@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return ids.map((id) => species.find((specie) => specie.id === id));
@@ -51,19 +51,50 @@ function calculateEntry(entrants = {}) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // const animalsLocation = {
+  //   NE: species.filter((a) => a.location === 'NE').map((a) => a.name),
+  //   NW: species.filter((a) => a.location === 'NW').map((a) => a.name),
+  //   SE: species.filter((a) => a.location === 'SE').map((a) => a.name),
+  //   SW: species.filter((a) => a.location === 'SW').map((a) => a.name),
+  // };
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let obj = {};
+  if (!dayName) {
+    obj = {
+      Tuesday: 'Open from 8am until 6pm',
+      Wednesday: 'Open from 8am until 6pm',
+      Thursday: 'Open from 10am until 8pm',
+      Friday: 'Open from 10am until 8pm',
+      Saturday: 'Open from 8am until 10pm',
+      Sunday: 'Open from 8am until 8pm',
+      Monday: 'CLOSED',
+    };
+  } else if (dayName === 'Monday') {
+    obj = { Monday: 'CLOSED' };
+  } else {
+    obj = { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
+  }
+  return obj;
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const arrayWithNamesAnimals = [];
+  species.filter((b) => (employees.find((employee) =>
+    employee.id === id).responsibleFor).indexOf(b.id) !== -1).forEach((a) =>
+    arrayWithNamesAnimals.push(...a.residents));
+  const resultOldAnimal = Object.values(arrayWithNamesAnimals.sort((c, d) => d.age - c.age)[0]);
+  return resultOldAnimal;
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const mult = 1 + (percentage * 0.01);
+  const result = prices;
+  Object.entries(prices).forEach((ticket) => {
+    result[ticket[0]] = Math.round((ticket[1] * mult) * 100) / 100;
+  });
+  return result;
 }
 
 function getEmployeeCoverage(idOrName) {
