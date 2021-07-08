@@ -98,9 +98,12 @@ function getSchedule(dayName) {
   }
   return schedule;
 }
-
+//desafio 11 feito com ajuda do Josue Lobo.
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employeeId = data.employees.find((employee) => employee.id === id);
+  const species = data.species.find((specie) => specie.id === employeeId.responsibleFor[0]);
+  const firstOld = species.residents.sort((first, second) => second.age - first.age);
+  return Object.values(firstOld[0]);
 }
 
 // https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
