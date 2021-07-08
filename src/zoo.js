@@ -122,7 +122,7 @@ function getOldestFromFirstSpecies(id) {
   const biggestAnimal = animalName[0].find((item) => item.age === ageAnimal);
   return Object.values(biggestAnimal);
 }
-console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+
 function increasePrices(percentage) {
   if (!percentage || percentage === 0) return prices;
   const percent = (percentage / 100) + 1;
