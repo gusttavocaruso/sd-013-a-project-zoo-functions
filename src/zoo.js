@@ -67,6 +67,7 @@ function getAnimalName(animalName, sorted, sex) {
   if (sorted) result.sort();
   return { [animalName]: result };
 }
+
 function getAnimalMap(options = {}) {
   const { includeNames = false, sorted = false, sex } = options;
   let result = data.species.reduce((acc, cur) => {
@@ -77,7 +78,6 @@ function getAnimalMap(options = {}) {
     acc[location].push(name);
     return acc;
   }, {});
-
   if (includeNames) {
     result = Object.entries(result).reduce((acc, [key, animalName]) => {
       acc[key] = animalName.map((name) => getAnimalName(name, sorted, sex));
@@ -93,11 +93,18 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const person = data.employees.find((employee) => employee.id === id);
+  const firstSpecie = data.species.find((specie) => specie.id === person.responsibleFor[0]);
+  const oldest = firstSpecie.residents.sort((a, b) => b.age - a.age);
+
+  return Object.values(oldest[0]);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const keys = Object.keys(data.prices);
+  keys.forEach((key) => {
+    data.prices[key] = Math.round(data.prices[key] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
