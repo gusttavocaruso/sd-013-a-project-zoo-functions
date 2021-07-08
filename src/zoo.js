@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, hours, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -58,7 +58,7 @@ function calculateEntry(entrants = { Adult: 0, Senior: 0, Child: 0 }) {
   return result;
 }
 
-function getLocationsAnimals() {
+/* function getLocationsAnimals() {
   const result = {};
   species.forEach((specie) => {
     if (result[specie.location] === undefined) {
@@ -68,9 +68,9 @@ function getLocationsAnimals() {
     }
   });
   return result;
-}
+} */
 
-function filterAnimalsBySexAndMapTheirName(specie, sex) {
+/* function filterAnimalsBySexAndMapTheirName(specie, sex) {
   if (sex === undefined) {
     return specie.residents.map((animal) => animal.name);
   }
@@ -80,10 +80,10 @@ function filterAnimalsBySexAndMapTheirName(specie, sex) {
   if (sex === 'male') {
     return specie.residents.filter((animal) => animal.sex === sex).map((animal) => animal.name);
   }
-}
+} */
 
 function getAnimalMap(options) {
-  const result = {};
+/*   const result = {};
   if (options === undefined) {
     return getLocationsAnimals();
   }
@@ -100,19 +100,57 @@ function getAnimalMap(options) {
     });
     return result;
   }
-  return 'lions';
+  return 'lions'; */
+}
+
+function convertDayToTimeLegible(day) {
+  if (day.open === 0 || day.close === 0) {
+    return 'CLOSED';
+  }
+  return `Open from ${day.open % 12}am until ${day.close % 12}pm`;
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const day = hours[dayName];
+  if (dayName) {
+    return {
+      [dayName]: convertDayToTimeLegible(day),
+    };
+  }
+  const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, Monday } = hours;
+  return {
+    Tuesday: convertDayToTimeLegible(Tuesday),
+    Wednesday: convertDayToTimeLegible(Wednesday),
+    Thursday: convertDayToTimeLegible(Thursday),
+    Friday: convertDayToTimeLegible(Friday),
+    Saturday: convertDayToTimeLegible(Saturday),
+    Sunday: convertDayToTimeLegible(Sunday),
+    Monday: convertDayToTimeLegible(Monday),
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employeeForSearch = employees.find((employee) => employee.id === id);
+  const firstSpecieID = employeeForSearch.responsibleFor[0];
+  const oldestFromFirstSpecie = species.find((specie) => specie.id === firstSpecieID).residents
+    .reduce((acc, curr) => {
+      if (curr.age > acc.age) {
+        return curr;
+      }
+      return acc;
+    });
+  return [...Object.values(oldestFromFirstSpecie)];
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  // Não conseguia arredondar os números decimais,
+  // Pesquisei e encontrei isso https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary mas ainda não entendo como a matemática se aplica
+  prices.Adult = Math.round(((prices.Adult + (prices.Adult * (percentage / 100)))
+   + Number.EPSILON) * 100) / 100;
+  prices.Senior = Math.round(((prices.Senior + (prices.Senior * (percentage / 100)))
+   + Number.EPSILON) * 100) / 100;
+  prices.Child = Math.round(((prices.Child + (prices.Child * (percentage / 100)))
+   + Number.EPSILON) * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
