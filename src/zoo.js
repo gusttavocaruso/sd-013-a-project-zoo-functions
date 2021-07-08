@@ -80,16 +80,31 @@ function getSchedule(dayName) {
 
   return newObject;
 }
-console.log(getSchedule('Tuesday'));
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const primeiroAnimal = [];
+  const oldArray = [];
+  const select = [];
+  const manager = employees.find((employee) => employee.id === id);
+  manager.responsibleFor.forEach((animal) => {
+    primeiroAnimal.push(species.find((specie) => specie.id === animal));
+  });
+  primeiroAnimal.forEach((orden) => {
+    oldArray.push(orden.residents.sort((a, b) => b.age - a.age));
+  });
+  oldArray.forEach((old) => {
+    select.push(old[0]);
+  });
+  const ordena = select.sort((a, b) => b.age - a.age);
+  return Object.values(ordena[0]).map((element) => element);
 }
 
 function increasePrices(percentage) {
-  const chave = Object.keys(prices);
-  chave.forEach((key) => {
-    chave[key] = Math.round(prices[key] * (1 + percentage / 100) * 100) / 100;
+  const keys = Object.values(prices).map((price) => (price * (1 + (percentage / 100))) / 1);
+  Object.keys(prices).forEach((key, i) => {
+    prices[key] = Math.round(keys[i] * 2) / 2 - 0.01;
   });
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
