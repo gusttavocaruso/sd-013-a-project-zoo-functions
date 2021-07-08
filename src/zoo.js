@@ -110,18 +110,21 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  const employ = data.employees.filter((item) => item.id === id);
-  const responsibleFor = employ.map((item) => item.responsibleFor[0]);
+  const employResponsi = data.employees.filter((item) => item.id === id)
+    .map((item) => item.responsibleFor[0]);
 
-  const animalName = species.filter((idAnim) => idAnim.id === responsibleFor[0])
+  const animalName = species.filter((idAnim) => idAnim.id === employResponsi[0])
     .map(({ residents }) => residents);
 
-  const ageAnimal = species.filter((idAnim) => idAnim.id === responsibleFor[0])
+  const ageAnimal = species.filter((idAnim) => idAnim.id === employResponsi[0])
     .map(({ residents }) => residents.map(({ age }) => age).sort((a, b) => a < b)[0])[0];
 
   const biggestAnimal = animalName[0].find((item) => item.age === ageAnimal);
+
   return Object.values(biggestAnimal);
 }
+
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   if (!percentage || percentage === 0) return prices;
