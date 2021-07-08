@@ -3,7 +3,6 @@ const { species, employees, hours, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
-
   return species.filter((animal) => ids.includes(animal.id));
 }
 
@@ -62,7 +61,40 @@ function calculateEntry(entrants) {
   }, 0);
 }
 
-function getAnimalMap(options) {
+// referente à função getAnimalMap()
+function getAnimalResidents(family, { sex = '', sorted = false }) {
+  let residents = [...family.residents];
+
+  if (sex) {
+    residents = residents.filter((resident) => resident.sex === sex);
+  }
+
+  residents = residents.map(({ name: residentName }) => residentName);
+
+  if (sorted) {
+    residents = residents.sort();
+  }
+
+  return residents;
+}
+
+function getAnimalMap({ includeNames = false, sorted = false, sex = '' } = {}) {
+  return species.reduce((acc, family) => {
+    const { location, name } = family;
+    if (!acc[location]) {
+      acc[location] = [];
+    }
+
+    if (includeNames) {
+      acc[location].push({
+        [name]: getAnimalResidents(family, { sex, sorted }),
+      });
+    } else {
+      acc[location].push(name);
+    }
+
+    return acc;
+  }, {});
 }
 
 function getSchedule(dayName) {
@@ -101,6 +133,7 @@ function increasePrices(percentage) {
   }, {});
 }
 
+// referente à função getEmployeeCoverage()
 function getResponsibleForAnimals(employee) {
   return employee.responsibleFor.map((animalId) => {
     const animal = species.find((family) => family.id === animalId);
