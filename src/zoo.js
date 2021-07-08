@@ -1,5 +1,7 @@
 const data = require('./data');
 
+const { species, employees, prices, hours } = data;
+
 function getSpeciesByIds(...ids) {
   const controlador = [];
   if (ids) {
@@ -78,19 +80,51 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
-}
+  const newObjeto = {};
+  const mensagem = (key, open, close) => {
+    newObjeto[key] = (key !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
+  };
+  Object.keys(hours).forEach((key) => {
+    const open = Object.values(hours[key])[0];
+    const close = Object.values(hours[key])[1] - 12;
+    if (!dayName) {
+      newObjeto[key] = (key !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
+    } else if (dayName === key) {
+      mensagem(key, open, close);
+    }
+  });
 
+  return newObjeto;
+}
+console.log(getSchedule('tuesday'));
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const primeiroAnimal = [];
+  const oldArray = [];
+  const select = [];
+  const manager = employees.find((employee) => employee.id === id);
+  manager.responsibleFor.forEach((animal) => {
+    primeiroAnimal.push(species.find((specie) => specie.id === animal));
+  });
+  primeiroAnimal.forEach((orden) => {
+    oldArray.push(orden.residents.sort((a, b) => b.age - a.age));
+  });
+  oldArray.forEach((old) => {
+    select.push(old[0]);
+  });
+  const ordena = select.sort((a, b) => b.age - a.age);
+  return Object.values(ordena[0]).map((element) => element);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const keys = Object.values(prices).map((price) => (price * (1 + (percentage / 100))) / 1);
+  Object.keys(prices).forEach((key, i) => {
+    prices[key] = Math.round(keys[i] * 2) / 2 - 0.01;
+  });
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  //
 }
 
 module.exports = {
