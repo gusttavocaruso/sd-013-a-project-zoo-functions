@@ -59,7 +59,16 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const crono = data.hours;
+  const response = {};
+  Object.keys(crono).forEach((key) => {
+    if ((crono[key].open !== 0) && (crono[key].close !== 0)) {
+      response[key] = `Open from ${crono[key].open}am until ${crono[key].close - 12}pm`;
+    } else {
+      response[key] = 'CLOSED';
+    }
+  });
+  return !dayName ? response : { [dayName]: response[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
