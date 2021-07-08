@@ -62,7 +62,7 @@ function getSchedule(dayName) {
   Object.entries(hours)
     .forEach((item) => {
       if (item[1].close !== 0) {
-        schedule[item[0]] = (`Open from ${item[1].open} am until ${item[1].close - 12}pm`);
+        schedule[item[0]] = (`Open from ${item[1].open}am until ${item[1].close - 12}pm`);
       } else schedule[item[0]] = 'CLOSED';
     });
   if (Object.keys(hours).includes(dayName)) {
