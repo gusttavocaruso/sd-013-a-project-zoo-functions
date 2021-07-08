@@ -1,6 +1,4 @@
-// const { employees } = require('./data');
 const data = require('./data');
-// const { species } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const findSpecie = [];
@@ -54,6 +52,7 @@ function calculateEntry(entrants) {
 
 function getAnimalMap(options) {
   // seu código aqui
+  // Não realizei por ter muitas dificuldades, assim como alguns colegas.
 }
 
 function getSchedule(dayName) {
@@ -61,7 +60,10 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const empId = data.employees.find((emp) => emp.id === id);
+  const spcs = data.spcs.find((spc) => spc.id === empId.responsibleFor[0]);
+  const old = spcs.residents.sort((fst, scd) => scd.age - fst.age);
+  return Object.values(old[0]);
 }
 
 function increasePrices(percentage) {
