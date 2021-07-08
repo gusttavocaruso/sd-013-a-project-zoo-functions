@@ -46,23 +46,7 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
 }
 
 function getAnimalMap(params) {
-  // const mapByRegion = (region) => {
-  //   const getSpeciesByRegion = species.filter((specie) => specie.location === region);
-  //   return getSpeciesByRegion.map(({ name }) => name);
-  // }
-  // if (!params) return species
-  //   .reduce((acc, crr) => ({ ...acc, [crr.location]: mapByRegion(crr.location) }), {})
-  // mapByRegion(region).forEach((element) => species.find(({ name }) => name)).map((element) => element.residents);
 }
-// const test2 = species.reduce((acc, crr) => {
-//   return {...acc, [crr.name]:crr[residents.name]}
-// }, {});
-// return test2;
-
-// parte 2
-
-// console.log(getAnimalMap());
-
 function getSchedule(dayName) {
   const entries = Object.entries(hours);
   const msg = (param) => `Open from ${param[1].open}am until ${param[1].close - 12}pm`;
@@ -135,25 +119,3 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
-
-// const mapByRegion = (region) => {
-//   const getSpeciesByRegion = species.filter((specie) => specie.location === region);
-//   return getSpeciesByRegion.map(({ name }) => name);
-// }
-
-// const mapResidents = (animal) => species
-//   .find((specie) => specie.name === animal).residents.map(({ name }) => name);
-
-// const mapAnimalsAndResidents = (animal) => species.reduce((acc, crr) => ({ ...acc, [animal]: mapResidents(animal) }), {});
-
-// const test = (region) => {
-//   newArray = [];
-//   mapByRegion(region).forEach((element) => {
-//     return newArray.push(species.reduce((acc, crr)=>({...acc, [element]:mapAnimalsAndResidents(element)}),{}))
-//   })
-//   return newArray
-// }
-//  console.log(mapByRegion('NW'));
-// console.log(mapResidents('tigers'));
-// console.log(mapAnimalsAndResidents('tigers'));
-// console.log(test('NE'));
