@@ -80,8 +80,25 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  let priceAdult = data.prices.Adult;
+  let priceSenior = data.prices.Senior;
+  let priceChild = data.prices.Child;
+
+  priceAdult = ((percentage / 100) * priceAdult) + priceAdult;
+  priceSenior = ((percentage / 100) * priceSenior) + priceSenior;
+  priceChild = ((percentage / 100) * priceChild) + priceChild;
+
+  priceAdult = (Math.round(priceAdult * 100) / 100);
+  priceSenior = (Math.round(priceSenior * 100) / 100);
+  priceChild = (Math.round(priceChild * 100) / 100);
+
+  data.prices.Adult = parseFloat(priceAdult);
+  data.prices.Senior = parseFloat(priceSenior);
+  data.prices.Child = parseFloat(priceChild);
+
+  return data.prices;
 }
+
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
