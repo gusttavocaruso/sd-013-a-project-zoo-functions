@@ -89,15 +89,23 @@ function getSchedule(dayName) {
   oneDay[getData[0]] = `Open from ${getData[1].open}am until ${getData[1].close - 12}pm`;
   return oneDay;
 }
-// console.log(`Sem parâmetros`);
-// console.log(getSchedule());
-// console.log(`Segunda`);
-// console.log(getSchedule('Monday'));
-// console.log(`Terça`);
-console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const getEmployee = employees.find((employee) => employee.id === id);
+  const firstAnimal = getEmployee.responsibleFor[0];
+  const getSpecie = species.find((specie) => specie.id === firstAnimal);
+
+  const oldestAnimal = getSpecie.residents.reduce((a, b) => {
+    if (a.age < b.age) {
+      return b;
+    }
+    return a;
+  });
+  const answer = [];
+  answer.push(oldestAnimal.name);
+  answer.push(oldestAnimal.sex);
+  answer.push(oldestAnimal.age);
+  return answer;
 }
 
 function increasePrices(percentage) {
