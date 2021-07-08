@@ -53,25 +53,28 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
-  if(!entrants)  return 0;
-  const {Adult=0, Child=0, Senior=0 } = entrants
-  const values = data.prices
-  const total = (Adult * values.Adult) + (Child * values.Child) + (Senior * values.Senior)
-  return total
+  if (!entrants) return 0;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const values = data.prices;
+  const total = (Adult * values.Adult) + (Child * values.Child) + (Senior * values.Senior);
+  return total;
 }
-
-console.log(calculateEntry());
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
 function getSchedule(dayName) {
-  /* if (!dayName) {
-    const obj = {};
-    return hours.map((day) => obj[day] = `Open from ${day.open}am until ${day.close}pm`);
+  /* const days = data.hours
+  days['Monday'] = 'CLOSED';
+  if(dayName.length > 1){
+     days.forEach((day) => {
+      const schedule = `${day}: Open from ${day['open']}am until ${day['close']}pm`
+    });
+    return schedule;
   } */
 }
+/* console.log(getSchedule('Monday'));  */
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
