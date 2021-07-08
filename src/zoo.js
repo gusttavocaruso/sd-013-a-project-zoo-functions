@@ -68,7 +68,6 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
   // seu código aqui
 }
-// const { hours } = require('./data');
 
 function convertHours(hours) {
   if (hours < 12) {
@@ -86,24 +85,16 @@ function message(day, schedule) {
 }
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else
 // if sem comparação. é verdadeiro quando recebe um parametro. mas não é boolean. apenas entra na condição.
-// desafio 10 resolvido com ajuda do Josué Lobo.
+// desafio 10 resolvido e refatorado com ajuda do Josué Lobo.
 function getSchedule(dayName) {
   const schedule = {};
-  if (dayName === undefined) {
-    return { Tuesday: 'Open from 8am until 6pm',
-      Wednesday: 'Open from 8am until 6pm',
-      Thursday: 'Open from 10am until 8pm',
-      Friday: 'Open from 10am until 8pm',
-      Saturday: 'Open from 8am until 10pm',
-      Sunday: 'Open from 8am until 8pm',
-      Monday: 'CLOSED' };
-  }
   if (dayName) {
     schedule[dayName] = message(dayName, data.hours);
   } else {
-    Object.values().forEach((day) => {
-      schedule[day] = message(day);
-    });
+    Object.keys(data.hours)
+      .forEach((day) => {
+        schedule[day] = message(day, data.hours);
+      });
   }
   return schedule;
 }
