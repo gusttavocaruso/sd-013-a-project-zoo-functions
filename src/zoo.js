@@ -34,13 +34,18 @@ function isManager(id) {
   return false;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const dadosEmployee = data.employees.push({ id, firstName, lastName, managers, responsibleFor });
   return dadosEmployee;
 }
 
-function countAnimals(species2) {
-  // seu código aqui
+function countAnimals(speciesNames) {
+  const allAnimals = species.reduce((acc, current) => {
+    acc[current.name] = current.residents.length;
+    return acc;
+  }, {});
+  if (!speciesNames) return allAnimals;
+  return allAnimals[speciesNames];
 }
 
 function calculateEntry(entrants) {
