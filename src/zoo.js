@@ -109,20 +109,24 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // const newPriceAdult = prices.Adult + (prices.Adult * (percentage / 100) + 0.005);
-  // const adult = +(parseFloat(newPriceAdult).toFixed(2));
+  const newPriceAdult = prices.Adult + (prices.Adult * (percentage / 100) + 0.005);
+  const adult = +(parseFloat(newPriceAdult).toFixed(2));
 
-  // const newPriceSenior = prices.Senior + (prices.Senior * (percentage / 100) + 0.005);
-  // const senior = +(parseFloat(newPriceSenior).toFixed(2));
+  const newPriceSenior = prices.Senior + (prices.Senior * (percentage / 100) + 0.005);
+  const senior = +(parseFloat(newPriceSenior).toFixed(2));
 
-  // const newPriceChild = prices.Child + (prices.Child * (percentage / 100) + 0.005);
-  // const child = +(parseFloat(newPriceChild).toFixed(2));
+  const newPriceChild = prices.Child + (prices.Child * (percentage / 100) + 0.005);
+  const child = +(parseFloat(newPriceChild).toFixed(2));
 
-  // return {
-  //   Adult: adult,
-  //   Senior: senior,
-  //   Child: child,
-  // };
+  const newPrice = {
+    Adult: adult,
+    Senior: senior,
+    Child: child,
+  };
+  prices.Adult = newPrice.Adult;
+  prices.Senior = newPrice.Senior;
+  prices.Child = newPrice.Child;
+  return newPrice;
 }
 
 function getEmployeeCoverage(idOrName) {
