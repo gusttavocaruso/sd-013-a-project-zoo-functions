@@ -67,7 +67,7 @@ function countAnimals(animal) {
 
 // Requisito 8
 function calculateEntry(entrants) {
-  // seu código aqui
+
   if (!entrants || Object.keys(entrants).length === 0) return 0;
   const { Adult = 0, Senior = 0, Child = 0 } = entrants;
   return Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
@@ -85,12 +85,17 @@ function getSchedule(dayName) {
 
 // Requisito 11
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+
+  const person = employees.find((employee) => employee.id === id);
+  const firstSpecie = species.find((specie) => specie.id === person.responsibleFor[0]);
+  const oldest = firstSpecie.residents.sort((a, b) => b.age - a.age);
+
+  return Object.values(oldest[0]);
 }
 
 // Requisito 12
 function increasePrices(percentage) {
-  // seu código aqui
+
   const keys = Object.keys(data.prices);
   keys.forEach((key) => {
     data.prices[key] = Math.round(data.prices[key] * (1 + percentage / 100) * 100) / 100;
