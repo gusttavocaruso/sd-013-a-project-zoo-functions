@@ -99,7 +99,6 @@ function increasePrices(percentage) {
   return data.prices;
 }
 
-
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
