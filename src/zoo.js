@@ -113,9 +113,12 @@ function getOldestFromFirstSpecies(id) {
   const sortAnimalF = animalFinder.residents.sort((a, b) => b.age - a.age)[0];
   return [sortAnimalF.name, sortAnimalF.sex, sortAnimalF.age];
 }
-console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+
 function increasePrices(percentage) {
-  // seu código aqui
+  const keys = Object.keys(data.prices);
+  keys.forEach((key) => {
+    data.prices[key] = Math.round(data.prices[key] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
