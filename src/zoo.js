@@ -85,6 +85,21 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
+  const getEmployee = data.employees.find((employee) => employee.id === id);
+  const firstAnimal = getEmployee.responsibleFor[0];
+  const getSpecie = data.species.find((specie) => specie.id === firstAnimal);
+
+  const oldestAnimal = getSpecie.residents.reduce((a, b) => {
+    if (a.age < b.age) {
+      return b;
+    }
+    return a;
+  });
+  const answer = [];
+  answer.push(oldestAnimal.name);
+  answer.push(oldestAnimal.sex);
+  answer.push(oldestAnimal.age);
+  return answer;
   // seu código aqui
 }
 
