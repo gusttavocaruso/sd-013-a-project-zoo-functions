@@ -81,8 +81,6 @@ function getSchedule(dayName = '') {
   oneDay[dayName] = notDay[dayName];
   return dayName === '' ? notDay : oneDay;
 }
-const ex = Object.keys(hours); 
-console.log(ex.length);
 
 function getOldestFromFirstSpecies(identity) {
   const person = employees.find((employee) => employee.id === identity);
