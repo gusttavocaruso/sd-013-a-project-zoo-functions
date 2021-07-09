@@ -76,9 +76,40 @@ function increasePrices(percentage) {
   // seu código aqui
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+function getIdorName(funcionario) {
+  const obj = {};
+  employees
+    .filter((employe) => employe
+      .id === funcionario || employe
+      .firstName === funcionario || employe
+      .lastName === funcionario).forEach((test) => {
+      const initialName = test.firstName;
+      const finalName = test.lastName;
+      const fullName = `${initialName} ${finalName}`;
+      const animals = test.responsibleFor;
+      const listPet = animals.map((animal) => species.find((specie) => specie.id === animal).name);
+      obj[fullName] = listPet;
+    });
+  return obj;
 }
+// feito com a ajuda da Bianca, sumo e Rafa;
+function getEmployeeCoverage(idOrName) {
+  if (!idOrName) {
+    const obj = {};
+    employees.forEach((employe) => {
+      const initialName = employe.firstName;
+      const finalName = employe.lastName;
+      const fullName = `${initialName} ${finalName}`;
+      const animals = employe.responsibleFor;
+      const listPet = animals.map((animal) => species.find((specie) => specie.id === animal).name);
+      obj[fullName] = listPet;
+    });
+    return obj;
+  }
+  return getIdorName(idOrName);
+}
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
