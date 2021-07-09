@@ -117,7 +117,7 @@ function getOldestFromFirstSpecies(ident) {
 
   return Object.values(sortedAnimal[0]);
 }
-console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+
 function increasePrices(percentage) {
   if (!percentage || percentage === 0) return prices;
   const percent = (percentage / 100) + 1;
@@ -134,11 +134,35 @@ function increasePrices(percentage) {
   return prices;
 }
 
-function getEmployeeCoverage(idOrName) {
-  const employs = employees.map(({ firstName, lastName }) => `${firstName} ${lastName}`);
-  return employs;
+function getEmployCoverageNoParameters() {
+  return employees.reduce((acc, valActual) => {
+    acc[`${valActual.firstName} ${valActual.lastName}`] = valActual.responsibleFor
+      .map((item) => species
+        .find(({ id }) => id === item).name);
+    return acc;
+  }, {});
 }
-console.log(getEmployeeCoverage());
+
+function getEmployeeCoverage(idOrNames) {
+  if (!idOrNames) {
+    getEmployCoverageNoParameters();
+  }
+
+  const returnObj = {};
+  const employFinder = employees.find(({ id, lastName, firstName }) => id === idOrNames
+    || lastName === idOrNames
+      || firstName === idOrNames);
+
+  const { firstName, lastName, responsibleFor } = employFinder;
+
+  const animalsArr = responsibleFor.map((item) => species
+    .find(({ id }) => id === item).name);
+
+  returnObj[`${firstName} ${lastName}`] = animalsArr;
+
+  return returnObj;
+}
+console.log(getEmployeeCoverage('Azevado'));
 
 module.exports = {
   calculateEntry,
