@@ -13,14 +13,11 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-
   return data.species.some((spec) => spec.name === animal
   && spec.residents.every((resident) => resident.age > age));
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   if (typeof employeeName === 'undefined') {
     return {};
   }
@@ -29,7 +26,6 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
   return {
     id: personalInfo.id,
     firstName: personalInfo.firstName,
@@ -40,12 +36,10 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
   return data.employees.some((employee) => employee.managers[0] === id);
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   const lastEmployee = {
     id,
     firstName,
@@ -106,7 +100,6 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
   const idAnimal = data.employees.find((employee) => employee.id === id).responsibleFor[0];
   const animals = data.species.find((spec) => spec.id === idAnimal).residents;
   const sortAnimals = animals.sort((a, b) => b.age - a.age);
@@ -114,21 +107,33 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
-/* for(i in prices){
-   prices[i] = (prices[i] + prices[i] * formula + 0.001).toFixed(2)
- } */
-  // const formula = percentage / 100;
-  // const precos = Object.values(prices);
-  // const newPrecos = precos.map((item) => (item + item * formula + 0.001).toFixed(2));
-  // return prices['Adult'] = newPrecos[0];
-
+// A ideia da formula veio de dois sites
+// 1º https://www.estrategiaconcursos.com.br/blog/como-calcular-porcentagem/
+// 2º https://pt.stackoverflow.com/questions/207612/arredondamento-para-cima-de-float-em-javascript
+  const formula = (percentage / 100) + 1;
+  const keysPrice = Object.keys(prices);
+  keysPrice.forEach((key) => { prices[key] = Math.round(prices[key] * formula * 100) / 100; });
 }
-// console.log((increasePrices(50)));
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+  /* const { employees } = data;
+  const { species } = data;
+  const funcionarios = data.employees.map((employee) =>
+    (`${employee.firstName} ${employee.lastName}`));
 
+  const responsabilidade = data.species.map((employe) => employe.id);
+
+  const arrayIdsRespons = employees.map((emplo) => emplo.responsibleFor);
+  const idsFiltrados = [];
+  const arr = species.map((spec) => spec.id);
+  const newArr = [];
+  const obj = {};
+  funcionarios.forEach((func) => { obj[func] = 0; });
+  arrayIdsRespons.forEach((itemId) => itemId.map((cadaId) => idsFiltrados.push(cadaId)));
+  idsFiltrados.forEach((id) => arr.find((spe) => spe === id));
+  return data.species.find((s) => s.id === arr[0]); */
+}
+// console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
