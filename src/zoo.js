@@ -19,17 +19,12 @@ function sortByOption(options, array) {
   return (options.sorted ? array.sort() : array);
 }
 function filterAnimal(specie, options) {
-  switch (true) {
-  case options.includeNames && /male/.test(options.sex):
-    return sortByOption(options, specie.residents
+  return (options.includeNames && /male/.test(options.sex) ? sortByOption(options,
+    specie.residents
       .filter((animals) => animals.sex === options.sex)
-      .map((x) => x.name));
+      .map((animal) => animal.name))
 
-  case options.includeNames && !options.sex:
-    return sortByOption(options, specie.residents.map((x) => x.name));
-  default:
-    return specie.name;
-  }
+    : sortByOption(options, specie.residents.map((animal) => animal.name)));
 }
 // #################################################################################################### //
 function getSpeciesByIds(...ids) {
@@ -84,14 +79,14 @@ function calculateEntry(entrants) {
       .map((entrant) => prices[entrant[0]] * entrant[1])
       .reduce((total, price) => total + price));
 }
-
+// TODO: melhorar a lógica de filterAnimal e comprimir o filtro em uma única varipavel
 function getAnimalMap(options = {}) {
-  const defaultLocations = animalMapObject({}, 'location');
   const locations = animalMapObject({}, 'location');
-  species.forEach((animal) => locations[animal.location].push(animal.name));
-  species.forEach((specie) => defaultLocations[specie.location]
+  const defaultLocations = animalMapObject({}, 'location');
+  species.forEach((animal) => defaultLocations[animal.location].push(animal.name));
+  species.forEach((specie) => locations[specie.location]
     .push(...[{ [specie.name]: filterAnimal(specie, options) }]));
-  return ((emptyObj(options) || !options.includeNames) ? locations : defaultLocations);
+  return ((emptyObj(options) || !options.includeNames) ? defaultLocations : locations);
 }
 
 function getSchedule(dayName) {
