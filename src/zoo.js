@@ -55,8 +55,10 @@ function countAnimals(species) {
   return typeof (getAnimal) === 'undefined' ? animalCount : getAnimal.residents.length;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = 0) {
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
+  const soma = Adult * 49.99 + Senior * 24.99 + Child * 20.99;
+  return soma;
 }
 
 function getAnimalMap(options) {
