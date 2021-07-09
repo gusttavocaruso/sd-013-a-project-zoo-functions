@@ -5,10 +5,33 @@ const { species } = data;
 const { employees } = data;
 
 const { prices } = data;
-
+// #################################################################################################### //
+// ################ Funções auxiliares criadas por @Jorge Felipe Campos Chagas #######################//
+// #################################################################################################### //
+const animalMapObject = (objectAcc = {}, key, keyValue = []) => species.reduce(((local, names) =>
+  Object.assign(local, { [names[key]]: ((keyValue).length === 0 ? new Array(0) : names[keyValue]) })
+), objectAcc);
 const emptyParam = (parametro) => !parametro
 || (parametro && Object.keys(parametro).length === 0 && parametro.constructor === Object);
 
+const emptyObj = (obj) => Object.keys(obj).length === 0;
+function sortByOption(options, array) {
+  return (options.sorted ? array.sort() : array);
+}
+function filterAnimal(specie, options) {
+  switch (true) {
+  case options.includeNames && /male/.test(options.sex):
+    return sortByOption(options, specie.residents
+      .filter((animals) => animals.sex === options.sex)
+      .map((x) => x.name));
+
+  case options.includeNames && !options.sex:
+    return sortByOption(options, specie.residents.map((x) => x.name));
+  default:
+    return specie.name;
+  }
+}
+// #################################################################################################### //
 function getSpeciesByIds(...ids) {
   return (!ids.length ? [] : species.filter((specie) => ids.includes(specie.id)));
 }
@@ -62,27 +85,13 @@ function calculateEntry(entrants) {
       .reduce((total, price) => total + price));
 }
 
-// eslint-disable-next-line max-lines-per-function
 function getAnimalMap(options = {}) {
-  const locations = Object.values(species).reduce((specieLocation, specie) => {
-    if (specie.location in specieLocation) {
-      (options.includeNames) ? specieLocation[specie.location]
-        .push({ [specie.name]: (options.sorted ? (specie.residents
-          .map((x) => x.name)).sort()
-          : (specie.residents.map((x) => x.name))) })
-        : specieLocation[specie.location].push(specie.name);
-    } else {
-      (options.includeNames) ? Object.assign(specieLocation,
-        { [specie.location]: [{ [specie.name]: (options.sorted ? (specie.residents.map((x) => x.name)).sort()
-          : (specie.residents.map((x) => x.name))) }] })
-        : Object.assign(specieLocation, { [specie.location]: [specie.name] });
-    }
-    return specieLocation;
-  }, {});
-  // console.log("antes",locations);
-  // console.log(Object.values(locations).sort());
-  // console.log("depois",locations);
-  return (locations);
+  const defaultLocations = animalMapObject({}, 'location');
+  const locations = animalMapObject({}, 'location');
+  species.forEach((animal) => locations[animal.location].push(animal.name));
+  species.forEach((specie) => defaultLocations[specie.location]
+    .push(...[{ [specie.name]: filterAnimal(specie, options) }]));
+  return ((emptyObj(options) || !options.includeNames) ? locations : defaultLocations);
 }
 
 function getSchedule(dayName) {
