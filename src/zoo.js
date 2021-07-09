@@ -36,7 +36,6 @@ function convertHourToPm(number) {
 function dailyScheduleMaker(weekDay) {
   const { open } = weekDay[1];
   const close = convertHourToPm(weekDay[1].close);
-  // console.log(close, close < 0);
   const dayOfWeek = weekDay[0];
   return (close < 0
     ? { [dayOfWeek]: 'CLOSED' }
@@ -123,7 +122,11 @@ function getSchedule(dayName = {}) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const [firstSpecieID] = employees.find((thisEmployee) => thisEmployee.id === id).responsibleFor;
+  const animals = species.find((specie) => specie.id === firstSpecieID).residents;
+  const oldestAnimal = animals
+    .find((animal) => animal.age === Math.max(...animals.map((animalAge) => animalAge.age)));
+  return (Object.values(oldestAnimal));
 }
 
 function increasePrices(percentage) {
