@@ -1,4 +1,4 @@
-const { species, employees} = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -65,33 +65,32 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const hours = data.hours;
-  let obj = {};
+  const { hours } = data;
+  const obj = {};
   console.log(hours);
 
-  if(dayName === undefined) {
+  if (dayName === undefined) {
     hours.forEach((day) => {
-      obj[day.key] = `${day.key}: Open from ${day.key['open']}am until ${day.key['close']}pm`
+      obj[day.key] = `${day.key}: Open from ${day.key.open}am until ${day.key.close}pm`;
       console.log(day);
-    })
-    return obj
+    });
+    return obj;
   }
-  
 }
 
 function getOldestFromFirstSpecies(id) {
-  const specieID = data.employees.find((employee) => employee.id === id).responsibleFor[0]
+  const specieID = data.employees.find((employee) => employee.id === id).responsibleFor[0];
   const animals = data.species.find((animal) => animal.id === specieID).residents;
-  const result = animals.sort((animalA, animalB) => animalB.age - animalA.age)[0]
-  const arr = [result['name'], result['sex'], result['age']];
+  const result = animals.sort((animalA, animalB) => animalB.age - animalA.age)[0];
+  const arr = [result.name, result.sex, result.age];
   return arr;
 }
 
 function increasePrices(percentage) {
-  const highPrice = data.prices
-  highPrice['Adult'] = Math.round((((percentage/100)+1)*highPrice['Adult'])*100)/100;
-  highPrice['Child'] = Math.round((((percentage/100)+1)*highPrice['Child'])*100)/100;
-  highPrice['Senior'] = Math.round((((percentage/100)+1)*highPrice['Senior'])*100)/100;
+  const highPrice = data.prices;
+  highPrice.Adult = Math.round((((percentage / 100) + 1) * highPrice.Adult) * 100) / 100;
+  highPrice.Child = Math.round((((percentage / 100) + 1) * highPrice.Child) * 100) / 100;
+  highPrice.Senior = Math.round((((percentage / 100) + 1) * highPrice.Senior) * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
