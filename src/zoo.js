@@ -1,4 +1,3 @@
-const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -130,9 +129,9 @@ const noEmptyOptions = {
     const locations = [];
     const mapAnimals = {};
     const animals = [];
-    data.species.forEach((specie) => {
-      if (locations.indexOf(specie.location) === -1) {
-        locations.push(specie.location);
+    data.species.forEach((specie2) => {
+      if (locations.indexOf(specie2.location) === -1) {
+        locations.push(specie2.location);
       }
     });
     locations.forEach((location) => {
@@ -141,10 +140,12 @@ const noEmptyOptions = {
     return mapAnimals;
   },
   sorted: () => {
-    return 'sorted';
+    const s = 'sorted';
+    return s;
   },
   sex: () => {
-    return 'sex';
+    const s = 'sex';
+    return s;
   },
 };
 
@@ -156,8 +157,8 @@ function getAnimalMap(options) {
   });
   if (!options) return emptyOptions();
 }
-const options = { includeNames: true };
-console.log(getAnimalMap(options));
+// const options = { includeNames: true };
+// console.log(getAnimalMap(options));
 function getSchedule(dayName) {
   const control = {};
   const message = (days, open, close) => {
@@ -206,35 +207,28 @@ const emptyIdOrName = () => {
   let capture = [];
   data.employees.forEach((employee) => {
     data.species.forEach((specie) => {
-      if (specie.responsibleFor.indexOf(employee.id) !== -1) {
+      if (employee.responsibleFor.indexOf(specie.id) !== -1) {
         capture.push(specie.name);
       }
     });
-    newObject[`${employees.firstName} ${employees.lastName}`] = capture;
+    if (employee.responsibleFor[0] === capture[0]) {
+      capture.reverse();
+    }
+    newObject[`${employee.firstName} ${employee.lastName}`] = capture;
     capture = [];
   });
   return newObject;
 };
 
-const noEmptyIdOrName = (id, name) => {
+const noEmptyIdOrName = (param) => {
   const newObject = {};
-  if (id) {
-    const capture = [];
-    data.species.forEach((specie) => {
-      if (id.responsibleFor.indexOf(specie.id) !== -1) {
-        capture.push(specie.name);
-      }
-    });
-    newObject[`${id.firstName} ${id.lastName}`] = capture;
-  } else if (name) {
-    const capture = [];
-    data.species.forEach((specie) => {
-      if (name.responsibleFor.indexOf(specie.id) !== -1) {
-        capture.push(specie.name);
-      }
-    });
-    newObject[`${name.firstName} ${name.lastName}`] = capture;
-  }
+  const capture = [];
+  data.species.forEach((specie) => {
+    if (param.responsibleFor.indexOf(specie.id) !== -1) {
+      capture.push(specie.name);
+    }
+  });
+  newObject[`${param.firstName} ${param.lastName}`] = capture;
   return newObject;
 };
 
@@ -242,11 +236,11 @@ function getEmployeeCoverage(idOrName) {
   if (idOrName) {
     const id = data.employees.find((e) => e.id === idOrName);
     const name = data.employees.find((e) => e.firstName === idOrName || e.lastName === idOrName);
-    return noEmptyIdOrName(id, name);
+    return (id) ? noEmptyIdOrName(id) : noEmptyIdOrName(name);
   }
   return emptyIdOrName();
 }
-
+console.log(getEmployeeCoverage('Azevado'));
 module.exports = {
   calculateEntry,
   getSchedule,
