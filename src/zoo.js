@@ -117,7 +117,7 @@ function getOldestFromFirstSpecies(ident) {
 
   return Object.values(sortedAnimal[0]);
 }
-
+console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 function increasePrices(percentage) {
   if (!percentage || percentage === 0) return prices;
   const percent = (percentage / 100) + 1;
@@ -135,8 +135,10 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  //
+  const employs = employees.map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+  return employs;
 }
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
