@@ -55,7 +55,9 @@ function countAnimals(animal) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || entrants === {}) return 0;
+
+  return Object.keys(entrants).reduce((acc, cur) => acc + entrants[cur] * data.prices[cur], 0);
 }
 
 function getAnimalMap(options) {
@@ -63,7 +65,7 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  // ghf
 }
 
 function getOldestFromFirstSpecies(identity) {
