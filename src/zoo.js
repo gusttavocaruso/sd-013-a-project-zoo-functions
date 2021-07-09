@@ -131,50 +131,10 @@ function increasePrices(percentage) {
   return prices;
 }
 
-const empty = (newObject) => {
-  let capture = [];
-  employees.forEach((employee) => {
-    species.forEach((specie) => {
-      if (employee.responsibleFor.indexOf(specie.id) !== -1) {
-        capture.push(specie.name);
-      }
-    });
-    newObject[`${employee.firstName} ${employee.lastName}`] = capture;
-    capture = [];
-  });
-};
-
-const noEmpty = (newObject, id, name) => {
-  const capture = [];
-  if (id) {
-    species.forEach((specie) => {
-      if (id.responsibleFor.indexOf(specie.id) !== -1) {
-        capture.push(specie.name);
-      }
-    });
-    newObject[`${id.firstName} ${id.lastName}`] = capture;
-  } else if (name) {
-    species.forEach((specie) => {
-      if (name.responsibleFor.indexOf(specie.id) !== -1) {
-        capture.push(specie.name);
-      }
-    });
-    newObject[`${name.firstName} ${name.lastName}`] = capture;
-  }
-};
-
 function getEmployeeCoverage(idOrName) {
-  const newObject = {};
-  if (!idOrName) {
-    empty(newObject);
-  } else {
-    const id = employees.find((employee) => employee.id === idOrName);
-    const name = employees.find((emp) => emp.firstName === idOrName || emp.lastName === idOrName);
-    noEmpty(newObject, id, name);
-  }
-  return newObject;
+
 }
-console.log(getEmployeeCoverage('Stephanie'));
+
 module.exports = {
   calculateEntry,
   getSchedule,
