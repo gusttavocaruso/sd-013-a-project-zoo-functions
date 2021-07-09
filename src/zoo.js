@@ -5,6 +5,8 @@ const { species } = data;
 const { employees } = data;
 
 const { prices } = data;
+
+const { hours } = data;
 // #################################################################################################### //
 // ################ Funções auxiliares criadas por @Jorge Felipe Campos Chagas #######################//
 // #################################################################################################### //
@@ -25,6 +27,20 @@ function filterAnimal(specie, options) {
       .map((animal) => animal.name))
 
     : sortByOption(options, specie.residents.map((animal) => animal.name)));
+}
+
+function convertHourToPm(number) {
+  return number - 12;
+}
+
+function dailyScheduleMaker(weekDay) {
+  const { open } = weekDay[1];
+  const close = convertHourToPm(weekDay[1].close);
+  // console.log(close, close < 0);
+  const dayOfWeek = weekDay[0];
+  return (close < 0
+    ? { [dayOfWeek]: 'CLOSED' }
+    : { [dayOfWeek]: `Open from ${open}am until ${close}pm` });
 }
 // #################################################################################################### //
 function getSpeciesByIds(...ids) {
@@ -88,9 +104,22 @@ function getAnimalMap(options = {}) {
     .push(...[{ [specie.name]: filterAnimal(specie, options) }]));
   return ((emptyObj(options) || !options.includeNames) ? defaultLocations : locations);
 }
-
-function getSchedule(dayName) {
-  // seu código aqui
+// 'Tuesday': 'Open from 8am until 6pm',
+function getSchedule(dayName = {}) {
+  return (emptyObj(dayName)
+    ? Object.entries(hours)
+      .reduce(((schedule, businessHour) => {
+        const scheduleFormat = Object.assign(schedule, dailyScheduleMaker(businessHour));
+        return scheduleFormat;
+      }), {})
+    : Object.entries(hours)
+      .filter((day) => day[0] === dayName)
+      .reduce(((schedule, businessHour) => {
+        const scheduleFormat = Object.assign(schedule, dailyScheduleMaker(businessHour));
+        console.log(scheduleFormat);
+        return scheduleFormat;
+      }), {})
+  );
 }
 
 function getOldestFromFirstSpecies(id) {
