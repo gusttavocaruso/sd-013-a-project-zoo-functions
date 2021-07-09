@@ -1,9 +1,10 @@
+const { employees } = require('./data');
 const data = require('./data');
 
-function getspecieByIds(...ids) {
+function getSpeciesByIds(...ids) {
   const control = [];
   if (ids) {
-    data.specie.forEach((objects) => {
+    data.species.forEach((objects) => {
       ids.forEach((sentIds) => {
         if (objects.id === sentIds) {
           control.push(objects);
@@ -25,10 +26,10 @@ function getAnimalsOlderThan(animal, age) {
   return control;
 }
 
-function getspecieByName(specieName) {
+function getEmployeeByName(specieName) {
   let control = {};
   if (specieName) {
-    data.species.forEach((objects) => {
+    data.employees.forEach((objects) => {
       if ((objects.firstName === specieName) || (objects.lastName === specieName)) {
         control = objects;
       }
@@ -37,7 +38,7 @@ function getspecieByName(specieName) {
   return control;
 }
 
-function createspecie(...ids) {
+function createEmployee(...ids) {
   const newObject = {};
   ids.forEach((id) => {
     Object.keys(id).forEach((key, i) => {
@@ -49,7 +50,7 @@ function createspecie(...ids) {
 
 function isManager(id) {
   let control = false;
-  data.species.forEach((objects) => {
+  data.employees.forEach((objects) => {
     objects.managers.forEach((arrayManagers) => {
       if (arrayManagers === id) {
         control = true;
@@ -59,16 +60,16 @@ function isManager(id) {
   return control;
 }
 
-function addspecie(...params) {
+function addEmployee(...params) {
   const newObject = {};
-  Object.keys(data.species[0]).forEach((days, i) => {
+  Object.keys(data.employees[0]).forEach((days, i) => {
     if (params[i]) {
       newObject[days] = params[i];
     } else {
       newObject[days] = [];
     }
   });
-  data.species.push(newObject);
+  data.employees.push(newObject);
 }
 
 function countAnimals(specie) {
@@ -103,10 +104,60 @@ function calculateEntry(entrants) {
   return sum;
 }
 
+const emptyOptions = () => {
+  const locations = [];
+  const mapAnimals = {};
+  let animals = [];
+  data.species.forEach((specie) => {
+    if (locations.indexOf(specie.location) === -1) {
+      locations.push(specie.location);
+    }
+  });
+  locations.forEach((location) => {
+    data.species.forEach((specie) => {
+      if (specie.location === location) {
+        animals.push(specie.name);
+      }
+    });
+    mapAnimals[location] = animals;
+    animals = [];
+  });
+  return mapAnimals;
+};
+
+const noEmptyOptions = {
+  includeNames: () => {
+    const locations = [];
+    const mapAnimals = {};
+    const animals = [];
+    data.species.forEach((specie) => {
+      if (locations.indexOf(specie.location) === -1) {
+        locations.push(specie.location);
+      }
+    });
+    locations.forEach((location) => {
+      mapAnimals[location] = animals;
+    });
+    return mapAnimals;
+  },
+  sorted: () => {
+    return 'sorted';
+  },
+  sex: () => {
+    return 'sex';
+  },
+};
+
 function getAnimalMap(options) {
-
+  Object.keys(options).forEach((option) => {
+    Object.keys(noEmptyOptions).forEach((no) => {
+      if (option === no) return noEmptyOptions[option]();
+    });
+  });
+  if (!options) return emptyOptions();
 }
-
+const options = { includeNames: true };
+console.log(getAnimalMap(options));
 function getSchedule(dayName) {
   const control = {};
   const message = (days, open, close) => {
@@ -114,7 +165,7 @@ function getSchedule(dayName) {
   };
   Object.keys(data.hours).forEach((days) => {
     const open = Object.values(data.hours[days])[0];
-    const close = Object.values(data.hours[days])[1];
+    const close = Object.values(data.hours[days])[1] - 12;
     if (!dayName) {
       control[days] = (days !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
     } else if (dayName === days) {
@@ -124,10 +175,10 @@ function getSchedule(dayName) {
   return control;
 }
 
-function getOldestFromFirstspecie(id) {
+function getOldestFromFirstSpecies(id) {
   const first = [];
   const older = [];
-  const collaborator = data.species.find((specie) => specie.id === id);
+  const collaborator = data.employees.find((collab) => collab.id === id);
   collaborator.responsibleFor.forEach((idsCollabs) => {
     first.push(data.species.find((specie) => specie.id === idsCollabs));
   });
@@ -139,32 +190,36 @@ function getOldestFromFirstspecie(id) {
     arrayMax.push(arrays[0]);
   });
   const max = arrayMax.sort((age1, age2) => age2.age - age1.age);
-  return max[0];
+  return Object.values(max[0]).map((e) => e);
 }
 
 function increasePrices(percentage) {
-  const newPrices = Object.values(data.prices).map((price) => price + (price * (percentage / 100)));
+  const newPrices = Object.values(data.prices).map((price) => price * (1 + (percentage / 100) / 1));
   Object.keys(data.prices).forEach((key, i) => {
-    data.prices[key] = Math.round(newPrices[i] * 2) / 2 - 0.01;
+    data.prices[key] = Number((newPrices[i] + 0.005).toFixed(2));
   });
   return data.prices;
 }
 
-const emptyIdOrName = (newObject) => {
+const emptyIdOrName = () => {
+  const newObject = {};
   let capture = [];
-  data.species.forEach((specie) => {
+  data.employees.forEach((employee) => {
     data.species.forEach((specie) => {
-      if (specie.responsibleFor.indexOf(specie.id) !== -1) {
+      if (specie.responsibleFor.indexOf(employee.id) !== -1) {
         capture.push(specie.name);
       }
     });
-    newObject[`${specie.firstName} ${specie.lastName}`] = capture;
+    newObject[`${employees.firstName} ${employees.lastName}`] = capture;
     capture = [];
   });
+  return newObject;
 };
 
-const noEmptyIdOrName = (newObject, id, name, capture) => {
+const noEmptyIdOrName = (id, name) => {
+  const newObject = {};
   if (id) {
+    const capture = [];
     data.species.forEach((specie) => {
       if (id.responsibleFor.indexOf(specie.id) !== -1) {
         capture.push(specie.name);
@@ -172,6 +227,7 @@ const noEmptyIdOrName = (newObject, id, name, capture) => {
     });
     newObject[`${id.firstName} ${id.lastName}`] = capture;
   } else if (name) {
+    const capture = [];
     data.species.forEach((specie) => {
       if (name.responsibleFor.indexOf(specie.id) !== -1) {
         capture.push(specie.name);
@@ -179,19 +235,16 @@ const noEmptyIdOrName = (newObject, id, name, capture) => {
     });
     newObject[`${name.firstName} ${name.lastName}`] = capture;
   }
+  return newObject;
 };
 
-function getspecieCoverage(idOrName) {
-  const newObject = {};
-  if (!idOrName) {
-    emptyIdOrName(newObject);
-  } else {
-    const capture = [];
-    const id = data.species.find((e) => e.id === emptyIdOrName);
-    const name = data.species.find((e) => e.firstName === idOrName || e.lastName === idOrName);
-    noEmptyIdOrName(newObject, id, name, capture);
+function getEmployeeCoverage(idOrName) {
+  if (idOrName) {
+    const id = data.employees.find((e) => e.id === idOrName);
+    const name = data.employees.find((e) => e.firstName === idOrName || e.lastName === idOrName);
+    return noEmptyIdOrName(id, name);
   }
-  return newObject;
+  return emptyIdOrName();
 }
 
 module.exports = {
@@ -199,13 +252,13 @@ module.exports = {
   getSchedule,
   countAnimals,
   getAnimalMap,
-  getspecieByIds,
-  getspecieByName,
-  getspecieCoverage,
-  addspecie,
+  getSpeciesByIds,
+  getEmployeeByName,
+  getEmployeeCoverage,
+  addEmployee,
   isManager,
   getAnimalsOlderThan,
-  getOldestFromFirstspecie,
+  getOldestFromFirstSpecies,
   increasePrices,
-  createspecie,
+  createEmployee,
 };
