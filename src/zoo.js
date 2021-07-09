@@ -3,12 +3,11 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   return data.species.filter((specie) => ids.find((id) => id === specie.id));
 }
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
+
 function getAnimalsOlderThan(animal, age) {
   const getAnimal = data.species.find((specie) => specie.name === animal);
   return getAnimal.residents.every((individual) => individual.age >= age);
 }
-console.log(getAnimalsOlderThan('bears', 4));
 
 function getEmployeeByName(employeeName) {
   const emp = employeeName;
@@ -16,17 +15,28 @@ function getEmployeeByName(employeeName) {
   const personNotFound = {};
   return em.length > 0 ? em[0] : personNotFound;
 }
-console.log(getEmployeeByName('sdfsdf'));
+
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const personalData = personalInfo;
+  personalData.managers = associatedWith.managers;
+  personalData.responsibleFor = associatedWith.responsibleFor;
+  return personalInfo;
 }
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((itemArray) => itemArray.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const object = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  data.employees.push(object);
+  return data.employees;
 }
 
 function countAnimals(species) {
