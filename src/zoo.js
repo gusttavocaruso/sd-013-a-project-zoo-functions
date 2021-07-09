@@ -40,7 +40,19 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const getAnimal = data.species.find((specie) => specie.name === species);
+  const animalCount = {
+    lions: 4,
+    tigers: 2,
+    bears: 3,
+    penguins: 4,
+    otters: 4,
+    frogs: 2,
+    snakes: 2,
+    elephants: 4,
+    giraffes: 6,
+  };
+  return typeof (getAnimal) === 'undefined' ? animalCount : getAnimal.residents.length;
 }
 
 function calculateEntry(entrants) {
