@@ -106,8 +106,8 @@ function calculateEntry(entrants) {
 
 /* fim das funções auxiliares */
 
-// não consigo fazer de forma alguma! comentei pra não atrapalhar minhas notas
-// farei somente o minimo necessário. Ta muito difícil.
+// comentei pra poder seguir com o evaluator
+// Essa ta complexa xD
 function getAnimalMap(options) {
   // const theLocation = Array.from({});
   // species.forEach(({ location }) => theLocation.push(location));
