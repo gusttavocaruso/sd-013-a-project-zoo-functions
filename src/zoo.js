@@ -1,17 +1,22 @@
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  return data.species.filter((specie) => ids.find((id) => id === specie.id));
 }
-
+console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const getAnimal = data.species.find((specie) => specie.name === animal);
+  return getAnimal.residents.every((individual) => individual.age >= age);
 }
+console.log(getAnimalsOlderThan('bears', 4));
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  const emp = employeeName;
+  const em = data.employees.filter((person) => emp === person.firstName || emp === person.lastName);
+  const personNotFound = {};
+  return em.length > 0 ? em[0] : personNotFound;
 }
-
+console.log(getEmployeeByName('sdfsdf'));
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
