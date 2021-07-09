@@ -109,20 +109,13 @@ function getSchedule(dayName) {
   return alert;
 }
 
-function getOldestFromFirstSpecies(id) {
-  const employResponsi = data.employees.filter((item) => item.id === id)
-    .map((item) => item.responsibleFor[0]);
+function getOldestFromFirstSpecies(ident) {
+  const employ = employees.find(({ id }) => id === ident);
+  const responsibleAnimal = species.find(({ id }) => id === employ
+    .responsibleFor[0]).residents;
+  const sortedAnimal = responsibleAnimal.sort((a, b) => a.age < b.age);
 
-  const animalName = species.filter((idAnim) => idAnim.id === employResponsi[0])
-    .map(({ residents }) => residents);
-
-  const ageAnimal = species.filter((idAnim) => idAnim.id === employResponsi[0])
-    .map(({ residents }) => residents.map(({ age }) => age)
-      .sort((a, b) => a < b)[0])[0];
-
-  const biggestAnimal = animalName[0].find((item) => item.age === ageAnimal);
-
-  return Object.values(biggestAnimal);
+  return Object.values(sortedAnimal[0]);
 }
 
 function increasePrices(percentage) {
@@ -152,9 +145,11 @@ function getEmployeeCoverage(idOrName) {
 
   objReturn[`${firstName} ${lastName}`] = animals;
   return objReturn;
-}
 
-console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+  if(!idOrName) {
+    
+  }
+}
 
 module.exports = {
   calculateEntry,
