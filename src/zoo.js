@@ -1,4 +1,5 @@
 const { species, employees } = require('./data');
+
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -108,8 +109,6 @@ function getEmployeeCoverage(idOrName) {
   }
   return getIdorName(idOrName);
 }
-
-console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
