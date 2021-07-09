@@ -135,20 +135,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  const objReturn = {};
-  const employ = employees.find(({ id, firstName }) => id === idOrName
-    || firstName === idOrName);
-
-  const { responsibleFor, firstName, lastName } = employ;
-
-  const animals = responsibleFor.map((animal) => species.find(({ id }) => id === animal).name);
-
-  objReturn[`${firstName} ${lastName}`] = animals;
-  return objReturn;
-
-  if(!idOrName) {
-    
-  }
+  //
 }
 
 module.exports = {
