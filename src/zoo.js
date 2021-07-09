@@ -78,7 +78,6 @@ function getSchedule(dayName) {
   }
   
 }
-/* console.log(getSchedule()); */ 
 
 function getOldestFromFirstSpecies(id) {
   const specieID = data.employees.find((employee) => employee.id === id).responsibleFor[0]
