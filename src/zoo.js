@@ -54,8 +54,34 @@ function calculateEntry(entrants) {
     .reduce((a, b) => a + b, 0);
 }
 
+const getNames = (animal, sorted, sex) => {
+  const names = [];
+  animal.residents.forEach((resid) => {
+    if (!sex) names.push(resid.name);
+    if (resid.sex === sex) names.push(resid.name);
+  });
+  return sorted ? names.sort() : names;
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  const locations = ['NE', 'NW', 'SE', 'SW'];
+  const response = {};
+  locations.forEach((loc) => {
+    const animals = data.species.filter((spe) => spe.location === loc);
+    response[loc] = animals.map((obj) => obj.name);
+  });
+  if (!options) return response;
+  const { includeNames, sorted, sex } = options;
+  if (!includeNames) return response;
+  locations.forEach((loc) => {
+    response[loc] = [];
+    const animals = data.species.filter((spe) => spe.location === loc);
+    animals.forEach((animal) => {
+      const names = getNames(animal, sorted, sex);
+      response[loc].push({ [animal.name]: names });
+    });
+  });
+  return response;
 }
 
 function getSchedule(dayName) {
