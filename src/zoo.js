@@ -36,16 +36,38 @@ function isManager(id) {
 }
 // console.log(isManager('b0dc644a-5335-489b-8a2c-4e086c7819a2'))
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
+
+  const adiciona = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return data.employees.push(adiciona);
 }
 
-function countAnimals(species) {
+function countAnimals(animais) {
   // seu código aqui
+  if (!animais) {
+    const objSpecies = {};
+    data.species.forEach((specie) => {
+      return objSpecies[specie.name] = specie.residents.length
+    })
+    return objSpecies
+  }
+  return data.species.find((specie) => {
+    return specie.name === animais
+  }).residents.length
+
 }
+// console.log(countAnimals('lions'))
 
 function calculateEntry(entrants) {
   // seu código aqui
+  return
 }
 
 function getAnimalMap(options) {
