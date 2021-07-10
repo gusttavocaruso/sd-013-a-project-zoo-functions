@@ -41,6 +41,11 @@ function dailyScheduleMaker(weekDay) {
     ? { [dayOfWeek]: 'CLOSED' }
     : { [dayOfWeek]: `Open from ${open}am until ${close}pm` });
 }
+
+function round(value, decimals) {
+  return Number(`${Math.round(`${value}e${decimals}`)}e-${decimals}`);
+}
+
 // #################################################################################################### //
 function getSpeciesByIds(...ids) {
   return (!ids.length ? [] : species.filter((specie) => ids.includes(specie.id)));
@@ -130,7 +135,12 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.entries(prices)
+    .forEach(
+      (price) => {
+        prices[price[0]] = round((price[1] * 100 * ((percentage + 100))) / 10000, 2);
+      },
+    );
 }
 
 function getEmployeeCoverage(idOrName) {
