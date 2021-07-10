@@ -93,7 +93,16 @@ function countAnimals(especies) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  let soma = 0;
+  if ((!entrants) || (Object.keys(entrants).length === 0)) return 0;
+  Object.keys(entrants).forEach((entrant, i) => {
+    Object.keys(data.prices).forEach((price, i2) => {
+      if (entrant === price) {
+        soma += Object.values(entrants)[i] * Object.values(data.prices)[i2];
+      }
+    });
+  });
+  return soma;
 }
 
 function getAnimalMap(options) {
