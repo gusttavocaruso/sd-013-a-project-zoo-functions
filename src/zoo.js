@@ -113,8 +113,12 @@ function getOldestFromFirstSpecies(id) {
   return Object.values(oldest[0]);
 }
 
+// Requisito 12
 function increasePrices(percentage) {
-  // seu código aqui
+  const keys = Object.keys(data.prices);
+  keys.forEach((key) => {
+    data.prices[key] = Math.round(data.prices[key] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
