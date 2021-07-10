@@ -1,5 +1,7 @@
 const data = require('./data');
 
+const getObj = {};
+
 function getSpeciesByIds(...ids) {
   // seu código aqui
   return data.species.filter((animal) => ids.find((nome) => animal.id === nome));
@@ -18,14 +20,8 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const novoEmpre = {};
-  const testeId = personalInfo.id;
-  novoEmpre.id = testeId;
-  novoEmpre.firstName = personalInfo.firstName;
-  novoEmpre.lastName = personalInfo.lastName;
-  novoEmpre.managers = associatedWith.managers;
-  novoEmpre.responsibleFor = associatedWith.responsibleFor;
-  return novoEmpre;
+  const novoEmpre = { ...personalInfo, ...associatedWith }; // desestrutura as informações passadas
+  return novoEmpre; // retorna o objeto novoEmprego com os dois objetos desestruturados
 }
 
 function isManager(id) {
@@ -34,7 +30,6 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   const teste = {};
   const testeId = id;
   teste.id = testeId;
@@ -47,7 +42,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
   if (!species !== true) {
     return data.species.find((nome) => nome.name === species)
       .residents.length;
@@ -77,30 +71,58 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
   // seu código aqui
 }
-
-function getSchedule(dayName) {
-}
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-  let valor = 0;
-  let valor1 = 0;
-  const one = data.employees.find((empregado) => empregado.id === id).responsibleFor[0];
-  const two = data.species.find((resid) => resid.id === one).residents;
-  two.forEach((animal, index) => {
-    if (valor === 0) {
-      valor = Object.values(animal);
-    } else if (animal.age > valor1) {
-      valor1 = animal.age;
-      valor = Object.values(animal);
+function aux(nome) {
+  const newObj = {};
+  Object.keys(getObj).forEach((dia) => {
+    if (dia === nome) {
+      newObj[dia] = getObj[dia];
     }
   });
-  return valor;
-}
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
-function increasePrices(percentage) {
-  // seu código aqui
+  return newObj;
 }
 
+function getSchedule(dayName) {
+  Object.keys(data.hours).forEach((dia) => {
+    if (dia === 'Monday') {
+      getObj[dia] = 'CLOSED';
+    } else {
+      getObj[dia] = `Open from ${data.hours[dia].open}am until ${data.hours[dia].close - 12}pm`;
+    }
+  });
+  if (!dayName) {
+    return getObj;
+  }
+  return aux(dayName);
+}
+
+function getOldestFromFirstSpecies(id) {
+  let valoresAni = 0;
+  let idadeAni = 0;
+  const one = data.employees.find((empregado) => empregado.id === id).responsibleFor[0];
+  const two = data.species.find((resid) => resid.id === one).residents;
+  two.forEach((animal) => {
+    if (valoresAni === 0) {
+      valoresAni = Object.values(animal);
+    } else if (animal.age > idadeAni) {
+      idadeAni = animal.age;
+      valoresAni = Object.values(animal);
+    }
+  });
+  return valoresAni;
+}
+function increasePrices(percentage) {
+  const porcen = percentage / 100;
+  // const valorAdult = Object.values(data.prices)[0] + (data.prices.Adult * porcen);
+  // const valorSenior = data.prices.Senior + (data.prices.Senior * porcen);
+  // const valorChild = data.prices.Child + (data.prices.Child * porcen);
+  // data.prices.Adult = Math.ceil(valorAdult * 100) / 100;
+  // data.prices.Senior = Math.ceil(valorSenior * 100) / 100; // para andar mais casas casa decimais é necessario
+  // data.prices.Child = Math.ceil(valorChild * 100) / 100; // adicionar mais zeros nos digitos 100
+  Object.keys(data.prices).forEach((pessoa) => {
+    data.prices[pessoa] += (data.prices[pessoa] * porcen);
+    data.prices[pessoa] = Math.ceil(data.prices[pessoa] * 100) / 100;
+  });
+}
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
