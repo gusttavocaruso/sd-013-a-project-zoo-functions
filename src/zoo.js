@@ -1,4 +1,4 @@
-const { hours, species, employees } = require('./data');
+const { hours, species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...rest) {
@@ -79,7 +79,10 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-
+  const precos = Object.keys(prices);
+  precos.forEach((preco) => {
+    prices[preco] = Math.round(prices[preco] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
