@@ -53,21 +53,15 @@ function countAnimals(animais) {
   // seu código aqui
   if (!animais) {
     const objSpecies = {};
-    data.species.forEach((specie) => {
-      return objSpecies[specie.name] = specie.residents.length
-    })
-    return objSpecies
+    data.species.forEach((specie) => { objSpecies[specie.name] = specie.residents.length; });
+    return objSpecies;
   }
-  return data.species.find((specie) => {
-    return specie.name === animais
-  }).residents.length
-
+  return data.species.find((specie) => specie.name === animais).residents.length;
 }
-// console.log(countAnimals('lions'))
+// console.log(countAnimals())
 
 function calculateEntry(entrants) {
   // seu código aqui
-  return
 }
 
 function getAnimalMap(options) {
