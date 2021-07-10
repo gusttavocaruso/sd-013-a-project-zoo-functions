@@ -102,7 +102,7 @@ const horarioSemanal = () => {
     if (dia[1].open === 0) {
       cronogramaCompleto[dia[0]] = 'CLOSED';
     } else {
-      cronogramaCompleto[dia[0]] = `Open from ${dia[1].open}am until ${dia[1].close}pm`;
+      cronogramaCompleto[dia[0]] = `Open from ${dia[1].open}am until ${(dia[1].close) - 12}pm`;
     }
   });
   return cronogramaCompleto;
@@ -121,17 +121,49 @@ function getSchedule(dayName) {
   } return horarioDiario(dayName);
 }
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+function getOldestFromFirstSpecies(identidade) {
+  const funcionario = employees.find(({ id }) => id === identidade);
+  const animalsId = funcionario.responsibleFor[0];
+  const findAnimals = species.find(({ id }) => id === animalsId);
+  const maisVelho = findAnimals
+    .residents
+    .reduce((acc, animal) => (animal.age > acc.age ? animal : acc));
+  return Object.values(maisVelho);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const operador = (percentage / 100) + 1;
+  prices.Adult = Math.round((prices.Adult * (operador)) * 100) / 100;
+  prices.Senior = Math.round((prices.Senior * (operador)) * 100) / 100;
+  prices.Child = Math.round((prices.Child * (operador)) * 100) / 100;
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+const animaisControlados = (empregado) =>// recebo o objeto empregado no parâmetro da funcão
+  empregado.responsibleFor // pego a propriedade responsibleFor
+    .map((idDoAnimal) => species // faço um map para me retornar um array
+      .find((especie) => especie.id === idDoAnimal).name); // este array tem como elementos apenas a propriedade name, de cada especie
+
+const animaisPorEmpregado = (funcionarios) => funcionarios.reduce((acc, empregado) => { // passo um reduce para o array de empregados
+  acc[`${empregado.firstName} ${empregado.lastName}`] = animaisControlados(empregado); // dentro do reduce, eu crio para cada iteração, a propriedade 'firstName lastName' e atribuo como valor o retorno da funcao 'animaisControlados' passando como parâmetro o objeto empregado.
+  return acc;
+}, {});// este reduce irá transformar meu array em um objeto
+  // console.log(objAnimaisPorEmpregado);
+
+const pegaEmpregado = (infoEmpregado) => {
+  const empregadoFiltrado = employees.find((empregado) =>
+    infoEmpregado === empregado.id
+      || infoEmpregado === empregado.firstName
+        || infoEmpregado === empregado.lastName);
+  return animaisPorEmpregado([empregadoFiltrado]);
+};
+
+function getEmployeeCoverage(idFirstLastName) {
+  if (!idFirstLastName) return animaisPorEmpregado(employees);
+  if (idFirstLastName) return pegaEmpregado(idFirstLastName);
 }
+
+console.log(getEmployeeCoverage());
+console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
