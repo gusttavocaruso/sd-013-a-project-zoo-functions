@@ -1,6 +1,5 @@
+const { hours, species, employees } = require('./data');
 const data = require('./data');
-
-const { species, employees } = data;
 
 function getSpeciesByIds(...rest) {
   const array = [];
@@ -39,9 +38,10 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(speciesName) {
   const allAnimals = species.reduce((acc, current) => {
     acc[current.name] = current.residents.length;
-    return acc;
+    return acc; // objeto inteiro
   }, {});
   if (!speciesName) return allAnimals;
+  // console.log(allAnimals);
   return allAnimals[speciesName];
 }
 
@@ -56,7 +56,19 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-
+  const cronograma = Object.entries(hours);
+  const scheduleObject = cronograma.reduce((day, [key, valor]) => {
+    const dia = day;
+    dia[key] = `Open from ${valor.open}am until ${valor.close - 12}pm`;
+    if (valor.open === 0 && valor.close === 0) {
+      dia[key] = 'CLOSED';
+    }
+    return dia;
+  }, {});
+  if (dayName) {
+    return { [dayName]: scheduleObject[dayName] };
+  }
+  return scheduleObject;
 }
 
 function getOldestFromFirstSpecies(id) {
