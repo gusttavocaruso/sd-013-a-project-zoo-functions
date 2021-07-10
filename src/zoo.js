@@ -120,17 +120,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 // - Com o nome de uma espécie de animal, retorna somente a quantidade //
 
 function countAnimals(animals) {
-  const allAnimals = {};
   if (animals === undefined) {
     return species.reduce((allAnimal, animal) => {
-      allAnimal[animal.name] = animal.residents.length; // Aqui eu estou pegando o nome de cada animal e igualando a sua quantidade
-      return allAnimal // REduce vai "somar" todas as minhas linhas nesse objeto vazio
-    },{}); // Aqui significa que estou começando com um objeto vazio
-  } else {
-    return species.find((specie) => specie.name === animals).residents.length;
-  }
+      const auxAllAnimal = allAnimal; // fiz isso para que não fosse reatrubuido um parâmetro(lint deu erro)
+      auxAllAnimal[animal.name] = animal.residents.length; // Aqui eu estou pegando o nome de cada animal e igualando a sua quantidade
+      return allAnimal; // REduce vai "somar" todas as minhas linhas nesse objeto vazio
+    }, {}); // Aqui significa que estou começando com um objeto vazio
+  } return species.find((specie) => specie.name === animals).residents.length;
 }
-console.log(countAnimals());
+
 // --------------------------------------------------------------------------------------------------- //
 
 // ------------------------------------8°Requisito-------------------------------------------------- //
