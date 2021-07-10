@@ -44,13 +44,18 @@ function getEmployeeByName(employeeName) {
     return {};
   }
   return employees
-    .find((employee) => {
-      if (employee.firstName === employeeName || employee.lastName === employeeName) {
-        return employee
-      }
-    });
+    .find((employee) =>
+      (employee.firstName === employeeName || employee.lastName === employeeName));
 }
 
+// function getEmployeeByName(employeeName) {
+//   if (employeeName === undefined) {
+//     return {};
+//   }
+//   return employees
+//     .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName).employee
+// }
+// console.log(getEmployeeByName('Wishart'));
 // --------------------------------------------------------------------------------------------------- //
 
 // ------------------------------------4°Requisito-------------------------------------------------- //
@@ -63,7 +68,7 @@ function getEmployeeByName(employeeName) {
 // - Cria um novo colaborador a partir de objetos contendo informações pessoais e gerentes e animais gerenciados. //
 
 function createEmployee(personalInfo, associatedWith) {
-  return Object.assign({}, personalInfo, associatedWith);
+  return { ...personalInfo, ...associatedWith };
 }
 
 // --------------------------------------------------------------------------------------------------- //
@@ -76,26 +81,32 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   return employees.some((employee) => employee.managers
-    .some((manager) => manager === id)) }
+    .some((manager) => manager === id));
+}
 
-//---------------------------------------------------------------------------------------------------//
+// --------------------------------------------------------------------------------------------------- //
 
-//------------------------------------6°Requisito--------------------------------------------------//
+// ------------------------------------6°Requisito-------------------------------------------------- //
 // Referência: https://stackoverflow.com/questions/6254050/how-to-add-an-object-to-an-array //
 // Qual o objetivo dessa função? //
 // - Adicionar uma nova pessoa colaboradora ao array employees //
 // O que será avaliado ? //
 // - Adiciona um funcionário no fim da lista //
 
+// function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+//   const objAdd = {
+//     id: id,
+//     firstName: firstName,
+//     lastName: lastName,
+//     managers: managers,
+//     responsibleFor: responsibleFor,
+//   }
+//   employees.push(objAdd)
+// }
+
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const objAdd = { 
-  id: id,
-  firstName: firstName,
-  lastName: lastName,
-  managers: managers,
-  responsibleFor: responsibleFor,
-} 
-employees.push(objAdd)
+  const objAdd = { id, firstName, lastName, managers, responsibleFor };
+  employees.push(objAdd);
 }
 
 // --------------------------------------------------------------------------------------------------- //
@@ -109,13 +120,11 @@ employees.push(objAdd)
 // - Com o nome de uma espécie de animal, retorna somente a quantidade //
 
 function countAnimals(animals) {
-  const allAnimals = {}
-  if (animals === undefined ){
-    species.filter((specie) => {
-      allAnimals[specie.name] = specie.residents.length})
-      return allAnimals 
+  const allAnimals = {};
+  if (animals === undefined) {
+    species.filter((specie) => allAnimals[specie.name] === specie.residents.length);
   }
-    return species.find((specie) => specie.name === animals).residents.length  
+  return species.find((specie) => specie.name === animals).residents.length;
 }
 // --------------------------------------------------------------------------------------------------- //
 
@@ -129,31 +138,19 @@ function countAnimals(animals) {
 // - Retorna 0 se um objeto vazio for passado //
 // - Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos //
 function calculateEntry(entrants) {
-  if (entrants === undefined){
-    return 0
+  if (entrants === undefined) { // caso o parâmetro for indefenido retorna 0;
+    return 0;
   }
-  if (Object.keys(entrants).length === 0 ){
-    return 0
+  if (Object.keys(entrants).length === 0) { // caso o parâmetro for vazio retorna 0;
+    return 0;
   }
-    const {Adult} = entrants;
-    const {Child} = entrants;
-    const {Senior} = entrants;
-    if (Child === undefined && Adult === undefined ){
-      return prices.Senior*Senior
-    }if (Child === undefined && Senior === undefined ){
-      return prices.Adult*Adult
-    }if (Senior === undefined && Adult === undefined ){
-      return prices.Child*Child
-    }if (Child === undefined ){
-      return prices.Adult*Adult + prices.Senior*Senior
-    }if (Senior === undefined ){
-      return prices.Adult*Adult + prices.Child*Child
-    } if (Adult === undefined ){
-      return prices.Senior*Senior + prices.Child*Child
-    } 
-    return prices.Senior*Senior + prices.Child*Child + prices.Adult*Adult
+  // busca-se as chaves do objeto entrants, após isso usei o map que tem como saída um array para muliplicar
+  // os valores dos objetos tanto do entrants quanto do price. Lembrando que foi multiplicados os objetos
+  // de mesmas categoria. Depois usado o reduce para somar os valores. No caso, o acumulado com o atual.
+  // Essa última parte teve ajuda do Pedro Alles.
+  return Object.keys(entrants).map((category) => data.prices[category] * entrants[category])
+    .reduce((previousValue, currentValue) => previousValue + currentValue);
 }
-
 
 // --------------------------------------------------------------------------------------------------- //
 
@@ -191,8 +188,25 @@ function getSchedule(dayName) {
   return obj;
 }
 
+// --------------------------------------------------------------------------------------------------- //
+
+// ------------------------------------11°Requisito-------------------------------------------------- //
+// Qual o objetivo dessa função? //
+// -  busca por informações do animal mais velho  //
+// O que será avaliado ? //
+// - Passado o id de um funcionário, encontra a primeira espécie de animal gerenciado pelo funcionário. //
+// - retorna um array com nome, sexo e idade do animal mais velho dessa espécie //
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const searchFirstSpecie = employees.find((employee) => employee.id === id).responsibleFor[0];
+  const allAnimals = species.find((specie) => specie.id === searchFirstSpecie).residents;
+  let firstAge = allAnimals[0];
+  allAnimals.forEach((animal, index) => {
+    if (allAnimals[index].age > firstAge.age) {
+      firstAge = allAnimals[index];
+    }
+  });
+  return Object.values(firstAge);
 }
 
 function increasePrices(percentage) {
