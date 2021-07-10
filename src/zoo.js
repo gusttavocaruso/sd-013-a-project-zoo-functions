@@ -5,7 +5,7 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
   const speciesIds = species.filter((specie) => ids.includes(specie.id));
-    return speciesIds;
+  return speciesIds;
 }
 
 // Requisito 2
