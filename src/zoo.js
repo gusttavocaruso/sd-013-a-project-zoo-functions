@@ -102,11 +102,25 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const { employees } = data;
+  const { species } = data;
+  const foundEmployers = employees.find((employer) => employer.id === id);
+  const specieID = foundEmployers.responsibleFor[0];
+  const foundSpecies = species.find((spe) => spe.id === specieID);
+  const arrayResidents = foundSpecies.residents.map((resident) => resident);
+  const arrayOrder = arrayResidents.sort((a, b) => b.age - a.age)[0];
+  return [arrayOrder.name, arrayOrder.sex, arrayOrder.age];
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const { prices } = data;
+  const entriesType = Object.keys(prices);
+  const increment = percentage / 100;
+  entriesType.forEach((type) => {
+    const calc = (prices[type] + (prices[type] * increment));
+    prices[type] = Math.round((calc + Number.EPSILON) * 100) / 100;
+  });
+  return entriesType;
 }
 
 function getEmployeeCoverage(idOrName) {
