@@ -79,7 +79,7 @@ const searchDay = (day) => {
 function getSchedule(dayName) {
   const obj = {};
   if (!dayName) {
-    Object.entries(hours).map((hour) => {
+    Object.entries(hours).forEach((hour) => {
       if (hour[0] === 'Monday') {
         obj[hour[0]] = 'CLOSED';
       } else {
