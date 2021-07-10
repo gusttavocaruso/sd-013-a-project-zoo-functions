@@ -1,4 +1,4 @@
-const { species, employees, hours } = require('./data');
+const { species, employees, hours, prices } = require('./data');
 
 const data = require('./data');
 
@@ -95,7 +95,13 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(prices).forEach((value) => {
+    prices[value] = Math.round((prices[value] * (percentage / 100 + 1)) * 100) / 100;
+  });
+  /* Object.entries(prices).forEach((valor) => {
+    const result = valor[1] + (valor[1] * (percentage / 100));
+    prices.valor[0] = Math.round((result) * 100) / 100;
+  }); */
 }
 
 function getIdorName(funcionario) {
