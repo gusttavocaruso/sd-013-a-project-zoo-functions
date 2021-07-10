@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 // Referências tiradas dos resumos do Notion da BeeDev:
 // https://www.notion.so/a6bcb381fbb241bf9f7c160d6228db71?v=cc21a930d42a4a22b96a31d2b966644e
@@ -69,7 +69,23 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName) {
+    const { open, close } = hours[dayName];
+    return (open && close) ? {
+      [dayName]: `Open from ${open}am until ${close - 12}pm`,
+    } : {
+      [dayName]: 'CLOSED',
+    };
+  }
+  return {
+    Tuesday: `Open from ${hours.Tuesday.open}am until ${hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${hours.Wednesday.open}am until ${hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${hours.Thursday.open}am until ${hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${hours.Friday.open}am until ${hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${hours.Saturday.open}am until ${hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${hours.Sunday.open}am until ${hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
