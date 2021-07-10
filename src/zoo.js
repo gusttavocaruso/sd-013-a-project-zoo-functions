@@ -80,10 +80,29 @@ function getSchedule(dayName) {
   result[`${dayName}`] = objectDay;
   return Object.keys(time).includes(dayName) === true ? result : time;
 }
-console.log(getSchedule('Tuesday'));
+
+/* function returnMaxValue(array) {
+  return array.reduce((accumulator, item) => Math.max(accumulator, item));
+} */
+
+/* function generateArray(speciesNumber) {
+  for (let index = 0; index < speciesNumber; index +=1 ) {
+  }
+} */
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const getEmployee = data.employees.find((employee) => employee.id === id);
+  const getAnimals = getEmployee.responsibleFor;
+  const getSpeciesObjects = data.species.filter((specie) => getAnimals.includes(specie.id));
+  let try1 = [];
+  let try2 = [];
+  const count1 = getSpeciesObjects[0].residents;
+  const count2 = getSpeciesObjects[1].residents;
+  try1 = count2.filter((animal) => animal.age > 11);
+  try2 = count1.filter((animal2) => animal2.age > 9);
+  return try1.length > 0 ? Object.values(try1[0]) : Object.values(try2[0]);
 }
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
