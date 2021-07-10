@@ -102,10 +102,13 @@ function getOldestFromFirstSpecies(id) {
   try2 = count1.filter((animal2) => animal2.age > 9);
   return try1.length > 0 ? Object.values(try1[0]) : Object.values(try2[0]);
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const array = Object.values(data.prices);
+  const prices = array.map((number) => Math.ceil(number * (percentage + 100)) / 100);
+  const result = prices.sort((a, b) => b - a);
+  data.prices = { Adult: result[0], Child: result[2], Senior: result[1] };
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
