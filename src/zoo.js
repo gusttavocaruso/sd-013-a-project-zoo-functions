@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, hours } = require('./data');
 
 const data = require('./data');
 
@@ -62,11 +62,32 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // c
 }
 
+const searchDay = (day) => {
+  if (day === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
+  const dia = Object.entries(hours).find((date) => date[0] === day);
+
+  const dataFinal = { };
+  dataFinal[day] = `Open from ${dia[1].open}am until ${dia[1].close - 12}pm`;
+  return dataFinal;
+};
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const obj = {};
+  if (!dayName) {
+    Object.entries(hours).map((hour) => {
+      if (hour[0] === 'Monday') {
+        obj[hour[0]] = 'CLOSED';
+      } else {
+        obj[hour[0]] = `Open from ${hour[1].open}am until ${hour[1].close - 12}pm`;
+      }
+    });
+    return obj;
+  } return searchDay(dayName);
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -95,8 +116,8 @@ function getIdorName(funcionario) {
 }
 // feito com a ajuda da Bianca, sumo e Rafa;
 function getEmployeeCoverage(idOrName) {
+  const obj = {};
   if (!idOrName) {
-    const obj = {};
     employees.forEach((employe) => {
       const initialName = employe.firstName;
       const finalName = employe.lastName;
