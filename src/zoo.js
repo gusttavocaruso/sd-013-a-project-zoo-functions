@@ -51,16 +51,45 @@ function createEmployee(personalInfo, associatedWith) {
   return newObject;
 }
 
-function isManager() {
-  // seu código aqui
+function isManager(id) {
+  let control = false;
+  data.employees.forEach((employee) => {
+    employee.managers.forEach((manager) => {
+      if (id === manager) {
+        control = true;
+      }
+    });
+  });
+  return control;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(...parametros) {
+  const newObjects = {};
+  Object.keys(data.employees[0]).forEach((employee, i) => {
+    if (parametros[i]) {
+      newObjects[employee] = parametros[i];
+    } else {
+      newObjects[employee] = [];
+    }
+  });
+  data.employees.push(newObjects);
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(especies) {
+  const objects = {};
+  let countSpecies = 0;
+  if (especies) {
+    data.species.forEach((specie) => {
+      if (especies === specie.name) {
+        countSpecies = specie.residents.length
+      }
+    });
+    return countSpecies;
+  } 
+  data.species.forEach((specie) => {
+    objects[specie.name] = specie.residents.length;
+  });
+  return objects;
 }
 
 function calculateEntry(entrants) {
