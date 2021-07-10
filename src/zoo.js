@@ -70,11 +70,18 @@ const locationNoParame = () => {
   return names;
 };
 
-const localitionName = (localizacao) => {
+const localitionName = (localizacao, sex) => {
   const animalnames = [];
   const nomes = data.species.filter((element) => element.location === localizacao);
   nomes.reduce((acc, current, index) => {
     const objAnimal = {};
+    if (sex !== '') {
+      const arraySex = nomes[index].residents.filter((element) => element.sex === sex);
+      const array = arraySex.map((element) => element.name);
+      objAnimal[current.name] = array;
+      animalnames.push(objAnimal);
+      return acc;
+    }
     const array = nomes[index].residents.map((element) => element.name);
     objAnimal[current.name] = array;
     animalnames.push(objAnimal);
@@ -83,25 +90,35 @@ const localitionName = (localizacao) => {
   return animalnames;
 };
 
+const ordenarObj = (obj) => {
+  const objeto = obj;
+  const chaves = Object.keys(objeto);
+  chaves.forEach((chave) => {
+    objeto[chave].forEach((specie, index) => {
+      const animalNome = Object.keys(specie);
+      const ordenado = specie[animalNome[0]].sort();
+      objeto[chave][index][animalNome] = ordenado;
+    });
+  });
+};
+
 function getAnimalMap(options) {
   if (!options) {
-    console.log('Entrei');
     return locationNoParame();
   }
   const { includeNames = false, sorted = false, sex = '' } = options;
   if (includeNames === true) {
-    return data.species.reduce((acc, current) => {
-      acc[current.location] = localitionName(current.location);
+    const animalNames = data.species.reduce((acc, current) => {
+      acc[current.location] = localitionName(current.location, sex);
       return acc;
     }, {});
+    if (sorted === true) {
+      ordenarObj(animalNames);
+      return animalNames;
+    }
+    return animalNames;
   }
-  if (sorted === true) {
-    return data.species.reduce((acc, current) => {
-      acc[current.location] = localitionName(current.location);
-      return acc;
-    }, {});
-  }
-  if (sex !== '') return console.log(sex);
+  return locationNoParame();
 }
 
 const hoursPrint = (manha, tarde) => `Open from ${manha}am until ${tarde - 12}pm`;
