@@ -79,11 +79,29 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const objeto = {};
+  const horas = Object.keys(data.hours);
+  horas.forEach((day) => {
+    if (day !== 'Monday') {
+      objeto[day] = `Open from ${data.hours[day].open}am until ${(data.hours[day].close) - 12}pm`;
+    } else {
+      objeto[day] = 'CLOSED';
+    }
+  });
+  if (dayName) {
+    return {
+      [dayName]: objeto[dayName],
+    };
+  }
+  return objeto;
 }
 
+// Função abaixo baseada no exercicio do Josué Lobo
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employees = data.employees.find((employee) => employee.id === id);
+  const firstSpecies = data.species.find((specie) => specie.id === employees.responsibleFor[0]);
+  const oldestResident = firstSpecies.residents.sort((a, b) => b.age - a.age)[0];
+  return Object.values(oldestResident);
 }
 
 function increasePrices(percentage) {
