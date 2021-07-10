@@ -113,6 +113,7 @@ function getOldestFromFirstSpecies(ident) {
   const employ = employees.find(({ id }) => id === ident);
   const responsibleAnimal = species.find(({ id }) => id === employ
     .responsibleFor[0]).residents;
+
   const sortedAnimal = responsibleAnimal.sort((a, b) => a.age < b.age);
 
   return Object.values(sortedAnimal[0]);
@@ -134,35 +135,41 @@ function increasePrices(percentage) {
   return prices;
 }
 
-function getEmployCoverageNoParameters() {
+/* function getEmployCoverageNoParameters() {
   return employees.reduce((acc, valActual) => {
     acc[`${valActual.firstName} ${valActual.lastName}`] = valActual.responsibleFor
       .map((item) => species
         .find(({ id }) => id === item).name);
     return acc;
   }, {});
-}
+} */
 
+// eslint-disable-next-line max-lines-per-function
 function getEmployeeCoverage(idOrNames) {
   if (!idOrNames) {
-    getEmployCoverageNoParameters();
+    return employees.reduce((acc, valActual) => {
+      acc[`${valActual.firstName} ${valActual.lastName}`] = valActual.responsibleFor
+        .map((item) => species
+          .find(({ id }) => id === item).name);
+      return acc;
+    }, {});
   }
-
-  const returnObj = {};
-  const employFinder = employees.find(({ id, lastName, firstName }) => id === idOrNames
-    || lastName === idOrNames
-      || firstName === idOrNames);
-
-  const { firstName, lastName, responsibleFor } = employFinder;
-
+  // const returnObj = {};
+  const employFinder = employees.filter(({ id, lastName, firstName }) => id === idOrNames
+  || lastName === idOrNames
+    || firstName === idOrNames);
+  /*   const { firstName, lastName, responsibleFor } = employFinder;
   const animalsArr = responsibleFor.map((item) => species
     .find(({ id }) => id === item).name);
 
-  returnObj[`${firstName} ${lastName}`] = animalsArr;
-
-  return returnObj;
+  returnObj[`${firstName} ${lastName}`] = animalsArr; */
+  return employFinder.reduce((acc, atual) => {
+    acc[`${atual.firstName} ${atual.lastName}`] = atual.responsibleFor
+      .map((item) => species.find(({ id }) => id === item).name);
+    return acc;
+  }, {});
 }
-console.log(getEmployeeCoverage('Azevado'));
+
 
 module.exports = {
   calculateEntry,
