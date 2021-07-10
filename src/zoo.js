@@ -208,9 +208,20 @@ function getOldestFromFirstSpecies(id) {
   });
   return Object.values(firstAge);
 }
+// --------------------------------------------------------------------------------------------------- //
+
+// ------------------------------------12°Requisito-------------------------------------------------- //
+// Qual o objetivo dessa função? //
+// - A função é responsável por aumentar o preço das visitas, com base no valor de aumento recebido no parâmetro, em porcentagem //
+// O que será avaliado ? //
+// - Se o parâmetro da função recebe o valor 20, o aumento é de 20% //
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const newValues = Object.values(prices).map((value) => (value + (value * (percentage / 100))));
+  prices.Adult = Math.round(newValues[0] * 100) / 100;
+  prices.Senior = Math.round(newValues[1] * 100) / 100;
+  prices.Child = Math.round(newValues[2] * 100) / 100;
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
