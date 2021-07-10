@@ -68,29 +68,31 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   const cronograma = Object.entries(hours);
-  const objetoCronograma = cronograma.reduce((acc , [chave, valor]) => {
-    const a = acc
-    a[chave] = `Open from ${valor.open}am until ${valor.close -12}pm`
-    if (valor.open === valor.close){
-    a[chave] = 'CLOSED';
-    };
-    return a
-  }, {})
-  if (dayName){
-    return {[dayName]: objetoCronograma[dayName]}
+  const objetoCronograma = cronograma.reduce((acc, [chave, valor]) => {
+    const a = acc;
+    a[chave] = `Open from ${valor.open}am until ${valor.close - 12}pm`;
+    if (valor.open === valor.close) {
+      a[chave] = 'CLOSED';
+    }
+    return a;
+  }, {});
+  if (dayName) {
+    return { [dayName]: objetoCronograma[dayName] };
   }
   return objetoCronograma;
 }
 
-
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const funcionarios = employees.find((funcionario) => funcionario.id === id);
+  const animais = species.find((animal) => animal.id === funcionarios.responsibleFor[0]);
+  const arrayAnimais = animais.residents.sort((a, b) => b.age - a.age);
+  return Object.values(arrayAnimais[0]);
 }
 
 function increasePrices(percentage) {
   const keys = Object.keys(prices);
-  keys.forEach((valor) => {
-    prices[valor] = parseFloat(((prices[valor] * percentage / 100) + prices[valor] + 0.001).toFixed(2));
+  keys.forEach((val) => {
+    prices[val] = parseFloat(((prices[val] * (percentage / 100)) + prices[val] + 0.001).toFixed(2));
   });
 }
 
