@@ -4,13 +4,13 @@ const data = require('./data');
 // Requisito 1
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
-  return species.filter((specie) => ids.includes(specie.id));
+  const speciesIds = species.filter((specie) => ids.includes(specie.id));
+    return speciesIds;
 }
 
 // Requisito 2
 function getAnimalsOlderThan(animal, age) {
-  const findSpecie = species
-    .find((specie) => specie.name === animal)
+  const findSpecie = species.find((specie) => specie.name === animal)
     .residents.every((resident) => resident.age >= age);
   return findSpecie;
 }
@@ -18,9 +18,9 @@ function getAnimalsOlderThan(animal, age) {
 // Requisito 3
 function getEmployeeByName(employeeName) {
   if (employeeName === undefined) return {};
-  const findEmplyee = employees
+  const findEmployee = employees
     .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
-  return findEmplyee;
+  return findEmployee;
 }
 
 // Requisito 4
@@ -38,9 +38,8 @@ function createEmployee({ id, firstName, lastName },
 
 // Requisito 5
 function isManager(id) {
-  const findManager = employees
-    .some((employee) => employee.managers.includes(id));
-  return findManager;
+  const someManager = employees.some((employee) => employee.managers.includes(id));
+  return someManager;
 }
 
 // Requisito 6
@@ -102,6 +101,22 @@ function increasePrices(percentage) {
 // Requisito 13
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  const fullName = (person) => `${person.firstName} ${person.lastName}`;
+  const verifyIdOrName = (person) => (person.firstName === idOrName)
+  || (person.lastName === idOrName) || (person.id === idOrName);
+  const findName = (arrayOfIds) => {
+    const specieName = [];
+    arrayOfIds.forEach((id) => specieName
+      .push(data.species.find(((specie) => specie.id === id)).name));
+    return specieName;
+  };
+  const employeesList = data.employees
+    .reduce((acc, person) => ({ ...acc, [fullName(person)]: findName(person.responsibleFor) }), {});
+
+  if (!idOrName) return employeesList;
+  const result = data.employees
+    .find((employee) => verifyIdOrName(employee));
+  return { [fullName(result)]: findName(result.responsibleFor) };
 }
 
 module.exports = {
