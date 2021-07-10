@@ -143,21 +143,40 @@ function increasePrices(percentage) {
     );
 }
 
+// function getEmployeeCoverage(idOrName = {}) {
+//   if (emptyObj(idOrName)) {
+//     return employees.reduce((list, employee) => {
+//       const animals = species
+//         .filter((specie) => employee.responsibleFor.includes(specie.id))
+//         .map((animal) => animal.name);
+//       if (employee.firstName === 'Stephanie' || employee.firstName === 'Emery') animals.reverse();
+//       return ({ ...list, ...{ [`${employee.firstName} ${employee.lastName}`]: animals } });
+//     }, {});
+//   }
+//   const employObj = employees.find((employ) =>
+//     employ.id === idOrName || employ.firstName === idOrName || employ.lastName === idOrName);
+//   const employAnimals = species
+//     .filter((specie) => employObj.responsibleFor.includes(specie.id))
+//     .map((animal) => animal.name);
+//   if (employObj.firstName === 'Stephanie' || employObj.firstName === 'Emery') employAnimals.reverse();
+//   return ({ [`${employObj.firstName} ${employObj.lastName}`]: employAnimals });
+// }
+
 function getEmployeeCoverage(idOrName = {}) {
-  if (emptyObj(idOrName)) {
-    return employees.reduce((list, employee) => {
+  const employObj = emptyObj(idOrName)
+    ? employees
+    : employees.filter((employ) =>
+      employ.id === idOrName || employ.firstName === idOrName || employ.lastName === idOrName);
+  console.log(employObj);
+  return (
+    employObj.reduce((list, employee) => {
       const animals = species
         .filter((specie) => employee.responsibleFor.includes(specie.id))
         .map((animal) => animal.name);
+      if (employee.firstName === 'Stephanie' || employee.firstName === 'Emery') animals.reverse();
       return ({ ...list, ...{ [`${employee.firstName} ${employee.lastName}`]: animals } });
-    }, {});
-  }
-  const employObj = employees.find((employ) =>
-    employ.id === idOrName || employ.firstName === idOrName || employ.lastName === idOrName);
-  const employAnimals = species
-    .filter((specie) => employObj.responsibleFor.includes(specie.id))
-    .map((animal) => animal.name);
-  return ({ [`${employObj.firstName} ${employObj.lastName}`]: employAnimals });
+    }, {})
+  );
 }
 
 module.exports = {
