@@ -65,17 +65,17 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  let obj = {}
-  let obj2 ={}
-  const aux = 12
-  const schedule = Object.entries(data.hours)
+  const obj = {};
+  const obj2 = {};
+  const aux = 12;
+  const schedule = Object.entries(data.hours);
   console.log(schedule);
   schedule.forEach((day) => {
-    obj[day[0]] = `Open from ${day[1].open}am until ${day[1].close - aux}pm`
-    obj["Monday"] = 'CLOSED'
-  })
-  if(!dayName) return obj 
-  obj2[dayName] = obj[dayName]
+    obj[day[0]] = `Open from ${day[1].open}am until ${day[1].close - aux}pm`;
+    obj.Monday = 'CLOSED';
+  });
+  if (!dayName) return obj;
+  obj2[dayName] = obj[dayName];
   return obj2;
 }
 
