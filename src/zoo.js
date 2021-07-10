@@ -91,7 +91,15 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  let arrayResponse = [];
+  const specieResponsible = employees.find((employe) => employe.id === id).responsibleFor[0];
+  const pet = species
+    .map((specie) => specie)
+    .find((petID) => petID.id === specieResponsible).residents;
+  const maiorIdade = pet.map((idade) => idade.age).sort((a, b) => b - a)[0];
+  const animalDate = pet.find((animal) => animal.age === maiorIdade);
+  arrayResponse = [animalDate.name, animalDate.sex, animalDate.age];
+  return arrayResponse;
 }
 
 function increasePrices(percentage) {
