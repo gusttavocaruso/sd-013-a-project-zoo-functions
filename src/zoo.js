@@ -122,10 +122,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(animals) {
   const allAnimals = {};
   if (animals === undefined) {
-    species.filter((specie) => allAnimals[specie.name] === specie.residents.length);
+    return species.reduce((allAnimal, animal) => {
+      allAnimal[animal.name] = animal.residents.length; // Aqui eu estou pegando o nome de cada animal e igualando a sua quantidade
+      return allAnimal // REduce vai "somar" todas as minhas linhas nesse objeto vazio
+    },{}); // Aqui significa que estou começando com um objeto vazio
+  } else {
+    return species.find((specie) => specie.name === animals).residents.length;
   }
-  return species.find((specie) => specie.name === animals).residents.length;
 }
+console.log(countAnimals());
 // --------------------------------------------------------------------------------------------------- //
 
 // ------------------------------------8°Requisito-------------------------------------------------- //
