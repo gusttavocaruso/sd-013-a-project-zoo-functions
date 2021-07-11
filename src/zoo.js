@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 /* Requisito 1 feito com base na aula de revisão da turma 12,
 pesquisa no material do course e notion da turma 13-A */
@@ -50,9 +50,14 @@ function countAnimals(spec) {
   if (spec) return newObject[spec];
   return newObject;
 }
-
+/* Requisito 8 - verificação do objeto vazio realizada com auxĺio do link:
+https://pt.stackoverflow.com/questions/83588/em-javascript-como-verificar-que-um-objeto-est%C3%A1-vazio-sem-jquery */
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants) return 0;
+  if (Object.keys(entrants).length === 0) return 0;
+  const totalPrice = Object.keys(entrants).reduce((total, currentKey) =>
+    total + (entrants[currentKey] * prices[currentKey]), 0);
+  return totalPrice;
 }
 
 function getAnimalMap(options) {
