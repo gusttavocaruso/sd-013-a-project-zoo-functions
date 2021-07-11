@@ -14,6 +14,7 @@ function getAnimalsOlderThan(animal, age) {
   return nomeSel[0].residents.every((item) => item.age >= age);
 }
 
+/* Requisito 3 */
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   const peopleSearch = employees.find((firstItem) =>
@@ -34,13 +35,20 @@ function isManager(id) {
   return employees.some((employeeItem) => employeeItem.managers.includes(id));
 }
 
+/* Requisito 6 */
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   employees.push({ id, firstName, lastName, managers, responsibleFor });
   return employees;
 }
 
+/* Requisito 7 realizado com auxĺio do link:
+https://danielobara.wordpress.com/2018/11/20/como-converter-array-de-objetos-para-um-unico-objeto-em-javascript-com-es6/ */
 function countAnimals(spec) {
-  // seu código aqui
+  const newObject = species.reduce((obj, currentItem) => Object.assign(obj, {
+    [currentItem.name]: currentItem.residents.length,
+  }), {});
+  if (spec) return newObject[spec];
+  return newObject;
 }
 
 function calculateEntry(entrants) {
