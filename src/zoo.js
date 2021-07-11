@@ -60,8 +60,91 @@ function calculateEntry(entrants = 0) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  let object = {};
+  const speciesLocations = species
+    .map((specie) => specie.location);
+
+  if (!options) {
+    speciesLocations.forEach((location) => {
+      object[location] = species
+        .filter((specie) => specie.location === location)
+        .map((specie) => specie.name);
+    });
+  } else if (options.includeNames && options.sorted) {
+    speciesLocations.forEach((location) => {
+      object[location] = species
+        .filter((specie) => specie.location === location)
+        .map((specie) => specie.name)
+        .map((animal) => {
+          return {
+            [animal]: species
+              .find((specie) => specie.name === animal).residents
+              .map((resident) => resident.name).sort()
+          };
+        });
+    });
+  } else if (options.includeNames && options.sex === 'male') {
+    speciesLocations.forEach((location) => {
+      object[location] = species
+        .filter((specie) => specie.location === location)
+        .map((specie) => specie.name)
+        .map((animal) => {
+          return {
+            [animal]: species
+              .find((specie) => specie.name === animal).residents
+              .filter((resident) => resident.sex === 'male')
+              .map((resident) => resident.name)
+          };
+        });
+    });
+  } else if (options.includeNames && options.sex === 'female') {
+    speciesLocations.forEach((location) => {
+      object[location] = species
+        .filter((specie) => specie.location === location)
+        .map((specie) => specie.name)
+        .map((animal) => {
+          return {
+            [animal]: species
+              .find((specie) => specie.name === animal).residents
+              .filter((resident) => resident.sex === 'female')
+              .map((resident) => resident.name)
+          };
+        });
+    });
+  } else if (options.includeNames && options.sex === 'female' && sorted) {
+    speciesLocations.forEach((location) => {
+      object[location] = species
+        .filter((specie) => specie.location === location)
+        .map((specie) => specie.name)
+        .map((animal) => {
+          return {
+            [animal]: species
+              .find((specie) => specie.name === animal).residents
+              .filter((resident) => resident.sex === 'female')
+              .map((resident) => resident.name)
+          };
+        });
+    });
+  } else if (options.includeNames) {
+    speciesLocations.forEach((location) => {
+      object[location] = species
+        .filter((specie) => specie.location === location)
+        .map((specie) => specie.name)
+        .map((animal) => {
+          return {
+            [animal]: species
+              .find((specie) => specie.name === animal).residents
+              .map((resident) => resident.name)
+          };
+        });
+    });
+  }
+
+  return object;
 }
+
+console.log(getAnimalMap({ includeNames: true, sex: 'female' })['NE']);
+// console.log(getAnimalMap({ IncludeNames: true }));
 
 function getSchedule(dayName) {
   // seu código aqui
