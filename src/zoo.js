@@ -135,7 +135,7 @@ function getOldestFromFirstSpecies(id) {
   });
   capture.forEach((animal) => {
     ordem.push(animal.residents.sort((a, b) => b.age - a.age));
-  })
+  });
   const topList = [];
   ordem.forEach((top) => {
     topList.push(top[0]);
@@ -148,7 +148,7 @@ function increasePrices(percentage) {
   const newPrices = Object.values(data.prices).map((price) => price * (1 + (percentage / 100) / 1));
   Object.keys(data.prices).forEach((price, i) => {
     data.prices[price] = Number((newPrices[i] + 0.005).toFixed(2));
-  })
+  });
   return data.prices;
 }
 
