@@ -72,7 +72,7 @@ function calculateEntry(entrants = {}) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+
 }
 
 function getSchedule(dayName) {
@@ -84,7 +84,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const calcPercent = (perc, price) => Math.round((price * ((perc / 100) + 1)) * 100) / 100;
+
+  prices.Adult = calcPercent(percentage, prices.Adult);
+  prices.Child = calcPercent(percentage, prices.Child);
+  prices.Senior = calcPercent(percentage, prices.Senior);
 }
 
 function getEmployeeCoverage(idOrName) {
