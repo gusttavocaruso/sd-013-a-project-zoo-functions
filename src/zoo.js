@@ -81,7 +81,7 @@ function countAnimals(especies) {
   if (especies) {
     data.species.forEach((specie) => {
       if (especies === specie.name) {
-        countSpecies = specie.residents.length
+        countSpecies = specie.residents.length;
       }
     });
     return countSpecies;
