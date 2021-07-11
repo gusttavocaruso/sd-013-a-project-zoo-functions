@@ -85,7 +85,7 @@ function countAnimals(especies) {
       }
     });
     return countSpecies;
-  } 
+  }
   data.species.forEach((specie) => {
     objects[specie.name] = specie.residents.length;
   });
@@ -110,7 +110,20 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const control = {};
+  const mensagem = (open, close, hour) => {
+    control[hour] = (hour !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
+  };
+  Object.keys(data.hours).forEach((hour) => {
+    const open = Object.values(data.hours[hour])[0];
+    const close = Object.values(data.hours[hour])[1] - 12;
+    if (!dayName) {
+      control[hour] = (hour !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
+    } else if (dayName === hour){
+      mensagem(open, close, hour);
+    }
+  });
+  return control; 
 }
 
 function getOldestFromFirstSpecies(id) {
