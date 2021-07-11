@@ -79,8 +79,6 @@ function getSchedule(dayName) {
   return schedule;
 }
 
-getSchedule();
-
 function getOldestFromFirstSpecies(id) {
   const getEmployee = data.employees
     .find((employee) => employee.id === id);
@@ -93,6 +91,13 @@ function getOldestFromFirstSpecies(id) {
 }
 function increasePrices(percentage) {
   // seu código aqui
+  const increment = Object.entries(data.prices)
+    .forEach((item) => {
+    item[1] * per
+  })
+  
+  
+  // destructuring
 }
 
 function getEmployeeCoverage(idOrName) {
