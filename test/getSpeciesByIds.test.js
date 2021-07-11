@@ -1,6 +1,6 @@
 const assert = require('assert');
 const zoo = require('../src/zoo');
-
+// Consulta de retornos esperados.
 describe('Implemente a função getSpeciesByIds', () => {
   it('Caso receba nenhum parâmetro, necessário retornar um array vazio', () => {
     const actual = zoo.getSpeciesByIds();

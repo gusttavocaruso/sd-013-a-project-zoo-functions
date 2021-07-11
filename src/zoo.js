@@ -1,7 +1,18 @@
+const { species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  // Se o array de ids estiver vazio, retorna um array vazio.
+  if (!ids.length) return [];
+  // Array que ao receber como parâmetro um único id, retorna um array com a espécie referente à esse id.
+  const arrayOfAnimals = [];
+  // Laço forEach que procura o primeiro animal que corresponda ao id da vez.
+  ids.forEach((id) => {
+    const currentAnimal = data.species.find((specie) => specie.id === id);
+    // Faz-se um push que é responsável por colocar o animal encontrado na varredura feita pelo laço forEach no arrayOfAnimals.
+    arrayOfAnimals.push(currentAnimal);
+  });
+  return arrayOfAnimals;
 }
 
 function getAnimalsOlderThan(animal, age) {
