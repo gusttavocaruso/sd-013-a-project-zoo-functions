@@ -1,8 +1,11 @@
 const data = require('./data');
 
-function getSpeciesByIds() {
+function getSpeciesByIds(...animais) {
   // seu codigo
+  if (!animais) return [];
+  return animais.map((animal) => data.species.find((specie) => specie.id === animal));
 }
+// console.log(getSpeciesByIds(lionId))
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
