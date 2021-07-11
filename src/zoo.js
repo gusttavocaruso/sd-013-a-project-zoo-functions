@@ -2,9 +2,9 @@ const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  if(ids.length === 0) {
+  if (ids.length === 0) {
     return [];
-  } 
+  }
   return species.filter((specie) => ids.includes(specie.id));
 }
 
@@ -14,10 +14,10 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  if(employeeName === undefined) {
+  if (employeeName === undefined) {
     return {};
-  } 
-  return employees.find((employee)=> employee.firstName === employeeName|| employee.lastName === employeeName);
+  }
+  return employees.find((employee) => employee.firstName || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -32,7 +32,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(speciesCount) {
   // seu código aqui
 }
 
