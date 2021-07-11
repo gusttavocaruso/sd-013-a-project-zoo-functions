@@ -119,11 +119,11 @@ function getSchedule(dayName) {
     const close = Object.values(data.hours[hour])[1] - 12;
     if (!dayName) {
       control[hour] = (hour !== 'Monday') ? `Open from ${open}am until ${close}pm` : 'CLOSED';
-    } else if (dayName === hour){
+    } else if (dayName === hour) {
       mensagem(open, close, hour);
     }
   });
-  return control; 
+  return control;
 }
 
 function getOldestFromFirstSpecies(id) {
