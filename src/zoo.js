@@ -77,14 +77,15 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const { hours } = data;
-  hours.Tuesday = 'Open from 8am until 6pm';
-  hours.Wednesday = 'Open from 8am until 6pm';
-  hours.Thursday = 'Open from 10am until 8pm';
-  hours.Friday = 'Open from 10am until 8pm';
-  hours.Saturday = 'Open from 8am until 10pm';
-  hours.Sunday = 'Open from 8am until 8pm';
-  hours.Monday = 'CLOSED';
+  const hours = {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
 
   if (!dayName) return hours;
 
@@ -92,8 +93,16 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const animalsId = data.employees
+    .find((employee) => employee.id === id).responsibleFor[0];
+
+  const oldestAnimal = data.species
+    .find((animals) => animalsId === animals.id).residents
+    .sort((a, b) => b.age - a.age)[0];
+
+  return Object.values(oldestAnimal);
 }
+console.log(getOldestFromFirstSpecies('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 
 function increasePrices(percentage) {
   // seu código aqui
