@@ -24,11 +24,12 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/some
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((employee) => employee.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
