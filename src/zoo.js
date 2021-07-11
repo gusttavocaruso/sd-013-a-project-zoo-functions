@@ -103,6 +103,7 @@ function getEmployeeCoverage(idOrName) {
       .push(data.species.find(((specie) => specie.id === id)).name));
     return specieName;
   };
+
   const employeesList = data.employees
     .reduce((acc, person) => ({ ...acc, [fullName(person)]: findName(person.responsibleFor) }), {});
 
