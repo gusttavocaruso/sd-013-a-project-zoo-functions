@@ -74,13 +74,12 @@ function calculateEntry(entrants) {
   if (entrants === undefined) {
     return value;
   }
-  const { Adult = 0, Child = 0, Senior = 0} = entrants;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
   const adultCost = 49.99;
   const childCost = 20.99;
   const seniorCost = 24.99;
   value = (Adult * adultCost) + (Child * childCost) + (Senior * seniorCost);
   return value;
-
 }
 
 function getAnimalMap(options) {
