@@ -40,16 +40,47 @@ function isManager(id) {
   return result;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(a = [], b = [], c = [], d = [], e = []) {
+  const objToAdd = {
+    // id: a !== undefined ? a : [],
+    // firstName: b !== undefined ? b : [],
+    // lastName: c !== undefined ? c : [],
+    // managers: d !== undefined ? d : [],
+    // responsibleFor: e !== undefined ? e : [],
+    id: a,
+    firstName: b,
+    lastName: c,
+    managers: d,
+    responsibleFor: e,
+  };
+  data.employees.push(objToAdd);
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const result = {};
+  if (species === undefined) {
+    data.species.forEach((count) => {
+      result[count.name] = count.residents.length;
+    });
+    return result;
+  }
+  const animalToCount = data.species.filter((specie) => species.includes(specie.name));
+  const count = animalToCount[0].residents.length;
+  return count;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  let value = 0;
+  if (entrants === undefined) {
+    return value;
+  }
+  const { Adult = 0, Child = 0, Senior = 0} = entrants;
+  const adultCost = 49.99;
+  const childCost = 20.99;
+  const seniorCost = 24.99;
+  value = (Adult * adultCost) + (Child * childCost) + (Senior * seniorCost);
+  return value;
+
 }
 
 function getAnimalMap(options) {
