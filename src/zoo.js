@@ -15,7 +15,7 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
-  if(employeeName === undefined) {
+  if (employeeName === undefined) {
     return {};
   }
 
@@ -26,6 +26,17 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  const { id, firstName, lastName} = personalInfo;
+  const {managers, responsibleFor} = associatedWith;
+  const newE = { 
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return newE;
+
 }
 
 function isManager(id) {
