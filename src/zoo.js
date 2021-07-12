@@ -74,8 +74,13 @@ function getSchedule(dayName) {
   return newGet;
 }
 
+/* Requisito 11 - Realizado com auxílio do Plantão Guiado Turma 8 */
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const managedSpecies = employees.filter((manItem) => manItem.id === id)[0].responsibleFor[0];
+  const selectedObject = species.find((selectItem) => selectItem.id === managedSpecies);
+  const olderAge = selectedObject.residents.reduce((ant, cur) => Math.max(ant, cur.age), 0);
+  const selectedSpecies = selectedObject.residents.find((selSpec) => selSpec.age === olderAge);
+  return Object.values(selectedSpecies);
 }
 
 function increasePrices(percentage) {
