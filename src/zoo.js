@@ -4,7 +4,6 @@ function getSpeciesByIds(...ids) {
   return data.species
     .filter((elem) => ids.includes(elem.id));
 }
-console.log(getSpeciesByIds());
 
 function getAnimalsOlderThan(animal, age) {
   const dataSpecies = data.species;
@@ -27,6 +26,7 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
