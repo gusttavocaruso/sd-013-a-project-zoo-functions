@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, hours, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -61,7 +61,24 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const day = {};
+  const days = {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
+  if (dayName === undefined) {
+    return days;
+  }
+  if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
+  day[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
+  return day;
 }
 
 function getOldestFromFirstSpecies(id) {
