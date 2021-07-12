@@ -1,19 +1,19 @@
 const { species, employees } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(...ids) { 
+function getSpeciesByIds(...ids) {//1
   // seu código aqui
   return ids.map((idArray) => species.find((specie) => specie.id === id));
 }
 
-function getAnimalsOlderThan(animal, age) {
+function getAnimalsOlderThan(animal, age) {//2
   // seu código aqui
   return species
     .find((specie) => specie.name === animal).residents
     .every((resident) => resident.age >= age);
 }
 
-function getEmployeeByName(employeeName) {
+function getEmployeeByName(employeeName) {//3
   // seu código aqui
   if (employeeName === undefined) {
     return {};
@@ -24,11 +24,11 @@ function getEmployeeByName(employeeName) {
   ));
 }
 
-function createEmployee(personalInfo, associatedWith) {
+function createEmployee(personalInfo, associatedWith) {//4
   // seu código aqui
-  const { id, firstName, lastName} = personalInfo;
-  const {managers, responsibleFor} = associatedWith;
-  const newE = { 
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
+  const newE = {
     id,
     firstName,
     lastName,
@@ -36,15 +36,23 @@ function createEmployee(personalInfo, associatedWith) {
     responsibleFor,
   };
   return newE;
-
 }
 
-function isManager(id) {
-  // seu código aqui
+function isManager(id) {//5
+  // seu código aqui,
+  return employees.some((employee) => employee.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers, responsibleFor) {//6
   // seu código aqui
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return employees.push(newEmployee);
 }
 
 function countAnimals(species) {
