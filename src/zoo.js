@@ -89,7 +89,11 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  return employees.reduce((acc, employee) => {
+    const { firstName, lastName, responsibleFor } = employee;
+    acc[`${firstName} ${lastName}`] = responsibleFor.map(id => getSpeciesByIds(id)[0].name)
+    return acc;
+  }, {});
 }
 
 module.exports = {
