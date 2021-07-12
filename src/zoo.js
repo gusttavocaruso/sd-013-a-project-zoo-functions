@@ -88,12 +88,20 @@ function getSchedule(dayName) {
   };
 }
 
+// Referência:
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Object/values
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employeesId = employees.find((employeeId) => employeeId.id === id).responsibleFor[0];
+  const residentsName = species.find((specie) => specie.id === employeesId).residents;
+  const oldestAnimal = residentsName.sort((a, b) => b.age - a.age)[0];
+  return Object.values(oldestAnimal);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  prices.Adult = Math.round(prices.Adult * (1 + (percentage / 100)) * 100) / 100;
+  prices.Child = Math.round(prices.Child * (1 + (percentage / 100)) * 100) / 100;
+  prices.Senior = Math.round(prices.Senior * (1 + (percentage / 100)) * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
