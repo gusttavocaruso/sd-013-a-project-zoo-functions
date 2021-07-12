@@ -49,7 +49,7 @@ function isManager(id) {
 }
 
 // requisito 6 check
-function addEmployee(id, firstName, lastName, managers =[], responsibleFor = []) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
   const newEmployee = {
     id,
@@ -84,22 +84,27 @@ function calculateEntry(entrants) {
   return calculate;
 }
 
+// requisito 9
 function getAnimalMap(options) {
   // seu código aqui
 }
-
+ // requisito 10
 function getSchedule(dayName) {
   // seu código aqui
 }
 
+// requisito 11
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+
 }
 
+// requisito 12
 function increasePrices(percentage) {
   // seu código aqui
 }
 
+// requisito 13
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
