@@ -70,7 +70,7 @@ function countAnimals(species) {
   const allAnimals = data.species.find((animalItem) => animalItem.name === species);
   return allAnimals.residents.length;
 }
-let entrants = { 'Adult': 2, 'Child': 3, 'Senior': 1 };
+
 function calculateEntry(entrants) {
   // seu código aqui
   if (typeof entrants === 'undefined') return 0;
@@ -82,7 +82,7 @@ function calculateEntry(entrants) {
     totalPrice += prices[key] * value;
     return totalPrice;
   }, 0); // É necessário colocar 0 zero aqui, pois o reduce começará a contar do indice 1.
-}calculateEntry(entrants);
+}
 
 function getAnimalMap(options) {
   // seu código aqui
