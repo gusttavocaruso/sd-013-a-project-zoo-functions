@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 /* Requisito 1 feito com base na aula de revisão da turma 12,
 pesquisa no material do course e notion da turma 13-A */
@@ -64,8 +64,14 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+/* Requisito 10 - Realizado com auxílio do Plantão Guiado Turma 8 */
 function getSchedule(dayName) {
-  // seu código aqui
+  const newGet = Object.entries(hours).reduce((newObj, [key, value]) => Object.assign(newObj, {
+    [key]: value.open && value.close > 0
+      ? `Open from ${value.open}am until ${value.close % 12}pm` : 'CLOSED',
+  }), {});
+  if (typeof dayName === 'string' && dayName.length !== 0) return { [dayName]: newGet[dayName] };
+  return newGet;
 }
 
 function getOldestFromFirstSpecies(id) {
