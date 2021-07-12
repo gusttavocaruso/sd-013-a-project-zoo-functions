@@ -1,0 +1,24 @@
+[1mdiff --git a/src/zoo.js b/src/zoo.js[m
+[1mindex 9001edd..8d7d824 100644[m
+[1m--- a/src/zoo.js[m
+[1m+++ b/src/zoo.js[m
+[36m@@ -1,13 +1,16 @@[m
+ const { species, employees } = require('./data');[m
+ const data = require('./data');[m
+ [m
+[31m-function getSpeciesByIds(...ids) {[m
+[32m+[m[32mfunction getSpeciesByIds(...ids) {[m[41m [m
+   // seu código aqui[m
+[31m- return ids.map((idArray) => species.find((species) => species.id === id));[m
+[32m+[m[32m return ids.map((idArray) => species.find((specie) => specie.id === id));[m
+ }[m
+ [m
+[31m-function getAnimalsOlderThan(animal, age) {[m
+[32m+[m[32mfunction getAnimalsOlderThan(animal, age) {[m[41m [m
+   // seu código aqui[m
+[32m+[m[32m  return species[m
+[32m+[m[32m    .find((specie) => specie.name === animal).residents[m[41m [m
+[32m+[m[32m    .every((resident) => resident.age >= age);[m[41m [m
+ }[m
+ [m
+ function getEmployeeByName(employeeName) {[m
