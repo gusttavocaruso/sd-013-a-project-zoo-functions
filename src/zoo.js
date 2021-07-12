@@ -17,13 +17,16 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // Por meio do método .find(), a função procura a primeira espécie que tem o nome igual ao informado como parâmetro.
-  const search = data.species.find((specie) => specie.name === animal);
-  // Então, verifica se todos os animais daquela espécie possuem o atributo age maior do que o informado como parâmetro e retorna a função search.
-  return search.residents.every((resident) => resident.age >= age);
+  const searchAnimals = data.species.find((specie) => specie.name === animal);
+  // Então, verifica se todos os animais daquela espécie possuem o atributo age maior do que o informado como parâmetro e retorna a função searchAnimals.
+  return searchAnimals.residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  // Se não for informado nenhum empregado, retorna um objeto vazio.
+  if (!employeeName) return {};
+    // Procura o primeiro empregado que o primeiro OU(||) o último nome correspondam ao informado como parâmetro.
+   return data.employees.find((employee) => (employee.firstName === employeeName) || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
