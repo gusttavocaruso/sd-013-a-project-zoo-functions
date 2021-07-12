@@ -88,7 +88,8 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
   // seu código aqui
 }
- // requisito 10
+
+// requisito 10
 function getSchedule(dayName) {
   // seu código aqui
 }
