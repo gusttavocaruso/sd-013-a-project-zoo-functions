@@ -59,91 +59,128 @@ function calculateEntry(entrants = 0) {
   return calculation;
 }
 
+const mapWithSex = (parameter, object, sex, locations) => {
+// if (parameter.includeNames && parameter.sex === sex) {
+  locations.forEach((location) => {
+    object[location] = species
+      .filter((specie) => specie.location === location)
+      .map((specie) => specie.name)
+      .map((animal) => {
+        return {
+          [animal]: species
+            .find((specie) => specie.name === animal).residents
+            .filter((resident) => resident.sex === sex)
+            .map((resident) => resident.name),
+        };
+      });
+  });
+  return object;
+// }
+  // return {};
+}
+
+const mapWithSort = (parameter, object, locations) => {
+// if (parameter.includeNames && parameter.sorted) {
+  locations.forEach((location) => {
+    object[location] = species
+      .filter((specie) => specie.location === location)
+      .map((specie) => specie.name)
+      .map((animal) => {
+        return {
+          [animal]: species
+            .find((specie) => specie.name === animal).residents
+            .map((resident) => resident.name).sort(),
+        };
+      });
+  });
+
+  return {};
+// }
+}
+
+const mapWithSexAndSort = (parameter, object, sex, locations) => {
+// if (parameter.includeNames && parameter.sex === sex && parameter.sorted) {
+  locations.forEach((location) => {
+    object[location] = species
+      .filter((specie) => specie.location === location)
+      .map((specie) => specie.name)
+      .map((animal) => {
+        return {
+          [animal]: species
+            .find((specie) => specie.name === animal).residents
+            .filter((resident) => resident.sex === sex)
+            .map((resident) => resident.name).sort(),
+        };
+      });
+  });
+
+  return object;
+// }
+
+  // return {};
+}
+
+const mapJustWithSex = (parameter, object, locations) => {
+
+}
+
+const mapJustWithNames = (parameter, object, locations) => {
+// if (parameter.includeNames) {
+  locations.forEach((location) => {
+    object[location] = species
+      .filter((specie) => specie.location === location)
+      .map((specie) => specie.name)
+      .map((animal) => {
+        return {
+          [animal]: species
+            .find((specie) => specie.name === animal).residents
+            .map((resident) => resident.name),
+        };
+      });
+  });
+
+  return object;
+// }
+
+  // return {};
+}
+
 function getAnimalMap(options) {
   let object = {};
   const speciesLocations = species
     .map((specie) => specie.location);
 
-  if (!options) {
+  if (!options || typeof options.includeNames === 'undefined') {
     speciesLocations.forEach((location) => {
       object[location] = species
         .filter((specie) => specie.location === location)
         .map((specie) => specie.name);
     });
-  } else if (options.includeNames && options.sorted) {
-    speciesLocations.forEach((location) => {
-      object[location] = species
-        .filter((specie) => specie.location === location)
-        .map((specie) => specie.name)
-        .map((animal) => {
-          return {
-            [animal]: species
-              .find((specie) => specie.name === animal).residents
-              .map((resident) => resident.name).sort()
-          };
-        });
-    });
+  } else if (options.includeNames && options.sex === 'female' && options.sorted) {
+    mapWithSexAndSort(options, object, 'female', speciesLocations);
+  } else if (options.includeNames && options.sex === 'male' && options.sorted) {
+    mapWithSexAndSort(options, object, 'male', speciesLocations);
   } else if (options.includeNames && options.sex === 'male') {
-    speciesLocations.forEach((location) => {
-      object[location] = species
-        .filter((specie) => specie.location === location)
-        .map((specie) => specie.name)
-        .map((animal) => {
-          return {
-            [animal]: species
-              .find((specie) => specie.name === animal).residents
-              .filter((resident) => resident.sex === 'male')
-              .map((resident) => resident.name)
-          };
-        });
-    });
+    mapWithSex(options, object, 'male', speciesLocations);
   } else if (options.includeNames && options.sex === 'female') {
-    speciesLocations.forEach((location) => {
-      object[location] = species
-        .filter((specie) => specie.location === location)
-        .map((specie) => specie.name)
-        .map((animal) => {
-          return {
-            [animal]: species
-              .find((specie) => specie.name === animal).residents
-              .filter((resident) => resident.sex === 'female')
-              .map((resident) => resident.name)
-          };
-        });
-    });
-  } else if (options.includeNames && options.sex === 'female' && sorted) {
-    speciesLocations.forEach((location) => {
-      object[location] = species
-        .filter((specie) => specie.location === location)
-        .map((specie) => specie.name)
-        .map((animal) => {
-          return {
-            [animal]: species
-              .find((specie) => specie.name === animal).residents
-              .filter((resident) => resident.sex === 'female')
-              .map((resident) => resident.name)
-          };
-        });
-    });
+    mapWithSex(options, object, 'female', speciesLocations);
+  } else if (options.includeNames && options.sorted) {
+    mapWithSort(options, object, speciesLocations);
   } else if (options.includeNames) {
-    speciesLocations.forEach((location) => {
-      object[location] = species
-        .filter((specie) => specie.location === location)
-        .map((specie) => specie.name)
-        .map((animal) => {
-          return {
-            [animal]: species
-              .find((specie) => specie.name === animal).residents
-              .map((resident) => resident.name)
-          };
-        });
-    });
+    mapJustWithNames(options, object, speciesLocations);
   }
 
   return object;
 }
 
-console.log(getAnimalMap({ includeNames: true, sex: 'female' })['NE']);
+// let object = {};
+// const speciesLocations = species
+//   .map((specie) => specie.location);
+//   const options = { sex: 'female'};
+
+// console.log(mapWithSexAndSort(options, object, options.sex, speciesLocations)['NW']);
+
+// console.log(getAnimalMap(options)['NE'][0]);
 // console.log(getAnimalMap({ IncludeNames: true }));
 
 function getSchedule(dayName) {
