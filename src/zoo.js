@@ -1,3 +1,4 @@
+const { prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...animais) {
@@ -65,6 +66,8 @@ function countAnimals(animais) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+  if(!entrants) return 0;
+  return Object.keys(entrants).reduce((acumulador, valorAtual) => acumulador + entrants[valorAtual] * prices[valorAtual],0);
 }
 
 function getAnimalMap(options) {
