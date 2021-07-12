@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 // requisito 1 check
@@ -91,7 +91,24 @@ function getAnimalMap(options) {
 
 // requisito 10
 function getSchedule(dayName) {
-  // seu código aqui
+  const Days = Object.entries(data.hours);
+  const day = Days.find((weekDay) => weekDay[0] === dayName);
+  const object = {};
+  if (!dayName) {
+    return {
+      Tuesday: `Open from ${hours.Tuesday.open}am until ${hours.Tuesday.close - 12}pm`,
+      Wednesday: `Open from ${hours.Wednesday.open}am until ${hours.Wednesday.close - 12}pm`,
+      Thursday: `Open from ${hours.Thursday.open}am until ${hours.Thursday.close - 12}pm`,
+      Friday: `Open from ${hours.Friday.open}am until ${hours.Friday.close - 12}pm`,
+      Saturday: `Open from ${hours.Saturday.open}am until ${hours.Saturday.close - 12}pm`,
+      Sunday: `Open from ${hours.Sunday.open}am until ${hours.Sunday.close - 12}pm`,
+      Monday: 'CLOSED',
+    };
+  } if (dayName === 'Monday') {
+    return { [dayName]: 'CLOSED' };
+  }
+  object[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+  return object;
 }
 
 // requisito 11 check
