@@ -39,7 +39,7 @@ function isManager(id) {
   return data.employees.some((employee) => employee.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // Tendo em vista que o test addEmployee.test.js informa que espera receber um array vazio tanto de managers, como responsibleFor, passamos como parâmetro da função esses dois elementos como arrays vazios.
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // Tendo em vista que o test addEmployee.test.js informa que espera receber um array vazio tanto de managers quanto de responsibleFor, passamos como parâmetro da função esses dois elementos como arrays vazios.
   // Assim, declaramos uma constante lastEmployee que recebe um objeto contendo as chaves necessárias e, por fim, efetuamos um push das informações de lastEmployee para o arquivo data.js.
   const lastEmployee = {
     id,
@@ -52,7 +52,19 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  // Caso não seja informada espécie, retorna todos os animais do Zoo.
+  if (!species) {
+    // Para tanto, criamos um objeto vazio que será populado com as informações do laço forEach, retornando com todos esses animais.
+    const everyAnimalInTheZoo = {};
+    // Por meio do laço forEach, populamos o objeto vazio declarado anteriormente com a chave que contém o nome da espécie e, também, o valor correspondente ao número desses habitantes no Zoo.
+    data.species.forEach((specie) => {
+      everyAnimalInTheZoo[specie.name] = specie.residents.length;
+    });
+    return everyAnimalInTheZoo;
+  }
+  // Agora, declaramos uma nova constante que, procura pela espécie informada como parâmetro para a função e, por fim, retornamos essa espécie com a informação de quantos animais dessa mesma espécie vivem no Zoo, utilizando o método .length.
+  const indicatedAnimal = data.species.find((specie) => specie.name === species);
+  return indicatedAnimal.residents.length;
 }
 
 function calculateEntry(entrants) {
