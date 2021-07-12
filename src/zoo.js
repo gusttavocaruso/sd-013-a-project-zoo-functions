@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 const data = require('./data');
 
-const { employees, prices } = data;
+const { employees, prices, hours } = data;
 
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) return [];
@@ -90,8 +90,22 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const getDayKeys = Object.keys(hours);
+  const fullSchedule = {};
+  getDayKeys.forEach((key) => {
+    if (hours[key].close === 0) {
+      fullSchedule[key] = 'CLOSED';
+    } else {
+      fullSchedule[key] = `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`;
+    }
+  });
+  if (!dayName) {
+    return fullSchedule;
+  }
+  return { [dayName]: fullSchedule[dayName] };
 }
+
+console.log(getSchedule('Monday'));
 
 function getOldestFromFirstSpecies(id) {
   const getManageryById = employees
