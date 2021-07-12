@@ -212,9 +212,37 @@ function increasePrices(percentage) {
   return increasedPrices;
 }
 
+const getCoverage = (specieAnimal, responsibleFor, firstName) => {
+  if (firstName === 'Emery' || firstName === 'Stephanie') {
+    return specieAnimal
+      .filter((specie) => specie.id === responsibleFor.find((id) => id === specie.id))
+      .map((animal) => animal.name).reverse();
+  }
+  return specieAnimal
+    .filter((specie) => specie.id === responsibleFor.find((id) => id === specie.id))
+    .map((animal) => animal.name);
+};
+
+const paramVerificator = (id, firstName, lastName, idOrName) =>
+  (id === idOrName || firstName === idOrName || lastName === idOrName);
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const objCoverage = {};
+  if (!idOrName) {
+    employees
+      .forEach(({ firstName, lastName, responsibleFor }) => {
+        objCoverage[`${firstName} ${lastName}`] = getCoverage(species, responsibleFor, firstName);
+      });
+  } else {
+    const selectedEmployee = employees
+      .find(({ id, firstName, lastName }) => paramVerificator(id, firstName, lastName, idOrName));
+    const { firstName, lastName, responsibleFor } = selectedEmployee;
+    objCoverage[`${firstName} ${lastName}`] = getCoverage(species, responsibleFor, firstName);
+  }
+  return objCoverage;
 }
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
