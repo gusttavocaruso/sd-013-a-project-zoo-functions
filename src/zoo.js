@@ -81,6 +81,21 @@ function getSchedule(dayName) {
 }
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+// pega o id do 1º animal q o func cuida, através da comparação do id do funcionário passado como  como parâmetro.
+  const specieId = employees.find((func) => func.id === id).responsibleFor[0];
+  // Seleciona a animal pelo id da espécie que o funcionário cuida.
+  const selectedSpecie = species.find((specie) => specie.id === specieId);
+  // Selecina o primeiro animal daquela espécie.
+  let oldest = selectedSpecie.residents[0];
+  // compara qual animais mais velho.
+  selectedSpecie.residents.forEach((resident) => {
+    if (resident.age > oldest.age) {
+      oldest = resident;
+    }
+  });
+  // Desctructuring o obj animail mais velho.
+  const { name, sex, age } = oldest;
+  return [name, sex, age];
 }
 // ======= ok passou no test
 function increasePrices(percentage) {
