@@ -64,7 +64,7 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-/* Requisito 10 - Realizado com auxílio do Plantão Guiado Turma 8 */
+/* Requisito 10 - Realizado com base no requisito 7 */
 function getSchedule(dayName) {
   const newGet = Object.entries(hours).reduce((newObj, [key, value]) => Object.assign(newObj, {
     [key]: value.open && value.close > 0
@@ -74,7 +74,7 @@ function getSchedule(dayName) {
   return newGet;
 }
 
-/* Requisito 11 - Realizado com auxílio do Plantão Guiado Turma 8 */
+/* Requisito 11 */
 function getOldestFromFirstSpecies(id) {
   const managedSpecies = employees.filter((manItem) => manItem.id === id)[0].responsibleFor[0];
   const selectedObject = species.find((selectItem) => selectItem.id === managedSpecies);
@@ -84,7 +84,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const mult = (percentage / 100) + 1;
+  prices.Adult = Math.round((49.99 * mult) * 100) / 100;
+  prices.Senior = Math.round((24.99 * mult) * 100) / 100;
+  prices.Child = Math.round((20.99 * mult) * 100) / 100;
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
