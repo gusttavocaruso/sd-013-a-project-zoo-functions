@@ -76,7 +76,16 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   // seu código aqui
+  const horas = { ...data.hours };
+  Object.entries(horas).forEach((dia) => {
+    horas[dia[0]] = `Open from ${dia[1].open}am until ${dia[1].close - 12}pm`;
+    if (dia[1].open === dia[1].close) {
+      horas[dia[0]] = 'CLOSED';
+    }
+  });
+  return (dayName) ? { [dayName]: horas[dayName] } : horas;
 }
+// getSchedule()
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
