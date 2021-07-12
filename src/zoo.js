@@ -1,3 +1,4 @@
+const { prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -30,7 +31,7 @@ function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
   // Percebi que a estrutura desejada, é praticamente a que é passada nos parâmetros.
   // Uma lógica interessante aqui é utilizar o spread operator. Para espalhar os elementos
-  // de cada objeto passado como parametro.
+  // de cada objeto passado como parametro. Conceito mostrado na aula!
   return { ...personalInfo, ...associatedWith };
 }
 
@@ -69,10 +70,19 @@ function countAnimals(species) {
   const allAnimals = data.species.find((animalItem) => animalItem.name === species);
   return allAnimals.residents.length;
 }
-
+let entrants = { 'Adult': 2, 'Child': 3, 'Senior': 1 };
 function calculateEntry(entrants) {
   // seu código aqui
-}
+  if (typeof entrants === 'undefined') return 0;
+  // Separar as chaves e valores em um array para poder usá-los individualmente
+  const entreRecept = Object.entries(entrants);
+  // Percorrer cada item pegando a chave e valor, referenciando a key com a key do prices.
+  return entreRecept.reduce((totalPerson, [key, value]) => {
+    let totalPrice = totalPerson;
+    totalPrice += prices[key] * value;
+    return totalPrice;
+  }, 0); // É necessário colocar 0 zero aqui, pois o reduce começará a contar do indice 1.
+}calculateEntry(entrants);
 
 function getAnimalMap(options) {
   // seu código aqui
