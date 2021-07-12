@@ -69,7 +69,65 @@ function calculateEntry(entrants) {
   return total;
 }
 
+const noParameter = (map) => {
+  const result = {};
+  map.forEach((location) => {
+    result[location] = data.species
+      .filter((animal) => animal.location === location)
+      .map((animal) => animal.name);
+  });
+  return result;
+};
+
+const includeNames = (map, sorted) => {
+  const result = {};
+  map.forEach((location) => {
+    result[location] = data.species
+      .filter((animal) => animal.location === location)
+      .map((animal) =>
+        (sorted ? { [animal.name]: animal.residents
+          .map((resident) => resident.name).sort() }
+          : { [animal.name]: animal.residents.map((resident) => resident.name) }));
+  });
+  return result;
+};
+
+const sexMaleOrFemale = (map, sorted, animalSex) => {
+  const result = {};
+  map.forEach((location) => {
+    result[location] = data.species
+      .filter((animal) => animal.location === location)
+      .map((animal) => {
+        if (sorted) {
+          return { [animal.name]: animal.residents
+            .filter(({ sex }) => animalSex === sex)
+            .map((resident) => resident.name).sort() };
+        }
+        return { [animal.name]: animal.residents
+          .filter(({ sex }) => animalSex === sex)
+          .map((resident) => resident.name) };
+      });
+  });
+  return result;
+};
+
 function getAnimalMap(options) {
+  let animalMap = new Set();
+
+  data.species.forEach(({ location }) => animalMap.add(location));
+  animalMap = Array.from(animalMap);
+
+  if (!options || !options.includeNames) {
+    return noParameter(animalMap);
+  }
+
+  if (options.sex) {
+    return sexMaleOrFemale(animalMap, options.sorted, options.sex);
+  }
+
+  if (options.includeNames) {
+    return includeNames(animalMap, options.sorted);
+  }
 }
 
 const { hours } = require('./data');
