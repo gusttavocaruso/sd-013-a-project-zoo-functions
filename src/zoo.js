@@ -98,16 +98,23 @@ const closeH = (number) => {
   }
 };
 
+const hoursArr = Object.entries(data.hours);
+
+const isUfd = (schedule) => {
+  const aux = schedule;
+  hoursArr.forEach((day) => {
+    aux[day[0]] = `Open from ${day[1].open}am until ${closeH(day[1].close)}pm`;
+    if (day[0] === 'Monday') {
+      aux.Monday = 'CLOSED';
+    }
+  });
+  return aux;
+};
+
 function getSchedule(dayName) {
   const schedule = {};
-  const hoursArr = Object.entries(data.hours);
   if (dayName === undefined) {
-    hoursArr.forEach((day) => {
-      schedule[day[0]] = `Open from ${day[1].open}am until ${closeH(day[1].close)}pm`;
-      if (day[0] === 'Monday') {
-        schedule.Monday = 'CLOSED';
-      }
-    });
+    isUfd(schedule);
   } else {
     const dtr = hoursArr.find((day) => day[0].includes(dayName));
     if (dtr[0] === 'Monday') {
@@ -118,14 +125,32 @@ function getSchedule(dayName) {
   }
   return schedule;
 }
-console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employer = data.employees.filter((ids) => ids.id.includes(id));
+  const animalID = employer[0].responsibleFor[0];
+  const animal = data.species.filter((specie) => animalID.includes(specie.id));
+  const resident = animal[0].residents;
+  let higher = 0;
+  let oldest = {};
+  resident.forEach((residents, i) => {
+    if (residents.age > higher) {
+      higher = residents.age;
+      oldest = residents;
+    }
+  });
+  const result = Object.values(oldest);
+  return result;
 }
 
+const { prices } = data;
+
 function increasePrices(percentage) {
-  // seu código aqui
+  const increase = Object.values(prices).map((value) => (value + (value * (percentage / 100))));
+  prices.Adult = Math.round(increase[0] * 100) / 100;
+  prices.Senior = Math.round(increase[1] * 100) / 100;
+  prices.Child = Math.round(increase[2] * 100) / 100;
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
