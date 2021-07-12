@@ -39,8 +39,16 @@ function isManager(id) {
   return data.employees.some((employee) => employee.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // Tendo em vista que o test addEmployee.test.js informa que espera receber um array vazio tanto de managers, como responsibleFor, passamos como parâmetro da função esses dois elementos como arrays vazios.
+  // Assim, declaramos uma constante lastEmployee que recebe um objeto contendo as chaves necessárias e, por fim, efetuamos um push das informações de lastEmployee para o arquivo data.js.
+  const lastEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  data.employees.push(lastEmployee);
 }
 
 function countAnimals(species) {
