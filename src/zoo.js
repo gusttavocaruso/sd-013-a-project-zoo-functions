@@ -90,14 +90,12 @@ function getOldestFromFirstSpecies(id) {
   return Object.values(getOldest[0]);
 }
 function increasePrices(percentage) {
-  // seu código aqui
-  const increment = Object.entries(data.prices)
-    .forEach((item) => {
-    item[1] * per
-  })
-  
-  
-  // destructuring
+  const { Adult, Senior, Child } = data.prices;
+  const newPrice = (visitor) => Math.ceil((percentage + 100) * visitor) / 100;
+
+  data.prices.Adult = newPrice(Adult);
+  data.prices.Child = newPrice(Child);
+  data.prices.Senior = newPrice(Senior);
 }
 
 function getEmployeeCoverage(idOrName) {
