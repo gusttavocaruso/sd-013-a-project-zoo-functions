@@ -66,8 +66,8 @@ function countAnimals(animais) {
 
 function calculateEntry(entrants) {
   // seu código aqui
-  if(!entrants) return 0;
-  return Object.keys(entrants).reduce((acumulador, valorAtual) => acumulador + entrants[valorAtual] * prices[valorAtual],0);
+  if (!entrants) return 0;
+  return Object.keys(entrants).reduce((acumla, vlue) => acumla + entrants[vlue] * prices[vlue], 0);
 }
 
 function getAnimalMap(options) {
