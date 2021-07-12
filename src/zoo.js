@@ -152,10 +152,45 @@ function increasePrices(percentage) {
   prices.Child = Math.round(increase[2] * 100) / 100;
   return prices;
 }
+const { employees } = data;
+
+const makeList = (param) => {
+  const list = {};
+  const fullname = `${param.firstName} ${param.lastName}`;
+  list[fullname] = [];
+  param.responsibleFor.forEach((res) => {
+    const { name } = data.species.find(({ id }) => id === res);
+    list[fullname].push(name);
+  });
+  return list;
+};
+
+const perID = (id) => {
+  const epy = employees.find((ids) => ids.id.includes(id));
+  return makeList(epy);
+};
+
+const perName = (name) => {
+  const epy = employees.find(({ firstName, lastName }) => firstName === name
+  || lastName === name);
+  return makeList(epy);
+};
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName === undefined) {
+    const list = {};
+    data.employees.forEach((employee) => {
+      Object.assign(list, makeList(employee));
+    });
+    return list;
+  }
+  if (idOrName.length > 15) {
+    return perID(idOrName);
+  }
+  return perName(idOrName);
 }
+
+console.log(getEmployeeCoverage('56d43ba3-a5a7-40f6-8dd7-cbb05082383f'));
 
 module.exports = {
   calculateEntry,
