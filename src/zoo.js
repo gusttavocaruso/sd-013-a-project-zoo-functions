@@ -25,12 +25,13 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   // Se não for informado nenhum empregado, retorna um objeto vazio.
   if (!employeeName) return {};
-    // Procura o primeiro empregado que o primeiro OU(||) o último nome correspondam ao informado como parâmetro.
-   return data.employees.find((employee) => (employee.firstName === employeeName) || employee.lastName === employeeName);
+  // Procura o primeiro empregado que o primeiro OU(||) o último nome correspondam ao informado como parâmetro.
+  return data.employees.find((e) => (e.firstName === employeeName) || e.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  // Por meio do método spread (...), a função cria um novo colaborador utilizando as informações armazenadas nos parâmetros personalInfo e associatedWith, retornando-as em um novo objeto. FONTE: https://www.luiztools.com.br/post/4-segredos-do-operador-spread-em-javascript/
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
