@@ -1,4 +1,4 @@
-const { species } = require('./data');
+// const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -6,7 +6,7 @@ function getSpeciesByIds(...ids) {
   if (!ids.length) return [];
   // Array que ao receber como parâmetro um único id, retorna um array com a espécie referente à esse id.
   const arrayOfAnimals = [];
-  // Laço forEach que procura o primeiro animal que corresponda ao id da vez.
+  // Laço forEach que procura o primeiro animal que corresponda ao id da vez, por meio do método .find().
   ids.forEach((id) => {
     const currentAnimal = data.species.find((specie) => specie.id === id);
     // Faz-se um push que é responsável por colocar o animal encontrado na varredura feita pelo laço forEach no arrayOfAnimals.
@@ -16,7 +16,10 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  // Por meio do método .find(), a função procura a primeira espécie que tem o nome igual ao informado como parâmetro.
+  const search = data.species.find((specie) => specie.name === animal);
+  // Então, verifica se todos os animais daquela espécie possuem o atributo age maior do que o informado como parâmetro e retorna a função search.
+  return search.residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
