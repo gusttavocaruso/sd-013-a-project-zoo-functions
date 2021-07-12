@@ -41,8 +41,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
   return emp;
 }
-function countAnimals(specieName) {
-  // seu código aqui
+function countAnimals(speciesNames) {
+  const allAnimals = species.reduce((acc, current) => {
+    acc[current.name] = current.residents.length;
+
+    return acc;
+  }, {});
+
+  if (!speciesNames) return allAnimals;
+
+  return allAnimals[speciesNames];
 }
 
 function calculateEntry(entrants) {
@@ -75,7 +83,6 @@ function increasePrices(percentage) {
     data.prices[key] = Math.round(data.prices[key] * (1 + percentage / 100) * 100) / 100;
   });
 }
-
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
