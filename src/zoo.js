@@ -31,6 +31,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
+  // seu código aqui
 }
 
 function isManager(id) {
@@ -67,7 +68,7 @@ function calculateEntry(entrants) {
   const priceSenior = prices.Senior;
 
   return (Adult * priceAdult)
-  + (Child * priceChild) + (Senior * priceSenior);
+    + (Child * priceChild) + (Senior * priceSenior);
 }
 
 function getAnimalMap(options) {
@@ -88,7 +89,14 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const getObjectPrices = Object.values(prices);
+  const calculatorPercentage = getObjectPrices
+    .map((price) => Math.round((price + price * (percentage / 100)) * 100) / 100);
+  const [Adult, Senior, Child] = calculatorPercentage;
+  prices.Adult = Adult;
+  prices.Senior = Senior;
+  prices.Child = Child;
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
@@ -111,8 +119,6 @@ function getEmployeeCoverage(idOrName) {
     }
   }); return newObj;
 }
-
-console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
