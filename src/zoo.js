@@ -120,10 +120,6 @@ const mapWithSexAndSort = (parameter, object, sex, locations) => {
   // return {};
 }
 
-const mapJustWithSex = (parameter, object, locations) => {
-
-}
-
 const mapJustWithNames = (parameter, object, locations) => {
 // if (parameter.includeNames) {
   locations.forEach((location) => {
@@ -146,7 +142,7 @@ const mapJustWithNames = (parameter, object, locations) => {
 }
 
 function getAnimalMap(options) {
-  let object = {};
+  const object = {};
   const speciesLocations = species
     .map((specie) => specie.location);
 
