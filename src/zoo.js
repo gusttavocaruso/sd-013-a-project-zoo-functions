@@ -94,15 +94,22 @@ function getSchedule(dayName) {
   // seu código aqui
 }
 
-// requisito 11
+// requisito 11 check
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const persona = employees.find((employee) => employee.id === id);
+  const firstspecie = species.find((specie) => specie.id === persona.responsibleFor[0]);
+  const previous = firstspecie.residents.sort((a, b) => b.age - a.age);
 
+  return Object.values(previous[0]);
 }
 
 // requisito 12
 function increasePrices(percentage) {
   // seu código aqui
+  prices.Adult = Math.round((prices.Adult * (1 +(percentage / 100))) * 100) / 100;
+  prices.Senior = Math.round((prices.Senior * (1 +(percentage / 100))) * 100) / 100;
+  prices.Child = Math.round((prices.Child * (1 +(percentage / 100))) * 100) / 100;
 }
 
 // requisito 13
