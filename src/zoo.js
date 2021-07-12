@@ -132,10 +132,37 @@ function increasePrices(percentage) {
   return data.prices;
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+function getByIdOrName(idOrName) {
+  const keys = Object.keys(data.employees[0]);
+  const keyObj = keys.find((key) => data.employees
+    .find((worker) => worker[key] === idOrName));
+  const employee = data.employees.find((worker) => worker[keyObj] === idOrName);
+  const animals = species
+    .filter((specie) => employee.responsibleFor
+      .some((id) => specie.id === id))
+    .map((animalName) => animalName.name);
+  const a = {};
+  if (keyObj === 'firstName') {
+    a[`${employee.firstName} ${employee.lastName}`] = animals.sort();
+    return a;
+  }
+  a[`${employee.firstName} ${employee.lastName}`] = animals;
+  return a;
 }
-
+function getEmployeeCoverage(idOrName = undefined) {
+  // This if was inspired by Juliette Beaudet's code
+  // https://github.com/tryber/sd-05-block8-project-zoo-functions/pull/10/files
+  if (!idOrName) {
+    const employeeAnimal = {};
+    data.employees.forEach((worker) => {
+      const fullName = `${worker.firstName} ${worker.lastName}`;
+      employeeAnimal[fullName] = worker.responsibleFor.map((ids) => species
+        .find((specie) => specie.id === ids).name);
+    });
+    return employeeAnimal;
+  }
+  return getByIdOrName(idOrName);
+}
 module.exports = {
   calculateEntry,
   getSchedule,
