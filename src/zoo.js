@@ -30,7 +30,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // Por meio do método spread (...), a função cria um novo colaborador utilizando as informações armazenadas nos parâmetros personalInfo e associatedWith, retornando-as em um novo objeto. FONTE: https://www.luiztools.com.br/post/4-segredos-do-operador-spread-em-javascript/
+  // Por meio do método spread (...), a função cria um novo colaborador concatenando as informações armazenadas nos parâmetros personalInfo e associatedWith, retornando-as em um novo objeto. FONTE: https://www.luiztools.com.br/post/4-segredos-do-operador-spread-em-javascript/
   return { ...personalInfo, ...associatedWith };
 }
 
@@ -82,7 +82,18 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  // Primeiro, declaramos uma constante e atribuímos à ela, utilizando o operador spread (...), um objeto para termos acesso às propriedades de data.hours e, assim, podermos trabalhar com esses dados.
+  const schedule = { ...data.hours };
+  // Em seguida, utilizamos o Object.entries, passando como parâmetro a constante que acabamos de declarar e, por meio de um laço forEach, percorreremos cada elemento do objeto schedule para que, no final, possamos reproduzir a mensagem que desejarmos. Nesse caso, o retorno esperado no arquivo de testes.
+  Object.entries(schedule).forEach((day) => {
+    schedule[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+    // Porém, se schedule na posição do laço.open, for igual a laço.close, retorna a mensagem de CLOSED, conforme esperado pelo teste.
+    if (day[1].open === day[1].close) {
+      schedule[day[0]] = 'CLOSED';
+    }
+  });
+  // Por fim, retornamos a função, passando um operador condicional (?) FONTE: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators
+  return (dayName !== undefined) ? { [dayName]: schedule[dayName] } : schedule;
 }
 
 function getOldestFromFirstSpecies(id) {
