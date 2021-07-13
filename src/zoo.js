@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(firstId, secondId) {
@@ -24,6 +24,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
+  // Com a ajuda de: https://stackoverflow.com/questions/4215737/convert-array-to-object
   const newEmployee = { ...personalInfo, ...associatedWith };
 
   return newEmployee;
@@ -64,6 +65,7 @@ function countAnimals(animal) {
     const countHowManyAnimals = findAnimal.residents.length;
     return countHowManyAnimals;
   }
+
   // Com a ajuda do Sumo no plantão
   const allAnimalsCounter = {};
 
@@ -92,7 +94,16 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
+  for (const price in prices) {
+    const percentageIncrease = prices[price] * (percentage / 100);
+    const sumPriceWithPercentage = prices[price] + percentageIncrease;
+    // Consultado: https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+    const priceIncreased = Math.round((sumPriceWithPercentage + Number.EPSILON) * 100) / 100;
 
+    prices[price] = priceIncreased;
+  }
+
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
