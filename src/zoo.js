@@ -1,5 +1,4 @@
-// const { species } = require('./data');
-const { prices } = require('./data');
+const { prices /* , employees, species */ } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -70,10 +69,12 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   // Questão resolvida com ajuda do coléga Reinaldo Paixão.
+  // Se entrants for undefined ou um objeto vazio, retorna 0.
   if (!entrants || entrants === {}) return 0;
+  // Utilizando o Object.keys, acessamos as propriedades do objeto entrants e, por meio do método .reduce(), varremos o parâmetro passado para que, entrants, na posição currentValue (ou seja currentValue corresponderá ao valor de 2, quando, por exemplo, estiver na posição da chave Adult; 3, quando estiver na posição da chave Child e 1, quando estiver na posição da chave Senior), seja multiplicado pelo valor de prices, também na posição currentValue (Ou seja, seguindo a mesma lógica de currentValue que já foi explicada, prices corresponderá ao valor que currentValue estiver analisando naquela posição específica, dentro do arquivo data.js).
   return Object.keys(entrants)
-    .reduce((accumulator, currentValeu) =>
-      accumulator + (entrants[currentValeu] * prices[currentValeu]), 0);
+    .reduce((accumulator, currentValue) =>
+      accumulator + (entrants[currentValue] * prices[currentValue]), 0);
 }
 
 function getAnimalMap(options) {
@@ -85,11 +86,23 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // Questão resolvida com ajuda do coléga Reinaldo Paixão.
+  // Busca o funcionário informado
+  const funcionario = data.employees.find((employee) => employee.id === id);
+  // Busca a especie informada, referente ao id do funcionário que é responsável por aquela especie.
+  const especie = data.species.find((specie) => specie.id === funcionario.responsibleFor[0]);
+  // Ordena os animais por idade.
+  const maisVelho = especie.residents.sort((a, b) => b.age - a.age);
+  // Retorna o valor das chaves do animal mais velho.
+  return Object.values(maisVelho[0]);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  // Questão resolvida com ajuda do coléga Reinaldo Paixão.
+  // Por meio do Object.keys(), acessamos as propriedades do objeto prices e, então, utilizando um forEach para varrer as chaves e valores do objeto. Assim, prices, na posição value, é multiplicado por 1,2, por exemplo e, para que o resultado final seja arredondado e não quebre, utilizamos o método Math.round().
+  Object.keys(prices).forEach((value) => {
+    prices[value] = Math.round((prices[value] * (percentage / 100 + 1)) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
