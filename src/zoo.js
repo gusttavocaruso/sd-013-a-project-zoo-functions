@@ -39,8 +39,11 @@ function countAnimals(species) {
   return data.species.find((specie) => specie.name === species).residents.length;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = {}) {
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const { Adult: adultPrice, Child: childPrice, Senior: seniorPrice } = data.prices;
+
+  return (adultPrice * Adult) + (childPrice * Child) + (seniorPrice * Senior);
 }
 
 function getAnimalMap(options) {
