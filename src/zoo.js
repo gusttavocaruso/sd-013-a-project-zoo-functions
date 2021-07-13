@@ -1,3 +1,5 @@
+// Alguns exercicios foram feitos com amigos, ou baseados em exercicios feitos (Gabriel Gaspar,Josue Lobo)
+
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
