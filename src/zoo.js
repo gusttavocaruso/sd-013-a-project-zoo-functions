@@ -77,8 +77,28 @@ function countAnimals(animal) {
   return allAnimalsCounter;
 }
 
+// Função feita para simplificar o requisito 8
+function entryCalculator(entrants) {
+  let entrySum = 0;
+  Object.keys(entrants).forEach((entrant) => {
+    if (entrant === 'Adult') {
+      entrySum += entrants[entrant] * prices.Adult;
+    }
+    if (entrant === 'Senior') {
+      entrySum += entrants[entrant] * prices.Senior;
+    }
+    if (entrant === 'Child') {
+      entrySum += entrants[entrant] * prices.Child;
+    }
+  });
+  return entrySum;
+}
+
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || entrants === {}) {
+    return 0;
+  }
+  return entryCalculator(entrants);
 }
 
 function getAnimalMap(options) {
