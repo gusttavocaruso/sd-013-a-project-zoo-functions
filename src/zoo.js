@@ -117,7 +117,32 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // Ques†ão resolvida com a ajuda do amigo Vinícius Dionysio.
+  // Criamos uma variável que será povoada com os resultados do .map()
+  let objOut = {};
+  // Criamos uma variável que receberá o valor de cada chave referente aos empregados do Zoo.
+  let value;
+  // Acessamos os empregados para montarmos o objeto que listrá todos os empregados. Para cada um, teremos os animais que cada empregado é responsável.
+  data.employees.forEach((item) => {
+    // O item, a cada varredura, será um empregado diferente e, para cada empregado, estamos acessando diretamente o array responsibleFor.
+    value = item.responsibleFor
+    // Nesse array, aplicamos um .map() para termos como retorno apenas um array com os nomes das espécies, sendo que como função callback do map utilizamos o .find(), a partir das espécies.
+      .map((idAnimal) => data.species.find((specie) => specie.id === idAnimal).name);
+    objOut[`${item.firstName} ${item.lastName}`] = value;
+  });
+  // Se não for passado nenhum valor como parâmetro, retorna o valor de objOut. Caso seja informado, segue para execução da próxima função.
+  // Achamos o empregado, independente dos parâmetros que forem passados.
+  const findEmployee = data.employees.find((employee) =>
+    employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+    // Definimos uma string, contendo o nome do empregado encontrado.
+  const employee = `${findEmployee.firstName} ${findEmployee.lastName}`;
+  // Atribuímos o valor dessa chave empregado, à uma constante animals.
+  const animals = objOut[employee];
+  // Criamos um objeto vazio para ser retornado.
+  const arrayOfEmployeesAndAnimals = {};
+  // Adcinamos um par, chave e valor, com o empregado e os respectivos animais pelos quais é responsável.
+  arrayOfEmployeesAndAnimals[employee] = animals;
+  return arrayOfEmployeesAndAnimals;
 }
 
 module.exports = {
