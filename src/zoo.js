@@ -1,4 +1,4 @@
-const { prices } = require('./data');
+const { prices, species, hours, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -58,16 +58,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push(employeeAdd);
 }
 
-function countAnimals(species) {
+function countAnimals(speciesAnimal) {
   // seu código aqui
-  if (!species) {
+  if (!speciesAnimal) {
     const animalsAll = {};
-    data.species.forEach((animal) => {
+    species.forEach((animal) => {
       animalsAll[animal.name] = animal.residents.length;
     });
     return animalsAll;
   }
-  const allAnimals = data.species.find((animalItem) => animalItem.name === species);
+  const allAnimals = species.find((animalItem) => animalItem.name === speciesAnimal);
   return allAnimals.residents.length;
 }
 
@@ -85,15 +85,51 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // // seu código aqui
+  // const localAnimals = { NE: [], NW: [], SE: [], SW: [] };
+  // const localKeys = Object.keys(localAnimals);
+  // const result = data.species.forEach((item) => {
+  //   const local = item.location;
+  //   if (local.includes(localKeys)) console.log(species.name);
+  // // if ()
+  // //   push(species.name);
+  // });
 }
+
+// Faz parte do requisito 10.
+// Resolução feita graças ao grande Josué Lobo.
+const convertHour = (hour) => {
+  if (hour > 12) {
+    return `${(hour - 12)}pm`;
+  }
+  return `${hour}am`;
+};
+
+const msgConvert = (day, horario) => {
+  if (day === 'Monday') return 'CLOSED';
+  return `Open from ${convertHour(horario[day].open)} until ${convertHour(horario[day].close)}`;
+};
 
 function getSchedule(dayName) {
   // seu código aqui
+  const objNull = {};
+  if (!dayName) {
+    Object.keys(hours).forEach((day) => {
+      objNull[day] = msgConvert(day, hours);
+    });
+  } else {
+    objNull[dayName] = msgConvert(dayName, hours);
+  }
+  return objNull;
 }
 
+// Resolução feita graças ao grande Josué Lobo.
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const funcId = employees.find((funcionario) => funcionario.id === id);
+  const animalFirst = species.find((animal) => animal.id === funcId.responsibleFor[0]);
+  const animalOle = animalFirst.residents.sort((a, b) => b.age - a.age);
+  return Object.values(animalOle[0]);
 }
 
 function increasePrices(percentage) {
