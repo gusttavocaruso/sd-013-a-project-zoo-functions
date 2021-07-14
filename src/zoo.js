@@ -121,9 +121,57 @@ function increasePrices(percentage) {
   });
 }
 
+const createNullParam = () => {
+  let vazi = null;
+  const obj = {};
+  let arr = [];
+  data.employees.forEach((employee) => {
+    employee.responsibleFor
+      .forEach((id) => data.species.find((specie) => {
+        if (specie.id === id) {
+          arr.push(specie.name);
+        }
+        vazi += vazi;
+        return null;
+      })); obj[`${employee.firstName} ${employee.lastName}`] = arr;
+    arr = [];
+  }); return obj;
+};
+
+const GetAnimals = (employee) => {
+  const obj = {};
+  let animals = [];
+  const vazi = null;
+  employee.responsibleFor.forEach((id) => data.species
+    .find((specie) => {
+      if (specie.id === id) {
+        animals.push(specie.name);
+      } return vazi;
+    })); obj[`${employee.firstName} ${employee.lastName}`] = animals;
+  animals = [];
+  return obj;
+};
+
+const GetEmployee = (idorName) => {
+  let employeeLet;
+  const dataEmplo = data.employees.forEach((employee) => {
+    if (employee.id === idorName
+      || employee.firstName === idorName || employee.lastName === idorName) {
+      employeeLet = employee;
+    }
+  });
+  return GetAnimals(employeeLet);
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName === undefined) {
+    return createNullParam();
+  }
+  return GetEmployee(idOrName);
 }
+// data.species.find((element) => element.id === findAnimal[i]).name;
+
+console.log(GetEmployee('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 module.exports = {
   calculateEntry,
