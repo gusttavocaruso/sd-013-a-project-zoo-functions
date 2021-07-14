@@ -122,6 +122,7 @@ Agora, informamos para a função que, caso não seja passado nenhum valor como 
 Por tanto, para acharmos o empregado, independente dos parâmetros que forem passados, declaramos uma constante findEmployee que, por meio de um .find(), busca no arquivo data.js pelo id, ou firstName, ou ainda pelo lastName do funcionário. Na sequência, definimos uma constante e atribuímos a ela uma string, contendo o nome completo do empregado encontrado anteriormente e, ainda, declaramos mais uma constante (animals) e atribuímos à ela o valor da chave employee.
 Por fim, declaramos a constante arrayOfEmployeesAndAnimals, que inicialmente é atribuida com um objeto vazio que, mais tarde, irá retornar com um par, chave e valor, contendo o nome e sobrenome do empregado, bem como os respectivos animais pelos quais é responsável e retornamos o resultado.
 */
+
 function getEmployeeCoverage(idOrName) { // Ques†ão resolvida com a ajuda do amigo Vinícius Dionysio.
   const objOut = {};
   let value;
