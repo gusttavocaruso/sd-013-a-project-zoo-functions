@@ -91,8 +91,27 @@ function increasePrices(percentage) {
   });
 }
 
+/* Source: https://github.com/tryber/sd-013-a-project-zoo-functions/
+@autor: [Marlon Lacerda] Project Zoo Functions #116 */
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const fullName = (person) => `${person.firstName} ${person.lastName}`; // Une dois atributos do meu objeto uma variavel nome completo
+  const compareIdOrName = (person) => (person.firstName === idOrName) // Compara no meu objeto pelo Id ou pelo Nome dentro objeto
+  || (person.lastName === idOrName) || (person.id === idOrName);
+  const findName = (arrayOfIds) => { // Procurar nome dentro de um
+    const species = [];
+    arrayOfIds.forEach((id) => species // usando o forEach para percorrer todo array species
+      .push(data.species.find(((specie) => specie.id === id)).name)); // usando o push para adicionar os dados encontrados em um novo array
+    return species;
+  };
+  // Sem parâmetros, retorna uma lista de funcionários e os animais pelos quais eles são responsáveis
+  // com reduce consigo percorrer os dados da lista de funcionários e retorna os animais pelos quais o funcionário é responsável
+  const employeesList = data.employees
+    .reduce((acc, person) => ({ ...acc, [fullName(person)]: findName(person.responsibleFor) }), {});
+  if (!idOrName) return employeesList;
+  const res = data.employees
+    .find((employee) => compareIdOrName(employee));
+  return { [fullName(res)]: findName(res.responsibleFor) };
 }
 
 module.exports = {
