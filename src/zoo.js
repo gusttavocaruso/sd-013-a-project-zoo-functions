@@ -50,8 +50,21 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+const msgReturn = (acc, day) => {
+  const { open, close } = data.hours[day];
+  const msg = `Open from ${open}am until ${close - 12}pm`;
+  acc[day] = (open > 0 && close > 0) ? msg : 'CLOSED';
+  return acc;
+};
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const days = Object.keys(data.hours);
+  if (typeof dayName === 'undefined') {
+    return days.reduce((accumulator, day) => msgReturn(accumulator, day), {});
+  }
+
+  const obj = {};
+  return msgReturn(obj, dayName);
 }
 
 function getOldestFromFirstSpecies(id) {
