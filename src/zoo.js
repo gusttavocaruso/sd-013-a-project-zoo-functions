@@ -116,31 +116,28 @@ function increasePrices(percentage) {
   });
 }
 
-function getEmployeeCoverage(idOrName) {
-  // Ques†ão resolvida com a ajuda do amigo Vinícius Dionysio.
-  // Criamos uma variável que será povoada com os resultados do .map()
-  let objOut = {};
-  // Criamos uma variável que receberá o valor de cada chave referente aos empregados do Zoo.
+/* Primeiramente, criamos uma constante e atribuímos à ela um objeto vazio (const objOut), que será povoada com os resultados da função .map() que será implementada na sequência. Também declaramos uma variável que receberá o valor de cada chave referente aos empregados do Zoo (let value).
+Assim, para acessarmos os dados dos empregados e montarmos um novo objeto que listrá todos eles e os animais que cada um é responsável, utilizamos um laço forEach (data.employees.forEach() => {})
+Agora, informamos para a função que, caso não seja passado nenhum valor como parâmetro, retorna o valor de objOut. Caso seja informado, segue para execução da próxima função.
+Por tanto, para acharmos o empregado, independente dos parâmetros que forem passados, declaramos uma constante findEmployee que, por meio de um .find(), busca no arquivo data.js pelo id, ou firstName, ou ainda pelo lastName do funcionário. Na sequência, definimos uma constante e atribuímos a ela uma string, contendo o nome completo do empregado encontrado anteriormente e, ainda, declaramos mais uma constante (animals) e atribuímos à ela o valor da chave employee.
+Por fim, declaramos a constante arrayOfEmployeesAndAnimals, que inicialmente é atribuida com um objeto vazio que, mais tarde, irá retornar com um par, chave e valor, contendo o nome e sobrenome do empregado, bem como os respectivos animais pelos quais é responsável e retornamos o resultado.
+*/
+function getEmployeeCoverage(idOrName) { // Ques†ão resolvida com a ajuda do amigo Vinícius Dionysio.
+  const objOut = {};
   let value;
-  // Acessamos os empregados para montarmos o objeto que listrá todos os empregados. Para cada um, teremos os animais que cada empregado é responsável.
   data.employees.forEach((item) => {
-    // O item, a cada varredura, será um empregado diferente e, para cada empregado, estamos acessando diretamente o array responsibleFor.
+    // O item passado como parâmetro, a cada varredura, será equivalente a um empregado diferente. E, para cada empregado, estamos acessando diretamente o array responsibleFor, atribuindo o valor à variável value.
     value = item.responsibleFor
     // Nesse array, aplicamos um .map() para termos como retorno apenas um array com os nomes das espécies, sendo que como função callback do map utilizamos o .find(), a partir das espécies.
       .map((idAnimal) => data.species.find((specie) => specie.id === idAnimal).name);
     objOut[`${item.firstName} ${item.lastName}`] = value;
   });
-  // Se não for passado nenhum valor como parâmetro, retorna o valor de objOut. Caso seja informado, segue para execução da próxima função.
-  // Achamos o empregado, independente dos parâmetros que forem passados.
+  if (!idOrName) return objOut;
   const findEmployee = data.employees.find((employee) =>
     employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
-    // Definimos uma string, contendo o nome do empregado encontrado.
   const employee = `${findEmployee.firstName} ${findEmployee.lastName}`;
-  // Atribuímos o valor dessa chave empregado, à uma constante animals.
   const animals = objOut[employee];
-  // Criamos um objeto vazio para ser retornado.
   const arrayOfEmployeesAndAnimals = {};
-  // Adcinamos um par, chave e valor, com o empregado e os respectivos animais pelos quais é responsável.
   arrayOfEmployeesAndAnimals[employee] = animals;
   return arrayOfEmployeesAndAnimals;
 }
