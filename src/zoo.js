@@ -144,15 +144,46 @@ function increasePrices(percentage) {
     const roundValue = (prices[key] * valuePercent);
     prices[key] = Math.round(roundValue * 100) / 100;
   });
-  // percorrer esse array aplicando a tranformação pedida na questão.
-  // console.log(pricesKey);
-  // retornar o price alterado
   return prices;
 }
 
+// Requisito 13
+// Feito com base na resolução do Josué Lobo com ajuda do grande Zezé.
+const message = (firstName, lastName) => `${firstName} ${lastName}`;
+
+const createObject = (employee) => {
+  const person = {};
+  const fullName = message(employee.firstName, employee.lastName);
+  person[fullName] = [];
+  employee.responsibleFor.forEach((source) => {
+    const { name } = species.find(({ id }) => id === source);
+    person[fullName].push(name);
+  });
+  return person;
+};
+
+const findById = (id) => {
+  const find = employees.find((employee) => employee.id === id);
+  return createObject(find);
+};
+
+const findByName = (name) => {
+  const find = employees.find(({ firstName, lastName }) => firstName === name
+    || lastName === name);
+  return createObject(find);
+};
+
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
-
+  if (typeof idOrName === 'undefined') {
+    const person = {};
+    employees.forEach((employee) => {
+      Object.assign(person, createObject(employee));
+    });
+    return person;
+  }
+  if (idOrName.length > 25) return findById(idOrName);
+  return findByName(idOrName);
 }
 
 module.exports = {
