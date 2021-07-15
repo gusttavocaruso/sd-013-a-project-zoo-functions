@@ -1,4 +1,4 @@
-const { prices, hours } = require('./data');
+const { prices, hours, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -98,7 +98,24 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // Função desenvolvida com a Bianca na monitoria.
+
+  const listEmployeeAnimals = data.employees.reduce((acc, employee) => {
+    const nameEmploye = `${employee.firstName} ${employee.lastName}`;
+    const listAnimals = employee.responsibleFor;
+    acc[nameEmploye] = listAnimals.map((id) => data.species
+      .find((specie) => specie.id === id).name);
+    return acc;
+  }, {});
+  // console.log(listEmployeeAnimals);
+  if (!idOrName) return listEmployeeAnimals;
+
+  const foundEmployee = data.employees.find((employee) =>
+    employee.id === idOrName
+      || employee.firstName === idOrName || employee.lastName === idOrName);
+  const foundEspecies = foundEmployee.responsibleFor;
+  return { [`${foundEmployee.firstName} ${foundEmployee.lastName}`]: foundEspecies.map((id) =>
+    species.find((specie) => specie.id === id).name) };
 }
 
 module.exports = {
