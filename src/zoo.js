@@ -5,7 +5,7 @@ function getSpeciesByIds(...ids) {
   // seu código aqui
   if (!ids) return []; // Se a função for chamada sem parâmetro...
   const speciesReturn = [];
-  ids.filter((id) => data.species.forEach((idSpecies) => {
+  ids.filter((id) => species.forEach((idSpecies) => {
     if (idSpecies.id === id) speciesReturn.push(idSpecies);
   }));
   return speciesReturn;
@@ -13,7 +13,7 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  const accessSpecies = data.species;
+  const accessSpecies = species;
   const AnimalsAccess = accessSpecies.filter((namesAccess) => namesAccess.name === animal);
   return AnimalsAccess[0].residents.every((animalAge) => animalAge.age > age);
 }
@@ -21,7 +21,7 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   // seu código aqui
   if (!employeeName) return {};
-  const searchEmployee = data.employees
+  const searchEmployee = employees
     .find((name) => (name.firstName === employeeName) || (name.lastName === employeeName));
   return searchEmployee;
   // Usa-se o find, pois deseja-se achar o primeiro correspondente. Com filter não funciona.
@@ -43,7 +43,7 @@ function isManager(id) {
   // true para caso encontre algum elemento que passou no teste.
   // O includes() é magnífico. Retornando true ou false se o elemento passado
   // pertença ao array ou ao objeto.
-  return data.employees.some((manager) => manager.managers.includes(id));
+  return employees.some((manager) => manager.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -55,7 +55,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     managers,
     responsibleFor,
   };
-  data.employees.push(employeeAdd);
+  employees.push(employeeAdd);
 }
 
 function countAnimals(speciesAnimal) {
@@ -132,12 +132,27 @@ function getOldestFromFirstSpecies(id) {
   return Object.values(animalOle[0]);
 }
 
+// O metodo de arredondar com (decimal*100) / 100
+// não é confiável, pois cai nas limitações do JS.
+// Agradecendo à Bianca Caetano pela força no desenvolvimento.
 function increasePrices(percentage) {
-  // seu código aqui
+  // Transformar o valor em decimal aplicando porcentágem.
+  const valuePercent = ((percentage / 100) + 1);
+  // transformar o price em um array com Object.keys
+  const pricesKey = Object.keys(prices);
+  pricesKey.forEach((key) => {
+    const roundValue = (prices[key] * valuePercent);
+    prices[key] = Math.round(roundValue * 100) / 100;
+  });
+  // percorrer esse array aplicando a tranformação pedida na questão.
+  // console.log(pricesKey);
+  // retornar o price alterado
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+
 }
 
 module.exports = {
