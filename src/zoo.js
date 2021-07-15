@@ -42,15 +42,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push(addEmployer);
 }
 
-function countAnimals(species) {
-  if (!species) {
+function countAnimals(species1) {
+  if (!species1) {
     const objectAnimal = {};
     data.species.forEach((animal) => {
       objectAnimal[animal.name] = animal.residents.length;
     });
     return objectAnimal;
   }
-  return data.species.find((animal) => animal.name === species).residents.length;
+  return data.species.find((animal) => animal.name === species1).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -98,8 +98,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // Função desenvolvida com a Bianca na monitoria.
-
+  // Função desenvolvida com a Bianca na monitoria
   const listEmployeeAnimals = data.employees.reduce((acc, employee) => {
     const nameEmploye = `${employee.firstName} ${employee.lastName}`;
     const listAnimals = employee.responsibleFor;
