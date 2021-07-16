@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 const data = require('./data');
 
 const getObj = {};
@@ -25,8 +26,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  return data.employees.find((indexItem) => indexItem.id === id)
-    .managers.every((cargo) => cargo === '9e7d4524-363c-416a-8759-8aa7e50c0992');
+  return data.employees.some((fun) => fun.managers.some((cargo) => cargo === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -71,6 +71,7 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
   // seu código aqui
 }
+
 function aux(nome) {
   const newObj = {};
   Object.keys(getObj).forEach((dia) => {
@@ -85,7 +86,7 @@ function getSchedule(dayName) {
   Object.keys(data.hours).forEach((dia) => {
     if (dia === 'Monday') {
       getObj[dia] = 'CLOSED';
-    } else {
+    } else { // feito com ajuda  do luiz Furtado
       getObj[dia] = `Open from ${data.hours[dia].open}am until ${data.hours[dia].close - 12}pm`;
     }
   });
@@ -124,9 +125,23 @@ function increasePrices(percentage) {
   });
 }
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const objFinal = {};
+  let fon = 0;
+  data.employees.forEach((pessoa) => {
+    if (!idOrName) fon = pessoa.firstName;
+    Object.keys(pessoa).forEach((id) => {
+      if (pessoa[id] === idOrName || pessoa[id] === fon) {
+        const chave = `${pessoa.firstName} ${pessoa.lastName}`;
+        const teste = pessoa.responsibleFor.map((idFun) => {
+          const trab = data.species.find((t) => t.id === idFun).name;
+          return trab;
+        });
+        objFinal[chave] = teste;
+      }
+    });
+  });
+  return objFinal;
 }
-
 module.exports = {
   calculateEntry,
   getSchedule,
