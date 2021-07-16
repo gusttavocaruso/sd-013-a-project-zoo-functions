@@ -84,16 +84,39 @@ function calculateEntry(entrants) {
   }, 0); // É necessário colocar 0 zero aqui, pois o reduce começará a contar do indice 1.
 }
 
-function getAnimalMap(options) {
-  // // seu código aqui
-  // const localAnimals = { NE: [], NW: [], SE: [], SW: [] };
-  // const localKeys = Object.keys(localAnimals);
-  // const result = data.species.forEach((item) => {
-  //   const local = item.location;
-  //   if (local.includes(localKeys)) console.log(species.name);
-  // // if ()
-  // //   push(species.name);
-  // });
+//  Requisito 9
+// A resolução desta questão tomou como base a resolução do colega Josué Lobo
+// Sem a ajuda dele nas questões 10, 11 não seria possível entender o workflow dessa
+// questão.
+function getAnimalName(animalName, sorted, sex) {
+  let result = species.find((animal) => animal.name === animalName);
+  result = result.residents;
+  if (typeof sex === 'string') {
+    result = result.filter((animal) => animal.sex === sex);
+  }
+  result = result.map((resident) => resident.name);
+  if (sorted) result.sort();
+  return { [animalName]: result };
+}
+
+function getAnimalMap(options = {}) {
+  const { includeNames = false, sorted = false, sex } = options;
+  let result = species.reduce((res, specie) => {
+    const { name, location } = specie;
+    if (typeof res[location] === 'undefined') {
+      res[location] = [];
+    }
+    res[location].push(name);
+    return res;
+  }, {});
+
+  if (includeNames) {
+    result = Object.entries(result).reduce((acc, [key, animalName]) => {
+      acc[key] = animalName.map((name) => getAnimalName(name, sorted, sex));
+      return acc;
+    }, {});
+  }
+  return result;
 }
 
 // Faz parte do requisito 10.
