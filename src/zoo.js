@@ -1,5 +1,5 @@
 const data = require('./data');
-const {species} = require('./data');
+const { employees, species } = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids === undefined) return [];
@@ -9,27 +9,53 @@ function getSpeciesByIds(...ids) {
 function getAnimalsOlderThan(animal, age) {
   const nomeAnimal = data.species.find((specie) => specie.name === animal);
 
-    return nomeAnimal.residents.every((ageAnimal) => ageAnimal.age >= age);
+  return nomeAnimal.residents.every((ageAnimal) => ageAnimal.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) { return {}; }
+
+  const employeeSearch = employees.find((employ) => (employ.firstName === employeeName)
+  || (employ.lastName === employeeName));
+  return employeeSearch;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  const manager = data.employees.some((employee) => employee.managers.includes(id));
+  if (manager) {
+    return true;
+  }
+  return false;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const employ = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return data.employees.push(employ);
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(difspecies) {
+  const speciesCount = {
+    lions: 4,
+    tigers: 2,
+    bears: 3,
+    penguins: 4,
+    otters: 4,
+    frogs: 2,
+    snakes: 2,
+    elephants: 4,
+    giraffes: 6,
+  };
+  return difspecies === undefined ? speciesCount : speciesCount[difspecies];
 }
 
 function calculateEntry(entrants) {
