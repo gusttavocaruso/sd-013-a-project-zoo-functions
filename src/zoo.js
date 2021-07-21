@@ -86,15 +86,23 @@ function getOldestFromFirstSpecies(id) {
   const olderResident = residentsAnimal.sort((a, b) => b.age - a.age);
   return Object.values(olderResident[0]);
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
+
 function increasePrices(percentage) {
-  // seu código aqui
+  const { Adult, Child, Senior } = prices;
+  const adjustPrice = (entry) => Math.ceil(entry * (percentage + 100)) / 100;
+  prices.Adult = adjustPrice(Adult);
+  prices.Child = adjustPrice(Child);
+  prices.Senior = adjustPrice(Senior);
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const coverage = [];
+  if (idOrName === undefined) {
+    employees.forEach((employee) => coverage.push(`${employee.firstName} ${employee.lastName}:${employee.responsibleFor}`));
+    return coverage;
+  }
 }
-
+console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
