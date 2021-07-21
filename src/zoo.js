@@ -101,6 +101,7 @@ function getEmployeeCoverage(idOrName) {
 }
 console.log(getEmployeeCoverage());
 module.exports = {
+
   calculateEntry,
   getSchedule,
   countAnimals,
