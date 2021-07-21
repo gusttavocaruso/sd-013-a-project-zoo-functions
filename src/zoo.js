@@ -1,4 +1,4 @@
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -72,11 +72,36 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
 
 }
-
-function getSchedule(dayName) {
-  // seu código aqui
+function convertHour(hour) {
+  if (hour > 12) {
+    return hour - 12;
+  }
+  return hour;
 }
 
+function getScheduleScentence(dayArray) {
+  if (dayArray.open === dayArray.close) {
+    return 'CLOSED';
+  }
+  const openHour = convertHour(dayArray.open);
+  const closeHour = convertHour(dayArray.close);
+  return `Open from ${openHour}am until ${closeHour}pm`;
+}
+
+function getSchedule(dayName) {
+  const schedule = {};
+  if (!dayName) {
+    const days = Object.entries(hours);
+    days.forEach((day) => {
+      schedule[`${day[0]}`] = getScheduleScentence(day[1]);
+    });
+    return schedule;
+  }
+  const dayArray = hours[`${dayName}`];
+  schedule[`${dayName}`] = getScheduleScentence(dayArray);
+  return schedule;
+}
+console.log(getSchedule());
 function getOldestFromFirstSpecies(id) {
   const employessInfo = employees.filter((employee) => employee.id === id);
   const animalFind = employessInfo[0].responsibleFor[0];
@@ -119,7 +144,7 @@ function getEmployeeCoverage(idOrName) {
   covarage[`${fullName}`] = employeeSelected[0].responsibleFor.map(getAnimalName);
   return covarage;
 }
-console.log(getEmployeeCoverage());
+
 module.exports = {
 
   calculateEntry,
