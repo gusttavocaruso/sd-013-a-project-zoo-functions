@@ -27,6 +27,13 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
+  // ajuda;
+  const personId = employees.find((employee) => employee.id === id);
+  const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
+  if (personId.managers[0] === stephanieId || personId.managers[0] === undefined) {
+    return true;
+  }
+  return false;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
