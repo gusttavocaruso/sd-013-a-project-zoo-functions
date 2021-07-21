@@ -94,10 +94,30 @@ function increasePrices(percentage) {
   prices.Senior = adjustPrice(Senior);
 }
 
+function getAnimalName(idAnimal) {
+  const animalFind = species.filter((specie) => specie.id === idAnimal);
+  return animalFind[0].name;
+}
+
 function getEmployeeCoverage(idOrName) {
+  const covarage = {};
   if (!idOrName) {
-    return 1;
+    employees.forEach((employee) => {
+      const fullName = `${employee.firstName} ${employee.lastName}`;
+      covarage[`${fullName}`] = employee.responsibleFor.map(getAnimalName);
+    });
+    return covarage;
   }
+  let employeeSelected = employees.filter((employee) => employee.id === idOrName);
+  if (employeeSelected.length === 0) {
+    employeeSelected = employees.filter((employee) => employee.firstName === idOrName);
+  }
+  if (employeeSelected.length === 0) {
+    employeeSelected = employees.filter((employee) => employee.lastName === idOrName);
+  }
+  const fullName = `${employeeSelected[0].firstName} ${employeeSelected[0].lastName}`;
+  covarage[`${fullName}`] = employeeSelected[0].responsibleFor.map(getAnimalName);
+  return covarage;
 }
 console.log(getEmployeeCoverage());
 module.exports = {
