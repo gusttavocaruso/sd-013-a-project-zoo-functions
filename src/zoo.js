@@ -23,12 +23,12 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const employee = { ...personalInfo, ...associatedWith };
+  const employee = { ...personalInfo, ...associatedWith }; // Junta os dados do empregado, pessoais e gerentes e animais gerenciados
   return employee;
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees.some((employee) => employee.managers.includes(id)); // Testa se o id passado é de um manager
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
