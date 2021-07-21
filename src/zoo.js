@@ -31,8 +31,15 @@ function isManager(id) {
   return employees.some((employee) => employee.managers.includes(id)); // Testa se o id passado é de um manager
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const employeeAdd = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return employees.push(employeeAdd);
 }
 
 function countAnimals(specie) {
