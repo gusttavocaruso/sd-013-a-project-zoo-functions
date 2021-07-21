@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -44,15 +44,34 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species1) {
-  // seu código aqui
+  let counter;
+  if (species1 === undefined) {
+    /* counter = species.forEach((spec) => counter.push(`${spec.name} + ':' + ${spec.residents.length}`)); */
+    return counter;
+  }
+  const residentSpecie = species.filter((specie) => specie.name === species1);
+  counter = residentSpecie[0].residents.length;
+  return counter;
 }
-
+/* console.log(countAnimals()); */
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined) {
+    return 0;
+  }
+  if (Object.keys(entrants).length === 0) {
+    return 0;
+  }
+  const { Adult = 0, Senior = 0, Child = 0 } = entrants;
+  const priceAdult = Adult * prices.Adult;
+  const priceChild = Child * prices.Child;
+  const priceSenior = Senior * prices.Senior;
+  return priceAdult + priceChild + priceSenior;
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  /*  if (options === undefined){
+    return {
+  } */
 }
 
 function getSchedule(dayName) {
@@ -60,9 +79,14 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employessInfo = employees.filter((employee) => employee.id === id);
+  const animalFind = employessInfo[0].responsibleFor[0];
+  const animalArray = species.filter((specie) => specie.id === animalFind);
+  const residentsAnimal = animalArray[0].residents;
+  const olderResident = residentsAnimal.sort((a, b) => b.age - a.age);
+  return Object.values(olderResident[0]);
 }
-
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 function increasePrices(percentage) {
   // seu código aqui
 }
