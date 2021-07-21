@@ -44,16 +44,17 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species1) {
-  let counter;
-  if (species1 === undefined) {
-    /* counter = species.forEach((spec) => counter.push(`${spec.name} + ':' + ${spec.residents.length}`)); */
-    return counter;
+  if (!species1) {
+    return species.reduce((accumulator, { name, residents }) => {
+      accumulator[name] = residents.length;
+      return accumulator;
+    }, {});
   }
   const residentSpecie = species.filter((specie) => specie.name === species1);
-  counter = residentSpecie[0].residents.length;
+  const counter = residentSpecie[0].residents.length;
   return counter;
 }
-/* console.log(countAnimals()); */
+
 function calculateEntry(entrants) {
   if (entrants === undefined) {
     return 0;
@@ -69,9 +70,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  /*  if (options === undefined){
-    return {
-  } */
+
 }
 
 function getSchedule(dayName) {
@@ -96,10 +95,8 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  const coverage = [];
-  if (idOrName === undefined) {
-    employees.forEach((employee) => coverage.push(`${employee.responsibleFor}`));
-    return coverage;
+  if (!idOrName) {
+    return 1;
   }
 }
 console.log(getEmployeeCoverage());
