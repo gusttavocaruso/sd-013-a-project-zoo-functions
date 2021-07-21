@@ -98,7 +98,7 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   const coverage = [];
   if (idOrName === undefined) {
-    employees.forEach((employee) => coverage.push(`${employee.firstName} ${employee.lastName}:${employee.responsibleFor}`));
+    employees.forEach((employee) => coverage.push(`${employee.responsibleFor}`));
     return coverage;
   }
 }
