@@ -27,7 +27,7 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
-  // ajuda;
+  // pedi ajuda para o colega Bruno Pinho.
   const personId = employees.find((employee) => employee.id === id);
   const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
   if (personId.managers[0] === stephanieId || personId.managers[0] === undefined) {
@@ -38,10 +38,37 @@ function isManager(id) {
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
+  // Com a ajuda do colega Bruno Pinho.
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  if (newEmployee.managers === undefined) {
+    newEmployee.managers = [];
+  }
+  if (newEmployee.responsibleFor === undefined) {
+    newEmployee.responsibleFor = [];
+  }
+  return employees.push(newEmployee);
 }
 
 function countAnimals(specie) {
   // seu código aqui
+  // Com a ajuda do colega Bruno Pinho.
+  if (specie === undefined) {
+    const arr = {};
+    species.forEach((object) => {
+      arr[object.name] = object.residents.length;
+      return arr;
+    });
+    return arr;
+  }
+  const animal = species.find((specieName) => specieName.name === specie);
+  const numberOfAnimals = animal.residents.length;
+  return numberOfAnimals;
 }
 
 function calculateEntry(entrants) {
