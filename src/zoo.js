@@ -144,7 +144,6 @@ function increasePrices(percentage) {
   }, {});
 } */
 
-// eslint-disable-next-line max-lines-per-function
 function getEmployeeCoverage(idOrNames) {
   if (!idOrNames) {
     return employees.reduce((acc, valActual) => {
@@ -154,22 +153,17 @@ function getEmployeeCoverage(idOrNames) {
       return acc;
     }, {});
   }
-  // const returnObj = {};
+
   const employFinder = employees.filter(({ id, lastName, firstName }) => id === idOrNames
   || lastName === idOrNames
     || firstName === idOrNames);
-  /*   const { firstName, lastName, responsibleFor } = employFinder;
-  const animalsArr = responsibleFor.map((item) => species
-    .find(({ id }) => id === item).name);
 
-  returnObj[`${firstName} ${lastName}`] = animalsArr; */
   return employFinder.reduce((acc, atual) => {
     acc[`${atual.firstName} ${atual.lastName}`] = atual.responsibleFor
       .map((item) => species.find(({ id }) => id === item).name);
     return acc;
   }, {});
 }
-
 
 module.exports = {
   calculateEntry,
