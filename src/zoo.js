@@ -135,10 +135,22 @@ function getSchedule(dayName) {
   }
 }
 
-console.log(getSchedule());
-
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // Com a ajuda da Bia na monitoria:
+  const findEmployeeById = employees.find((employee) => employee.id === id);
+
+  const findFirstSpecieFromEmployee = species.find((specie) => specie.id === findEmployeeById.responsibleFor[0]);
+
+  const animalsAges = findFirstSpecieFromEmployee.residents.map((animal) => animal.age);
+
+  const oldestAnimal = Math.max(...animalsAges);
+
+  const findOldestAnimal = findFirstSpecieFromEmployee.residents
+    .find((animal) => animal.age === oldestAnimal);
+
+  const oldestAnimalInfo = Object.values(findOldestAnimal);
+
+  return oldestAnimalInfo;
 }
 
 function increasePrices(percentage) {
@@ -156,6 +168,7 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  // fazer como na Count animals, com uma função para parametrôs vazios com um reduce ou foreach, e um outro para algum parametro que identifique o funcionário, os animais que é responsável, seus nomes e devolva isso num objeto.
 }
 
 module.exports = {
