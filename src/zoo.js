@@ -111,10 +111,11 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(ident) {
   const employ = employees.find(({ id }) => id === ident);
+
   const responsibleAnimal = species.find(({ id }) => id === employ
     .responsibleFor[0]).residents;
 
-  const sortedAnimal = responsibleAnimal.sort((a, b) => a.age < b.age);
+  const sortedAnimal = responsibleAnimal.sort((a, b) => b.age - a.age);
 
   return Object.values(sortedAnimal[0]);
 }
