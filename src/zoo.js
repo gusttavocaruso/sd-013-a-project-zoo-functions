@@ -5,7 +5,7 @@ function getSpeciesByIds(...ids) {
   let animals = [];
   ids.forEach((id) => {
     const currentAnimal = data.animals.find((species) => species.id === id);
-    animals = [...currentAnimal];
+    animals = [...animals, currentAnimal];
   });
   return animals;
 }
