@@ -66,8 +66,13 @@ function getAnimalMap(options = {}) {
   return result;
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
+function getSchedule(weekday) {
+  const schedule = { ...data.hours };
+  Object.entries(schedule).forEach((day) => {
+    schedule[day[0]] = `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+    if (day[1].open === day[1].close) { schedule[day[0]] = 'CLOSED'; }
+  });
+  return (weekday !== undefined) ? { [weekday]: schedule[weekday] } : schedule; // Utilizado o Operador Condicional (Ternário) para simplificar.
 }
 
 function getOldestFromFirstSpecies(id) {
