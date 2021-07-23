@@ -28,8 +28,12 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(speciesIndividuals) {
+  const animals = data.species.reduce((accumulator, current) => {
+    accumulator[current.name] = current.residents.length; return accumulator;
+  }, {});
+  if (!speciesIndividuals) return animals;
+  return animals[speciesIndividuals];
 }
 
 function calculateEntry(entrants) {
