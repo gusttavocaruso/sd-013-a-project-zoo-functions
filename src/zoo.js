@@ -26,14 +26,14 @@ function getEmployeeByName(employeeName) {
   return findEmployer.length ? findEmployer[0] : result;
 }
 
-// console.log(getEmployeeByName('Wishart'));
-
 function createEmployee(personalInfo, associatedWith) {
   return Object.assign(personalInfo, associatedWith);
 }
 
 function isManager(id) {
-  // seu código aqui
+  const managers = [];
+  data.employees.forEach((employee) => employee.managers.forEach((Id) => managers.push(Id)));
+  return managers.includes(id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
