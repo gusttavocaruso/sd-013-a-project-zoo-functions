@@ -29,7 +29,7 @@ function getEmployeeByName(employeeName) {
 // console.log(getEmployeeByName('Wishart'));
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return Object.assign(personalInfo, associatedWith);
 }
 
 function isManager(id) {
