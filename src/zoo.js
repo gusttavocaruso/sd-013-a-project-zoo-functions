@@ -6,12 +6,17 @@ function getSpeciesByIds(...ids) {
 
   return data.species.filter((specie) => ids.includes(specie.id));
 }
-
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
+// console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
+  const animalSpecie = data.species.filter((specie) => specie.name.includes(animal));
+  const ages = animalSpecie[0].residents.find((info) => info.age < age);
+  if (ages) return false;
+  return true;
 }
+
+getAnimalsOlderThan('lions', 10);
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
