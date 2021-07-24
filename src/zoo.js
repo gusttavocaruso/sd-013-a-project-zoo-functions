@@ -50,9 +50,17 @@ function countAnimals(species) {
   return animalAmount[species] || animalAmount;
 }
 
-function calculateEntry(entrants) {
+function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   // seu código aqui
+  const { prices } = data;
+  let totalPrice = 0;
+  if (entrants.Adult) totalPrice += entrants.Adult * prices.Adult;
+  if (entrants.Child) totalPrice += entrants.Child * prices.Child;
+  if (entrants.Senior) totalPrice += entrants.Senior * prices.Senior;
+  return totalPrice;
 }
+
+console.log(calculateEntry());
 
 function getAnimalMap(options) {
   // seu código aqui
