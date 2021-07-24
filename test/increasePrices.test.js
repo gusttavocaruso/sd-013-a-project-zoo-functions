@@ -1,4 +1,4 @@
-  const assert = require('assert');
+const assert = require('assert');
 const zoo = require('../src/zoo');
 const data = require('../src/data');
 

@@ -108,30 +108,30 @@ function getAnimalMap(options) {
 function getSchedule(dayName) {
   if (dayName === undefined) {
     return {
-      'Tuesday': 'Open from 8am until 6pm',
-      'Wednesday': 'Open from 8am until 6pm',
-      'Thursday': 'Open from 10am until 8pm',
-      'Friday': 'Open from 10am until 8pm',
-      'Saturday': 'Open from 8am until 10pm',
-      'Sunday': 'Open from 8am until 8pm',
-      'Monday': 'CLOSED'
-    }
+      Tuesday: 'Open from 8am until 6pm',
+      Wednesday: 'Open from 8am until 6pm',
+      Thursday: 'Open from 10am until 8pm',
+      Friday: 'Open from 10am until 8pm',
+      Saturday: 'Open from 8am until 10pm',
+      Sunday: 'Open from 8am until 8pm',
+      Monday: 'CLOSED',
+    };
   }
 
   if (dayName === 'Tuesday') {
-    return { 'Tuesday': 'Open from 8am until 6pm' };
-  } else if (dayName === 'Wednesday') {
-    return { 'Wednesday': 'Open from until 6pm' };
-  } else if (dayName === 'Thursday') {
-    return { 'Thursday': 'Open from 10am until 8pm' };
-  } else if (dayName === 'Friday') {
-    return { 'Friday': 'Open from 10am until 8pm' };
-  } else if (dayName === 'Saturday') {
-    return { 'Saturday': 'Open from 8am until 10pm' };
-  } else if (dayName === 'Sunday') {
-    return { 'Sunday': 'Open from 8am until 8pm' };
-  } else if (dayName === 'Monday') {
-    return { 'Monday': 'CLOSED' };
+    return { Tuesday: 'Open from 8am until 6pm' };
+  } if (dayName === 'Wednesday') {
+    return { Wednesday: 'Open from until 6pm' };
+  } if (dayName === 'Thursday') {
+    return { Thursday: 'Open from 10am until 8pm' };
+  } if (dayName === 'Friday') {
+    return { Friday: 'Open from 10am until 8pm' };
+  } if (dayName === 'Saturday') {
+    return { Saturday: 'Open from 8am until 10pm' };
+  } if (dayName === 'Sunday') {
+    return { Sunday: 'Open from 8am until 8pm' };
+  } if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
   }
 }
 
@@ -154,21 +154,46 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  for (const price in prices) {
-    const percentageIncrease = prices[price] * (percentage / 100);
-    const sumPriceWithPercentage = prices[price] + percentageIncrease;
-    // Consultado: https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
-    const priceIncreased = Math.round((sumPriceWithPercentage + Number.EPSILON) * 100) / 100;
+  // Com a ajuda do Vinicius Dionysio para refatorar o projeto sem for in
+  const calculatePrices = Object.values(prices).map((price) => (price * (1 + percentage / 100)));
 
-    prices[price] = priceIncreased;
-  }
+  // Consultado: https://stackoverflow.com/questions/11832914/()how-to-round-to-at-most-2-decimal-places-if-necessary
+  const roundPrices = (number) => number = Math.round((number + Number.EPSILON) * 100) / 100;
 
-  return prices;
+  Object.keys(prices).forEach((key, index) => {
+    prices[key] = roundPrices(calculatePrices[index]);
+  });
 }
-
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-  // fazer como na Count animals, com uma função para parametrôs vazios com um reduce ou foreach, e um outro para algum parametro que identifique o funcionário, os animais que é responsável, seus nomes e devolva isso num objeto.
+  // Com a ajuda do Zezé no plantão. Para fechar a lógica:
+  if (idOrName !== undefined) {
+    const findEmployee = employees.find((employee) => {
+      if (idOrName === employee.id
+        || idOrName === employee.firstName
+        || idOrName === employee.lastName) {
+        return employee;
+      }
+    });
+    const findAnimal = findEmployee.responsibleFor
+      .map((animalId) => species.filter(({ id }) => id === animalId)[0].name);
+
+    const employeeFullName = `${findEmployee.firstName} ${findEmployee.lastName}`;
+
+    const employeeWithAnimalsName = {
+      [employeeFullName]: findAnimal,
+    };
+
+    return employeeWithAnimalsName;
+  }
+  // Com a ajuda do Vinicius Dionysio para finalizar a lógica
+  const employeesAndAnimals = {};
+
+  employees.forEach((employee) => {
+    employeesAndAnimals[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor
+      .map((animalId) => species.find(({ id }) => id === animalId).name);
+  });
+
+  return employeesAndAnimals;
 }
 
 module.exports = {
