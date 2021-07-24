@@ -7,10 +7,8 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const xablau = species.find((specie) => {
-    return animal === specie.name;
-  });
-  const residents = xablau.residents;
+  const xablau = species.find((specie) => animal === specie.name);
+  const { residents } = xablau;
   return residents.every((resident) => resident.age >= age);
 }
 
@@ -31,9 +29,9 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
-  // seu código aqui
-}
+// function countAnimals(species) {
+// seu código aqui
+// }
 
 function calculateEntry(entrants) {
   // seu código aqui
@@ -62,7 +60,7 @@ function getEmployeeCoverage(idOrName) {
 module.exports = {
   calculateEntry,
   getSchedule,
-  countAnimals,
+  // countAnimals,
   getAnimalMap,
   getSpeciesByIds,
   getEmployeeByName,
