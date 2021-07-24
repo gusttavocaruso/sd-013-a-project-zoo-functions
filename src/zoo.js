@@ -20,7 +20,7 @@ const isManager = (id) => employees.some((e) => e.managers.includes(id));
 
 const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => {
   employees.push({ id, firstName, lastName, managers, responsibleFor });
-};x
+};
 
 function countAnimals(species2) {
   // seu código aqui
