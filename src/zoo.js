@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -29,12 +29,21 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-// function countAnimals(species) {
-// seu código aqui
-// }
+function countAnimals(specie) {
+  if (!specie) {
+    return species.reduce((acc, { name, residents }) => {
+      acc[name] = residents.length;
+      return acc;
+    }, {});
+  }
+  return species.find(({ name }) => name === specie).residents.length;
+}
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === {} || !entrants) return 0;
+  Object.keys(entrants)
+    .reduce((acc, cur) => acc + prices[cur] * entrants[cur]);
 }
 
 function getAnimalMap(options) {
@@ -60,7 +69,7 @@ function getEmployeeCoverage(idOrName) {
 module.exports = {
   calculateEntry,
   getSchedule,
-  // countAnimals,
+  countAnimals,
   getAnimalMap,
   getSpeciesByIds,
   getEmployeeByName,
