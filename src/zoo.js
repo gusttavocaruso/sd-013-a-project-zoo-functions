@@ -1,30 +1,28 @@
 const data = require('./data');
+
 const { species, employees, hours, prices } = data;
 
 const getSpeciesByIds = (...ids) => species.filter((specie) => ids.includes(specie.id));
-// seu código aqui
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-}
+const getAnimalsOlderThan = (animal, age) => {
+  const animalFind = species.find((specie) => specie.name === animal);
+  return animalFind.residents.every((resident) => resident.age > age);
+};
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+  return employees.find((e) => [e.lastName, e.firstName].includes(employeeName));
 }
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
-}
+const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
-function isManager(id) {
-  // seu código aqui
-}
+const isManager = (id) => employees.some((e) => e.managers.includes(id));
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
-}
+const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => {
+  employees.push({ id, firstName, lastName, managers, responsibleFor });
+};
 
-function countAnimals(species) {
+function countAnimals(species2) {
   // seu código aqui
 }
 
