@@ -45,8 +45,8 @@ function countAnimals(specie) {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 function calculateEntry(entrants) {
   if (entrants === {} || !entrants) return 0;
-  Object.keys(entrants)
-    .reduce((acc, cur) => acc + prices[cur] * entrants[cur]);
+  return Object.keys(entrants)
+    .reduce((acc, cur) => acc + prices[cur] * entrants[cur], 0);
 }
 
 function getAnimalMap(options) {
@@ -61,9 +61,9 @@ function getOldestFromFirstSpecies(employeeId) {
   const employee = employees.find(({ id }) => id === employeeId);
   const findAnimal = employee.responsibleFor[0];
   const animals = species.find(({ id }) => id === findAnimal);
-  const older = animals.residents
+  const oldest = animals.residents
     .reduce((acc, animal) => (animal.age > acc.age ? animal : acc));
-  return Object.values(older);
+  return Object.values(oldest);
 }
 
 function increasePrices(percentage) {
