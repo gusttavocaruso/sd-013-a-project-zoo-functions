@@ -2,7 +2,6 @@ const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // if (!ids) { return []; }
   return species.filter(({ id }) => ids.includes(id));
 }
 
@@ -27,8 +26,10 @@ function isManager(id) {
   return (manages.length >= 1);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const person = ({ id, firstName, lastName });
+  const associated = ({ managers, responsibleFor });
+  employees.push(createEmployee(person, associated));
 }
 
 function countAnimals(specie) {
