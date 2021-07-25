@@ -48,10 +48,23 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
+  const cronograma = {};
+  const keyHours = Object.keys(hours);
   const valueHours = Object.values(hours);
-  const openHours = valueHours.map((h) => h.open);
-  openHours.find((hour) => hour === 0);
-  console.log(openHours);
+  const openHour = valueHours.map((hour) => hour.open);
+  const closeHour = valueHours.map((hour) => hour.close);
+  keyHours.forEach((element, i) => {
+    if (openHour[i] === 0) {
+      cronograma[element] = 'CLOSED';
+    } else {
+      cronograma[element] = `Open from ${openHour[i]}am until ${closeHour[i] - 12}pm`;
+    } return cronograma;
+  });
+  if (!dayName) {
+    return cronograma;
+  }
+  const dias = Object.entries(cronograma).find((day) => day.includes(dayName));
+  return dias.reduce((acc, v) => ({ [acc]: v }));
 }
 
 function getOldestFromFirstSpecies(funcID) {
@@ -89,3 +102,5 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
+
+// Colaboradores:Felipe Neves, Leonardo Santos, Matheus Duarte,  Matheus Macedo.
