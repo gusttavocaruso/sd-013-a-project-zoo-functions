@@ -117,7 +117,7 @@ module.exports = {
       residents: [
         {
           name: 'Neville',
-          sex: 'male' ,
+          sex: 'male',
           age: 9,
         },
         {

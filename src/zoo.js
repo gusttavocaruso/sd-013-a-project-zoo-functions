@@ -48,7 +48,6 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const keyHours = Object.keys(hours);
   const valueHours = Object.values(hours);
   const openHours = valueHours.map((h) => h.open);
   openHours.find((hour) => hour === 0);
@@ -63,7 +62,6 @@ function getOldestFromFirstSpecies(funcID) {
   const final = Object.values(olderAnimal);
   return final;
 }
-getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad');
 
 function increasePrices(percentage) {
   const multi = (100 + percentage) / 100;
