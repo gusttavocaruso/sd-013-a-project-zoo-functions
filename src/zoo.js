@@ -1,10 +1,9 @@
 const data = require('./data');
 
-function getSpeciesByIds(...ids) {
-  // seu código aqui
-  if (ids.length === 0) return ids;
+function getSpeciesByIds(...ids) { // os tres pontos faz com o o parametro venha como um array, e seja não obrigatório.
+  if (ids.length === 0) return ids; // caso venha vasio, retorna o array vazio.
 
-  return data.species.filter((specie) => ids.includes(specie.id));
+  return data.species.filter((specie) => ids.includes(specie.id)); // filtra as especies com os array passados no array
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -51,7 +50,6 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
-  // seu código aqui
   const { prices } = data;
   let totalPrice = 0;
   if (entrants.Adult) totalPrice += entrants.Adult * prices.Adult;
@@ -60,11 +58,69 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   return totalPrice;
 }
 
-console.log(calculateEntry());
+// funções q serão usadas em getAnimalMap
+
+// retorna as localidades
+const possibleLocatioins = () => {
+  const locations = [];
+  data.species.forEach((specie) => {
+    if (!(locations.includes(specie.location))) locations.push(specie.location);
+  });
+  return locations;
+};
+possibleLocatioins();
+
+// retorna um objeto com as localidades e especies continas em cada localidade.
+const animalsLocation = (calback = ((name) => name)) => {
+  const locations = {};
+  data.species.forEach((specie) => {
+    locations[specie.location] = data.species
+      .filter((findSpecie) => findSpecie.location === specie.location)
+      .map((foundSpecie) => calback(foundSpecie.name));
+  });
+  return locations;
+};
+
+// dado um nome de especie, retorna um objeto com as especificações desta
+const getSpecieByName = (animalSpecieName) => {
+  const findSpecie = data.species.filter((specie) => specie.name.includes(animalSpecieName));
+  return findSpecie[0];
+};
+
+// console.log(getSpecieByName('lions'));
+
+// dado uma especie, retorna o nome dos individuos da mesma
+const getNamesBySpecie = (specie) => specie.residents.map((animal) => animal.name);
+getNamesBySpecie(getSpecieByName('lions'));
+
+// dada uma localidade, retorna as especies da mesma.
+const getSpecieByLocations = (location) => {
+  const foundSpecies = data.species
+    .filter((findSpecie) => findSpecie.location === location)
+    .map((specie) => specie.name);
+  return foundSpecies;
+};
+getSpecieByLocations('NE');
+
+const locationsAndNames = () => {
+  const result = animalsLocation((name) => {
+    // console.log(name);
+    const specieNames = {};
+    specieNames[name] = getNamesBySpecie(getSpecieByName(name));
+    return specieNames;
+  });
+  return result;
+};
+const test = locationsAndNames();
+
+console.log(test.NE);
 
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) return animalsLocation();
+  if (options.includeNames) return locationsAndNames();
 }
+
+// console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   // seu código aqui
