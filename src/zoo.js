@@ -63,7 +63,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+// seu código aqui
 }
 
 function getSchedule(dayName) {
@@ -71,11 +71,19 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-}
+  const finalSpecies= [];
+  const animalsById = data.employees.find((empregado) => id === empregado.id).responsibleFor[0];
+  const specificSpecies = data.species.find((especies) => especies.id === animalsById).residents;
+  const ordenedAge = specificSpecies.sort((a, b) => b.age - a.age)[0];
+  finalSpecies.push(ordenedAge.name, ordenedAge.sex, ordenedAge.age);
+  return finalSpecies;
+  }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const values = Object.keys(data.prices);
+  values.forEach((value) => {
+    data.prices[value] = Math.round(data.prices[value] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
