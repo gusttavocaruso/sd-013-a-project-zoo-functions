@@ -1,5 +1,5 @@
 const data = require('./data');
-const { employees, species, hours, prices} = require('./data');
+const { employees, species, hours, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids === undefined) return [];
@@ -107,7 +107,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
- // seu código aqui
+// seu código aqui
 }
 
 module.exports = {
