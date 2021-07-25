@@ -1,5 +1,5 @@
 const data = require('./data');
-const { employees, species } = require('./data');
+const { employees, species, hours, prices} = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids === undefined) return [];
@@ -59,7 +59,11 @@ function countAnimals(difspecies) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.entries(entrants).length === 0) {
+    return 0;
+  }
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  return Adult * prices.Adult + Child * prices.Child + Senior * prices.Senior;
 }
 
 function getAnimalMap(options) {
@@ -67,7 +71,23 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName) {
+    const { open, close } = hours[dayName];
+    return (open && close) ? {
+      [dayName]: `Open from ${open}am until ${close - 12}pm`,
+    } : {
+      [dayName]: 'CLOSED',
+    };
+  }
+  return {
+    Tuesday: `Open from ${hours.Tuesday.open}am until ${hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${hours.Wednesday.open}am until ${hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${hours.Thursday.open}am until ${hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${hours.Friday.open}am until ${hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${hours.Saturday.open}am until ${hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${hours.Sunday.open}am until ${hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -87,7 +107,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+ // seu código aqui
 }
 
 module.exports = {
