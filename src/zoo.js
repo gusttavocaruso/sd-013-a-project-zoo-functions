@@ -7,7 +7,6 @@ function getSpeciesByIds(...ids) { // os tres pontos faz com o o parametro venha
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   const animalSpecie = data.species.filter((specie) => specie.name.includes(animal));
   const ages = animalSpecie[0].residents.find((info) => info.age < age);
   if (ages) return false;
@@ -15,7 +14,6 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   const result = {};
   const findEmployer = data.employees.filter((employer) => {
     let found = employer.firstName.includes(employeeName);
@@ -58,17 +56,15 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   return totalPrice;
 }
 
-// funções q serão usadas em getAnimalMap
-
+// ============== funções usadas em getAnimalMap ==================
 // retorna as localidades
-const possibleLocatioins = () => {
-  const locations = [];
-  data.species.forEach((specie) => {
-    if (!(locations.includes(specie.location))) locations.push(specie.location);
-  });
-  return locations;
-};
-possibleLocatioins();
+// const possibleLocatioins = () => {
+//   const locations = [];
+//   data.species.forEach((specie) => {
+//     if (!(locations.includes(specie.location))) locations.push(specie.location);
+//   });
+//   return locations;
+// };
 
 // retorna um objeto com as localidades e especies continas em cada localidade.
 const animalsLocation = (calback = ((name) => name)) => {
@@ -87,20 +83,17 @@ const getSpecieByName = (animalSpecieName) => {
   return findSpecie[0];
 };
 
-// console.log(getSpecieByName('lions'));
-
 // dado uma especie, retorna o nome dos individuos da mesma
 const getNamesBySpecie = (specie) => specie.residents.map((animal) => animal.name);
 getNamesBySpecie(getSpecieByName('lions'));
 
 // dada uma localidade, retorna as especies da mesma.
-const getSpecieByLocations = (location) => {
-  const foundSpecies = data.species
-    .filter((findSpecie) => findSpecie.location === location)
-    .map((specie) => specie.name);
-  return foundSpecies;
-};
-getSpecieByLocations('NE');
+// const getSpecieByLocations = (location) => {
+//   const foundSpecies = data.species
+//     .filter((findSpecie) => findSpecie.location === location)
+//     .map((specie) => specie.name);
+//   return foundSpecies;
+// };
 
 const locationsAndNames = () => {
   const result = animalsLocation((name) => {
@@ -111,19 +104,37 @@ const locationsAndNames = () => {
   });
   return result;
 };
-const test = locationsAndNames();
-
-console.log(test.NE);
+// ============================================================================================
 
 function getAnimalMap(options) {
   if (!options) return animalsLocation();
   if (options.includeNames) return locationsAndNames();
 }
 
-// console.log(getAnimalMap());
+// const Tuesday = { open: 8, close: 18 };
+
+const fullSchedule = (hours) => {
+  const operation = {};
+  Object.keys(hours).forEach((key) => {
+    operation[key] = hours[key].open !== 0
+      ? `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`
+      : 'CLOSED';
+  });
+  return operation;
+};
+
+const oneDaySchedule = (hours, key) => {
+  const operation = {};
+  operation[key] = hours[key].open !== 0
+    ? `Open from ${hours[key].open}am until ${hours[key].close - 12}pm`
+    : 'CLOSED';
+
+  return operation;
+};
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const { hours } = data;
+  return dayName ? oneDaySchedule(hours, dayName) : fullSchedule(hours);
 }
 
 function getOldestFromFirstSpecies(id) {
