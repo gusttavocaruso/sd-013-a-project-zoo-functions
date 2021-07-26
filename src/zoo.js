@@ -9,7 +9,7 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const findAnimal = species.find((specie)=> specie.name === animal);
+  const findAnimal = species.find((specie) => specie.name === animal);
   return findAnimal.residents.every((resident) => resident.age >= age);
 }
 
@@ -36,7 +36,7 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  employees.push({ id, firstName, lastName, managers, responsibleFor })
+  employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(speciesName) {
@@ -93,7 +93,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  
+ //função 
 }
 
 module.exports = {
