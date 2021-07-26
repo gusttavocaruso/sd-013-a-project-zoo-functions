@@ -61,7 +61,7 @@ function calculateEntry(entrants) {
       (entrants.Child * Child),
       (entrants.Senior * Senior),
     ];
-    const grandTotal = total.reduce((acc, cur) => (cur ? acc += cur : acc), 0);
+    const grandTotal = total.reduce((acc, cur) => (cur ? acc + cur : acc), 0);
     return grandTotal;
   }
   return 0;
