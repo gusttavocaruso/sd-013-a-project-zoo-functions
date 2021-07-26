@@ -73,6 +73,10 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+  if (!entrants || entrants === {}) return 0;
+  const { Adult: adult = 0, Senior: senior = 0, Child: child = 0 } = entrants;
+  const totalPrice = adult * 49.99 + senior * 24.99 + child * 20.99;
+  return totalPrice;
 }
 
 function getAnimalMap(options) {
@@ -84,7 +88,7 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // seu código aqui .find
 }
 
 function increasePrices(percentage) {
