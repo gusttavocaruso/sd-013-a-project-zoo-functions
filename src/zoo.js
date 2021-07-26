@@ -96,24 +96,23 @@ function employeeResponsibleFor(employee) {
 }
 
 function employeesAndAnimals(employed) {
-  const xablau = employed.reduce((acc, employee) => {
+  return employed.reduce((acc, employee) => {
     acc[`${employee.firstName} ${employee.lastName}`] = employeeResponsibleFor(employee);
     return acc;
   }, {});
-  return xablau;
 }
 
-const xablau = (idOrName) => {
-  const xablem = employees.find((employee) =>
+const oneEmployeeAndAnimals = (idOrName) => {
+  const singleEmployee = employees.find((employee) =>
     employee.id === idOrName
       || employee.firstName === idOrName
         || employee.lastName === idOrName);
-  return employeesAndAnimals([xablem]);
+  return employeesAndAnimals([singleEmployee]);
 };
 
 function getEmployeeCoverage(idOrName) {
   if (!idOrName) return employeesAndAnimals(employees);
-  if (idOrName) return xablau(idOrName);
+  if (idOrName) return oneEmployeeAndAnimals(idOrName);
 }
 
 module.exports = {
