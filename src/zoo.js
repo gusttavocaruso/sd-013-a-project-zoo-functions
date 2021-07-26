@@ -1,4 +1,4 @@
-const { species, employees, hours } = require('./data');
+const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -114,11 +114,9 @@ function getSchedule(dayName) {
     return week;
   }
   if (dayName === 'Monday') return { Monday: 'CLOSED' };
-  // Usei o .entries() para definir o dia baseado no data.hours;
-  const findDay = Object.entries(data.hours).find((day) => day[0] === dayName);
-  // Como temos o dia pelo data.hours, temos os valores .open e .close;
-  const scheduleTime = `Open from ${findDay[1].open}am until ${findDay[1].close - 12}pm`;
-  return { [findDay[0]]: scheduleTime };
+  // Usei o .entries() para definir o dia baseado no objeto week ao invés de pegar o objeto do data.
+  const findDay = Object.entries(week).find((day) => day[0] === dayName);
+  return { [findDay[0]]: findDay[1] };
 }
 
 function getOldestFromFirstSpecies(id) {
