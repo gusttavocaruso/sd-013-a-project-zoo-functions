@@ -40,8 +40,35 @@ function countAnimals(speciesId) {
   return speciesId === undefined ? animalsTotal : specieName.residents.length;
 }
 
+function priceAdult(entrants) {
+  let adult = 0;
+  if (entrants.Adult !== undefined) {
+    adult = prices.Adult * entrants.Adult;
+  }
+  return adult;
+}
+
+function priceChild(entrants) {
+  let child = 0;
+  if (entrants.Child !== undefined) {
+    child = prices.Child * entrants.Child;
+  }
+  return child;
+}
+
+function priceSenior(entrants) {
+  let senior = 0;
+  if (entrants.Senior !== undefined) {
+    senior = prices.Senior * entrants.Senior;
+  }
+  return senior;
+}
+
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || Object.keys(entrants).length === 0) {
+    return 0;
+  }
+  return priceAdult(entrants) + priceChild(entrants) + priceSenior(entrants);
 }
 
 function getAnimalMap(options) {
