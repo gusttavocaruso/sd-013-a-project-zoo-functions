@@ -1,6 +1,7 @@
+
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
   const animalsId = data.species;
   return animalsId.filter((specie) => ids.includes(specie.id));
 }
@@ -31,7 +32,7 @@ function isManager(id) {
   return employeeList.some((employee) => employee.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+// function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
   function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
     data.employees.push({
@@ -45,6 +46,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 
 function countAnimals(species) {
   // seu código aqui
+
 }
 
 function calculateEntry(entrants) {
@@ -85,4 +87,4 @@ module.exports = {
   getOldestFromFirstSpecies,
   increasePrices,
   createEmployee,
-};
+}
