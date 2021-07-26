@@ -109,6 +109,16 @@ const locationsAndNames = () => {
 
 function getAnimalMap(options) {
   if (!options) return animalsLocation();
+  if (options.sorted && options.includeNames) {
+    const locationsAndNamesSorted = locationsAndNames();
+    Object.keys(locationsAndNamesSorted).forEach((location) => {
+      console.log(location);
+      locationsAndNamesSorted[location].forEach((especie) => {
+        Object.values(especie).map((animals) => animals.sort());
+      });
+    });
+    return locationsAndNamesSorted;
+  }
   if (options.includeNames) return locationsAndNames();
 }
 
@@ -200,7 +210,7 @@ function getEmployeeCoverage(idOrName) {
   return employeeCoverage;
 }
 
-console.log(getEmployeeCoverage());
+// console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
