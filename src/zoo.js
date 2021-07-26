@@ -3,7 +3,6 @@ const data = require('./data');
 
 const { species } = data;
 const { employees } = data;
-const { hours } = data;
 
 function getSpeciesByIds(...ids) {
   // if (ids === undefined) return [];
@@ -16,9 +15,7 @@ function getAnimalsOlderThan(animal, age) {
   const result = findAnimal.residents.every((anim) => anim.age >= age);
   return result;
 }
-function find(employee) {
-  
-}
+
 function getEmployeeByName(empName) {
   if (empName === undefined) return {};
   const result = employees.find((emp) => empName === emp.firstName || empName === emp.lastName);
@@ -53,11 +50,10 @@ function countAnimals(speciesName) {
   const findAnimal = data.species.find((specie) => specie.name === speciesName);
   const result = findAnimal.residents.length;
   return result;
-
 }
 
 function calculateEntry(entrants) {
-  const { Adult, Child, Senior} = prices;
+  const { Adult, Child, Senior } = prices;
   let total = [];
   if (entrants) {
     total = [
@@ -65,7 +61,8 @@ function calculateEntry(entrants) {
       (entrants.Child * Child),
       (entrants.Senior * Senior),
     ];
-    return total.reduce((acc, cur) => (cur ? acc += cur : acc), 0);
+    const grandTotal = total.reduce((acc, cur) => (cur ? acc += cur : acc), 0);
+    return grandTotal;
   }
   return 0;
 }
@@ -82,7 +79,7 @@ function getSchedule(dayName) {
   //   console.log(findDay);
   // return { ${dayName}: `Open from ${findDay}am until ${}pm` };
   // }
-};
+}
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
