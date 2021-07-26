@@ -93,7 +93,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  //função//
+  //  função
 }
 
 module.exports = {
