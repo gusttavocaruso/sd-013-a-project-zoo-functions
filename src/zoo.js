@@ -106,46 +106,37 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
+  // Refatoração feita com a ajuda da Bia na monitoria
+  const weekDays = Object.keys(hours).reduce((acc, day) => {
+    if (day === 'Monday') {
+      acc[day] = 'CLOSED';
+      return acc;
+    }
+
+    acc[day] = `Open from ${hours[day].open}am until ${hours[day].close > 12
+      ? (hours[day].close - 12)
+      : hours[day].close}pm`;
+    return acc;
+  }, {});
+
   if (dayName === undefined) {
-    return {
-      Tuesday: 'Open from 8am until 6pm',
-      Wednesday: 'Open from 8am until 6pm',
-      Thursday: 'Open from 10am until 8pm',
-      Friday: 'Open from 10am until 8pm',
-      Saturday: 'Open from 8am until 10pm',
-      Sunday: 'Open from 8am until 8pm',
-      Monday: 'CLOSED',
-    };
+    return weekDays;
   }
 
-  if (dayName === 'Tuesday') {
-    return { Tuesday: 'Open from 8am until 6pm' };
-  } if (dayName === 'Wednesday') {
-    return { Wednesday: 'Open from until 6pm' };
-  } if (dayName === 'Thursday') {
-    return { Thursday: 'Open from 10am until 8pm' };
-  } if (dayName === 'Friday') {
-    return { Friday: 'Open from 10am until 8pm' };
-  } if (dayName === 'Saturday') {
-    return { Saturday: 'Open from 8am until 10pm' };
-  } if (dayName === 'Sunday') {
-    return { Sunday: 'Open from 8am until 8pm' };
-  } if (dayName === 'Monday') {
-    return { Monday: 'CLOSED' };
-  }
+  return { [dayName]: weekDays[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
   // Com a ajuda da Bia na monitoria:
   const findEmployeeById = employees.find((employee) => employee.id === id);
 
-  const findFirstSpecieFromEmployee = species.find((specie) => specie.id === findEmployeeById.responsibleFor[0]);
+  const findSpecie = species.find((specie) => specie.id === findEmployeeById.responsibleFor[0]);
 
-  const animalsAges = findFirstSpecieFromEmployee.residents.map((animal) => animal.age);
+  const animalsAges = findSpecie.residents.map((animal) => animal.age);
 
   const oldestAnimal = Math.max(...animalsAges);
 
-  const findOldestAnimal = findFirstSpecieFromEmployee.residents
+  const findOldestAnimal = findSpecie.residents
     .find((animal) => animal.age === oldestAnimal);
 
   const oldestAnimalInfo = Object.values(findOldestAnimal);
@@ -158,43 +149,39 @@ function increasePrices(percentage) {
   const calculatePrices = Object.values(prices).map((price) => (price * (1 + percentage / 100)));
 
   // Consultado: https://stackoverflow.com/questions/11832914/()how-to-round-to-at-most-2-decimal-places-if-necessary
-  const roundPrices = (number) => number = Math.round((number + Number.EPSILON) * 100) / 100;
+  const roundPrices = (number) => {
+    let roundedNumber = number;
+    roundedNumber = Math.round((number + Number.EPSILON) * 100) / 100;
+    return roundedNumber;
+  };
 
   Object.keys(prices).forEach((key, index) => {
     prices[key] = roundPrices(calculatePrices[index]);
   });
 }
+
 function getEmployeeCoverage(idOrName) {
-  // Com a ajuda do Zezé no plantão. Para fechar a lógica:
+  // Com a ajuda do Zezé no plantão e do Vinicius Dionysio para fechar a lógica:
   if (idOrName !== undefined) {
-    const findEmployee = employees.find((employee) => {
-      if (idOrName === employee.id
-        || idOrName === employee.firstName
-        || idOrName === employee.lastName) {
-        return employee;
-      }
-    });
+    const findEmployee = employees
+      .find((employee) => employee.id === idOrName
+        || employee.firstName === idOrName
+        || employee.lastName === idOrName);
     const findAnimal = findEmployee.responsibleFor
       .map((animalId) => species.filter(({ id }) => id === animalId)[0].name);
-
-    const employeeFullName = `${findEmployee.firstName} ${findEmployee.lastName}`;
-
     const employeeWithAnimalsName = {
-      [employeeFullName]: findAnimal,
-    };
-
+      [`${findEmployee.firstName} ${findEmployee.lastName}`]: findAnimal };
     return employeeWithAnimalsName;
   }
-  // Com a ajuda do Vinicius Dionysio para finalizar a lógica
   const employeesAndAnimals = {};
-
   employees.forEach((employee) => {
     employeesAndAnimals[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor
       .map((animalId) => species.find(({ id }) => id === animalId).name);
   });
-
   return employeesAndAnimals;
 }
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
