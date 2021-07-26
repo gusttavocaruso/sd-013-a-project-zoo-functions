@@ -1,7 +1,9 @@
+const { prices } = require('./data');
 const data = require('./data');
 
 const { species } = data;
 const { employees } = data;
+const { hours } = data;
 
 function getSpeciesByIds(...ids) {
   // if (ids === undefined) return [];
@@ -14,15 +16,17 @@ function getAnimalsOlderThan(animal, age) {
   const result = findAnimal.residents.every((anim) => anim.age >= age);
   return result;
 }
-
-function getEmployeeByName(employeeName) {
-  if (employeeName === undefined) return {};
-  const result = employees.find((employee) => employeeName === employee.firstName || employeeName === employee.lastName);
+function find(employee) {
+  
+}
+function getEmployeeByName(empName) {
+  if (empName === undefined) return {};
+  const result = employees.find((emp) => empName === emp.firstName || empName === emp.lastName);
   return result;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  return {...personalInfo, ...associatedWith};
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
@@ -33,8 +37,8 @@ function isManager(id) {
   return false;
 }
 
-function addEmployee(id, firstName, lastName, managers =[], responsibleFor =[]) {
-  const result = data.employees.push({ id, firstName, lastName, managers, responsibleFor});
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const result = data.employees.push({ id, firstName, lastName, managers, responsibleFor });
   return result;
 }
 
@@ -45,15 +49,25 @@ function countAnimals(speciesName) {
       allAnimals[element.name] = element.residents.length;
     });
     return allAnimals;
-  } else {
-    const findAnimal = data.species.find((specie) => specie.name === speciesName);
-    const result = findAnimal.residents.length;
-    return result;
   }
+  const findAnimal = data.species.find((specie) => specie.name === speciesName);
+  const result = findAnimal.residents.length;
+  return result;
+
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  const { Adult, Child, Senior} = prices;
+  let total = [];
+  if (entrants) {
+    total = [
+      (entrants.Adult * Adult),
+      (entrants.Child * Child),
+      (entrants.Senior * Senior),
+    ];
+    return total.reduce((acc, cur) => (cur ? acc += cur : acc), 0);
+  }
+  return 0;
 }
 
 function getAnimalMap(options) {
@@ -61,15 +75,24 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
-}
+  // if (dayName === undefined) {
+  //   return 0;
+  // } else {
+  //   const findDay = Object.keys(data.hours).find((key) => hours[key] === dayName);
+  //   console.log(findDay);
+  // return { ${dayName}: `Open from ${findDay}am until ${}pm` };
+  // }
+};
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const keys = Object.keys(prices);
+  keys.forEach((acc) => {
+    data.prices[acc] = Math.round(data.prices[acc] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
