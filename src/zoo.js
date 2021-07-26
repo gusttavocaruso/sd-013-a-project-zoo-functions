@@ -18,6 +18,7 @@ function getEmployeeByName(employeeName) {
   const findEmployer = data.employees.filter((employer) => {
     let found = employer.firstName.includes(employeeName);
     if (!found) found = employer.lastName.includes(employeeName);
+    if (!found) found = employer.id.includes(employeeName);
     return found;
   });
   return findEmployer.length ? findEmployer[0] : result;
@@ -84,8 +85,8 @@ const getSpecieByName = (animalSpecieName) => {
 };
 
 // dado uma especie, retorna o nome dos individuos da mesma
-const getNamesBySpecie = (specie) => specie.residents.map((animal) => animal.name);
-getNamesBySpecie(getSpecieByName('lions'));
+const getNamesBySpecie = (species) => species.residents.map((animal) => animal.name);
+// getNamesBySpecie(getSpecieByName('lions'));
 
 // dada uma localidade, retorna as especies da mesma.
 // const getSpecieByLocations = (location) => {
@@ -158,12 +159,12 @@ function getOldestFromFirstSpecies(id) {
   return olderAnimal || 'error';
 }
 
+// função que trata em parte erros de aredondamento.
+// feito com base em https://metring.com.br/arredondar-numero-em-javascript
 const round = (num) => {
   const roundNum = parseFloat((num * 100).toFixed());
   return roundNum / 100;
 };
-
-console.log(round(20.99 * 1.5));
 
 function increasePrices(percentage) {
   const { prices } = data;
@@ -175,9 +176,31 @@ function increasePrices(percentage) {
   return prices;
 }
 
+const coverage = (employee) => employee.responsibleFor
+  .map((id) => getSpeciesByIds(id))
+  .map((animalArr) => animalArr[0].name);
+
+const allEmployeers = () => {
+  const employeers = data.employees;
+  const fullName = employeers.map((employee) => `${employee.firstName} ${employee.lastName}`);
+  return fullName;
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const name = `${getEmployeeByName(idOrName).firstName} ${getEmployeeByName(idOrName).lastName}`;
+  const employeeCoverage = {};
+  if (idOrName) employeeCoverage[name] = coverage(getEmployeeByName(idOrName));
+  else {
+    allEmployeers().forEach((employee) => {
+      const firstName = employee.split(' ', 1);
+      employeeCoverage[employee] = coverage(getEmployeeByName(firstName));
+    });
+  }
+
+  return employeeCoverage;
 }
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
