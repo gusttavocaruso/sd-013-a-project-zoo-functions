@@ -79,8 +79,24 @@ function calculateEntry(entrants) {
   return totalPrice;
 }
 
-function getAnimalMap(options) {
+function getAnimalMap(options = {}) {
   // seu código aqui
+  const zooCordenades = { NE: [], SE: [], NW: [], SW: [] };
+  if (!options.includeNames) {
+    data.species.forEach((specie) => zooCordenades[specie.location].push(specie.name));
+    return zooCordenades;
+  }
+
+  data.species.forEach((specie) => {
+    let { residents } = specie;
+    if (options.sex) {
+      residents = specie.residents.filter((resident) => resident.sex === options.sex);
+    }
+    const animalNames = residents.map((resident) => resident.name);
+    if (options.sorted) animalNames.sort();
+    zooCordenades[specie.location].push({ [specie.name]: animalNames });
+  });
+  return zooCordenades;
 }
 
 function getSchedule(dayName) {
