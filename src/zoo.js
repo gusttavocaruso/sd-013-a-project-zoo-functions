@@ -111,8 +111,7 @@ function getAnimalMap(options) {
   if (options.includeNames) return locationsAndNames();
 }
 
-// const Tuesday = { open: 8, close: 18 };
-
+// retorna todo o horario de funcionamento, de forma legivel, ao receber o objeto hours
 const fullSchedule = (hours) => {
   const operation = {};
   Object.keys(hours).forEach((key) => {
@@ -123,6 +122,7 @@ const fullSchedule = (hours) => {
   return operation;
 };
 
+// retorna o horario de funcionamento de um dia especifico
 const oneDaySchedule = (hours, key) => {
   const operation = {};
   operation[key] = hours[key].open !== 0
@@ -137,32 +137,42 @@ function getSchedule(dayName) {
   return dayName ? oneDaySchedule(hours, dayName) : fullSchedule(hours);
 }
 
+// dado um ID, retorna o objeto que representa um funcionario.
 const getEmployeeById = (employeeId) => {
   const result = {};
   const findEmployer = data.employees.filter((employer) => employer.id.includes(employeeId));
   return findEmployer.length ? findEmployer[0] : result;
 };
 
+// dada um especie, retorna um objeto com as informações do animal mais velho da especie.
 const getOlderAnimal = (specie) => {
   const age = Math.max(...(specie.residents.map((animal) => animal.age)));
   const older = specie.residents.find((animal) => animal.age === age);
   return older;
 };
 
-getOlderAnimal(getSpecieByName('lions'));
-
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
   const firstSpeciesId = getEmployeeById(id).responsibleFor[0];
   const firstSpecies = getSpeciesByIds(firstSpeciesId)[0];
   const olderAnimal = Object.values(getOlderAnimal(firstSpecies));
   return olderAnimal || 'error';
 }
 
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
+const round = (num) => {
+  const roundNum = parseFloat((num * 100).toFixed());
+  return roundNum / 100;
+};
+
+console.log(round(20.99 * 1.5));
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const { prices } = data;
+  Object.keys(prices).forEach((price) => {
+    prices[price] *= (1 + percentage / 100);
+    prices[price] = round((prices[price]));
+  });
+
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
