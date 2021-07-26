@@ -72,33 +72,34 @@ function getAnimalMap(options) {
 }
 
 function checkTime(hour) {
-  if (hour >= 12) return `${(hour - 12)}pm`
-  return `${hour}am`
+  if (hour >= 12) return `${(hour - 12)}pm`;
+  return `${hour}am`;
 }
 function message(day, hour) {
   if (hour[day].open !== hour[day].close) {
     return `Open from ${checkTime(hour[day].open)} until ${checkTime(hour[day].close)}`;
   }
-  return 'CLOSED'
+  return 'CLOSED';
 }
 
 function getSchedule(dayName) {
   const allDays = {};
   const days = Object.keys(data.hours);
-  days.forEach((day) => {allDays[day] = message(day, data.hours);
+  days.forEach((day) => {
+    allDays[day] = message(day, data.hours);
   });
   if (dayName) {
     const result = {};
     result[dayName] = allDays[dayName];
     return result;
-  };
+  }
   return allDays;
 }
 
 function getOldestFromFirstSpecies(id) {
   const employee = employees.find((emp) => id === emp.id);
-  const specie = species.find((specie) => employee.responsibleFor[0] === specie.id);
-  const oldestObj = specie.residents.sort((a, b) => b.age - a.age);
+  const animal = species.find((specie) => employee.responsibleFor[0] === specie.id);
+  const oldestObj = animal.residents.sort((a, b) => b.age - a.age);
   const result = [`${oldestObj[0].name}`, `${oldestObj[0].sex}`, oldestObj[0].age];
   return result;
 }
@@ -117,7 +118,6 @@ function getEmployeeCoverage(idOrName) {
   //   const findEmployee = employees.find((emp) => idOrName === emp.firstName || idOrName === emp.lastName || idOrName === emp.id);
   //   const result = {};
   //   result[`${findEmployee.firstName} ${findEmployee.lastName}`] = findEmployee.responsibleFor;
-    
   //   return result;
   // }
 }
