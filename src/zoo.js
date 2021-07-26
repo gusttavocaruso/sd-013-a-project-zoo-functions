@@ -9,7 +9,6 @@ function getSpeciesByIds(...ids) {
   const result = species.filter((specie) => ids.includes(specie.id));
   return result;
 }
-
 function getAnimalsOlderThan(animal, age) {
   const findAnimal = species.find((specie) => specie.name === animal);
   const result = findAnimal.residents.every((anim) => anim.age >= age);
@@ -111,15 +110,29 @@ function increasePrices(percentage) {
   });
 }
 
+const generateName = (employee) => {
+  const result = {};
+  const fullName = `${employee.firstName} ${employee.lastName}`;
+  result[fullName] = [];
+  employee.responsibleFor.forEach((animal) => {
+    const { name } = species.find((specie) => specie.id === animal);
+    result[fullName].push(name);
+  });
+  return result;
+};
+// Requisito 13 com ajuda de Josué Lobo <3
 function getEmployeeCoverage(idOrName) {
-  // if (idOrName === undefined) {
-
-  // } else {
-  //   const findEmployee = employees.find((emp) => idOrName === emp.firstName || idOrName === emp.lastName || idOrName === emp.id);
-  //   const result = {};
-  //   result[`${findEmployee.firstName} ${findEmployee.lastName}`] = findEmployee.responsibleFor;
-  //   return result;
-  // }
+  if (idOrName) {
+    const findEmployee = employees.find((emp) => idOrName === emp.firstName
+      || idOrName === emp.lastName || idOrName === emp.id);
+    const result = generateName(findEmployee);
+    return result;
+  }
+  const result = {};
+  employees.forEach((emp) => {
+    Object.assign(result, generateName(emp));
+  });
+  return result;
 }
 
 module.exports = {
