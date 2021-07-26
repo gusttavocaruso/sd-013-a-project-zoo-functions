@@ -71,18 +71,36 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+function checkTime(hour) {
+  if (hour >= 12) return `${(hour - 12)}pm`
+  return `${hour}am`
+}
+function message(day, hour) {
+  if (hour[day].open !== hour[day].close) {
+    return `Open from ${checkTime(hour[day].open)} until ${checkTime(hour[day].close)}`;
+  }
+  return 'CLOSED'
+}
+
 function getSchedule(dayName) {
-  // if (dayName === undefined) {
-  //   return 0;
-  // } else {
-  //   const findDay = Object.keys(data.hours).find((key) => hours[key] === dayName);
-  //   console.log(findDay);
-  // return { ${dayName}: `Open from ${findDay}am until ${}pm` };
-  // }
+  const allDays = {};
+  const days = Object.keys(data.hours);
+  days.forEach((day) => {allDays[day] = message(day, data.hours);
+  });
+  if (dayName) {
+    const result = {};
+    result[dayName] = allDays[dayName];
+    return result;
+  };
+  return allDays;
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee = employees.find((emp) => id === emp.id);
+  const specie = species.find((specie) => employee.responsibleFor[0] === specie.id);
+  const oldestObj = specie.residents.sort((a, b) => b.age - a.age);
+  const result = [`${oldestObj[0].name}`, `${oldestObj[0].sex}`, oldestObj[0].age];
+  return result;
 }
 
 function increasePrices(percentage) {
@@ -93,7 +111,15 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // if (idOrName === undefined) {
+
+  // } else {
+  //   const findEmployee = employees.find((emp) => idOrName === emp.firstName || idOrName === emp.lastName || idOrName === emp.id);
+  //   const result = {};
+  //   result[`${findEmployee.firstName} ${findEmployee.lastName}`] = findEmployee.responsibleFor;
+    
+  //   return result;
+  // }
 }
 
 module.exports = {
