@@ -103,7 +103,7 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
-  const specieId = data.employees.find((employee) => employee.id === id.responsibleFor[0]);
+  const specieId = data.employees.find((employee) => employee.id === id).responsibleFor[0];
   const { residents } = data.species.find((specie) => specie.id === specieId);
   const olderAge = residents.reduce((older, resident) =>
     ((resident.age > older) ? resident.age : older), 0);
@@ -114,6 +114,12 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const { Adult, Senior, Child } = data.prices;
+  data.prices = {
+    Adult: parseFloat((Adult + Adult * (percentage / 100) + 0.001).toFixed(2)),
+    Senior: parseFloat((Senior + Senior * (percentage / 100) + 0.001).toFixed(2)),
+    Child: parseFloat((Child + Child * (percentage / 100) + 0.001).toFixed(2)),
+  };
 }
 
 function getEmployeeCoverage(idOrName) {
