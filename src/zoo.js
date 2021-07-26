@@ -1,4 +1,4 @@
-const { species, employees } = require('./data');
+const { species, employees, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -99,6 +99,7 @@ function getAnimalMap(options = {}) {
   return zooCordenades;
 }
 
+// usei o .entries() fonte: shorturl.at/tvSZ5
 function getSchedule(dayName) {
   const week = {
     Tuesday: 'Open from 8am until 6pm',
@@ -112,9 +113,12 @@ function getSchedule(dayName) {
   if (!dayName) {
     return week;
   }
-  const dayOfWeek = `'${dayName}': `;
-  const functionTime = `'${Object.keys(week.dayName)}'`;
-  return dayOfWeek + functionTime;
+  if (dayName === 'Monday') return { Monday: 'CLOSED' };
+  // Usei o .entries() para definir o dia baseado no data.hours;
+  const findDay = Object.entries(data.hours).find((day) => day[0] === dayName);
+  // Como temos o dia pelo data.hours, temos os valores .open e .close;
+  const scheduleTime = `Open from ${findDay[1].open}am until ${findDay[1].close - 12}pm`;
+  return { [findDay[0]]: scheduleTime };
 }
 
 function getOldestFromFirstSpecies(id) {
