@@ -1,5 +1,5 @@
 const data = require('./data');
-const { species: prices, hours } = require('./data');
+const { species: hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const speciesIds = [];
@@ -56,7 +56,8 @@ function countAnimals(species2) {
 
 function calculateEntry(entrants) {
   if (!entrants) return 0;
-  return Object.keys(entrants).reduce((accumulator, currenValue) => accumulator + entrants[currenValue] * data.prices[currenValue], 0);
+  return Object.keys(entrants)
+    .reduce((accumulator, currenValue) => accumulator + entrants[currenValue] * data.prices[currenValue], 0);
 }
 
 function getAnimalMap(options) {
