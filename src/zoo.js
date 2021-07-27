@@ -10,12 +10,16 @@ function getSpeciesByIds(...ids) {
   return speciesIds;
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(specieipt, age) {
+  return data.species
+         .find((specie) => specie.name === specieipt.residents)
+         .every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+  return data.employees
+         .find((employee) => (employee.firstName === employeeName) || (employee.lastName === employeeName));
 }
 
 function createEmployee(personalInfo, associatedWith) {
