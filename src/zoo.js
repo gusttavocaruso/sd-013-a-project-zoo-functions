@@ -68,6 +68,7 @@ function calculateEntry(entrants) {
 
 function getAnimalMap(options) {
 // seu código aqui
+// muito díficil ficou pra proxima!!
 }
 
 function getSchedule(dayName) {
@@ -106,8 +107,25 @@ function increasePrices(percentage) {
   });
 }
 
+// Ajuda no repositório do João Vieira
+// Estava tendo dificuldade com o ultimo const (do employee)
+// Esse código me ajudou com a função do .find(EMP) ai salvou!
 function getEmployeeCoverage(idOrName) {
-// seu código aqui
+  const nameId = (responsibleFor) => responsibleFor.map((respFor) => species
+  .find((animal) => animal.id === respFor).name);
+const employeeAndResponsibleFor = {};
+if (!idOrName) {
+  employees.forEach((person) => {
+    const fullEmployeeName = `${person.firstName} ${person.lastName}`;
+    employeeAndResponsibleFor[fullEmployeeName] = nameId(person.responsibleFor);
+  });
+  return employeeAndResponsibleFor;
+}
+const employee = employees.find((emp) => emp.id === idOrName
+  || emp.firstName === idOrName || emp.lastName === idOrName);
+const fullEmployeeName = `${employee.firstName} ${employee.lastName}`;
+employeeAndResponsibleFor[fullEmployeeName] = nameId(employee.responsibleFor);
+return employeeAndResponsibleFor;
 }
 
 module.exports = {
