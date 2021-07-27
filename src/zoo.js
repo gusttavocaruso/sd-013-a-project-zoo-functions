@@ -83,9 +83,26 @@ function increasePrices(percentage) {
   prices.Child = Math.round((prices.Child * multi) * 100) / 100;
 }
 
+const getAnimal = (employee) => employee.responsibleFor
+  .map((animalID) => species
+    .find((specie) => animalID === specie.id).name);
+
+const employeeAnimals = (funcionarios) => funcionarios.reduce((acc, funcinario) => {
+  acc[`${funcinario.firstName} ${funcinario.lastName}`] = getAnimal(funcinario);
+  return acc;
+}, {});
+
+const idOrNameParameter = (funcionario) => {
+  const empregados = employees.find(({ id, firstName, lastName }) =>
+    funcionario === id || funcionario === firstName || funcionario === lastName);
+  return employeeAnimals([empregados]);
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) return employeeAnimals(employees);
+  if (idOrName) return idOrNameParameter(idOrName);
 }
+// getEmployeeCoverage('Emery');
 
 module.exports = {
   calculateEntry,
