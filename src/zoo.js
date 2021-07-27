@@ -1,4 +1,3 @@
-
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -33,15 +32,15 @@ function isManager(id) {
 }
 
 // function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
-  function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-    data.employees.push({
-      id,
-      firstName,
-      lastName,
-      managers,
-      responsibleFor,
-    });
+// seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  data.employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
 function countAnimals(species) {
@@ -87,4 +86,4 @@ module.exports = {
   getOldestFromFirstSpecies,
   increasePrices,
   createEmployee,
-}
+};
