@@ -112,20 +112,20 @@ function increasePrices(percentage) {
 // Esse código me ajudou com a função do .find(EMP) ai salvou!
 function getEmployeeCoverage(idOrName) {
   const nameId = (responsibleFor) => responsibleFor.map((respFor) => species
-  .find((animal) => animal.id === respFor).name);
-const employeeAndResponsibleFor = {};
-if (!idOrName) {
-  employees.forEach((person) => {
-    const fullEmployeeName = `${person.firstName} ${person.lastName}`;
-    employeeAndResponsibleFor[fullEmployeeName] = nameId(person.responsibleFor);
-  });
-  return employeeAndResponsibleFor;
-}
-const employee = employees.find((emp) => emp.id === idOrName
+    .find((animal) => animal.id === respFor).name);
+  const employeeAndResponsibleFor = {};
+  if (!idOrName) {
+    employees.forEach((person) => {
+      const fullEmployeeName = `${person.firstName} ${person.lastName}`;
+      employeeAndResponsibleFor[fullEmployeeName] = nameId(person.responsibleFor);
+    });
+    return employeeAndResponsibleFor;
+  }
+  const employee = employees.find((emp) => emp.id === idOrName
   || emp.firstName === idOrName || emp.lastName === idOrName);
-const fullEmployeeName = `${employee.firstName} ${employee.lastName}`;
-employeeAndResponsibleFor[fullEmployeeName] = nameId(employee.responsibleFor);
-return employeeAndResponsibleFor;
+  const fullEmployeeName = `${employee.firstName} ${employee.lastName}`;
+  employeeAndResponsibleFor[fullEmployeeName] = nameId(employee.responsibleFor);
+  return employeeAndResponsibleFor;
 }
 
 module.exports = {
