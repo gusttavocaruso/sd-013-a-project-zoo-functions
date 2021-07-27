@@ -10,10 +10,9 @@ function getSpeciesByIds(...ids) {
   return speciesIds;
 }
 
-function getAnimalsOlderThan(specieipt, age) {
-  return data.species
-         .find((specie) => specie.name === specieipt.residents)
-         .every((resident) => resident.age > age);
+function getAnimalsOlderThan(animal, age) {
+  //  const SpecieFinder = data.species.find((specie) => specie.name === animal);
+   return data.species.find((specie) => specie.name === animal).residents.every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
