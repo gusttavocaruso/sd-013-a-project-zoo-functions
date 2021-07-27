@@ -58,7 +58,7 @@ function countAnimals(specie) {
 function calculateEntry(entrants = 0) {
   let expected = 0;
   for (let i = 0; i < Object.keys(entrants).length; i += 1) {
-    const entry = calback(Object.keys(entrants)[i], Object.values(entrants)[i]);
+    const entry = callback(Object.keys(entrants)[i], Object.values(entrants)[i]);
     expected += entry;
   } return expected;
 }
@@ -68,18 +68,9 @@ function getAnimalMap(options = {}) {
 }
 
 function getSchedule(dayName) {
-  const schedule = {};
-
-  Object.keys(hours).forEach((day) => {
-    if (day !== 'Monday') schedule[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
-    else schedule[day] = 'CLOSED';
-  });
-  if (dayName) {
-    return { [dayName]: schedule[dayName] };
-  }
-  return schedule;
+  // seu código aqui
 }
-
+ 
 function getOldestFromFirstSpecies(id) {
   const firstSpecie = employees.find((pessoa) => pessoa.id === id).responsibleFor[0];
   const animais = species.filter((specie) => specie.id === firstSpecie)[0].residents;
