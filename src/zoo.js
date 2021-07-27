@@ -59,9 +59,56 @@ function calculateEntry(entrants) {
   return Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function localizacoes() {
+  return ['NE', 'NW', 'SE', 'SW', 'N', 'S', 'E', 'W'];
 }
+
+function animaisFiltadrosLocalizacao (location) {
+  return species.filter((specie) => specie.location === location);
+}
+
+function animaisPorLocalizacao(locations) {
+  const animaisPorLocal = {};
+  locations.forEach((location) => {
+    const filterSpecies = animaisFiltadrosLocalizacao(location).map((obj) => obj.name)
+    if (filterSpecies.length !== 0) animaisPorLocal[location] = filterSpecies
+  });
+  return animaisPorLocal;
+}
+
+function animaisPorSexo (obj, sex) {
+  return obj.residents.filter((resident) => {
+  const filtro = sex !== undefined;
+  return filtro ? resident.sex === sex : true
+  })
+  .map((objResidents) => objResidents.name)
+}
+
+function localizacaoEnome(locations, sorted, sex) {
+  const animalPorLocal = {};
+  locations.forEach((location) => {
+    const filterSpecies = animaisFiltadrosLocalizacao(location).map((obj) => {
+      const specieName = obj.name;
+      const residents = animaisPorSexo(obj, sex);
+      if (sorted) residents.sort();
+      return { [specieName]: residents };
+    });
+    if (filterSpecies.length !== 0) animalPorLocal[location] = filterSpecies;
+  });
+
+  return animalPorLocal;
+}
+
+function getAnimalMap(options) {
+  const locations = localizacoes();
+  if (!options) return animaisPorLocalizacao(locations);
+  const { includeNames = false, sorted = false, sex } = options;
+  if (includeNames) {
+    return localizacaoEnome(locations, sorted, sex);
+  }
+  return animaisPorLocalizacao(locations);
+}
+
 
 function getSchedule(dayName) {
   const obj = {};
@@ -92,8 +139,16 @@ function increasePrices(percentage) {
   });
 }
 
-function getEmployeeCoverage(idOrName) {
-  //  função
+function nomeInteiro({ firstName, lastName}) {
+  return `${firstName} ${lastName}`;
+}
+
+function idEmployees (id) {
+  return employees.find(employee => employee.id === id)
+}
+
+  function getEmployeeCoverage(idOrName) {
+  //Código
 }
 
 module.exports = {
