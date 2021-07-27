@@ -1,4 +1,4 @@
-const data = require("./data");
+const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
@@ -21,11 +21,8 @@ function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
     return {};
   }
-  return data.employees.find(
-    (funcionario) =>
-      funcionario.firstName === employeeName ||
-      funcionario.lastName === employeeName
-  );
+  return data.employees.find((funcionario) => funcionario.firstName
+  === employeeName || funcionario.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -44,7 +41,7 @@ function addEmployee(
   firstName,
   lastName,
   managers = [],
-  responsibleFor = []
+  responsibleFor = [],
 ) {
   // seu código aqui
   const novoFuncionario = {
@@ -66,7 +63,8 @@ function countAnimals(species) {
       return count;
     }, {});
   }
-  return data.species.find((specie) => specie.name === species).residents.length;
+  return data.species.find((specie) => specie.name === species).residents
+    .length;
 }
 
 function calculateEntry(entrants) {
@@ -74,11 +72,8 @@ function calculateEntry(entrants) {
   if (entrants === undefined || entrants === {}) {
     return 0;
   }
-  const {Adult = 0, Child = 0, Senior = 0 } = entrants;
-  const price =
-    Adult * data.prices.Adult +
-    Child * data.prices.Child +
-    Senior * data.prices.Senior;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const price = Adult * data.prices.Adult + Child * data.prices.Child + Senior * data.prices.Senior;
   return price;
 }
 
@@ -86,22 +81,70 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+function returnn(open, close) {
+  const closePm = close - 12;
+  if (open === 0 && close === 0) {
+    return 'CLOSED';
+  }
+  return `Open from ${open}am until ${closePm}pm`;
+}
+
 function getSchedule(dayName) {
   // seu código aqui
-  
+  if (dayName) {
+    const daily = data.hours[dayName];
+    return {
+      [dayName]: returnn(daily.open, daily.close),
+    };
+  }
+  const allTime = {};
+  const keys = Object.keys(data.hours);
+  keys.forEach((key) => {
+    const { hours } = data;
+    const day = hours[key];
+    allTime[key] = returnn(day.open, day.close);
+  });
+  return allTime;
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const find = data.employees.find((employee) => employee.id === id)
+    .responsibleFor[0];
+  const specieOne = data.species.find((specie) => specie.id === find).residents;
+  const old = specieOne.reduce((acc, cur) => (cur.age > acc.age ? cur : acc));
+  return Object.values(old);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
-  
+  Object.keys(data.prices).forEach((people) => {
+    data.prices[people] = Math.round(data.prices[people] * (percentage / 100 + 1) * 100) / 100;
+  });
+}
+
+function getNameSpecies(employee) {
+  const specieName = [];
+  employee.responsibleFor.forEach((i) => {
+    const specieFind = data.species.find((specie) => specie.id === i);
+    specieName.push(specieFind.name);
+  });
+  return specieName;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const objectEmployee = {};
+    data.employees.forEach((employee) => {
+      const key = `${employee.firstName} ${employee.lastName}`;
+      const specieName = getNameSpecies(employee);
+      objectEmployee[key] = specieName;
+    });
+    return objectEmployee;
+  }
+  const employeeName = data.employees.find(
+    (name) => name.id === idOrName || name.firstName === idOrName || name.lastName === idOrName,
+  );
+  const specieName = getNameSpecies(employeeName);
+  return { [`${employeeName.firstName} ${employeeName.lastName}`]: specieName };
 }
 
 module.exports = {
