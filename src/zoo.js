@@ -79,7 +79,7 @@ function animaisPorLocalizacao(locations) {
 function animaisPorSexo(obj, sex) {
   return obj.residents.filter((resident) => {
     const filtro = sex !== undefined;
-    return filtro ? resident.sex === sex : true
+    return filtro ? resident.sex === sex : true;
   })
     .map((objResidents) => objResidents.name);
 }
@@ -138,15 +138,15 @@ function increasePrices(percentage) {
   });
 }
 
-//function nomeInteiro({ firstName, lastName}) {
+//  function nomeInteiro({ firstName, lastName}) {
 //  return `${firstName} ${lastName}`;
-//}
+//  }
 
-//function idEmployees (id) {
+//  function idEmployees (id) {
 //  return employees.find(employee => employee.id === id)
-//}
+//  }
 
-  function getEmployeeCoverage(idOrName) {
+function getEmployeeCoverage(idOrName) {
   //  Código
 }
 
