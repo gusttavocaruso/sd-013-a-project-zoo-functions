@@ -63,25 +63,25 @@ function localizacoes() {
   return ['NE', 'NW', 'SE', 'SW', 'N', 'S', 'E', 'W'];
 }
 
-function animaisFiltadrosLocalizacao (location) {
+function animaisFiltadrosLocalizacao(location) {
   return species.filter((specie) => specie.location === location);
 }
 
 function animaisPorLocalizacao(locations) {
   const animaisPorLocal = {};
   locations.forEach((location) => {
-    const filterSpecies = animaisFiltadrosLocalizacao(location).map((obj) => obj.name)
-    if (filterSpecies.length !== 0) animaisPorLocal[location] = filterSpecies
+    const filterSpecies = animaisFiltadrosLocalizacao(location).map((obj) => obj.name);
+    if (filterSpecies.length !== 0) animaisPorLocal[location] = filterSpecies;
   });
   return animaisPorLocal;
 }
 
-function animaisPorSexo (obj, sex) {
+function animaisPorSexo(obj, sex) {
   return obj.residents.filter((resident) => {
-  const filtro = sex !== undefined;
-  return filtro ? resident.sex === sex : true
+    const filtro = sex !== undefined;
+    return filtro ? resident.sex === sex : true
   })
-  .map((objResidents) => objResidents.name)
+    .map((objResidents) => objResidents.name);
 }
 
 function localizacaoEnome(locations, sorted, sex) {
@@ -108,7 +108,6 @@ function getAnimalMap(options) {
   }
   return animaisPorLocalizacao(locations);
 }
-
 
 function getSchedule(dayName) {
   const obj = {};
@@ -139,16 +138,16 @@ function increasePrices(percentage) {
   });
 }
 
-function nomeInteiro({ firstName, lastName}) {
-  return `${firstName} ${lastName}`;
-}
+//function nomeInteiro({ firstName, lastName}) {
+//  return `${firstName} ${lastName}`;
+//}
 
-function idEmployees (id) {
-  return employees.find(employee => employee.id === id)
-}
+//function idEmployees (id) {
+//  return employees.find(employee => employee.id === id)
+//}
 
   function getEmployeeCoverage(idOrName) {
-  //Código
+  //  Código
 }
 
 module.exports = {
