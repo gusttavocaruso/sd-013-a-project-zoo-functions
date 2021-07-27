@@ -1,5 +1,5 @@
 const data = require('./data');
-const { species: speciesData, employees, prices, hours } = require('./data');
+const { species: prices, hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const speciesIds = [];
@@ -12,15 +12,16 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-   return data.species
-          .find((specie) => specie.name === animal).residents
-          .every((resident) => resident.age > age);
+  return data.species
+    .find((specie) => specie.name === animal).residents
+    .every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return data.employees
-         .find((employee) => (employee.firstName === employeeName) || (employee.lastName === employeeName));
+    .find((employee) => (employee.firstName === employeeName) 
+    || (employee.lastName === employeeName));
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -29,8 +30,8 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   return data.employees
-         .some((employee) => employee.managers
-         .includes(id));
+    .some((employee) => employee.managers
+    .includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -58,7 +59,7 @@ function calculateEntry(entrants) {
     return 0;
   }
   return Object.keys(entrants).reduce((accumulator, currentValue) =>
-         accumulator + (entrants[currentValue] * prices[currentValue]), 0);
+    accumulator + (entrants[currentValue] * prices[currentValue]), 0);
 }
 
 function getAnimalMap(options) {
